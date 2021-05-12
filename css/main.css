@@ -1,5 +1,5 @@
 /* tablet */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -9,7 +9,9 @@
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  font-family: 'Poppins', sans-serif; }
+  font-family: 'Poppins', sans-serif;
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out; }
 
 html {
   font-size: 62.5%; }
@@ -71,6 +73,7 @@ body {
       width: 80vw;
       text-decoration: none !important;
       color: white;
+      font-weight: normal;
       letter-spacing: .1rem;
       outline: none;
       cursor: pointer; }

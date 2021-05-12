@@ -8,7 +8,8 @@ $screen_sm: 768px;
 $screen_xs: 480px;
 $screen_xxs: 320px;
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
+// https://fonts.google.com/specimen/Poppins
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
 
 * {
     margin: 0;
@@ -16,6 +17,7 @@ $screen_xxs: 320px;
     box-sizing: border-box;
     user-select: none;
     font-family: 'Poppins', sans-serif;
+    transition: all .2s ease-in-out;
 }
 
 html {
@@ -86,6 +88,7 @@ body {
             width: 80vw;
             text-decoration: none !important;
             color: white;
+            font-weight: normal;
             letter-spacing: .1rem;
             outline: none;
             cursor: pointer;
