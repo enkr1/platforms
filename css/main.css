@@ -93,6 +93,7 @@ footer {
     margin: 1rem auto; }
     footer div p {
       font-size: 1rem;
+      letter-spacing: .1rem;
       color: rgba(255, 255, 255, 0.8); }
 
 /*# sourceMappingURL=main.css.map */
