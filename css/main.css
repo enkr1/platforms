@@ -9,9 +9,7 @@
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  font-family: 'Poppins', sans-serif;
-  -webkit-transition: all .2s ease-in-out;
-  transition: all .2s ease-in-out; }
+  font-family: 'Poppins', sans-serif; }
 
 html {
   font-size: 62.5%; }
