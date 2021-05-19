@@ -26,9 +26,7 @@ body {
   /* This will be displayed if it is loading for too long */
   background-color: #000000;
   /*  Neumorphism Theme */
-  background-size: cover !important;
-  -webkit-transition: all .6s ease-in-out;
-  transition: all .6s ease-in-out; }
+  background-size: cover !important; }
 
 #wrapper {
   height: 100vh; }

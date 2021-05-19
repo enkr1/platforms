@@ -22,6 +22,7 @@ $screen_xxs: 320px;
 html {
     font-size: 62.5%;
     background-color: #15163a;
+    // transition: all .4s ease-in-out;
 }
 
 body {
@@ -44,8 +45,6 @@ body {
     // background: $theme-background;
 
     background-size: cover !important;
-
-    transition: all .6s ease-in-out;
 }
 
 #wrapper {
