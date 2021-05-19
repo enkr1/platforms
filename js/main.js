@@ -10,6 +10,7 @@ function docReady(fn) {
 
 docReady(function () {
     // ...
+    document.body.classList.remove("is-loading");
     const mainSection = document.getElementById("main-section");
     var listOfPlatforms = [];
     // mainSection.innerHTML = ig.display();

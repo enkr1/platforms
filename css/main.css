@@ -12,7 +12,8 @@
   font-family: 'Poppins', sans-serif; }
 
 html {
-  font-size: 62.5%; }
+  font-size: 62.5%;
+  background-color: #15163a; }
 
 body {
   width: 100vw;
@@ -95,5 +96,8 @@ footer {
       font-size: 1rem;
       letter-spacing: .1rem;
       color: rgba(255, 255, 255, 0.8); }
+
+.is-loading {
+  opacity: 0; }
 
 /*# sourceMappingURL=main.css.map */

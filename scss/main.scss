@@ -21,6 +21,7 @@ $screen_xxs: 320px;
 
 html {
     font-size: 62.5%;
+    background-color: #15163a;
 }
 
 body {
@@ -128,4 +129,9 @@ footer {
         }
     }
 
+}
+
+.is-loading {
+    // display: none;
+    opacity: 0;
 }
