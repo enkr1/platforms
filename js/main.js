@@ -16,7 +16,7 @@ docReady(function () {
     // mainSection.innerHTML = ig.display();
 
     listOfPlatforms.push(
-        new Platform("Personal Website", "website", "https://enkr1.github.io/web/"),
+        new Platform("Personal Website", "website", "https://enkr1.github.io/"),
         new Platform("GitHub", "github", "https://github.com/enkr1"),
         new Platform("Facebook", "fb", "https://www.facebook.com/enkrbeatbox"),
         new Platform("YouTube", "yt", "https://www.youtube.com/channel/UCJJmK5bN3b4izpMb2vtRXpw"),
