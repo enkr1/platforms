@@ -19,6 +19,7 @@ docReady(function () {
         new Platform("Personal Website", "website", "https://enkr1.github.io"),
         new Platform("LinkedIn", "linkedin", "https://www.linkedin.com/in/jinghuipang/"),
         new Platform("GitHub", "github", "https://github.com/enkr1"),
+        new Platform("WakaTime", "wakatime", "https://wakatime.com/@enkr1"),
         new Platform("Facebook", "fb", "https://www.facebook.com/enkrbeatbox"),
         new Platform("YouTube", "yt", "https://www.youtube.com/channel/UCJJmK5bN3b4izpMb2vtRXpw"),
         new Platform("Instagram", "ig", "https://www.instagram.com/enkr1/"),
