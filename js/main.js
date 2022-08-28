@@ -8,25 +8,50 @@ function docReady(fn) {
     }
 }
 
+// Reads file and converts to
+function readFile(file) {
+    console.log(`Reading file from ${path_platform_list_json} ...`)
+    let rawFile = new XMLHttpRequest();
+    let data = null;
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function () {
+        if (rawFile.readyState === 4) {
+            if (rawFile.status === 200 || rawFile.status == 0) {
+                data = JSON.parse(rawFile.responseText);
+                // console.log(data);
+            }
+        }
+    }
+    rawFile.send(null);
+    return data;
+}
 docReady(function () {
-    // ...
+    // Read file
+    path_platform_list_json = "_data/platform_list.json"
+    platform_list = readFile(path_platform_list_json);
+    console.log("platform_list", platform_list)
+
+    // Post loading
     document.body.classList.remove("is-loading");
     const mainSection = document.getElementById("main-section");
     var listOfPlatforms = [];
     // mainSection.innerHTML = ig.display();
 
-    listOfPlatforms.push(
-        new Platform("Personal Website", "website", "https://enkr1.github.io"),
-        new Platform("LinkedIn", "linkedin", "https://www.linkedin.com/in/jinghuipang/"),
-        new Platform("GitHub", "github", "https://github.com/enkr1"),
-        new Platform("WakaTime", "wakatime", "https://wakatime.com/@enkr1"),
-        new Platform("Facebook", "fb", "https://www.facebook.com/enkrbeatbox"),
-        new Platform("YouTube", "yt", "https://www.youtube.com/channel/UCJJmK5bN3b4izpMb2vtRXpw"),
-        new Platform("Instagram", "ig", "https://www.instagram.com/enkr1/"),
-    );
+    for (let i = 0; i < platform_list.length; i++) {
+        const element = platform_list[i];
+        if (undefined == element.name ||
+            // undefined == element.className || // this is optional
+            undefined == element.link) {
+            console.log("Invalid json.")
+            // Handling ... but its okay for now, cuz only me using it hehe
+            return;
+        }
+
+        listOfPlatforms.push(new Platform(element.name, element.className, element.link))
+    }
 
     // console.log(listOfPlatforms);
-    const jsonData = JSON.stringify(listOfPlatforms, null, 2);
+    // const jsonData = JSON.stringify(listOfPlatforms, null, 2);
     // console.log(jsonData);
 
     listOfPlatforms.forEach(platform => {
