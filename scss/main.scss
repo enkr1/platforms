@@ -1,0 +1,145 @@
+// Media Breakpoints based on Bootstrap 3
+$screen_xl: 1440px;
+$screen_lg: 1281px;
+$screen_md_1: 1024px;
+$screen_md_2: 992px;
+/* tablet */
+$screen_sm: 768px;
+$screen_xs: 480px;
+$screen_xxs: 320px;
+
+// https://fonts.google.com/specimen/Poppins
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+html {
+    font-size: 62.5%;
+    background-color: #15163a;
+    // transition: all .4s ease-in-out;
+}
+
+body {
+    width: 100vw;
+    height: 100%;
+
+    /* scroll-snap-type: y mandatory;
+    overflow-y: scroll; */
+    background: url("https://cdn.discordapp.com/attachments/826877621061156904/842069826260434954/DSC_0290_1_1.jpg") no-repeat center fixed;
+
+    // @media screen and (max-width: $screen_xs) {
+    //     background: url("https://enkr1.github.io/web/images/bg-img-mobile-1.jpg") no-repeat center fixed;
+    // }
+
+    box-shadow: inset 0 0 100vw 100vh #00000040;
+    /* This will be displayed if it is loading for too long */
+    background-color: #000000;
+    /*  Neumorphism Theme */
+    // background: $theme-background;
+    background-size: cover !important;
+    transition: all 1s ease-in-out;
+}
+
+#wrapper {
+    height: 100vh;
+}
+
+#main-section {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    // Button
+    .single-button {
+        margin: 2rem auto;
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid white;
+        text-align: center;
+        height: -moz-max-content;
+        height: fit-content !important;
+        box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.044),
+            0 6.7px 5.3px rgba(0, 0, 0, 0.058),
+            0 12.5px 10px rgba(0, 0, 0, 0.07),
+            0 22.3px 17.9px rgba(0, 0, 0, 0.082),
+            0 41.8px 33.4px rgba(0, 0, 0, 0.096),
+            0 100px 80px rgba(0, 0, 0, 0.22);
+        border-radius: .6rem;
+        transition: all .2s ease-in-out;
+
+        // TODO: BE CREATIVE, NEXT TIME
+        // https://www.joshwcomeau.com/animation/3d-button/
+        // &.single-button-name
+
+        &:hover {
+            transform: scale(.99);
+        }
+
+        // Link
+        a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 4rem;
+            width: 60vw;
+            text-decoration: none !important;
+            color: white;
+            font-weight: normal;
+            letter-spacing: .1rem;
+            outline: none;
+            cursor: pointer;
+
+            @media screen and (max-width: $screen_sm) {
+                width: 80vw;
+            }
+
+            &:active {
+                outline: none;
+            }
+
+            &:focus:not(:focus-visible) {
+                outline: none;
+            }
+
+            &:focus-visible {
+                outline: revert;
+            }
+
+
+            // Name
+            span {
+                font-size: 1.6em;
+            }
+        }
+    }
+}
+
+footer {
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+
+    div {
+        margin: 1rem auto;
+
+        p {
+            font-size: 1rem;
+            letter-spacing: .1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+    }
+
+}
+
+.is-loading {
+    // display: none;
+    opacity: 0;
+}

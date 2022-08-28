@@ -1,0 +1,7 @@
+# Obfuscator
+/_000_platforms_unencrypted_js
+
+# NPM Packages
+node_modules/
+package-lock.json
+package.json

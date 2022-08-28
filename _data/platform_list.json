@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Personal Website",
+    "className": "website",
+    "link": "https://enkr1.github.io"
+  },
+  {
+    "name": "LinkedIn",
+    "className": "linkedin",
+    "link": "https://www.linkedin.com/in/jinghuipang/"
+  },
+  {
+    "name": "GitHub",
+    "className": "github",
+    "link": "https://github.com/enkr1"
+  },
+  {
+    "name": "WakaTime",
+    "className": "wakatime",
+    "link": "https://wakatime.com/@enkr1"
+  },
+  {
+    "name": "Facebook",
+    "className": "fb",
+    "link": "https://www.facebook.com/enkrbeatbox"
+  },
+  {
+    "name": "YouTube",
+    "className": "yt",
+    "link": "https://www.youtube.com/channel/UCJJmK5bN3b4izpMb2vtRXpw"
+  },
+  {
+    "name": "Instagram",
+    "className": "ig",
+    "link": "https://www.instagram.com/enkr1/"
+  }
+]
