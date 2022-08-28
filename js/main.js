@@ -1,101 +1,202 @@
-function docReady(fn) {
-    // see if DOM is already available
-    if (document.readyState === "complete" || document.readyState === "interactive") {
-        // call on next available tick
-        setTimeout(fn, 1);
-    } else {
-        document.addEventListener("DOMContentLoaded", fn);
-    }
+const _0x321e17 = _0x1114;
+function _0xd940() {
+    const _0x5417fd = [
+        'body',
+        'DOMContent',
+        'forEach',
+        'interactiv',
+        '\x20\x20\x20<div\x20cl',
+        'log',
+        'e-button\x20s',
+        '\x20\x20\x20\x20\x20\x20',
+        'on-',
+        'CkTPX',
+        'hbWua',
+        '\x20\x20\x20\x20\x20\x20\x20\x20\x20<',
+        'innerHTML',
+        '6066kYFucT',
+        '938828PZsISz',
+        'le\x20from\x20',
+        'push',
+        'ById',
+        'VAeFL',
+        '2009728HgExDZ',
+        'ass=\x22singl',
+        'display',
+        'paZMT',
+        'link',
+        'complete',
+        'UiyIQ',
+        'length',
+        '1730FdjCGo',
+        '3UPEjzU',
+        'json',
+        'classList',
+        'ingle-butt',
+        'GET',
+        'iTRvW',
+        'stener',
+        'xflZY',
+        'RlFmG',
+        'Invalid\x20js',
+        '_blank\x22>\x0a\x20',
+        'Reading\x20fi',
+        '\x20\x20\x20\x20</a>\x0a\x20',
+        'CpnOR',
+        'onreadysta',
+        '_data/plat',
+        '230ERvMaH',
+        'platform_l',
+        'responseTe',
+        'getElement',
+        'mcpZD',
+        '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20',
+        '1244544FiWlqj',
+        '657492KvklmK',
+        'a\x20href=\x22',
+        'parse',
+        '\x20...',
+        'open',
+        '</span>\x0a\x20\x20',
+        'Loaded',
+        'HHJzV',
+        'readyState',
+        'NRnKo',
+        '188442HUZFJC',
+        'efaRu',
+        'on.',
+        'remove',
+        'dGuuL',
+        'lZKVN',
+        'form_list.',
+        'className',
+        'techange',
+        '24sBvOhC',
+        'ist',
+        '\x22>\x0a\x20\x20\x20\x20\x20\x20\x20',
+        'cUkrt',
+        'fiSam',
+        'is-loading',
+        'kkSVe',
+        'gXCWb',
+        'send',
+        'main-secti',
+        'status',
+        'name',
+        'addEventLi',
+        'span>',
+        '\x20</div>\x0a\x20\x20',
+        '\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20',
+        '\x22\x20target=\x22',
+        '2189212GJGDsg'
+    ];
+    _0xd940 = function () {
+        return _0x5417fd;
+    };
+    return _0xd940();
 }
-
-// Reads file and converts to
-function readFile(file) {
-    console.log(`Reading file from ${path_platform_list_json} ...`)
-    let rawFile = new XMLHttpRequest();
-    let data = null;
-    rawFile.open("GET", file, false);
-    rawFile.onreadystatechange = function () {
-        if (rawFile.readyState === 4) {
-            if (rawFile.status === 200 || rawFile.status == 0) {
-                data = JSON.parse(rawFile.responseText);
-                // console.log(data);
-            }
+(function (_0xf1cbeb, _0x2f04ad) {
+    const _0x11eef3 = _0x1114, _0x36b805 = _0xf1cbeb();
+    while (!![]) {
+        try {
+            const _0x300d31 = parseInt(_0x11eef3(0xa1)) / (0x1b07 + 0x1 * -0x2308 + 0x19 * 0x52) + parseInt(_0x11eef3(0xa0)) / (-0x106c + -0x1e0b + 0x2e79) + -parseInt(_0x11eef3(0xe2)) / (0xaed * -0x1 + 0x39 * -0x38 + -0x1768 * -0x1) * (-parseInt(_0x11eef3(0xc5)) / (0xf5e + 0x1b * 0x13d + -0x30c9)) + parseInt(_0x11eef3(0xe1)) / (-0x7 * -0x52c + 0x781 + -0x2bb0) * (parseInt(_0x11eef3(0xd3)) / (-0xd8 + -0x438 + -0x1b2 * -0x3)) + parseInt(_0x11eef3(0xd9)) / (0x5 * 0x397 + 0x17c2 * -0x1 + 0x5d6) + parseInt(_0x11eef3(0xb4)) / (0xd * -0x5 + 0x2bd * 0xc + -0x10d * 0x1f) * (-parseInt(_0x11eef3(0xab)) / (-0x4 * 0x859 + 0x12a9 * -0x2 + 0x46bf)) + parseInt(_0x11eef3(0x9a)) / (0xaa2 * -0x1 + -0x627 * -0x5 + -0x1417) * (-parseInt(_0x11eef3(0xd4)) / (0x16f0 * 0x1 + -0xd9f + 0x1 * -0x946));
+            if (_0x300d31 === _0x2f04ad)
+                break;
+            else
+                _0x36b805['push'](_0x36b805['shift']());
+        } catch (_0x546490) {
+            _0x36b805['push'](_0x36b805['shift']());
         }
     }
-    rawFile.send(null);
-    return data;
+}(_0xd940, 0x690d6 + -0x53482 + -0x1 * -0x5533b));
+function docReady(_0x38b9e1) {
+    const _0x2e2a04 = _0x1114, _0x1ffb31 = {
+            'hbWua': function (_0x1d17f1, _0x49030e) {
+                return _0x1d17f1 === _0x49030e;
+            },
+            'mcpZD': _0x2e2a04(0xde),
+            'paZMT': function (_0x8ec9cc, _0x4a2847) {
+                return _0x8ec9cc === _0x4a2847;
+            },
+            'xflZY': _0x2e2a04(0xc9) + 'e',
+            'CpnOR': function (_0x193da0, _0x506529, _0x515fda) {
+                return _0x193da0(_0x506529, _0x515fda);
+            },
+            'CkTPX': _0x2e2a04(0xc7) + _0x2e2a04(0xa7)
+        };
+    _0x1ffb31[_0x2e2a04(0xd0)](document[_0x2e2a04(0xa9)], _0x1ffb31[_0x2e2a04(0x9e)]) || _0x1ffb31[_0x2e2a04(0xdc)](document[_0x2e2a04(0xa9)], _0x1ffb31[_0x2e2a04(0xe9)]) ? _0x1ffb31[_0x2e2a04(0x97)](setTimeout, _0x38b9e1, -0x8ed + 0x27 * 0xd5 + -0x1785) : document[_0x2e2a04(0xc0) + _0x2e2a04(0xe8)](_0x1ffb31[_0x2e2a04(0xcf)], _0x38b9e1);
+}
+function readFile(_0x50716f) {
+    const _0x5be17e = _0x1114, _0x21ecf2 = {
+            'HHJzV': function (_0x2ed579, _0x2ecb4b) {
+                return _0x2ed579 === _0x2ecb4b;
+            },
+            'NRnKo': function (_0x98bef1, _0x2833d7) {
+                return _0x98bef1 === _0x2833d7;
+            },
+            'gXCWb': function (_0x51927e, _0x35cc14) {
+                return _0x51927e == _0x35cc14;
+            },
+            'iTRvW': _0x5be17e(0xe6)
+        };
+    console[_0x5be17e(0xcb)](_0x5be17e(0x95) + _0x5be17e(0xd5) + path_platform_list_json + _0x5be17e(0xa4));
+    let _0x19e2a1 = new XMLHttpRequest(), _0x47a8ed = null;
+    return _0x19e2a1[_0x5be17e(0xa5)](_0x21ecf2[_0x5be17e(0xe7)], _0x50716f, ![]), _0x19e2a1[_0x5be17e(0x98) + _0x5be17e(0xb3)] = function () {
+        const _0x124324 = _0x5be17e;
+        _0x21ecf2[_0x124324(0xa8)](_0x19e2a1[_0x124324(0xa9)], -0x8a9 * -0x4 + -0x1473 + -0xbf * 0x13) && ((_0x21ecf2[_0x124324(0xaa)](_0x19e2a1[_0x124324(0xbe)], -0x1639 * 0x1 + 0x1318 + 0x3e9) || _0x21ecf2[_0x124324(0xbb)](_0x19e2a1[_0x124324(0xbe)], 0x5 * 0xbd + -0x804 + -0x171 * -0x3)) && (_0x47a8ed = JSON[_0x124324(0xa3)](_0x19e2a1[_0x124324(0x9c) + 'xt'])));
+    }, _0x19e2a1[_0x5be17e(0xbc)](null), _0x47a8ed;
+}
+function _0x1114(_0x3de491, _0x3a425f) {
+    const _0x136d2e = _0xd940();
+    return _0x1114 = function (_0x40de5f, _0x597119) {
+        _0x40de5f = _0x40de5f - (-0x1813 + -0x2589 + 0x3e2e);
+        let _0x2de779 = _0x136d2e[_0x40de5f];
+        return _0x2de779;
+    }, _0x1114(_0x3de491, _0x3a425f);
 }
 docReady(function () {
-    // Read file
-    path_platform_list_json = "_data/platform_list.json"
-    platform_list = readFile(path_platform_list_json);
-    console.log("platform_list", platform_list)
-
-    // Post loading
-    document.body.classList.remove("is-loading");
-    const mainSection = document.getElementById("main-section");
-    var listOfPlatforms = [];
-    // mainSection.innerHTML = ig.display();
-
-    for (let i = 0; i < platform_list.length; i++) {
-        const element = platform_list[i];
-        if (undefined == element.name ||
-            // undefined == element.className || // this is optional
-            undefined == element.link) {
-            console.log("Invalid json.")
-            // Handling ... but its okay for now, cuz only me using it hehe
+    const _0x504104 = _0x1114, _0x57cc36 = {
+            'fiSam': _0x504104(0x99) + _0x504104(0xb1) + _0x504104(0xe3),
+            'lZKVN': function (_0xd594fc, _0x422042) {
+                return _0xd594fc(_0x422042);
+            },
+            'cUkrt': _0x504104(0x9b) + _0x504104(0xb5),
+            'efaRu': _0x504104(0xb9),
+            'kkSVe': _0x504104(0xbd) + 'on',
+            'dGuuL': function (_0x1b5b6f, _0x263a4) {
+                return _0x1b5b6f < _0x263a4;
+            },
+            'RlFmG': function (_0x20b3c2, _0x4fbe5f) {
+                return _0x20b3c2 == _0x4fbe5f;
+            },
+            'VAeFL': function (_0x206d97, _0x1ab25d) {
+                return _0x206d97 == _0x1ab25d;
+            },
+            'UiyIQ': _0x504104(0x93) + _0x504104(0xad)
+        };
+    path_platform_list_json = _0x57cc36[_0x504104(0xb8)], platform_list = _0x57cc36[_0x504104(0xb0)](readFile, path_platform_list_json), console[_0x504104(0xcb)](_0x57cc36[_0x504104(0xb7)], platform_list), document[_0x504104(0xc6)][_0x504104(0xe4)][_0x504104(0xae)](_0x57cc36[_0x504104(0xac)]);
+    const _0x2db894 = document[_0x504104(0x9d) + _0x504104(0xd7)](_0x57cc36[_0x504104(0xba)]);
+    var _0x818979 = [];
+    for (let _0x4fb4a4 = 0x934 * 0x4 + 0x1 * -0x1a21 + 0x1 * -0xaaf; _0x57cc36[_0x504104(0xaf)](_0x4fb4a4, platform_list[_0x504104(0xe0)]); _0x4fb4a4++) {
+        const _0x325612 = platform_list[_0x4fb4a4];
+        if (_0x57cc36[_0x504104(0x92)](undefined, _0x325612[_0x504104(0xbf)]) || _0x57cc36[_0x504104(0xd8)](undefined, _0x325612[_0x504104(0xdd)])) {
+            console[_0x504104(0xcb)](_0x57cc36[_0x504104(0xdf)]);
             return;
         }
-
-        listOfPlatforms.push(new Platform(element.name, element.className, element.link))
+        _0x818979[_0x504104(0xd6)](new Platform(_0x325612[_0x504104(0xbf)], _0x325612[_0x504104(0xb2)], _0x325612[_0x504104(0xdd)]));
     }
-
-    // console.log(listOfPlatforms);
-    // const jsonData = JSON.stringify(listOfPlatforms, null, 2);
-    // console.log(jsonData);
-
-    listOfPlatforms.forEach(platform => {
-        mainSection.innerHTML += platform.display();
+    _0x818979[_0x504104(0xc8)](_0x3d443d => {
+        const _0x3cb586 = _0x504104;
+        _0x2db894[_0x3cb586(0xd2)] += _0x3d443d[_0x3cb586(0xdb)]();
     });
-
-    /*
-    // TODO: THE NODE JSON
-    const fs = require("browserify-fs");
-
-    const kFile = "main.json"
-
-    // browserify js/main.js -o js/bundle.js
-    const saveData = (data, file) => {
-        const finished = (error) => {
-            if (error) {
-                console.error(error);
-                return;
-            }
-        }
-        const jsonData = JSON.stringify(data) // , null, 2
-        fs.writeFile(file, jsonData, finished);
-    }
-
-    saveData(ig, kFile);
-    */
-
 });
-
 class Platform {
-
-    constructor(name, className, link) {
-        this.name = name;
-        this.className = className;
-        this.link = link;
+    constructor(_0x1e86cf, _0x544d70, _0x4649fb) {
+        const _0x227f3b = _0x1114;
+        this[_0x227f3b(0xbf)] = _0x1e86cf, this[_0x227f3b(0xb2)] = _0x544d70, this[_0x227f3b(0xdd)] = _0x4649fb;
     }
-
-    display() {
-        return `
-            <div class="single-button single-button-${this.className}">
-                <a href="${this.link}" target="_blank">
-                    <span>${this.name}</span>
-                </a>
-            </div>
-        `;
+    [_0x321e17(0xdb)]() {
+        const _0x58dd6d = _0x321e17;
+        return _0x58dd6d(0xc3) + _0x58dd6d(0xca) + _0x58dd6d(0xda) + _0x58dd6d(0xcc) + _0x58dd6d(0xe5) + _0x58dd6d(0xce) + this[_0x58dd6d(0xb2)] + (_0x58dd6d(0xb6) + _0x58dd6d(0xd1) + _0x58dd6d(0xa2)) + this[_0x58dd6d(0xdd)] + (_0x58dd6d(0xc4) + _0x58dd6d(0x94) + _0x58dd6d(0x9f) + _0x58dd6d(0xd1) + _0x58dd6d(0xc1)) + this[_0x58dd6d(0xbf)] + (_0x58dd6d(0xa6) + _0x58dd6d(0x9f) + _0x58dd6d(0x96) + _0x58dd6d(0x9f) + _0x58dd6d(0xc2) + _0x58dd6d(0xcd));
     }
 }
