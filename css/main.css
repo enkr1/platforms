@@ -10,89 +10,92 @@
 
 html {
   font-size: 62.5%;
-  background-color: #15163a;
+}
+
+span,
+a {
+  font-size: 1.2rem;
+  font-weight: normal;
+  letter-spacing: 0.1rem;
+  text-decoration: none !important;
+  color: white;
+  outline: none;
+  cursor: pointer;
+  text-transform: uppercase;
 }
 
 body {
   width: 100vw;
-  height: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   /* scroll-snap-type: y mandatory;
   overflow-y: scroll; */
-  background: url("https://cdn.discordapp.com/attachments/826877621061156904/842069826260434954/DSC_0290_1_1.jpg") no-repeat center fixed;
   box-shadow: inset 0 0 100vw 100vh rgba(0, 0, 0, 0.2509803922);
   /* This will be displayed if it is loading for too long */
-  background-color: #000000;
+  background-color: #15163a;
   /*  Neumorphism Theme */
   background-size: cover !important;
   transition: all 1s ease-in-out;
 }
-
-#wrapper {
-  height: 100vh;
+body #profile-section .profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0 2rem;
 }
-
-#main-section {
-  height: 100%;
-  width: 100%;
+body #profile-section .profile-container img {
+  width: 10rem;
+  height: 10rem;
+  object-fit: cover;
+  border-radius: 100%;
+}
+body #links-section {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 2rem;
+  padding: 0 10vh;
 }
-#main-section .single-button {
-  margin: 2rem auto;
+body #links-section .single-button {
   background-color: rgba(0, 0, 0, 0.2);
   border: 1px solid white;
   text-align: center;
   height: -moz-max-content;
   height: fit-content !important;
   box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.044), 0 6.7px 5.3px rgba(0, 0, 0, 0.058), 0 12.5px 10px rgba(0, 0, 0, 0.07), 0 22.3px 17.9px rgba(0, 0, 0, 0.082), 0 41.8px 33.4px rgba(0, 0, 0, 0.096), 0 100px 80px rgba(0, 0, 0, 0.22);
-  border-radius: 0.6rem;
   transition: all 0.2s ease-in-out;
 }
-#main-section .single-button:hover {
+body #links-section .single-button:hover {
   transform: scale(0.99);
 }
-#main-section .single-button a {
+body #links-section .single-button a {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 4rem;
-  width: 60vw;
-  text-decoration: none !important;
-  color: white;
-  font-weight: normal;
-  letter-spacing: 0.1rem;
-  outline: none;
-  cursor: pointer;
+  height: 3.4rem;
+  width: 100%;
 }
-@media screen and (max-width: 768px) {
-  #main-section .single-button a {
-    width: 80vw;
-  }
-}
-#main-section .single-button a:active {
+body #links-section .single-button a:active {
   outline: none;
 }
-#main-section .single-button a:focus:not(:focus-visible) {
+body #links-section .single-button a:focus:not(:focus-visible) {
   outline: none;
 }
-#main-section .single-button a:focus-visible {
+body #links-section .single-button a:focus-visible {
   outline: revert;
 }
-#main-section .single-button a span {
-  font-size: 1.6em;
-}
-
-footer {
+body footer {
   text-align: center;
   position: fixed;
   bottom: 0;
   width: 100%;
 }
-footer div {
+body footer div {
   margin: 1rem auto;
 }
-footer div p {
+body footer div p {
   font-size: 1rem;
   letter-spacing: 0.1rem;
   color: rgba(255, 255, 255, 0.8);
