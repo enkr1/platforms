@@ -1,5 +1,31 @@
 {
-  "lastname": "PANG",
   "firstname": "Jing Hui",
-  "nickname": ""
+  "lastname": "PANG",
+  "nickname": "ENKR",
+  "achievements": [
+    {
+      "in": "beatbox",
+      "list": [
+        {
+          "category": "Solo",
+          "list": [
+            "Champion of Clementi Community Centre 2018, Singapore.",
+            "Champion of Radiance Beatbox Jam 2019, Singapore.",
+            "Champion of A Cappella Beatbox Championship 2019, Singapore.",
+            "Champion of Cypher Beatbox Battle 2019, Singapore.",
+            "Top 16 Armageddon International Beatbox Battle 2019, Malaysia.",
+            "Top 8 The Capital Beatbox Battle 2019, Malaysia.",
+            "Vice Champion of A Cappella Beatbox Championship 2021, Singapore."
+          ]
+        },
+        {
+          "category": "Tag Team",
+          "list": [
+            "Champion of A Cappella Beatbox Battle 2019, Singapore.",
+            "Top 4 Werewolf Beatbox Championship 2019, Indonesia."
+          ]
+        }
+      ]
+    }
+  ]
 }

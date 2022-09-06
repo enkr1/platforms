@@ -7,7 +7,9 @@ $screen_md_2: 992px;
 $screen_sm: 768px;
 $screen_xs: 480px;
 $screen_xxs: 320px;
-$global_font_size: 1.2rem;
+$default_global_font_size: 1.2rem;
+$sm_global_font_size: 1.1rem;
+$xs_global_font_size: 1rem;
 
 // https://fonts.google.com/specimen/Poppins
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
@@ -27,15 +29,33 @@ html {
 
 // Link text
 span,
-a {
-    font-size: $global_font_size;
+a,
+li {
+    font-size: $default_global_font_size;
     font-weight: normal;
     letter-spacing: .1rem;
     text-decoration: none !important;
     color: white;
     outline: none;
+
+    @media screen and (max-width: $screen_sm) {
+        font-size: $sm_global_font_size;
+    }
+
+    @media screen and (max-width: $screen_xs) {
+        font-size: $xs_global_font_size;
+    }
+}
+
+h1,
+h2,
+p {
+    color: white;
+}
+
+span,
+a {
     cursor: pointer;
-    text-transform: uppercase;
 }
 
 body {
@@ -43,6 +63,7 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     gap: 1rem;
 
     /* scroll-snap-type: y mandatory;
@@ -60,15 +81,16 @@ body {
     /*  Neumorphism Theme */
     // background: $theme-background;
     background-size: cover !important;
-    transition: all 1s ease-in-out;
-
+    transition: all .2s ease-in-out;
 
     #profile-section {
+        // padding: 5vh 2rem 2rem;
+
         .profile-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 2rem 0 2rem;
+            margin: 2rem 0;
 
             img {
                 width: 10rem;
@@ -77,12 +99,37 @@ body {
                 border-radius: 100%;
             }
         }
+
+        .desc-container {
+            width: 50%;
+            margin: 0 auto 1rem;
+            text-align: center;
+
+            @media screen and (max-width: $screen_sm) {
+                width: 80%;
+            }
+
+            @media screen and (max-width: $screen_xs) {
+                width: 90%;
+            }
+
+            ul {
+                li {
+                    list-style: none;
+
+                    @media screen and (max-width: $screen_xs) {
+                        font-size: 1rem;
+                    }
+                }
+            }
+        }
     }
 
     #links-section {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
         gap: 2rem;
         padding: 0 10vh;
 
@@ -99,8 +146,9 @@ body {
                 0 22.3px 17.9px rgba(0, 0, 0, 0.082),
                 0 41.8px 33.4px rgba(0, 0, 0, 0.096),
                 0 100px 80px rgba(0, 0, 0, 0.22);
-            // border-radius: .6rem;
+            border-radius: .6rem;
             transition: all .2s ease-in-out;
+            width: 80%;
 
             // TODO: BE CREATIVE, NEXT TIME
             // https://www.joshwcomeau.com/animation/3d-button/
@@ -116,9 +164,10 @@ body {
                 align-items: center;
                 justify-content: center;
                 height: 3.4rem;
-                width: 100%;
+                text-transform: uppercase;
 
                 @media screen and (max-width: $screen_sm) {
+                    height: 3rem;
                     // width: 80vw;
                 }
 
@@ -137,20 +186,18 @@ body {
         }
     }
 
-    footer {
+    .footer {
         text-align: center;
-        position: fixed;
-        bottom: 0;
+        height: 10vh;
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
 
-        div {
-            margin: 1rem auto;
-
-            p {
-                font-size: 1rem;
-                letter-spacing: .1rem;
-                color: rgba(255, 255, 255, 0.8);
-            }
+        p {
+            font-size: 1rem;
+            letter-spacing: .1rem;
+            color: rgba(255, 255, 255, 0.8);
         }
 
     }
