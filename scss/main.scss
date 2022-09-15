@@ -30,7 +30,8 @@ html {
 // Link text
 span,
 a,
-li {
+li,
+p {
     font-size: $default_global_font_size;
     font-weight: normal;
     letter-spacing: .1rem;
@@ -60,7 +61,8 @@ a {
 
 body {
     width: 100vw;
-    height: 100vh;
+    height: 100%;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -77,11 +79,12 @@ body {
     box-shadow: inset 0 0 100vw 100vh #00000040;
     /* This will be displayed if it is loading for too long */
     // background-color: #000000;
-    background-color: #15163a;
+    // background-color: #15163a;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(69, 23, 124, 1) 100%);
     /*  Neumorphism Theme */
     // background: $theme-background;
     background-size: cover !important;
-    transition: all .2s ease-in-out;
+    transition: all .3s ease-in-out;
 
     #profile-section {
         // padding: 5vh 2rem 2rem;
@@ -101,24 +104,97 @@ body {
         }
 
         .desc-container {
-            width: 50%;
+            width: 50vw;
             margin: 0 auto 1rem;
-            text-align: center;
+            // text-align: center;
 
             @media screen and (max-width: $screen_sm) {
                 width: 80%;
             }
 
             @media screen and (max-width: $screen_xs) {
-                width: 90%;
+                width: 85%;
             }
 
-            ul {
-                li {
-                    list-style: none;
+            // @media screen and (max-width: $screen_xs) {
+            //     font-size: 1rem;
+            // }
 
-                    @media screen and (max-width: $screen_xs) {
-                        font-size: 1rem;
+            .area-container {
+
+                h1.achievement-title.collapsible {
+                    text-align: center;
+                    cursor: pointer;
+
+                    &::before {
+                        content: ">";
+                        padding: 0 .8rem 0 0;
+                    }
+
+                    &.active {
+                        &::before {
+                            content: "_";
+                        }
+                    }
+                }
+
+                @keyframes fadeIn {
+                    0% {
+                        opacity: 0;
+                    }
+
+                    100% {
+                        opacity: 1;
+                    }
+                }
+
+                .list-container {
+                    opacity: 0;
+                    height: 0;
+                    transition: all .3s ease-in-out;
+                    z-index: 1;
+
+                    &.fade-in {
+                        height: fit-content;
+                        padding: 1rem 0 0;
+                        animation: fadeIn 2s;
+                        animation-fill-mode: forwards;
+                    }
+
+                    &.fade-out {
+                        height: 0;
+                        padding: 0;
+                        opacity: 0;
+                    }
+
+                    .category-container {
+                        // position: relative;
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                        padding: 0 1rem 1rem;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 1rem;
+                        background-color: rgba(255, 255, 255, 0.1);
+
+                        // &::before {
+                        h2 {
+                            // content: attr(data-category);
+                            color: #fff;
+                            // position: absolute;
+                            top: 0;
+                            left: 0;
+                            font-size: 1.4rem;
+                            opacity: .5;
+                            transform: translate(0, 35%);
+                        }
+
+                        .title-list-container {
+                            width: fit-content;
+
+                            p.al-title {
+                                // text-align: right;
+                            }
+                        }
                     }
                 }
             }
@@ -132,6 +208,7 @@ body {
         align-items: center;
         gap: 2rem;
         padding: 0 10vh;
+        z-index: 2;
 
         // Button
         .single-button {
@@ -148,7 +225,15 @@ body {
                 0 100px 80px rgba(0, 0, 0, 0.22);
             border-radius: .6rem;
             transition: all .2s ease-in-out;
-            width: 80%;
+            width: 80vw;
+
+            // @media screen and (max-width: $screen_sm) {
+            //     width: 80vw;
+            // }
+
+            @media screen and (max-width: $screen_xs) {
+                width: 85vw;
+            }
 
             // TODO: BE CREATIVE, NEXT TIME
             // https://www.joshwcomeau.com/animation/3d-button/
