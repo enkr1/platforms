@@ -14,6 +14,7 @@
 
 html {
   font-size: 62.5%;
+  overflow-x: hidden;
 }
 
 span,
@@ -82,6 +83,7 @@ body {
   transition: all .3s ease-in-out;
 }
 body #profile-section .profile-container {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -93,9 +95,42 @@ body #profile-section .profile-container {
           align-items: center;
   margin: 2rem 0;
 }
-body #profile-section .profile-container img {
-  width: 10rem;
+@-webkit-keyframes profileAnim {
+  100% {
+    -webkit-transform: rotate(360deg) translate(46.6%, 0);
+            transform: rotate(360deg) translate(46.6%, 0);
+    -webkit-transform-origin: center center;
+            transform-origin: center center;
+  }
+}
+@keyframes profileAnim {
+  100% {
+    -webkit-transform: rotate(360deg) translate(46.6%, 0);
+            transform: rotate(360deg) translate(46.6%, 0);
+    -webkit-transform-origin: center center;
+            transform-origin: center center;
+  }
+}
+body #profile-section .profile-container::before, body #profile-section .profile-container::after {
+  content: "";
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 100%;
   height: 10rem;
+  width: 10rem;
+  z-index: -1;
+}
+body #profile-section .profile-container::before {
+  top: 10%;
+  left: 46.4%;
+}
+body #profile-section .profile-container::after {
+  top: -10%;
+  left: 46.8%;
+}
+body #profile-section .profile-container img {
+  height: 10rem;
+  width: 10rem;
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 100%;
@@ -144,19 +179,17 @@ body #profile-section .desc-container .area-container h1.achievement-title.colla
 body #profile-section .desc-container .area-container .list-container {
   opacity: 0;
   height: 0;
-  -webkit-transition: all .3s ease-in-out;
-  transition: all .3s ease-in-out;
+  -webkit-transition: all .6s ease-in-out;
+  transition: all .6s ease-in-out;
   z-index: 1;
 }
 body #profile-section .desc-container .area-container .list-container.fade-in {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
-  padding: 1rem 0 0;
-  -webkit-animation: fadeIn 2s;
-          animation: fadeIn 2s;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
+  padding: 1rem 0 1rem;
+  -webkit-animation: fadeIn 2s forwards;
+          animation: fadeIn 2s forwards;
 }
 body #profile-section .desc-container .area-container .list-container.fade-out {
   height: 0;
@@ -189,6 +222,10 @@ body #profile-section .desc-container .area-container .list-container .category-
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
+}
+body #profile-section .desc-container .area-container .list-container .category-container .title-list-container p.al-title::before {
+  content: "|>";
+  padding: 0 .6rem 0 0;
 }
 body #links-section {
   display: -webkit-box;
@@ -231,6 +268,11 @@ body #links-section .single-button {
 body #links-section .single-button:hover {
   -webkit-transform: scale(0.99);
           transform: scale(0.99);
+  background-color: rgba(255, 255, 255, 0.8);
+}
+body #links-section .single-button:hover a span {
+  color: #000;
+  font-weight: bold;
 }
 body #links-section .single-button a {
   display: -webkit-box;

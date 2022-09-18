@@ -7,7 +7,7 @@
       "in": "Beatboxing",
       "list": [
         {
-          "category": "Solo",
+          "category": "list_solo_titles()",
           "list": [
             "Champion of Clementi Community Centre 2018, Singapore.",
             "Champion of Radiance Beatbox Jam 2019, Singapore.",
@@ -19,7 +19,7 @@
           ]
         },
         {
-          "category": "Tag Team",
+          "category": "list_tag_team_titles()",
           "list": [
             "Champion of A Cappella Beatbox Battle 2019, Singapore.",
             "Top 4 Werewolf Beatbox Championship 2019, Indonesia."

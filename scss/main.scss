@@ -24,7 +24,7 @@ $xs_global_font_size: 1rem;
 
 html {
     font-size: 62.5%;
-    // transition: all .4s ease-in-out;
+    overflow-x: hidden;
 }
 
 // Link text
@@ -90,16 +90,58 @@ body {
         // padding: 5vh 2rem 2rem;
 
         .profile-container {
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
             margin: 2rem 0;
 
+            $img-h: 10rem;
+            $img-w: 10rem;
+            $img-centre: 46.6%;
+            $img-rotate-y: 0;
+
+            @keyframes profileAnim {
+                // 0% {
+                //     top: 0%;
+                //     left: $img-centre - 1%;
+                // }
+
+                100% {
+                    transform: rotate(360deg) translate($img-centre, $img-rotate-y);
+                    transform-origin: center center;
+                }
+            }
+
+            &::before,
+            &::after {
+                content: "";
+                position: absolute;
+                background-color: rgba(255, 255, 255, 0.2);
+                border-radius: 100%;
+                height: $img-h;
+                width: $img-w;
+                z-index: -1;
+            }
+
+            &::before {
+                top: 10%;
+                left: $img-centre - .2%;
+                // transform: rotate(0deg) translate($img-centre, $img-rotate-y);
+                // animation: profileAnim 1s infinite linear;
+            }
+
+            &::after {
+                top: -10%;
+                left: $img-centre + .2%;
+            }
+
             img {
-                width: 10rem;
-                height: 10rem;
+                height: $img-h;
+                width: $img-w;
                 object-fit: cover;
                 border-radius: 100%;
+
             }
         }
 
@@ -151,14 +193,13 @@ body {
                 .list-container {
                     opacity: 0;
                     height: 0;
-                    transition: all .3s ease-in-out;
+                    transition: all .6s ease-in-out;
                     z-index: 1;
 
                     &.fade-in {
                         height: fit-content;
-                        padding: 1rem 0 0;
-                        animation: fadeIn 2s;
-                        animation-fill-mode: forwards;
+                        padding: 1rem 0 1rem;
+                        animation: fadeIn 2s forwards;
                     }
 
                     &.fade-out {
@@ -168,7 +209,6 @@ body {
                     }
 
                     .category-container {
-                        // position: relative;
                         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
                         padding: 0 1rem 1rem;
                         display: flex;
@@ -192,7 +232,10 @@ body {
                             width: fit-content;
 
                             p.al-title {
-                                // text-align: right;
+                                &::before {
+                                    content: "|>";
+                                    padding: 0 .6rem 0 0;
+                                }
                             }
                         }
                     }
@@ -241,6 +284,12 @@ body {
 
             &:hover {
                 transform: scale(.99);
+                background-color: rgba(255, 255, 255, 0.8);
+
+                a span {
+                    color: #000;
+                    font-weight: bold;
+                }
             }
 
             // Link
