@@ -100,24 +100,25 @@ body {
             $img-w: 10rem;
             $img-centre: 46.6%;
             $img-rotate-y: 0;
+            background-color: rgba(255, 255, 255, 0);
 
             @keyframes profileAnim {
-                // 0% {
-                //     top: 0%;
-                //     left: $img-centre - 1%;
-                // }
+                0% {
+                    // top: 0%;
+                    // left: $img-centre - 1%;
+                }
 
                 100% {
-                    transform: rotate(360deg) translate($img-centre, $img-rotate-y);
-                    transform-origin: center center;
+                    // transform: rotate(360deg) translate($img-centre, $img-rotate-y);
+                    // transform-origin: center center;
+                    transform: translate(0, -2px) scale(1.1);
                 }
             }
 
-            &::before,
-            &::after {
+            &::before {
                 content: "";
                 position: absolute;
-                background-color: rgba(255, 255, 255, 0.2);
+                background-color: rgba(255, 255, 255, 0.4);
                 border-radius: 100%;
                 height: $img-h;
                 width: $img-w;
@@ -125,15 +126,9 @@ body {
             }
 
             &::before {
-                top: 10%;
-                left: $img-centre - .2%;
+                transform: translate(0, -2px);
                 // transform: rotate(0deg) translate($img-centre, $img-rotate-y);
-                // animation: profileAnim 1s infinite linear;
-            }
-
-            &::after {
-                top: -10%;
-                left: $img-centre + .2%;
+                animation: profileAnim 1s infinite alternate;
             }
 
             img {
@@ -335,6 +330,44 @@ body {
         }
 
     }
+}
+
+
+@keyframes flying {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+
+    20% {
+        transform: translateY(20vh) rotate(90deg);
+        opacity: 0.8;
+    }
+
+    60% {
+        transform: translateY(60vh) rotate(-45deg);
+        opacity: 0.4;
+    }
+
+    90% {
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+        /* opacity: 1; */
+        stroke-dashoffset: 0;
+    }
+}
+
+.star {
+    position: absolute;
+    display: block;
+    background: #fff;
+    border-radius: 100%;
+    top: -20%;
+    margin: 2%;
 }
 
 .is-loading {
