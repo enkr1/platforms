@@ -1,36 +1,36 @@
 [
   {
-    "name": "Personal Website",
+    "name": "redirect_personal_website",
     "className": "website",
     "link": "https://enkr1.github.io"
   },
   {
-    "name": "LinkedIn",
+    "name": "redirect_linkedin",
     "className": "linkedin",
     "link": "https://www.linkedin.com/in/jinghuipang/"
   },
   {
-    "name": "GitHub",
+    "name": "redirect_github",
     "className": "github",
     "link": "https://github.com/enkr1"
   },
   {
-    "name": "WakaTime",
+    "name": "redirect_wakatime",
     "className": "wakatime",
     "link": "https://wakatime.com/@enkr1"
   },
   {
-    "name": "Facebook",
+    "name": "redirect_facebook",
     "className": "fb",
     "link": "https://www.facebook.com/enkrbeatbox"
   },
   {
-    "name": "YouTube",
+    "name": "redirect_youtube",
     "className": "yt",
     "link": "https://www.youtube.com/channel/UCJJmK5bN3b4izpMb2vtRXpw"
   },
   {
-    "name": "Instagram",
+    "name": "redirect_instagram",
     "className": "ig",
     "link": "https://www.instagram.com/enkr1/"
   }

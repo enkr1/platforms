@@ -56,6 +56,12 @@ a {
   cursor: pointer;
 }
 
+.elixir-pipe-style::before {
+  content: "|>";
+  padding: 0 .6rem 0 0;
+  color: #fff;
+}
+
 body {
   width: 100vw;
   height: 100%;
@@ -218,10 +224,6 @@ body #profile-section .desc-container .area-container .list-container .category-
   width: -moz-fit-content;
   width: fit-content;
 }
-body #profile-section .desc-container .area-container .list-container .category-container .title-list-container p.al-title::before {
-  content: "|>";
-  padding: 0 .6rem 0 0;
-}
 body #links-section {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -242,18 +244,15 @@ body #links-section {
 }
 body #links-section .single-button {
   background-color: rgba(0, 0, 0, 0.2);
-  border: 1px solid white;
   text-align: center;
   height: -moz-max-content;
   height: -webkit-fit-content !important;
   height: -moz-fit-content !important;
   height: fit-content !important;
-  -webkit-box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.044), 0 6.7px 5.3px rgba(0, 0, 0, 0.058), 0 12.5px 10px rgba(0, 0, 0, 0.07), 0 22.3px 17.9px rgba(0, 0, 0, 0.082), 0 41.8px 33.4px rgba(0, 0, 0, 0.096), 0 100px 80px rgba(0, 0, 0, 0.22);
-          box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.044), 0 6.7px 5.3px rgba(0, 0, 0, 0.058), 0 12.5px 10px rgba(0, 0, 0, 0.07), 0 22.3px 17.9px rgba(0, 0, 0, 0.082), 0 41.8px 33.4px rgba(0, 0, 0, 0.096), 0 100px 80px rgba(0, 0, 0, 0.22);
-  border-radius: .6rem;
-  -webkit-transition: all .2s ease-in-out;
-  transition: all .2s ease-in-out;
+  -webkit-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
   width: 80vw;
+  padding: .4rem 1.2rem;
 }
 @media screen and (max-width: 480px) {
   body #links-section .single-button {
@@ -265,7 +264,8 @@ body #links-section .single-button:hover {
           transform: scale(0.99);
   background-color: rgba(255, 255, 255, 0.8);
 }
-body #links-section .single-button:hover a span {
+body #links-section .single-button:hover a span,
+body #links-section .single-button:hover ::before {
   color: #000;
   font-weight: bold;
 }
@@ -276,11 +276,10 @@ body #links-section .single-button a {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
   height: 3.4rem;
-  text-transform: uppercase;
 }
 @media screen and (max-width: 768px) {
   body #links-section .single-button a {
