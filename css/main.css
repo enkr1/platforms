@@ -56,6 +56,12 @@ a {
   cursor: pointer;
 }
 
+a:active,
+a:focus {
+  outline: 0;
+  border: none;
+}
+
 .elixir-pipe-style::before {
   content: "|>";
   padding: 0 .6rem 0 0;
@@ -239,7 +245,6 @@ body #links-section {
       -ms-flex-align: center;
           align-items: center;
   gap: 2rem;
-  padding: 0 10vh;
   z-index: 2;
 }
 body #links-section .single-button {

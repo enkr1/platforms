@@ -59,6 +59,12 @@ a {
     cursor: pointer;
 }
 
+a:active,
+a:focus {
+    outline: 0;
+    border: none;
+}
+
 .elixir-pipe-style {
     &::before {
         content: "|>";
@@ -251,7 +257,7 @@ body {
         justify-content: center;
         align-items: center;
         gap: 2rem;
-        padding: 0 10vh;
+        // padding: 0 10vh;
         z-index: 2;
 
         // Button
