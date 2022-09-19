@@ -160,6 +160,11 @@ body #profile-section .desc-container .area-container h1.achievement-title.colla
   text-align: center;
   cursor: pointer;
 }
+@media screen and (max-width: 480px) {
+  body #profile-section .desc-container .area-container h1.achievement-title.collapsible {
+    font-size: 1.6rem;
+  }
+}
 body #profile-section .desc-container .area-container h1.achievement-title.collapsible::before {
   content: ">";
   padding: 0 .8rem 0 0;

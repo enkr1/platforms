@@ -178,6 +178,10 @@ body {
                     text-align: center;
                     cursor: pointer;
 
+                    @media screen and (max-width: $screen_xs) {
+                        font-size: 1.6rem;
+                    }
+
                     &::before {
                         content: ">";
                         padding: 0 .8rem 0 0;
