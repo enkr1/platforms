@@ -1,6 +1,8 @@
 # Obfuscator
 /_000_platforms_unencrypted_js
 
+/.vscode
+
 # NPM Packages
 node_modules/
 package-lock.json

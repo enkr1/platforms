@@ -20,6 +20,16 @@
     "link": "https://wakatime.com/@enkr1"
   },
   {
+    "name": "redirect_to_leetcode()",
+    "className": "leetcode",
+    "link": "https://leetcode.com/enkr1/"
+  },
+  {
+    "name": "redirect_to_leetcode_cn()",
+    "className": "leetcode_cn",
+    "link": "https://leetcode.cn/u/enkr1/"
+  },
+  {
     "name": "redirect_to_facebook()",
     "className": "fb",
     "link": "https://www.facebook.com/enkrbeatbox"

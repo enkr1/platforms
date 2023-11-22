@@ -1,0 +1,41 @@
+@keyframes flying {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+
+  20% {
+    transform: translateY(20vh) rotate(90deg);
+    opacity: 0.8;
+  }
+
+  60% {
+    transform: translateY(60vh) rotate(-45deg);
+    opacity: 0.4;
+  }
+
+  90% {
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0;
+    /* opacity: 1; */
+    stroke-dashoffset: 0;
+  }
+}
+
+.star {
+  position: absolute;
+  display: block;
+  background: #fff;
+  border-radius: 100%;
+  top: -20%;
+  margin: 2%;
+}
+
+.is-loading {
+  // display: none;
+  opacity: 0;
+}

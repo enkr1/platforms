@@ -1,0 +1,23 @@
+// TODO: Refactor, separate colours, fs, etc.
+
+/**
+*
+**/
+
+// Media Breakpoints based on Bootstrap 3
+$screen_xl: 1440px;
+$screen_lg: 1281px;
+$screen_md_1: 1024px;
+$screen_md_2: 992px;
+/* tablet */
+$screen_sm: 768px;
+$screen_xs: 480px;
+$screen_xxs: 320px;
+
+// LOGO TEXT ATTRIBUTES
+$logo-text-font-size: 2rem;
+$logo-text-letter-spacing: .6rem;
+
+$default_global_font_size: 1.2rem;
+$sm_global_font_size: 1.15rem;
+$xs_global_font_size: 1.1rem;
