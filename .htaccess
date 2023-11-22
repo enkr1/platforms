@@ -1,5 +1,28 @@
-RewriteEngine on
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}\.html -f
-RewriteRule ^(.*)$ $1.html [NC,L]
+# Redirect 404 /404
+# RewriteEngine On
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteRule ^(.+)\.html$ /$1 [R=301,L]
 
+# RewriteEngine On
+# RewriteCond %{SCRIPT_FILENAME}
+# RewriteCond %{SCRIPT_FILENAME}.html !-f
+# RewriteRule [^/]$ %{REQUEST_URI}/ [R=301,L]
+# RewriteCond %{ENV:REDIRECT_STATUS} ^$
+# RewriteRule ^(.+)\.html$ /$1 [R=301,L]
+# RewriteCond %{SCRIPT_FILENAME}.html -f
+# RewriteRule [^/]$ %{REQUEST_URI}.html [QSA,L]
+
+Options +FollowSymLinks -MultiViews
+DirectorySlash Off
+
+RewriteEngine On
+
+RewriteCond %{SCRIPT_FILENAME}/ -d
+RewriteCond %{SCRIPT_FILENAME}.html !-f
+RewriteRule [^/]$ %{REQUEST_URI}/ [R=301,L]
+
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
+RewriteRule ^(.+)\.html$ /$1 [R=301,L]
+
+RewriteCond %{SCRIPT_FILENAME}.html -f
+RewriteRule [^/]$ %{REQUEST_URI}.html [QSA,L]
