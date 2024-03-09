@@ -366,7 +366,7 @@ body .footer p {
   width: fit-content;
 }
 #platform-page #profile-section .al-container .list-container .category-container .title-list-container p.al-title {
-  color: #e8ffe4;
+  color: #ff0000;
   font-size: 1.4rem;
 }
 #platform-page #profile-section .al-container .list-container .category-container .title-list-container p.al-title span:nth-child(2) {
@@ -426,11 +426,15 @@ body .footer p {
 #platform-page #platform-section .single-button:hover {
   -webkit-transform: scale(0.99);
           transform: scale(0.99);
-  border: 1px solid #e8ffe4;
+  border: 1px solid #ff0000;
+  background-color: #ffffffcf;
 }
 #platform-page #platform-section .single-button:hover a span,
 #platform-page #platform-section .single-button:hover ::before {
   font-weight: bold;
+  color: #ff0000;
+  -webkit-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
 }
 #platform-page #platform-section .single-button a {
   display: -webkit-box;
