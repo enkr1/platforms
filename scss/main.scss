@@ -86,7 +86,7 @@ body {
     /* This will be displayed if it is loading for too long */
     // background-color: #000000;
     // background-color: #15163a;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(69, 23, 124, 1) 100%);
+    background: linear-gradient(0deg, rgb(255, 255, 255) 0%, #ff0000 100%);
     /*  Neumorphism Theme */
     // background: $theme-background;
     background-size: cover !important;
@@ -123,6 +123,7 @@ body {
     width: 100vw;
     height: fit-content;
     padding: 3% 0 10%;
+    z-index: 2;
 
     h2,
     p,

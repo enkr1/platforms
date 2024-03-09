@@ -29,10 +29,29 @@
 .star {
   position: absolute;
   display: block;
-  background: #fff;
-  border-radius: 100%;
+  // background: #fff;
+  // border-radius: 100%;
   top: -20%;
-  margin: 2%;
+  // margin: 2%;
+  // clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+
+  // width: 0 !important;
+  // height: 0 !important;
+  // border-right: 50px solid transparent;
+  // border-left: 50px solid transparent;
+  // border-bottom: 86.60254px solid salmon;
+  transition: all 1s ease-in-out;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-right: var(--star-size) solid transparent;
+    border-left: var(--star-size) solid transparent;
+    /* Use the same formula for equilateral triangle */
+    border-top: calc(var(--star-size) * 1.73205) solid red;
+  }
 }
 
 .is-loading {
