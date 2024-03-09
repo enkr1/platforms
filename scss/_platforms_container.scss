@@ -12,7 +12,6 @@
 
   width: 100vw;
   height: fit-content;
-  // padding: 3% 0 10%;
   z-index: 2;
 
   h2 {
@@ -29,12 +28,13 @@
 
   #profile-section {
     position: relative;
-    padding: 3rem 0 0;
+    // padding: 3rem 0 0;
 
     .profile-container {
       display: flex;
       justify-content: center;
       align-items: center;
+      padding: 3rem 0;
 
       $img-h: 10rem;
       $img-w: 10rem;
@@ -215,16 +215,16 @@
       height: -moz-max-content;
       height: fit-content !important;
       transition: all .3s ease-in-out;
-      width: 80vw;
+      width: 50vw;
       padding: .4rem 1.2rem;
       border: 1px solid transparent;
 
-      // @media screen and (max-width: $screen_sm) {
-      //     width: 80vw;
-      // }
+      @media screen and (max-width: $screen_sm) {
+        width: 80vw;
+      }
 
       @media screen and (max-width: $screen_xs) {
-        width: 85vw;
+        width: 90vw;
       }
 
       // TODO: BE CREATIVE, NEXT TIME
