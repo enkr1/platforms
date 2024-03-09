@@ -1,0 +1,285 @@
+#platform-page {
+  $font-color-platform: #fff;
+  $font-size-al-title-xl: 1.5rem;
+  $font-size-al-title-sm: 1.4rem;
+  $font-size-al-title-xs: 1.3rem;
+  $font-size-al-p-xl: 1.4rem;
+  $font-size-al-p-sm: 1.3rem;
+  $font-size-al-p-xs: 1.2rem;
+  $font-size-platforms-p-xl: $font-size-al-p-xl;
+  $font-size-platforms-p-sm: $font-size-al-p-sm;
+  $font-size-platforms-p-xs: $font-size-al-p-sm;
+
+  width: 100vw;
+  height: fit-content;
+  padding: 3% 0 10%;
+  z-index: 2;
+
+  h2,
+  p,
+  span {
+    color: $font-color-platform;
+    letter-spacing: unset;
+    word-spacing: unset;
+  }
+
+  #profile-section {
+    position: relative;
+
+    .profile-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 2rem 0;
+
+      $img-h: 10rem;
+      $img-w: 10rem;
+      $img-centre: 46.6%;
+      $img-rotate-y: 0;
+      background-color: rgba(255, 255, 255, 0);
+
+      @keyframes profileAnim {
+        0% {
+          // top: 0%;
+          // left: $img-centre - 1%;
+        }
+
+        100% {
+          // transform: rotate(360deg) translate($img-centre, $img-rotate-y);
+          // transform-origin: center center;
+          transform: translate(0, -2px) scale(1.1);
+        }
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        background-color: rgba(255, 255, 255, 0.4);
+        border-radius: 100%;
+        height: $img-h;
+        width: $img-w;
+        z-index: -1;
+      }
+
+      &::before {
+        transform: translate(0, -2px);
+        // transform: rotate(0deg) translate($img-centre, $img-rotate-y);
+        animation: profileAnim 1s infinite alternate;
+      }
+
+      img {
+        height: $img-h;
+        width: $img-w;
+        object-fit: cover;
+        border-radius: 100%;
+
+      }
+    }
+
+    .al-container {
+      width: 50vw;
+      margin: 0 auto 2rem;
+
+      @media screen and (max-width: $screen_sm) {
+        width: 80%;
+      }
+
+      @media screen and (max-width: $screen_xs) {
+        width: 85%;
+      }
+
+      h1.achievement-title.collapsible {
+        text-align: center;
+        cursor: pointer;
+        width: fit-content;
+        margin: auto;
+
+        @media screen and (max-width: $screen_sm) {
+          font-size: 1.7rem;
+        }
+
+        @media screen and (max-width: $screen_xs) {
+          font-size: 1.6rem;
+        }
+
+        &::before {
+          content: ">";
+          padding: 0 .8rem 0 0;
+        }
+
+        &.active {
+          &::before {
+            content: "_";
+          }
+        }
+      }
+
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+
+        100% {
+          opacity: 1;
+        }
+      }
+
+      .list-container {
+        opacity: 0;
+        display: none;
+        background-color: rgba(255, 255, 255, 0.1);
+        transition: all .6s ease-in-out;
+
+        &.fade-in {
+          display: block;
+          margin-top: 1rem;
+          animation: fadeIn 2s forwards;
+        }
+
+        .category-container {
+          position: relative;
+          padding: 0 1rem 1rem;
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+
+          &:not(:last-child) {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          }
+
+          h2 {
+            top: 0;
+            left: 0;
+            font-size: $font-size-al-title-xl;
+            opacity: .5;
+            transform: translate(0, 35%);
+
+            @media screen and (max-width: $screen_sm) {
+              font-size: $font-size-al-title-sm;
+            }
+
+            @media screen and (max-width: $screen_xs) {
+              font-size: $font-size-al-title-xs;
+            }
+          }
+
+          .title-list-container {
+            width: fit-content;
+
+            p.al-title {
+              color: $theme-light-color;
+              font-size: $font-size-al-p-xl;
+
+              span:nth-child(2) {
+                letter-spacing: .1rem;
+              }
+
+              span {
+                opacity: .8;
+              }
+
+              @media screen and (max-width: $screen_sm) {
+                font-size: $font-size-al-p-sm;
+              }
+
+              @media screen and (max-width: $screen_xs) {
+                font-size: $font-size-al-p-xs;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  #platform-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    z-index: 2;
+
+    span {
+      font-weight: 400;
+    }
+
+    // Button
+    .single-button {
+      background-color: rgba(0, 0, 0, 0.2);
+      text-align: center;
+      height: -moz-max-content;
+      height: fit-content !important;
+      transition: all .3s ease-in-out;
+      width: 80vw;
+      padding: .4rem 1.2rem;
+      border: 1px solid transparent;
+
+      // @media screen and (max-width: $screen_sm) {
+      //     width: 80vw;
+      // }
+
+      @media screen and (max-width: $screen_xs) {
+        width: 85vw;
+      }
+
+      // TODO: BE CREATIVE, NEXT TIME
+      // https://www.joshwcomeau.com/animation/3d-button/
+      // &.single-button-name
+
+      &:hover {
+        transform: scale(.99);
+        // background-color: rgba(255, 255, 255, 0.8);
+        border: 1px solid $theme-light-color;
+        background-color: #ffffffcf;
+
+        a span,
+        ::before {
+          // color: #000;
+          font-weight: bold;
+          color: $theme-light-color;
+          transition: all .3s ease-in-out;
+        }
+      }
+
+      // Link
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        height: 3.4rem;
+        // text-transform: uppercase;
+
+        @media screen and (max-width: $screen_sm) {
+          height: 3rem;
+          // width: 80vw;
+        }
+
+        span {
+          font-size: $font-size-platforms-p-xl;
+          opacity: 1 !important;
+
+          @media screen and (max-width: $screen_sm) {
+            font-size: $font-size-platforms-p-sm;
+          }
+
+          @media screen and (max-width: $screen_xs) {
+            font-size: $font-size-platforms-p-xs;
+          }
+        }
+
+        &:active {
+          outline: none;
+        }
+
+        &:focus:not(:focus-visible) {
+          outline: none;
+        }
+
+        &:focus-visible {
+          outline: revert;
+        }
+      }
+    }
+  }
+}
