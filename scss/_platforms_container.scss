@@ -230,23 +230,16 @@
       // TODO: BE CREATIVE, NEXT TIME
       // https://www.joshwcomeau.com/animation/3d-button/
       // &.single-button-name
-
       @media screen and (min-width: $screen_xs) {
-
-        // @media screen and (min-width: 700px) {
         &:hover {
           transform: scale(.99);
-          // background-color: rgba(255, 255, 255, 0.8);
           border: 1px solid $theme-color;
           background-color: rgba(0, 0, 0, 0.1);
-
-          // background-color: #ffffffcf;
 
           a span,
           ::before {
             // color: #000;
-            font-weight: bold;
-            color: $theme-color;
+            // color: $theme-color;
             transition: all .3s ease-in-out;
           }
         }

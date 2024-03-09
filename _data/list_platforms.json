@@ -20,16 +20,6 @@
     "link": "https://wakatime.com/@enkr1"
   },
   {
-    "name": "LeetCode",
-    "className": "leetcode",
-    "link": "https://leetcode.com/enkr1/"
-  },
-  {
-    "name": "LeetCode (Chinese Version)",
-    "className": "leetcode_cn",
-    "link": "https://leetcode.cn/u/enkr1/"
-  },
-  {
     "name": "facebook",
     "className": "fb",
     "link": "https://www.facebook.com/enkrbeatbox"
@@ -43,5 +33,15 @@
     "name": "Instagram",
     "className": "ig",
     "link": "https://www.instagram.com/enkr1/"
+  },
+  {
+    "name": "LeetCode",
+    "className": "leetcode",
+    "link": "https://leetcode.com/enkr1/"
+  },
+  {
+    "name": "LeetCode (Chinese Version)",
+    "className": "leetcode_cn",
+    "link": "https://leetcode.cn/u/enkr1/"
   }
 ]

@@ -321,8 +321,6 @@
   }
   #platform-page #platform-section .single-button:hover a span,
   #platform-page #platform-section .single-button:hover ::before {
-    font-weight: bold;
-    color: #ff0000;
     -webkit-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out;
   }
