@@ -12,31 +12,35 @@
 
   width: 100vw;
   height: fit-content;
-  padding: 3% 0 10%;
+  // padding: 3% 0 10%;
   z-index: 2;
+
+  h2 {
+    letter-spacing: .1rem;
+  }
 
   h2,
   p,
   span {
     color: $font-color-platform;
-    letter-spacing: unset;
-    word-spacing: unset;
+    // letter-spacing: unset;
+    // word-spacing: unset;
   }
 
   #profile-section {
     position: relative;
+    padding: 3rem 0 0;
 
     .profile-container {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 2rem 0;
 
       $img-h: 10rem;
       $img-w: 10rem;
       $img-centre: 46.6%;
       $img-rotate-y: 0;
-      background-color: rgba(255, 255, 255, 0);
+      // background-color: rgba(255, 255, 255, 0);
 
       @keyframes profileAnim {
         0% {
@@ -54,7 +58,7 @@
       &::before {
         content: "";
         position: absolute;
-        background-color: rgba(255, 255, 255, 0.4);
+        background-color: rgba(255, 0, 0, 0.4);
         border-radius: 100%;
         height: $img-h;
         width: $img-w;
@@ -78,7 +82,7 @@
 
     .al-container {
       width: 50vw;
-      margin: 0 auto 2rem;
+      margin: 1rem auto 2rem;
 
       @media screen and (max-width: $screen_sm) {
         width: 80%;
@@ -227,18 +231,24 @@
       // https://www.joshwcomeau.com/animation/3d-button/
       // &.single-button-name
 
-      &:hover {
-        transform: scale(.99);
-        // background-color: rgba(255, 255, 255, 0.8);
-        border: 1px solid $theme-light-color;
-        background-color: #ffffffcf;
+      @media screen and (min-width: $screen_xs) {
 
-        a span,
-        ::before {
-          // color: #000;
-          font-weight: bold;
-          color: $theme-light-color;
-          transition: all .3s ease-in-out;
+        // @media screen and (min-width: 700px) {
+        &:hover {
+          transform: scale(.99);
+          // background-color: rgba(255, 255, 255, 0.8);
+          border: 1px solid $theme-color;
+          background-color: rgba(0, 0, 0, 0.1);
+
+          // background-color: #ffffffcf;
+
+          a span,
+          ::before {
+            // color: #000;
+            font-weight: bold;
+            color: $theme-color;
+            transition: all .3s ease-in-out;
+          }
         }
       }
 
