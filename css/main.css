@@ -84,6 +84,7 @@
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
+  position: relative;
   z-index: 2;
 }
 #platform-page h2 {
