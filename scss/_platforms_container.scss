@@ -37,8 +37,7 @@
       align-items: center;
       padding: 3rem 0;
 
-      $img-h: 10rem;
-      $img-w: 10rem;
+      $img-s: 10rem;
       $img-centre: 46.6%;
       $img-rotate-y: 0;
       // background-color: rgba(255, 255, 255, 0);
@@ -51,18 +50,18 @@
 
         100% {
           // transform: rotate(360deg) translate($img-centre, $img-rotate-y);
-          // transform-origin: center center;
-          transform: translate(0, -2px) scale(1.1);
+          // transform-origin: 0 0;
+          transform: translate(-.3px, -3px) scale(1.1);
         }
       }
 
       &::before {
         content: "";
         position: absolute;
-        background-color: rgba(255, 0, 0, 0.4);
+        background-color: rgba(255, 255, 255, 0.4);
         border-radius: 100%;
-        height: $img-h;
-        width: $img-w;
+        height: $img-s;
+        width: $img-s;
         z-index: -1;
       }
 
@@ -73,8 +72,8 @@
       }
 
       img {
-        height: $img-h;
-        width: $img-w;
+        height: $img-s;
+        width: $img-s;
         object-fit: cover;
         border-radius: 100%;
 
