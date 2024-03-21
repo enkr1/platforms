@@ -252,7 +252,7 @@
 }
 #platform-page #profile-section .al-container .list-container .category-container .title-list-container p.al-title {
   color: #fff;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
 }
 #platform-page #profile-section .al-container .list-container .category-container .title-list-container p.al-title span:nth-child(2) {
   letter-spacing: .1rem;
@@ -262,12 +262,12 @@
 }
 @media screen and (max-width: 768px) {
   #platform-page #profile-section .al-container .list-container .category-container .title-list-container p.al-title {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
   }
 }
 @media screen and (max-width: 480px) {
   #platform-page #profile-section .al-container .list-container .category-container .title-list-container p.al-title {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
   }
 }
 #platform-page #platform-section {
@@ -291,7 +291,7 @@
   font-weight: 400;
 }
 #platform-page #platform-section .single-button {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.3);
   text-align: center;
   height: -moz-max-content;
   height: -webkit-fit-content !important;
@@ -313,18 +313,17 @@
     width: 90vw;
   }
 }
-@media screen and (min-width: 480px) {
-  #platform-page #platform-section .single-button:hover {
-    -webkit-transform: scale(0.99);
-            transform: scale(0.99);
-    border: 1px solid #ff0000;
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-  #platform-page #platform-section .single-button:hover a span,
-  #platform-page #platform-section .single-button:hover ::before {
-    -webkit-transition: all .3s ease-in-out;
-    transition: all .3s ease-in-out;
-  }
+#platform-page #platform-section .single-button:hover, #platform-page #platform-section .single-button:active {
+  -webkit-transform: scale(0.99);
+          transform: scale(0.99);
+  border: 1px solid #ff0000;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+#platform-page #platform-section .single-button:hover a span,
+#platform-page #platform-section .single-button:hover ::before, #platform-page #platform-section .single-button:active a span,
+#platform-page #platform-section .single-button:active ::before {
+  -webkit-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
 }
 #platform-page #platform-section .single-button a {
   display: -webkit-box;
@@ -344,17 +343,17 @@
   }
 }
 #platform-page #platform-section .single-button a span {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   opacity: 1 !important;
 }
 @media screen and (max-width: 768px) {
   #platform-page #platform-section .single-button a span {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
   }
 }
 @media screen and (max-width: 480px) {
   #platform-page #platform-section .single-button a span {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
   }
 }
 #platform-page #platform-section .single-button a:active {

@@ -3,9 +3,9 @@
   $font-size-al-title-xl: 1.5rem;
   $font-size-al-title-sm: 1.4rem;
   $font-size-al-title-xs: 1.3rem;
-  $font-size-al-p-xl: 1.4rem;
-  $font-size-al-p-sm: 1.3rem;
-  $font-size-al-p-xs: 1.2rem;
+  $font-size-al-p-xl: 1.5rem;
+  $font-size-al-p-sm: 1.4rem;
+  $font-size-al-p-xs: 1.3rem;
   $font-size-platforms-p-xl: $font-size-al-p-xl;
   $font-size-platforms-p-sm: $font-size-al-p-sm;
   $font-size-platforms-p-xs: $font-size-al-p-sm;
@@ -210,7 +210,7 @@
 
     // Button
     .single-button {
-      background-color: rgba(0, 0, 0, 0.2);
+      background-color: rgba(0, 0, 0, 0.3);
       text-align: center;
       height: -moz-max-content;
       height: fit-content !important;
@@ -227,23 +227,27 @@
         width: 90vw;
       }
 
+
+
       // TODO: BE CREATIVE, NEXT TIME
       // https://www.joshwcomeau.com/animation/3d-button/
       // &.single-button-name
-      @media screen and (min-width: $screen_xs) {
-        &:hover {
-          transform: scale(.99);
-          border: 1px solid $theme-color;
-          background-color: rgba(0, 0, 0, 0.1);
+      // @media screen and (min-width: $screen_xs) {
+      &:hover,
+      &:active {
+        transform: scale(.99);
+        border: 1px solid $theme-color;
+        background-color: rgba(0, 0, 0, 0.1);
 
-          a span,
-          ::before {
-            // color: #000;
-            // color: $theme-color;
-            transition: all .3s ease-in-out;
-          }
+        a span,
+        ::before {
+          // color: #000;
+          // color: $theme-color;
+          transition: all .3s ease-in-out;
         }
       }
+
+      // }
 
       // Link
       a {
