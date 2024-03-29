@@ -10,10 +10,22 @@
   $font-size-platforms-p-sm: $font-size-al-p-sm;
   $font-size-platforms-p-xs: $font-size-al-p-sm;
 
-  width: 100vw;
-  height: fit-content;
   position: relative;
   z-index: 2;
+  min-width: 60vw;
+  width: fit-content;
+  background: #ffffff1a;
+  border-radius: 3rem;
+  padding: 3rem 3rem 6rem;
+  margin: 6vh auto auto;
+  // backdrop-filter: blur(3px);
+  // box-shadow: 0 0 .8rem .8rem #0000000a;
+
+  @media screen and (max-width: $screen_sm) {
+    width: 90vw;
+    margin: 2rem auto auto;
+    padding: .8rem 1rem 3rem;
+  }
 
   h2 {
     letter-spacing: .1rem;
@@ -58,17 +70,17 @@
       &::before {
         content: "";
         position: absolute;
-        background-color: rgba(0, 0, 0, 0.4);
+        // background-color: rgba(0, 0, 0, 0.4);
+        background-color: rgba(255, 255, 255, 0.4);
         border-radius: 100%;
-        height: $img-s;
-        width: $img-s;
+        height: $img-s + 1rem;
+        width: $img-s + 1rem;
         z-index: -1;
       }
 
       &::before {
         transform: translate(0, -2px);
-        // transform: rotate(0deg) translate($img-centre, $img-rotate-y);
-        animation: profileAnim 1s infinite alternate;
+        // animation: profileAnim 1s infinite alternate;
       }
 
       img {
@@ -77,6 +89,31 @@
         object-fit: cover;
         border-radius: 100%;
 
+      }
+    }
+
+    .list-icons-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+      margin: 0 0 3rem;
+
+      @media screen and (max-width: $screen_sm) {
+        gap: 1rem;
+      }
+
+      a {
+        padding: 1rem;
+
+        img {
+          width: 2.5rem;
+
+          @media screen and (max-width: $screen_sm) {
+            width: 3rem;
+
+          }
+        }
       }
     }
 
@@ -204,28 +241,24 @@
     gap: 2rem;
     z-index: 2;
 
-    span {
-      font-weight: 400;
-    }
-
     // Button
     .single-button {
       text-align: center;
       height: -moz-max-content;
       height: fit-content !important;
       transition: all .3s ease-in-out;
-      width: 50vw;
+      width: 90%;
       border: 1px solid transparent;
       border-radius: 1rem;
       backdrop-filter: blur(3px);
-      background-color: rgba(0, 0, 0, 0.3);
+      background-color: rgba(255, 255, 255, 0.8);
 
       @media screen and (max-width: $screen_sm) {
         width: 80vw;
       }
 
       @media screen and (max-width: $screen_xs) {
-        width: 90vw;
+        width: 90%;
       }
 
       // TODO: BE CREATIVE, NEXT TIME
@@ -264,6 +297,9 @@
         span {
           font-size: $font-size-platforms-p-xl;
           opacity: 1 !important;
+          color: #842f2f;
+          font-weight: 500;
+          text-transform: uppercase;
 
           @media screen and (max-width: $screen_sm) {
             font-size: $font-size-platforms-p-sm;

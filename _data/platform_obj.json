@@ -33,14 +33,14 @@
       "link": "https://enkr1.github.io/v2"
     },
     {
-      "name": "WakaTime",
-      "className": "wakatime",
-      "link": "https://wakatime.com/@enkr1"
-    },
-    {
       "name": "Blog",
       "className": "blog",
       "link": "https://enkr1.github.io/blog/"
+    },
+    {
+      "name": "WakaTime",
+      "className": "wakatime",
+      "link": "https://wakatime.com/@enkr1"
     },
     {
       "name": "LeetCode",
@@ -48,7 +48,7 @@
       "link": "https://leetcode.com/enkr1/"
     },
     {
-      "name": "LeetCode (Chinese Version)",
+      "name": "LeetCode (CN)",
       "className": "leetcode_cn",
       "link": "https://leetcode.cn/u/enkr1/"
     }

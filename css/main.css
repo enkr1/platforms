@@ -2,7 +2,7 @@
 *
 **/
 /* tablet */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @-webkit-keyframes flying {
   0% {
     -webkit-transform: translateY(0) rotate(0deg);
@@ -80,12 +80,23 @@
 }
 
 #platform-page {
-  width: 100vw;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
   position: relative;
   z-index: 2;
+  min-width: 60vw;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  background: #ffffff1a;
+  border-radius: 3rem;
+  padding: 3rem 3rem 6rem;
+  margin: 6vh auto auto;
+}
+@media screen and (max-width: 768px) {
+  #platform-page {
+    width: 90vw;
+    margin: 2rem auto auto;
+    padding: .8rem 1rem 3rem;
+  }
 }
 #platform-page h2 {
   letter-spacing: .1rem;
@@ -125,17 +136,15 @@
 #platform-page #profile-section .profile-container::before {
   content: "";
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(255, 255, 255, 0.4);
   border-radius: 100%;
-  height: 10rem;
-  width: 10rem;
+  height: 11rem;
+  width: 11rem;
   z-index: -1;
 }
 #platform-page #profile-section .profile-container::before {
   -webkit-transform: translate(0, -2px);
           transform: translate(0, -2px);
-  -webkit-animation: profileAnim 1s infinite alternate;
-          animation: profileAnim 1s infinite alternate;
 }
 #platform-page #profile-section .profile-container img {
   height: 10rem;
@@ -143,6 +152,35 @@
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 100%;
+}
+#platform-page #profile-section .list-icons-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 3rem;
+  margin: 0 0 3rem;
+}
+@media screen and (max-width: 768px) {
+  #platform-page #profile-section .list-icons-container {
+    gap: 1rem;
+  }
+}
+#platform-page #profile-section .list-icons-container a {
+  padding: 1rem;
+}
+#platform-page #profile-section .list-icons-container a img {
+  width: 2.5rem;
+}
+@media screen and (max-width: 768px) {
+  #platform-page #profile-section .list-icons-container a img {
+    width: 3rem;
+  }
 }
 #platform-page #profile-section .al-container {
   width: 50vw;
@@ -287,9 +325,6 @@
   gap: 2rem;
   z-index: 2;
 }
-#platform-page #platform-section span {
-  font-weight: 400;
-}
 #platform-page #platform-section .single-button {
   text-align: center;
   height: -moz-max-content;
@@ -298,12 +333,12 @@
   height: fit-content !important;
   -webkit-transition: all .3s ease-in-out;
   transition: all .3s ease-in-out;
-  width: 50vw;
+  width: 90%;
   border: 1px solid transparent;
   border-radius: 1rem;
   -webkit-backdrop-filter: blur(3px);
           backdrop-filter: blur(3px);
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(255, 255, 255, 0.8);
 }
 @media screen and (max-width: 768px) {
   #platform-page #platform-section .single-button {
@@ -312,7 +347,7 @@
 }
 @media screen and (max-width: 480px) {
   #platform-page #platform-section .single-button {
-    width: 90vw;
+    width: 90%;
   }
 }
 #platform-page #platform-section .single-button:hover, #platform-page #platform-section .single-button:active {
@@ -347,6 +382,9 @@
 #platform-page #platform-section .single-button a span {
   font-size: 1.5rem;
   opacity: 1 !important;
+  color: #842f2f;
+  font-weight: 500;
+  text-transform: uppercase;
 }
 @media screen and (max-width: 768px) {
   #platform-page #platform-section .single-button a span {
