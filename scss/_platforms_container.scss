@@ -249,7 +249,7 @@
       transition: all .3s ease-in-out;
       width: 90%;
       border: 1px solid transparent;
-      border-radius: 1rem;
+      border-radius: .8rem;
       backdrop-filter: blur(3px);
       background-color: rgba(255, 255, 255, 0.8);
 
@@ -299,7 +299,7 @@
           opacity: 1 !important;
           color: #842f2f;
           font-weight: 500;
-          text-transform: uppercase;
+          // text-transform: uppercase;
 
           @media screen and (max-width: $screen_sm) {
             font-size: $font-size-platforms-p-sm;

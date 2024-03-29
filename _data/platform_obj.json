@@ -11,9 +11,9 @@
       "link": "https://github.com/enkr1"
     },
     {
-      "name": "facebook",
-      "className": "facebook",
-      "link": "https://www.facebook.com/enkrbeatbox"
+      "name": "Instagram",
+      "className": "instagram",
+      "link": "https://www.instagram.com/enkr1/"
     },
     {
       "name": "YouTube",
@@ -21,9 +21,9 @@
       "link": "https://www.youtube.com/channel/UCJJmK5bN3b4izpMb2vtRXpw"
     },
     {
-      "name": "Instagram",
-      "className": "instagram",
-      "link": "https://www.instagram.com/enkr1/"
+      "name": "facebook",
+      "className": "facebook",
+      "link": "https://www.facebook.com/enkrbeatbox"
     }
   ],
   "listButtons": [
