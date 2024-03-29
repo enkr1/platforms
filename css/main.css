@@ -125,7 +125,7 @@
 #platform-page #profile-section .profile-container::before {
   content: "";
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   border-radius: 100%;
   height: 10rem;
   width: 10rem;
@@ -291,7 +291,6 @@
   font-weight: 400;
 }
 #platform-page #platform-section .single-button {
-  background-color: rgba(0, 0, 0, 0.3);
   text-align: center;
   height: -moz-max-content;
   height: -webkit-fit-content !important;
@@ -300,8 +299,11 @@
   -webkit-transition: all .3s ease-in-out;
   transition: all .3s ease-in-out;
   width: 50vw;
-  padding: .4rem 1.2rem;
   border: 1px solid transparent;
+  border-radius: 1rem;
+  -webkit-backdrop-filter: blur(3px);
+          backdrop-filter: blur(3px);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 @media screen and (max-width: 768px) {
   #platform-page #platform-section .single-button {
@@ -317,7 +319,6 @@
   -webkit-transform: scale(0.99);
           transform: scale(0.99);
   border: 1px solid #ff0000;
-  background-color: rgba(0, 0, 0, 0.1);
 }
 #platform-page #platform-section .single-button:hover a span,
 #platform-page #platform-section .single-button:hover ::before, #platform-page #platform-section .single-button:active a span,
@@ -332,14 +333,15 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: start;
-  height: 3.4rem;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 4.5rem;
+  padding: .4rem 1.8rem;
 }
 @media screen and (max-width: 768px) {
   #platform-page #platform-section .single-button a {
-    height: 3rem;
+    height: 3.5rem;
   }
 }
 #platform-page #platform-section .single-button a span {

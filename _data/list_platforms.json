@@ -21,18 +21,23 @@
   },
   {
     "name": "facebook",
-    "className": "fb",
+    "className": "facebook",
     "link": "https://www.facebook.com/enkrbeatbox"
   },
   {
     "name": "YouTube",
-    "className": "yt",
+    "className": "youtube",
     "link": "https://www.youtube.com/channel/UCJJmK5bN3b4izpMb2vtRXpw"
   },
   {
     "name": "Instagram",
-    "className": "ig",
+    "className": "instagram",
     "link": "https://www.instagram.com/enkr1/"
+  },
+  {
+    "name": "Blog",
+    "className": "blog",
+    "link": "https://enkr1.github.io/blog/"
   },
   {
     "name": "LeetCode",
