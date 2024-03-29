@@ -86,14 +86,14 @@
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  background: #ffffff29;
+  background: #ffffff1a;
   border-radius: 3rem;
   padding: 3rem 3rem 6rem;
   margin: 6vh auto auto;
   -webkit-backdrop-filter: blur(3px);
           backdrop-filter: blur(3px);
-  -webkit-box-shadow: 0 0 .8rem .8rem #0000001b;
-          box-shadow: 0 0 .8rem .8rem #0000001b;
+  -webkit-box-shadow: 0 0 .8rem .8rem #0000000a;
+          box-shadow: 0 0 .8rem .8rem #0000000a;
 }
 @media screen and (max-width: 768px) {
   #platform-page {
