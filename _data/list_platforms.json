@@ -1,52 +1,56 @@
-[
-  {
-    "name": "Personal Website",
-    "className": "website",
-    "link": "https://enkr1.github.io/v2"
-  },
-  {
-    "name": "LinkedIn",
-    "className": "linkedin",
-    "link": "https://www.linkedin.com/in/jinghuipang/"
-  },
-  {
-    "name": "GitHub",
-    "className": "github",
-    "link": "https://github.com/enkr1"
-  },
-  {
-    "name": "WakaTime",
-    "className": "wakatime",
-    "link": "https://wakatime.com/@enkr1"
-  },
-  {
-    "name": "facebook",
-    "className": "facebook",
-    "link": "https://www.facebook.com/enkrbeatbox"
-  },
-  {
-    "name": "YouTube",
-    "className": "youtube",
-    "link": "https://www.youtube.com/channel/UCJJmK5bN3b4izpMb2vtRXpw"
-  },
-  {
-    "name": "Instagram",
-    "className": "instagram",
-    "link": "https://www.instagram.com/enkr1/"
-  },
-  {
-    "name": "Blog",
-    "className": "blog",
-    "link": "https://enkr1.github.io/blog/"
-  },
-  {
-    "name": "LeetCode",
-    "className": "leetcode",
-    "link": "https://leetcode.com/enkr1/"
-  },
-  {
-    "name": "LeetCode (Chinese Version)",
-    "className": "leetcode_cn",
-    "link": "https://leetcode.cn/u/enkr1/"
-  }
-]
+{
+  "listIcons": [
+    {
+      "name": "LinkedIn",
+      "className": "linkedin",
+      "link": "https://www.linkedin.com/in/jinghuipang/"
+    },
+    {
+      "name": "GitHub",
+      "className": "github",
+      "link": "https://github.com/enkr1"
+    },
+    {
+      "name": "facebook",
+      "className": "facebook",
+      "link": "https://www.facebook.com/enkrbeatbox"
+    },
+    {
+      "name": "YouTube",
+      "className": "youtube",
+      "link": "https://www.youtube.com/channel/UCJJmK5bN3b4izpMb2vtRXpw"
+    },
+    {
+      "name": "Instagram",
+      "className": "instagram",
+      "link": "https://www.instagram.com/enkr1/"
+    }
+  ],
+  "listButton": [
+    {
+      "name": "Personal Website",
+      "className": "website",
+      "link": "https://enkr1.github.io/v2"
+    },
+    {
+      "name": "WakaTime",
+      "className": "wakatime",
+      "link": "https://wakatime.com/@enkr1"
+    },
+    {
+      "name": "Blog",
+      "className": "blog",
+      "link": "https://enkr1.github.io/blog/"
+    },
+    {
+      "name": "LeetCode",
+      "className": "leetcode",
+      "link": "https://leetcode.com/enkr1/"
+    },
+    {
+      "name": "LeetCode (Chinese Version)",
+      "className": "leetcode_cn",
+      "link": "https://leetcode.cn/u/enkr1/"
+    }
+  ]
+}
