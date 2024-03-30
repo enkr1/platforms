@@ -73,6 +73,7 @@
         });
 
         function fetchCurrentlyPlaying(accessToken) {
+            console.log("accessToken", accessToken)
             fetch('https://api.spotify.com/v1/me/player/currently-playing', {
                 method: 'GET',
                 headers: {
