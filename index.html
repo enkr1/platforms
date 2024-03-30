@@ -62,7 +62,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             let params = new URLSearchParams(window.location.search);
             let code = params.get('code');
-
+            console.log("code", code);
             if (code) {
                 // We have a code, let's get the currently playing track
                 fetchCurrentlyPlaying(code);
@@ -72,31 +72,38 @@
             }
         });
 
-        function fetchCurrentlyPlaying(code) {
-            // The code here should exchange the 'code' for an access token and then fetch the currently playing track
-            // This is typically done via a server-side handler due to the need to keep secrets secure
-            // For demonstration purposes only, you would call your serverless function or server-side method here
-            console.log('Authorization code:', code);
-
-            // Example of what server-side would do:
-            // 1. Exchange code for an access token
-            // 2. Use the access token to call the Spotify API for the currently playing track
-            // 3. Send the track info back to the client-side
-
-            // Dummy data to simulate a response
-            const dummyTrackInfo = {
-                artist: 'Artist Name',
-                track: 'Track Title'
-            };
-
-            // Display the track info
-            displayTrackInfo(dummyTrackInfo);
+        function fetchCurrentlyPlaying(accessToken) {
+            fetch('https://api.spotify.com/v1/me/player/currently-playing', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            }).then(response => {
+                console.log("response", response);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            }).then(data => {
+                console.log('Currently playing:', data);
+                displayTrackInfo(data);
+            }).catch(error => {
+                console.error('Error fetching currently playing:', error);
+            });
         }
 
-        function displayTrackInfo(trackInfo) {
+        function displayTrackInfo(data) {
+            // Parse the data object and update the DOM as needed
             let trackInfoDiv = document.getElementById('track-info');
-            trackInfoDiv.innerHTML = 'Now Playing: ' + trackInfo.track + ' by ' + trackInfo.artist;
+            if (data && data.item) {
+                let trackName = data.item.name;
+                let artists = data.item.artists.map(artist => artist.name).join(', ');
+                trackInfoDiv.innerHTML = `Now Playing: ${trackName} by ${artists}`;
+            } else {
+                trackInfoDiv.innerText = 'Nothing is currently playing.';
+            }
         }
+
 
     </script>
 </body>
