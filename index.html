@@ -59,34 +59,61 @@
     </div>
 
     <script>
+
         document.addEventListener('DOMContentLoaded', function () {
             let params = new URLSearchParams(window.location.search);
             let code = params.get('code');
-            console.log("code", code);
+            console.log("Authorization code:", code);
             if (code) {
-                // We have a code, let's get the currently playing track
-                fetchCurrentlyPlaying(code);
+                // We have a code, let's exchange it for an access token and then get the currently playing track
+                fetchAccessToken(code, function (accessToken) {
+                    fetchCurrentlyPlaying(accessToken);
+                });
             } else {
                 // No code found in URL, handle accordingly
                 document.getElementById('track-info').innerText = 'No Spotify code found. Please authorize first.';
             }
         });
 
+        function fetchAccessToken(code, callback) {
+            // This is a placeholder for server-side logic.
+            // You should replace this with a call to your server or serverless function.
+
+            // The server would handle the POST request to the Spotify Accounts service.
+            // Example server-side endpoint might be '/get-spotify-token' on your server.
+            fetch('/get-spotify-token', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ code: code })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Assuming your server responds with the access token in the 'data' object
+                    console.log('Access token:', data.accessToken);
+                    callback(data.accessToken);
+                })
+                .catch(error => {
+                    console.error('Error during token exchange:', error);
+                });
+        }
+
         function fetchCurrentlyPlaying(accessToken) {
-            console.log("accessToken", accessToken)
+            console.log("Access token received:", accessToken);
             fetch('https://api.spotify.com/v1/me/player/currently-playing', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${accessToken}`
                 }
             }).then(response => {
-                console.log("response", response);
+                console.log("API response received", response);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 return response.json();
             }).then(data => {
-                console.log('Currently playing:', data);
+                console.log('Currently playing data:', data);
                 displayTrackInfo(data);
             }).catch(error => {
                 console.error('Error fetching currently playing:', error);
@@ -94,7 +121,7 @@
         }
 
         function displayTrackInfo(data) {
-            // Parse the data object and update the DOM as needed
+            console.log("Displaying track info:", data);
             let trackInfoDiv = document.getElementById('track-info');
             if (data && data.item) {
                 let trackName = data.item.name;
@@ -104,6 +131,7 @@
                 trackInfoDiv.innerText = 'Nothing is currently playing.';
             }
         }
+
 
 
     </script>
