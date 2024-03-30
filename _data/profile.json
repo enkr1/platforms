@@ -2,6 +2,8 @@
   "firstname": "Jing Hui",
   "lastname": "PANG",
   "nickname": "ENKR",
+  "bio": "Looping beats, coding feats, lifting spirits.",
+  "roles": ["Software Engineer", "Beatboxer"],
   "achievements": [
     {
       "title": "list_beatboxing_achievements()",

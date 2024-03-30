@@ -1,5 +1,4 @@
 // List of colours
-
 $theme-dark-color: #080017;
 $theme-dark-color: #080010;
 $theme-dark-color: #040009;
@@ -40,9 +39,9 @@ $g: 88;
 // 0 0.3rem 3rem rgba($r, $b, $g, 0.03);
 
 $neumorphism-box-shadow: 0 -.8rem 0 rgba($r, $b, $g, 0.08),
-.8rem 0 0 rgba($r, $b, $g, 0.1),
--.8rem 0 0 rgba($r, $b, $g, 0.1),
-0 .8rem 0 rgba($r, $b, $g, 0.3);
+  .8rem 0 0 rgba($r, $b, $g, 0.1),
+  -.8rem 0 0 rgba($r, $b, $g, 0.1),
+  0 .8rem 0 rgba($r, $b, $g, 0.3);
 // 0 100px 80px rgba($r, $b, $g, 0.22);
 
 $theme-gradient: linear-gradient(0deg, $theme-color, $theme-dark-color);

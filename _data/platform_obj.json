@@ -51,6 +51,21 @@
       "name": "LeetCode (CN)",
       "className": "leetcode_cn",
       "link": "https://leetcode.cn/u/enkr1/"
+    },
+    {
+      "name": "Twitter",
+      "className": "twitter",
+      "link": "https://twitter.com/enkr999"
+    },
+    {
+      "name": "Spotify",
+      "className": "spotify",
+      "link": "https://open.spotify.com/user/212m4ap7bke7h64hn7nfxojxq"
+    },
+    {
+      "name": "SoundCloud",
+      "className": "soundcloud",
+      "link": "https://soundcloud.com/enkr1"
     }
   ]
 }
