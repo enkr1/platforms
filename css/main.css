@@ -371,6 +371,10 @@
   outline: revert;
 }
 
+.spotify-theme {
+  color: #1BD760;
+}
+
 .spotify-container {
   margin: 3rem 2cm 0;
   text-align: center;
