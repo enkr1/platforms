@@ -114,6 +114,18 @@
 #platform-page #profile-section {
   position: relative;
 }
+#platform-page #profile-section .logo-container {
+  opacity: .9;
+  position: absolute;
+  mix-blend-mode: soft-light;
+  width: 100%;
+  z-index: 1;
+}
+@media screen and (max-width: 768px) {
+  #platform-page #profile-section .logo-container {
+    top: 4rem;
+  }
+}
 #platform-page #profile-section .profile-image-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -124,7 +136,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 2rem 0 2rem;
+  padding: 2rem 0 0;
 }
 @-webkit-keyframes profileAnim {
   100% {
@@ -162,17 +174,51 @@
 #platform-page #profile-section .quote-container {
   text-align: center;
 }
-#platform-page #profile-section .logo-container {
-  opacity: .9;
-  position: absolute;
-  mix-blend-mode: soft-light;
-  width: 100%;
-  z-index: 1;
+#platform-page #profile-section .fullname-container {
+  font-family: "Dancing Script", coaursive;
+  font-weight: 600;
+  font-size: 3.3rem;
+  mix-blend-mode: difference;
+  color: #1c1c1c;
+  padding: .8rem 0 0;
 }
 @media screen and (max-width: 768px) {
-  #platform-page #profile-section .logo-container {
-    top: 4rem;
+  #platform-page #profile-section .fullname-container {
+    padding: 1rem 0 0;
+    font-size: 2rem;
   }
+}
+#platform-page #profile-section .role-container {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem 1rem 0;
+}
+#platform-page #profile-section .role-container .role-single {
+  font-size: 1.2rem;
+  padding: .3rem 1rem;
+  -webkit-backdrop-filter: blur(13px);
+          backdrop-filter: blur(13px);
+  color: #fff;
+  color: #842f2f;
+  font-weight: 600;
+  mix-blend-mode: exclusion;
+  z-index: 2;
+  border-top-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  -webkit-box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.039);
+          box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.039);
+  cursor: unset;
 }
 #platform-page #profile-section .quote-container {
   font-family: "Dancing Script", coaursive;

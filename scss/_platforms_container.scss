@@ -45,13 +45,24 @@
 
   #profile-section {
     position: relative;
-    // padding: 3rem 0 0;
+
+    .logo-container {
+      opacity: .9;
+      position: absolute;
+      mix-blend-mode: soft-light;
+      width: 100%;
+      z-index: 1;
+
+      @media screen and (max-width: $screen_sm) {
+        top: 4rem;
+      }
+    }
 
     .profile-image-container {
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 2rem 0 2rem;
+      padding: 2rem 0 0;
 
       $img-s: 10rem;
       $img-centre: 46.6%;
@@ -101,18 +112,46 @@
       text-align: center;
     }
 
-
-    .logo-container {
-      opacity: .9;
-      position: absolute;
-      mix-blend-mode: soft-light;
-      width: 100%;
-      z-index: 1;
+    .fullname-container {
+      font-family: "Dancing Script", coaursive;
+      font-weight: 600; // 400 ~ 700
+      font-size: 3.3rem;
+      mix-blend-mode: difference;
+      color: #1c1c1c;
+      padding: .8rem 0 0;
 
       @media screen and (max-width: $screen_sm) {
-        top: 4rem;
+        padding: 1rem 0 0;
+        font-size: 2rem;
       }
     }
+
+    .role-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 1rem 1rem 0;
+
+      .role-single {
+        font-size: 1.2rem;
+        // border: 1px solid #fff;
+        padding: .3rem 1rem;
+        backdrop-filter: blur(13px);
+        color: #fff;
+        color: $theme-font-color;
+        font-weight: 600;
+        mix-blend-mode: exclusion;
+        z-index: 2;
+        border-top-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        box-shadow: $box-shadow;
+        cursor: unset;
+      }
+    }
+
 
     .quote-container {
       font-family: "Dancing Script", coaursive;
