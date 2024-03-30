@@ -7,9 +7,18 @@
 
   #track-info {
     font-size: 2rem;
+
+    a {
+      padding: 1rem;
+
+      img {
+        width: 100%;
+        max-width: 30rem;
+      }
+
+    }
   }
 
-  // TEST:
   .audio-preview {
     text-align: center;
     /* Centers the audio player */

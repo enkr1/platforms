@@ -382,6 +382,13 @@
 .spotify-container #track-info {
   font-size: 2rem;
 }
+.spotify-container #track-info a {
+  padding: 1rem;
+}
+.spotify-container #track-info a img {
+  width: 100%;
+  max-width: 30rem;
+}
 .spotify-container .audio-preview {
   text-align: center;
   /* Centers the audio player */
