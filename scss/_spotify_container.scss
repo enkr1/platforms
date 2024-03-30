@@ -1,9 +1,18 @@
+$spotify-theme-colour: #1BD760;
+
 .spotify-container {
   margin: 3rem 2cm 0;
   text-align: center;
-  border: 1px solid #fff;
+  border: 1px solid $spotify-theme-colour;
   backdrop-filter: blur(3px);
-  padding: 1rem;
+  padding: 1.4rem 3rem;
+  border-radius: 3rem;
+  // box-shadow: 0 0 .8rem .8rem #1BD760;
+  box-shadow: $box-shadow;
+
+  h1 {
+    color: $spotify-theme-colour;
+  }
 
   #track-info {
     font-size: 2rem;
