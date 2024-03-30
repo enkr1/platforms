@@ -477,3 +477,17 @@ body .footer p {
     font-size: 1.1rem;
   }
 }
+
+.audio-preview {
+  text-align: center;
+  /* Centers the audio player */
+  padding: 10px;
+}
+
+audio {
+  /* Styling the audio player */
+  width: 100%;
+  /* Full width */
+  max-width: 300px;
+  /* Max width, you can adjust it based on your design */
+}
