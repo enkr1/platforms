@@ -1,0 +1,26 @@
+.spotify-container {
+  margin: 3rem 2cm 0;
+  text-align: center;
+  border: 1px solid #fff;
+  backdrop-filter: blur(3px);
+  padding: 1rem;
+
+  #track-info {
+    font-size: 2rem;
+  }
+
+  // TEST:
+  .audio-preview {
+    text-align: center;
+    /* Centers the audio player */
+    padding: 10px;
+  }
+
+  audio {
+    /* Styling the audio player */
+    width: 100%;
+    /* Full width */
+    max-width: 300px;
+    /* Max width, you can adjust it based on your design */
+  }
+}
