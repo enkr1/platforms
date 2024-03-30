@@ -394,6 +394,8 @@
 }
 .spotify-container #track-info a {
   padding: 1rem;
+  display: block;
+  margin: auto;
 }
 .spotify-container #track-info a img {
   width: 100%;
