@@ -137,13 +137,12 @@
 
       .role-single {
         font-size: 1.2rem;
-        // border: 1px solid #fff;
         padding: .3rem 1rem;
         backdrop-filter: blur(13px);
         color: #fff;
         color: $theme-font-color;
         font-weight: 600;
-        mix-blend-mode: exclusion;
+        opacity: .8;
         z-index: 2;
         border-top-left-radius: 1rem;
         border-bottom-right-radius: 1rem;
