@@ -18,9 +18,10 @@ $spotify-theme-colour: #1BD760;
     font-size: 2rem;
 
     a {
-      padding: 1rem;
       display: block;
       margin: auto;
+      width: fit-content;
+      padding: 1rem;
 
       img {
         width: 100%;
