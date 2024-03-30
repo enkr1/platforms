@@ -386,9 +386,6 @@
   -webkit-box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.039);
           box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.039);
 }
-.spotify-container h1 {
-  color: #1BD760;
-}
 .spotify-container #track-info {
   font-size: 2rem;
 }
