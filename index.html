@@ -44,12 +44,61 @@
 <body class="is-loading">
     <div id="platform-page"></div>
     <div id="star-section"></div>
+
+    <div id="spotify-container"
+        style="margin: 3rem 0 0; text-align: center; border: 1px solid #fff;backdrop-filter: blur(3px);padding: 1rem;">
+        <h1>Spotify API Test</h1>
+        <h1>Spotify Currently Playing</h1>
+        <div id="track-info">Loading...</div>
+    </div>
     <script type="text/javascript" defer src="js/main.js"></script>
 
     <div class="footer">
         <p>&copy; 2022 ENKR. All rights reserved.</p>
         <p>Developed and designed by ENKR</p>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let params = new URLSearchParams(window.location.search);
+            let code = params.get('code');
+
+            if (code) {
+                // We have a code, let's get the currently playing track
+                fetchCurrentlyPlaying(code);
+            } else {
+                // No code found in URL, handle accordingly
+                document.getElementById('track-info').innerText = 'No Spotify code found. Please authorize first.';
+            }
+        });
+
+        function fetchCurrentlyPlaying(code) {
+            // The code here should exchange the 'code' for an access token and then fetch the currently playing track
+            // This is typically done via a server-side handler due to the need to keep secrets secure
+            // For demonstration purposes only, you would call your serverless function or server-side method here
+            console.log('Authorization code:', code);
+
+            // Example of what server-side would do:
+            // 1. Exchange code for an access token
+            // 2. Use the access token to call the Spotify API for the currently playing track
+            // 3. Send the track info back to the client-side
+
+            // Dummy data to simulate a response
+            const dummyTrackInfo = {
+                artist: 'Artist Name',
+                track: 'Track Title'
+            };
+
+            // Display the track info
+            displayTrackInfo(dummyTrackInfo);
+        }
+
+        function displayTrackInfo(trackInfo) {
+            let trackInfoDiv = document.getElementById('track-info');
+            trackInfoDiv.innerHTML = 'Now Playing: ' + trackInfo.track + ' by ' + trackInfo.artist;
+        }
+
+    </script>
 </body>
 
 </html>
