@@ -73,11 +73,6 @@
       "link": "https://open.spotify.com/user/212m4ap7bke7h64hn7nfxojxq"
     },
     {
-      "name": "Currently Playing",
-      "className": "spotify-currently-playing",
-      "link": "spotify_callback"
-    },
-    {
       "name": "SoundCloud",
       "className": "soundcloud",
       "link": "https://soundcloud.com/enkr1"
