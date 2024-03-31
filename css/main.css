@@ -376,15 +376,20 @@
 }
 
 .spotify-container {
-  margin: 3rem 2cm 0;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  max-width: 90vw;
+  margin: 3rem auto 0;
   text-align: center;
   border: 1px solid #1BD760;
   -webkit-backdrop-filter: blur(3px);
           backdrop-filter: blur(3px);
-  padding: 1.4rem 3rem;
+  padding: 1.4rem 1.8rem .8rem;
   border-radius: 3rem;
   -webkit-box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.039);
           box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.039);
+  background: #000;
 }
 .spotify-container #track-info {
   font-size: 2rem;
@@ -396,22 +401,31 @@
   width: -moz-fit-content;
   width: fit-content;
   padding: 1rem;
+  color: #000;
 }
 .spotify-container #track-info a img {
   width: 100%;
-  max-width: 30rem;
+  max-width: 13rem;
+  border-radius: 2rem;
+  -webkit-box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.039);
+          box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.039);
+  border: 1px solid #1BD760;
+}
+@media screen and (max-width: 768px) {
+  .spotify-container #track-info a img {
+    max-width: 15rem;
+  }
+}
+.spotify-container #track-info a .track-name {
+  padding: .3rem 0 .3rem;
 }
 .spotify-container .audio-preview {
+  display: none;
   text-align: center;
-  /* Centers the audio player */
-  padding: 10px;
 }
 .spotify-container audio {
-  /* Styling the audio player */
   width: 100%;
-  /* Full width */
   max-width: 300px;
-  /* Max width, you can adjust it based on your design */
 }
 
 * {
