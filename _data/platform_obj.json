@@ -76,6 +76,11 @@
       "name": "SoundCloud",
       "className": "soundcloud",
       "link": "https://soundcloud.com/enkr1"
+    },
+    {
+      "name": "Email Me for Opportunities",
+      "className": "email-me",
+      "link": "mailto:your.email@example.com?subject=Professional%20Opportunity%20Inquiry%20from%20Platforms&body=Greetings,%0D%0A%0D%0AI%20am%20reaching%20out%20to%20discuss%20potential%20collaborative%20opportunities%20that%20may%20include%20freelance%20projects,%20employment,%20side%20hustles,%20or%20other%20professional%20endeavors.%0D%0A%0D%0Ae.g.%20Please%20feel%20free%20to%20contact%20me%20so%20we%20can%20explore%20how%20we%20can%20work%20together.%0D%0A%0D%0ABest%20regards,%0D%0A%0D%0A[Your%20Name]"
     }
   ]
 }
