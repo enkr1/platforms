@@ -93,14 +93,14 @@
   margin: 6vh auto auto;
   -webkit-backdrop-filter: blur(3px);
           backdrop-filter: blur(3px);
-  -webkit-box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.039);
-          box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.039);
+  -webkit-box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
+          box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
 }
 @media screen and (max-width: 768px) {
   #platform-page {
     width: 90vw;
     margin: 2.2rem auto auto;
-    padding: .9rem 1rem 3rem;
+    padding: .9rem 1rem 1rem;
   }
 }
 #platform-page h2 {
@@ -120,6 +120,10 @@
   mix-blend-mode: soft-light;
   width: 100%;
   z-index: 1;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 @media screen and (max-width: 768px) {
   #platform-page #profile-section .logo-container {
@@ -155,8 +159,8 @@
   position: absolute;
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 100%;
-  height: 10.8rem;
-  width: 10.8rem;
+  height: 10.33rem;
+  width: 10.33rem;
   z-index: -1;
 }
 #platform-page #profile-section .profile-image-container::before {
@@ -175,17 +179,40 @@
   text-align: center;
 }
 #platform-page #profile-section .fullname-container {
-  font-family: "Dancing Script", coaursive;
-  font-weight: 600;
-  font-size: 3.3rem;
   mix-blend-mode: difference;
-  color: #1c1c1c;
   padding: .8rem 0 0;
 }
+#platform-page #profile-section .fullname-container p,
+#platform-page #profile-section .fullname-container span {
+  font-family: "Dancing Script", coaursive;
+  font-weight: 600;
+  font-size: 3.8rem;
+  color: #000;
+}
 @media screen and (max-width: 768px) {
-  #platform-page #profile-section .fullname-container {
-    padding: 1rem 0 0;
+  #platform-page #profile-section .fullname-container p,
+  #platform-page #profile-section .fullname-container span {
+    padding: 0rem 0 0;
     font-size: 2rem;
+  }
+}
+#platform-page #profile-section .fullname-container p .n-bold,
+#platform-page #profile-section .fullname-container span .n-bold {
+  font-weight: 700;
+}
+#platform-page #profile-section .quote-container span {
+  display: block;
+  font-family: "Dancing Script", coaursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 2rem;
+  opacity: .8;
+  padding: .8rem 0 .8rem;
+  color: #501c1c;
+}
+@media screen and (max-width: 768px) {
+  #platform-page #profile-section .quote-container span {
+    font-size: 1.8rem;
   }
 }
 #platform-page #profile-section .role-container {
@@ -212,21 +239,13 @@
   color: #fff;
   color: #842f2f;
   font-weight: 600;
-  opacity: .8;
+  opacity: .9;
   z-index: 2;
   border-top-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
-  -webkit-box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.039);
-          box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.039);
+  -webkit-box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
+          box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
   cursor: unset;
-}
-#platform-page #profile-section .quote-container {
-  font-family: "Dancing Script", coaursive;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 2.8rem;
-  opacity: .8;
-  color: #842f2f;
 }
 #platform-page #profile-section .list-icons-container {
   display: -webkit-box;
@@ -240,6 +259,7 @@
           align-items: center;
   gap: 3rem;
   z-index: 2;
+  margin: 1.5rem 0 0;
 }
 @media screen and (max-width: 768px) {
   #platform-page #profile-section .list-icons-container {
@@ -247,6 +267,15 @@
   }
 }
 #platform-page #profile-section .list-icons-container a {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 1rem;
 }
 #platform-page #profile-section .list-icons-container a img {
@@ -301,8 +330,8 @@
   -webkit-backdrop-filter: blur(3px);
           backdrop-filter: blur(3px);
   background-color: rgba(255, 255, 255, 0.3);
-  -webkit-box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.039);
-          box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.039);
+  -webkit-box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
+          box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
 }
 @media screen and (max-width: 768px) {
   #platform-page #platform-section .single-button {
@@ -370,29 +399,41 @@
 #platform-page #platform-section .single-button a:focus-visible {
   outline: revert;
 }
+#platform-page .news-container {
+  width: 100%;
+  max-width: 90vw;
+  min-height: 10rem;
+  text-align: center;
+  border-radius: 3rem;
+  -webkit-box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
+          box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
+  padding: 1.2rem 1rem;
+}
 
 .spotify-theme {
   color: #1BD760;
 }
 
 .spotify-container {
+  min-width: 27rem;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   max-width: 90vw;
-  margin: 3rem auto 0;
+  margin: 0 auto 0;
   text-align: center;
   border: 1px solid #1BD760;
   -webkit-backdrop-filter: blur(3px);
           backdrop-filter: blur(3px);
-  padding: 1.4rem 1.8rem .8rem;
+  padding: 1.5rem 1.8rem 1.1rem;
   border-radius: 3rem;
-  -webkit-box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.039);
-          box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.039);
+  -webkit-box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
+          box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
   background: #000;
 }
 .spotify-container #track-info {
   font-size: 2rem;
+  color: #fff;
 }
 .spotify-container #track-info a {
   display: block;
@@ -401,14 +442,13 @@
   width: -moz-fit-content;
   width: fit-content;
   padding: 1rem;
-  color: #fff;
 }
 .spotify-container #track-info a img {
   width: 100%;
   max-width: 13rem;
   border-radius: 2rem;
-  -webkit-box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.039);
-          box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.039);
+  -webkit-box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
+          box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
   border: 1px solid #1BD760;
 }
 @media screen and (max-width: 768px) {

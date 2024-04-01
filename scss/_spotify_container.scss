@@ -5,13 +5,14 @@ $spotify-theme-colour: #1BD760;
 }
 
 .spotify-container {
+  min-width: 27rem;
   width: fit-content;
   max-width: 90vw;
-  margin: 3rem auto 0;
+  margin: 0 auto 0;
   text-align: center;
   border: 1px solid $spotify-theme-colour;
   backdrop-filter: blur(3px);
-  padding: 1.4rem 1.8rem .8rem;
+  padding: 1.5rem 1.8rem 1.1rem;
   border-radius: 3rem;
   // box-shadow: 0 0 .8rem .8rem #1BD760;
   box-shadow: $box-shadow;
@@ -19,13 +20,13 @@ $spotify-theme-colour: #1BD760;
 
   #track-info {
     font-size: 2rem;
+    color: #fff;
 
     a {
       display: block;
       margin: auto;
       width: fit-content;
       padding: 1rem;
-      color: #fff;
 
       img {
         width: 100%;

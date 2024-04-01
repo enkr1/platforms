@@ -26,7 +26,7 @@
   @media screen and (max-width: $screen_sm) {
     width: 90vw;
     margin: 2.2rem auto auto;
-    padding: .9rem 1rem 3rem;
+    padding: .9rem 1rem 1rem;
   }
 
   h2 {
@@ -50,6 +50,7 @@
       mix-blend-mode: soft-light;
       width: 100%;
       z-index: 1;
+      user-select: none;
 
       @media screen and (max-width: $screen_sm) {
         top: 4rem;
@@ -86,8 +87,8 @@
         // background-color: rgba(0, 0, 0, 0.4);
         background-color: rgba(255, 255, 255, 0.8);
         border-radius: 100%;
-        height: $img-s + .8rem;
-        width: $img-s + .8rem;
+        height: $img-s + .33rem;
+        width: $img-s + .33rem;
         z-index: -1;
       }
 
@@ -111,16 +112,42 @@
     }
 
     .fullname-container {
-      font-family: "Dancing Script", coaursive;
-      font-weight: 600; // 400 ~ 700
-      font-size: 3.3rem;
       mix-blend-mode: difference;
-      color: #1c1c1c;
+      // color: #1c1c1c;
       padding: .8rem 0 0;
 
-      @media screen and (max-width: $screen_sm) {
-        padding: 1rem 0 0;
+      p,
+      span {
+        font-family: "Dancing Script", coaursive;
+        font-weight: 600; // 400 ~ 700
+        font-size: 3.8rem;
+        color: #000;
+
+        @media screen and (max-width: $screen_sm) {
+          padding: 0rem 0 0;
+          font-size: 2rem;
+        }
+
+        .n-bold {
+          font-weight: 700;
+        }
+      }
+    }
+
+    .quote-container {
+      span {
+        display: block;
+        font-family: "Dancing Script", coaursive;
+        font-weight: 400; // 400 ~ 700
+        font-style: normal;
         font-size: 2rem;
+        opacity: .8;
+        padding: .8rem 0 .8rem;
+        color: #501c1c;
+
+        @media screen and (max-width: $screen_sm) {
+          font-size: 1.8rem;
+        }
       }
     }
 
@@ -140,7 +167,7 @@
         color: #fff;
         color: $theme-font-color;
         font-weight: 600;
-        opacity: .8;
+        opacity: .9;
         z-index: 2;
         border-top-left-radius: 1rem;
         border-bottom-right-radius: 1rem;
@@ -149,29 +176,22 @@
       }
     }
 
-
-    .quote-container {
-      font-family: "Dancing Script", coaursive;
-      font-weight: 400; // 400 ~ 700
-      font-style: normal;
-      font-size: 2.8rem;
-      opacity: .8;
-      color: $theme-font-color;
-      // mix-blend-mode: difference;
-    }
-
     .list-icons-container {
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 3rem;
       z-index: 2;
+      margin: 1.5rem 0 0;
 
       @media screen and (max-width: $screen_sm) {
         gap: .8rem;
       }
 
       a {
+        justify-content: center;
+        display: flex;
+        align-items: center;
         padding: 1rem;
 
         img {
@@ -199,6 +219,7 @@
         }
       }
     }
+
   }
 
   #platform-section {
@@ -292,5 +313,16 @@
         }
       }
     }
+  }
+
+  .news-container {
+    width: 100%;
+    max-width: 90vw;
+    min-height: 10rem;
+    text-align: center;
+    // border: 1px solid #fff;
+    border-radius: 3rem;
+    box-shadow: $box-shadow;
+    padding: 1.2rem 1rem;
   }
 }
