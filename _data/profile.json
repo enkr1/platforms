@@ -3,7 +3,19 @@
   "lastname": "PANG",
   "nickname": "ENKR",
   "bio": "Looping beats, coding feats, lifting spirits.",
-  "roles": ["Full-Stack Software Engineer", "Beatboxer", "Fitness Enthusiast", "ByteDancer"],
+  "roles": [
+    "Full-Stack Software Engineer",
+    "Beatboxer",
+    "Fitness Enthusiast",
+    "ByteDancer",
+    "Lifelong Learner"
+  ],
+  "priorityFocuses": [
+    "Degree Pursuit: Enroll in and excel in a Computer Science degree program to solidify my technical foundation and open new career avenues.",
+    "Excellence at ByteDance: Strive to become an exemplary software engineer, potentially stepping into a leadership role or setting a standard for peers.",
+    "Financial Growth: Begin investing to diversify income sources and secure long-term financial stability.",
+    "Personal Development: Dedicate time to personal growth, exploring new hobbies or skills that enhance creativity and well-being outside of work."
+  ],
   "achievements": [
     {
       "title": "list_beatboxing_achievements()",
