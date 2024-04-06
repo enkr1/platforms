@@ -459,6 +459,9 @@
 .spotify-container #track-info a .track-name {
   padding: .3rem 0 .3rem;
 }
+.spotify-container #track-info p.nicp {
+  padding: 1rem;
+}
 .spotify-container .audio-preview {
   display: none;
   text-align: center;
