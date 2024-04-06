@@ -6,16 +6,24 @@
   // border: 1px solid #fff;
   border-radius: 3rem;
   box-shadow: $box-shadow;
-  padding: 1.2rem 1rem;
-  background-color: #ffffff84;
+  padding: 1.2rem 0;
+  background-color: #ffffffb2;
 
-  h1,
-  p {
-    color: #000 !important;
+  h1 {
+    color: $theme-color;
+    opacity: .8;
   }
 
-  p {
-    padding: 1.4rem 0 0;
-  }
+  .pf-list {
+    padding: 0 3.3rem 2rem;
+    display: flex;
+    flex-direction: column;
 
+    p {
+      color: #000 !important;
+      padding: 1.2rem 0 0;
+      font-size: 1.4rem;
+      text-align: left;
+    }
+  }
 }
