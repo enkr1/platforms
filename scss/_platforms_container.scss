@@ -51,6 +51,7 @@
       width: 100%;
       z-index: 1;
       user-select: none;
+      opacity: .3;
 
       @media screen and (max-width: $screen_sm) {
         top: 4rem;
@@ -102,7 +103,6 @@
         width: $img-s;
         object-fit: cover;
         border-radius: 100%;
-
       }
     }
 
@@ -141,9 +141,10 @@
         font-weight: 400; // 400 ~ 700
         font-style: normal;
         font-size: 2rem;
-        opacity: .8;
+        opacity: .9;
         padding: .8rem 0 .8rem;
         color: #501c1c;
+        cursor: default;
 
         @media screen and (max-width: $screen_sm) {
           font-size: 1.8rem;
@@ -167,7 +168,6 @@
         color: #fff;
         color: $theme-font-color;
         font-weight: 600;
-        opacity: .9;
         z-index: 2;
         border-top-left-radius: 1rem;
         border-bottom-right-radius: 1rem;
@@ -313,16 +313,5 @@
         }
       }
     }
-  }
-
-  .news-container {
-    width: 100%;
-    max-width: 90vw;
-    min-height: 10rem;
-    text-align: center;
-    // border: 1px solid #fff;
-    border-radius: 3rem;
-    box-shadow: $box-shadow;
-    padding: 1.2rem 1rem;
   }
 }

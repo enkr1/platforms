@@ -3,7 +3,7 @@
   "lastname": "PANG",
   "nickname": "ENKR",
   "bio": "Looping beats, coding feats, lifting spirits.",
-  "roles": ["Full-Stack Software Engineer", "Beatboxer", "Fitness Enthusiast"],
+  "roles": ["Full-Stack Software Engineer", "Beatboxer", "Fitness Enthusiast", "ByteDancer"],
   "achievements": [
     {
       "title": "list_beatboxing_achievements()",

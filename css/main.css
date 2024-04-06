@@ -124,6 +124,7 @@
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  opacity: .3;
 }
 @media screen and (max-width: 768px) {
   #platform-page #profile-section .logo-container {
@@ -206,9 +207,10 @@
   font-weight: 400;
   font-style: normal;
   font-size: 2rem;
-  opacity: .8;
+  opacity: .9;
   padding: .8rem 0 .8rem;
   color: #501c1c;
+  cursor: default;
 }
 @media screen and (max-width: 768px) {
   #platform-page #profile-section .quote-container span {
@@ -239,7 +241,6 @@
   color: #fff;
   color: #842f2f;
   font-weight: 600;
-  opacity: .9;
   z-index: 2;
   border-top-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
@@ -399,16 +400,6 @@
 #platform-page #platform-section .single-button a:focus-visible {
   outline: revert;
 }
-#platform-page .news-container {
-  width: 100%;
-  max-width: 90vw;
-  min-height: 10rem;
-  text-align: center;
-  border-radius: 3rem;
-  -webkit-box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
-          box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
-  padding: 1.2rem 1rem;
-}
 
 .spotify-theme {
   color: #1BD760;
@@ -469,6 +460,25 @@
 .spotify-container audio {
   width: 100%;
   max-width: 300px;
+}
+
+.news-container {
+  width: 100%;
+  max-width: 90vw;
+  min-height: 10rem;
+  text-align: center;
+  border-radius: 3rem;
+  -webkit-box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
+          box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
+  padding: 1.2rem 1rem;
+  background-color: #ffffff84;
+}
+.news-container h1,
+.news-container p {
+  color: #000 !important;
+}
+.news-container p {
+  padding: 1.4rem 0 0;
 }
 
 * {
