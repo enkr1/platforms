@@ -122,17 +122,22 @@ body {
     text-align: center;
     width: 100%;
     color: #fff;
-    opacity: .8;
     animation: fadeInOut 1.8s infinite;
+    letter-spacing: .1rem;
+
+    @media screen and (max-width: $screen_sm) {
+        font-size: 1rem;
+    }
 }
 
 @keyframes fadeInOut {
+
     0%,
     100% {
         opacity: 0;
     }
 
     50% {
-        opacity: 1;
+        opacity: .8;
     }
 }

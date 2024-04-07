@@ -631,9 +631,14 @@ body .footer p {
   text-align: center;
   width: 100%;
   color: #fff;
-  opacity: .8;
   -webkit-animation: fadeInOut 1.8s infinite;
           animation: fadeInOut 1.8s infinite;
+  letter-spacing: .1rem;
+}
+@media screen and (max-width: 768px) {
+  .loading-indicator {
+    font-size: 1rem;
+  }
 }
 
 @-webkit-keyframes fadeInOut {
@@ -642,7 +647,7 @@ body .footer p {
     opacity: 0;
   }
   50% {
-    opacity: 1;
+    opacity: .8;
   }
 }
 
@@ -652,6 +657,6 @@ body .footer p {
     opacity: 0;
   }
   50% {
-    opacity: 1;
+    opacity: .8;
   }
 }
