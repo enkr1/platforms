@@ -76,10 +76,6 @@
   border-top: calc(var(--star-size) * 1.73205) solid red;
 }
 
-.is-loading {
-  opacity: 0;
-}
-
 #platform-page {
   position: relative;
   z-index: 2;
@@ -266,7 +262,7 @@
 }
 @media screen and (max-width: 768px) {
   #platform-page #profile-section .list-icons-container {
-    gap: .8rem;
+    gap: .6rem;
   }
 }
 #platform-page #profile-section .list-icons-container a {
@@ -476,7 +472,7 @@
   -webkit-box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
           box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
   padding: 1.2rem 0;
-  background-color: #ffffffb2;
+  background-color: #ffffff8d;
 }
 .priority-focuses-container h1 {
   color: #ff0000;
@@ -622,5 +618,40 @@ body .footer p {
 @media screen and (max-width: 480px) {
   body .footer p {
     font-size: 1.1rem;
+  }
+}
+
+.loading-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  font-size: 1.4rem;
+  text-align: center;
+  width: 100%;
+  color: #fff;
+  opacity: .8;
+  -webkit-animation: fadeInOut 1.8s infinite;
+          animation: fadeInOut 1.8s infinite;
+}
+
+@-webkit-keyframes fadeInOut {
+  0%,
+    100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInOut {
+  0%,
+    100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
   }
 }
