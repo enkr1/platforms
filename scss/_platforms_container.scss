@@ -16,6 +16,7 @@
   z-index: 2;
   min-width: 60vw;
   width: fit-content;
+  max-width: 87vw;
   background: #ffffff1a;
   border-radius: 3rem;
   padding: 3rem 3rem 6rem;
@@ -25,6 +26,7 @@
 
   @media screen and (max-width: $screen_sm) {
     width: 90vw;
+    max-width: 95vw;
     margin: 2.2rem auto auto;
     padding: .9rem 1rem 1rem;
   }
