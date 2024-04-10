@@ -73,6 +73,11 @@
       "link": "https://soundcloud.com/enkr1"
     },
     {
+      "name": "StackOverflow",
+      "className": "stackoverflow",
+      "link": "https://stackoverflow.com/users/13677125/jinghui-p"
+    },
+    {
       "name": "LeetCode",
       "className": "leetcode",
       "link": "https://leetcode.com/enkr1/"
