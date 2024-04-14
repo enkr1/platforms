@@ -209,6 +209,15 @@
   padding: .8rem 0 .8rem;
   color: #501c1c;
   cursor: default;
+  background: #ffffffcf;
+  border-radius: 1rem;
+  padding: 1rem 1.2rem;
+  margin: 2rem auto 1rem;
+  -webkit-box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
+          box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 @media screen and (max-width: 768px) {
   #platform-page #profile-section .quote-container span {

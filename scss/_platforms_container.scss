@@ -147,6 +147,12 @@
         padding: .8rem 0 .8rem;
         color: #501c1c;
         cursor: default;
+        background: #ffffffcf;
+        border-radius: 1rem;
+        padding: 1rem 1.2rem;
+        margin: 2rem auto 1rem;
+        box-shadow: $box-shadow;
+        width: fit-content;
 
         @media screen and (max-width: $screen_sm) {
           font-size: 1.8rem;
