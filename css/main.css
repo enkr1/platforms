@@ -117,7 +117,7 @@
   position: absolute;
   mix-blend-mode: soft-light;
   width: 100%;
-  z-index: 1;
+  z-index: -1;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -126,7 +126,8 @@
 }
 @media screen and (max-width: 768px) {
   #platform-page #profile-section .logo-container {
-    top: 4rem;
+    top: 3.9rem;
+    z-index: 1;
   }
 }
 #platform-page #profile-section .profile-image-container {
@@ -178,7 +179,6 @@
   text-align: center;
 }
 #platform-page #profile-section .fullname-container {
-  mix-blend-mode: difference;
   padding: .8rem 0 0;
 }
 #platform-page #profile-section .fullname-container p,
@@ -268,7 +268,6 @@
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   gap: 3rem;
-  z-index: 2;
   margin: 1.5rem 0 0;
 }
 @media screen and (max-width: 768px) {

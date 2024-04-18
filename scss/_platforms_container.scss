@@ -51,12 +51,13 @@
       position: absolute;
       mix-blend-mode: soft-light;
       width: 100%;
-      z-index: 1;
+      z-index: -1;
       user-select: none;
       opacity: .3;
 
       @media screen and (max-width: $screen_sm) {
-        top: 4rem;
+        top: 3.9rem;
+        z-index: 1;
       }
     }
 
@@ -114,7 +115,7 @@
     }
 
     .fullname-container {
-      mix-blend-mode: difference;
+      // mix-blend-mode: difference;
       // color: #1c1c1c;
       padding: .8rem 0 0;
 
@@ -190,7 +191,7 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 3rem;
-      z-index: 2;
+      // z-index: 2;
       margin: 1.5rem 0 0;
 
       @media screen and (max-width: $screen_sm) {
