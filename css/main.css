@@ -260,7 +260,10 @@
 }
 @media screen and (max-width: 768px) {
   #platform-page #profile-section .role-container .role-single {
-    font-size: 1rem;
+    padding: .3rem .8rem;
+    font-size: .9rem;
+    border-top-left-radius: .8rem;
+    border-bottom-right-radius: .8rem;
   }
 }
 #platform-page #profile-section .list-icons-container {
