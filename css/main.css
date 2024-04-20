@@ -84,6 +84,9 @@
   width: -moz-fit-content;
   width: fit-content;
   max-width: 87vw;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
   background: #ffffff1a;
   border-radius: 3rem;
   padding: 3rem 3rem 6rem;
@@ -631,11 +634,6 @@ body .footer p {
 }
 
 .loading-indicator {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
   font-size: 1.4rem;
   text-align: center;
   width: 100%;
@@ -643,10 +641,12 @@ body .footer p {
   -webkit-animation: fadeInOut 1.8s infinite;
           animation: fadeInOut 1.8s infinite;
   letter-spacing: .1rem;
+  padding: 2.5rem 0 0;
 }
 @media screen and (max-width: 768px) {
   .loading-indicator {
     font-size: 1rem;
+    padding: .8rem;
   }
 }
 
