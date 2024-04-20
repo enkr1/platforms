@@ -258,6 +258,11 @@
           box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
   cursor: unset;
 }
+@media screen and (max-width: 768px) {
+  #platform-page #profile-section .role-container .role-single {
+    font-size: 1rem;
+  }
+}
 #platform-page #profile-section .list-icons-container {
   display: -webkit-box;
   display: -ms-flexbox;
