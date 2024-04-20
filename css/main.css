@@ -264,8 +264,8 @@
     font-size: .9rem;
     border-top-left-radius: .8rem;
     border-bottom-right-radius: .8rem;
-    -webkit-box-shadow: 0 0 0.5rem 0.5rem rgba(0, 0, 0, 0.043);
-            box-shadow: 0 0 0.5rem 0.5rem rgba(0, 0, 0, 0.043);
+    -webkit-box-shadow: 0 0 0.4rem 0.4rem rgba(0, 0, 0, 0.05);
+            box-shadow: 0 0 0.4rem 0.4rem rgba(0, 0, 0, 0.05);
   }
 }
 #platform-page #profile-section .list-icons-container {
