@@ -183,6 +183,7 @@
         border-bottom-right-radius: 1rem;
         box-shadow: $box-shadow;
         cursor: unset;
+        background-color: rgba(255, 255, 255, 0.33);
 
         @media screen and (max-width: $screen_sm) {
           padding: .3rem .8rem;

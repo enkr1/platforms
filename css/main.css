@@ -257,6 +257,7 @@
   -webkit-box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
           box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
   cursor: unset;
+  background-color: rgba(255, 255, 255, 0.33);
 }
 @media screen and (max-width: 768px) {
   #platform-page #profile-section .role-container .role-single {
