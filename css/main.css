@@ -87,7 +87,7 @@
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
-  background: #ffffff1a;
+  background-color: rgba(255, 255, 255, 0.13);
   border-radius: 3rem;
   padding: 3rem 3rem 6rem;
   margin: 6vh auto auto;
