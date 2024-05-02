@@ -1,11 +1,9 @@
 // List of colours
-
 $theme-dark-color: #080017;
 $theme-dark-color: #080010;
 $theme-dark-color: #040009;
-$theme-color: #7eff70;
-$theme-color: #60ff58;
-$theme-light-color: #e8ffe4;
+$theme-color: #ff0000;
+$theme-light-color: #fff;
 
 // --- Text scheme ---
 // main-p-color
@@ -41,15 +39,16 @@ $g: 88;
 // 0 0.3rem 3rem rgba($r, $b, $g, 0.03);
 
 $neumorphism-box-shadow: 0 -.8rem 0 rgba($r, $b, $g, 0.08),
-.8rem 0 0 rgba($r, $b, $g, 0.1),
--.8rem 0 0 rgba($r, $b, $g, 0.1),
-0 .8rem 0 rgba($r, $b, $g, 0.3);
+  .8rem 0 0 rgba($r, $b, $g, 0.1),
+  -.8rem 0 0 rgba($r, $b, $g, 0.1),
+  0 .8rem 0 rgba($r, $b, $g, 0.3);
 // 0 100px 80px rgba($r, $b, $g, 0.22);
 
 $theme-gradient: linear-gradient(0deg, $theme-color, $theme-dark-color);
 
 // --background
-$theme-background: linear-gradient(0deg, $theme-color, $theme-dark-color) no-repeat center fixed;
+// $theme-background: linear-gradient(0deg, $theme-color, $theme-dark-color) no-repeat center fixed;
+$theme-background: linear-gradient(0deg, rgb(255, 255, 255) 0%, #c60000 100%);
 // --mobile-bar-color
 $theme-mobile-bar-color: linear-gradient(45deg, $theme-dark-color, $theme-color, $theme-light-color);
 // --mobile-bar-bg

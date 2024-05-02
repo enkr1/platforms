@@ -1,0 +1,20 @@
+.news-container {
+  width: 100%;
+  max-width: 90vw;
+  min-height: 10rem;
+  text-align: center;
+  // border: 1px solid #fff;
+  border-radius: 3rem;
+  box-shadow: $box-shadow;
+  padding: 1.2rem 1rem;
+  background-color: #ffffff84;
+
+  h1,
+  p {
+    color: #000 !important;
+  }
+
+  p {
+    padding: 1.4rem 0 0;
+  }
+}

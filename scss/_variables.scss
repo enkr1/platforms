@@ -1,5 +1,3 @@
-// TODO: Refactor, separate colours, fs, etc.
-
 /**
 *
 **/
@@ -9,6 +7,7 @@ $screen_xl: 1440px;
 $screen_lg: 1281px;
 $screen_md_1: 1024px;
 $screen_md_2: 992px;
+
 /* tablet */
 $screen_sm: 768px;
 $screen_xs: 480px;
@@ -21,3 +20,6 @@ $logo-text-letter-spacing: .6rem;
 $default_global_font_size: 1.2rem;
 $sm_global_font_size: 1.15rem;
 $xs_global_font_size: 1.1rem;
+
+$box-shadow: 0 0 .8rem .8rem rgba(0, 0, 0, 0.043);
+$box-shadow-inner: .3rem .3rem .8rem .3rem rgba(0, 0, 0, 0.075);

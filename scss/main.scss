@@ -1,9 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+
 @import "_00-colours";
 @import "_variables";
 @import "_stars";
+@import "_platforms_container";
+@import "_spotify_container";
+@import "_priority_focuses_container";
+@import "_news_container";
 
-// https://fonts.google.com/specimen/Poppins
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
 
 * {
     margin: 0;
@@ -11,6 +16,10 @@
     box-sizing: border-box;
     user-select: none;
     font-family: 'Poppins', sans-serif;
+}
+
+p {
+    font-optical-sizing: auto;
 }
 
 html {
@@ -56,23 +65,13 @@ a:focus {
     border: none;
 }
 
-.elixir-pipe-style {
-    &::before {
-        content: "|>";
-        padding: 0 .6rem 0 0;
-        color: #fff;
-        // font-size: 1.4rem;
-    }
-}
-
 body {
-    width: 100vw;
     height: 100%;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    gap: 1rem;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: space-around;
+    // gap: 1rem;
 
     /* scroll-snap-type: y mandatory;
     overflow-y: scroll; */
@@ -82,11 +81,11 @@ body {
     //     background: url("https://enkr1.github.io/web/images/bg-img-mobile-1.jpg") no-repeat center fixed;
     // }
 
-    box-shadow: inset 0 0 100vw 100vh #00000040;
+    // box-shadow: inset 0 0 100vw 100vh #00000040;
     /* This will be displayed if it is loading for too long */
     // background-color: #000000;
     // background-color: #15163a;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(69, 23, 124, 1) 100%);
+    background: $theme-background;
     /*  Neumorphism Theme */
     // background: $theme-background;
     background-size: cover !important;
@@ -96,296 +95,51 @@ body {
         text-align: center;
         height: 10vh;
         width: 100%;
+        margin: auto 0 0;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        margin: 3rem 0 0;
 
         p {
-            font-size: 1rem;
+            font-size: 1.3rem;
             letter-spacing: .1rem;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(0, 0, 0, 0.8);
+
+            @media screen and (max-width: $screen_xs) {
+                font-size: 1.1rem;
+            }
         }
     }
 }
 
-#platform-page {
-    $font-color-platform: #fff;
-    $font-size-al-title-xl: 1.5rem;
-    $font-size-al-title-sm: 1.4rem;
-    $font-size-al-title-xs: 1.3rem;
-    $font-size-al-p-xl: 1.4rem;
-    $font-size-al-p-sm: 1.3rem;
-    $font-size-al-p-xs: 1.2rem;
-    $font-size-platforms-p-xl: $font-size-al-p-xl;
-    $font-size-platforms-p-sm: $font-size-al-p-sm;
-    $font-size-platforms-p-xs: $font-size-al-p-sm;
+.loading-indicator {
+    // position: absolute;
+    // top: 50%;
+    // left: 50%;
+    // transform: translate(-50%, -50%);
+    font-size: 1.4rem;
+    text-align: center;
+    width: 100%;
+    color: #fff;
+    animation: fadeInOut 1.8s infinite;
+    letter-spacing: .1rem;
+    padding: 2.5rem 0 0;
 
-    width: 100vw;
-    height: fit-content;
-    padding: 3% 0 10%;
+    @media screen and (max-width: $screen_sm) {
+        font-size: 1rem;
+        padding: .8rem;
+    }
+}
 
-    h2,
-    p,
-    span {
-        color: $font-color-platform;
-        letter-spacing: unset;
-        word-spacing: unset;
+@keyframes fadeInOut {
+
+    0%,
+    100% {
+        opacity: 0;
     }
 
-    #profile-section {
-        position: relative;
-
-        .profile-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 2rem 0;
-
-            $img-h: 10rem;
-            $img-w: 10rem;
-            $img-centre: 46.6%;
-            $img-rotate-y: 0;
-            background-color: rgba(255, 255, 255, 0);
-
-            @keyframes profileAnim {
-                0% {
-                    // top: 0%;
-                    // left: $img-centre - 1%;
-                }
-
-                100% {
-                    // transform: rotate(360deg) translate($img-centre, $img-rotate-y);
-                    // transform-origin: center center;
-                    transform: translate(0, -2px) scale(1.1);
-                }
-            }
-
-            &::before {
-                content: "";
-                position: absolute;
-                background-color: rgba(255, 255, 255, 0.4);
-                border-radius: 100%;
-                height: $img-h;
-                width: $img-w;
-                z-index: -1;
-            }
-
-            &::before {
-                transform: translate(0, -2px);
-                // transform: rotate(0deg) translate($img-centre, $img-rotate-y);
-                animation: profileAnim 1s infinite alternate;
-            }
-
-            img {
-                height: $img-h;
-                width: $img-w;
-                object-fit: cover;
-                border-radius: 100%;
-
-            }
-        }
-
-        .al-container {
-            width: 50vw;
-            margin: 0 auto 2rem;
-
-            @media screen and (max-width: $screen_sm) {
-                width: 80%;
-            }
-
-            @media screen and (max-width: $screen_xs) {
-                width: 85%;
-            }
-
-            h1.achievement-title.collapsible {
-                text-align: center;
-                cursor: pointer;
-                width: fit-content;
-                margin: auto;
-
-                @media screen and (max-width: $screen_sm) {
-                    font-size: 1.7rem;
-                }
-
-                @media screen and (max-width: $screen_xs) {
-                    font-size: 1.6rem;
-                }
-
-                &::before {
-                    content: ">";
-                    padding: 0 .8rem 0 0;
-                }
-
-                &.active {
-                    &::before {
-                        content: "_";
-                    }
-                }
-            }
-
-            @keyframes fadeIn {
-                0% {
-                    opacity: 0;
-                }
-
-                100% {
-                    opacity: 1;
-                }
-            }
-
-            .list-container {
-                opacity: 0;
-                display: none;
-                background-color: rgba(255, 255, 255, 0.1);
-                transition: all .6s ease-in-out;
-
-                &.fade-in {
-                    display: block;
-                    margin-top: 1rem;
-                    animation: fadeIn 2s forwards;
-                }
-
-                .category-container {
-                    position: relative;
-                    padding: 0 1rem 1rem;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 1rem;
-
-                    &:not(:last-child) {
-                        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                    }
-
-                    h2 {
-                        top: 0;
-                        left: 0;
-                        font-size: $font-size-al-title-xl;
-                        opacity: .5;
-                        transform: translate(0, 35%);
-
-                        @media screen and (max-width: $screen_sm) {
-                            font-size: $font-size-al-title-sm;
-                        }
-
-                        @media screen and (max-width: $screen_xs) {
-                            font-size: $font-size-al-title-xs;
-                        }
-                    }
-
-                    .title-list-container {
-                        width: fit-content;
-
-                        p.al-title {
-                            color: $theme-light-color;
-                            font-size: $font-size-al-p-xl;
-
-                            span:nth-child(2) {
-                                letter-spacing: .1rem;
-                            }
-
-                            span {
-                                opacity: .8;
-                            }
-
-                            @media screen and (max-width: $screen_sm) {
-                                font-size: $font-size-al-p-sm;
-                            }
-
-                            @media screen and (max-width: $screen_xs) {
-                                font-size: $font-size-al-p-xs;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    #platform-section {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem;
-        z-index: 2;
-
-        span {
-            font-weight: 400;
-        }
-
-        // Button
-        .single-button {
-            background-color: rgba(0, 0, 0, 0.2);
-            text-align: center;
-            height: -moz-max-content;
-            height: fit-content !important;
-            transition: all .3s ease-in-out;
-            width: 80vw;
-            padding: .4rem 1.2rem;
-            border: 1px solid transparent;
-
-            // @media screen and (max-width: $screen_sm) {
-            //     width: 80vw;
-            // }
-
-            @media screen and (max-width: $screen_xs) {
-                width: 85vw;
-            }
-
-            // TODO: BE CREATIVE, NEXT TIME
-            // https://www.joshwcomeau.com/animation/3d-button/
-            // &.single-button-name
-
-            &:hover {
-                transform: scale(.99);
-                // background-color: rgba(255, 255, 255, 0.8);
-                border: 1px solid $theme-light-color;
-
-                a span,
-                ::before {
-                    // color: #000;
-                    font-weight: bold;
-                }
-            }
-
-            // Link
-            a {
-                display: flex;
-                align-items: center;
-                justify-content: start;
-                height: 3.4rem;
-                // text-transform: uppercase;
-
-                @media screen and (max-width: $screen_sm) {
-                    height: 3rem;
-                    // width: 80vw;
-                }
-
-                span {
-                    font-size: $font-size-platforms-p-xl;
-                    opacity: 1 !important;
-
-                    @media screen and (max-width: $screen_sm) {
-                        font-size: $font-size-platforms-p-sm;
-                    }
-
-                    @media screen and (max-width: $screen_xs) {
-                        font-size: $font-size-platforms-p-xs;
-                    }
-                }
-
-                &:active {
-                    outline: none;
-                }
-
-                &:focus:not(:focus-visible) {
-                    outline: none;
-                }
-
-                &:focus-visible {
-                    outline: revert;
-                }
-            }
-        }
+    50% {
+        opacity: .8;
     }
 }

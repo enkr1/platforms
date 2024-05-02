@@ -2,6 +2,23 @@
   "firstname": "Jing Hui",
   "lastname": "PANG",
   "nickname": "ENKR",
+  "bio": "If you really try your best, you would never fail. Everything is rented, you can't start slipping.",
+  "roles": [
+    "Full-Stack Software Engineer",
+    "ByteDancer",
+    "Beatboxer",
+    "4x Beatbox Champion",
+    "Fitness Enthusiast",
+    "Perpetual Learner",
+    "Unending Explorer",
+    "Growth Mindset Proponent"
+  ],
+  "priorityFocuses": [
+    "Degree Pursuit: Enroll in and excel in a Computer Science degree program to solidify my technical foundation and open new career avenues.",
+    "Excellence at ByteDance: Strive to become an exemplary software engineer, potentially stepping into a leadership role or setting a standard for peers.",
+    "Financial Growth: Begin investing to diversify income sources and secure long-term financial stability.",
+    "Personal Development: Dedicate time to personal growth, exploring new hobbies or skills that enhance creativity and well-being outside of work."
+  ],
   "achievements": [
     {
       "title": "list_beatboxing_achievements()",
