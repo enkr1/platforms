@@ -72,41 +72,13 @@
       $img-s: 10rem;
       $img-centre: 46.6%;
       $img-rotate-y: 0;
-      // background-color: rgba(255, 255, 255, 0);
-
-      @keyframes profileAnim {
-        0% {
-          // top: 0%;
-          // left: $img-centre - 1%;
-        }
-
-        100% {
-          // transform: rotate(360deg) translate($img-centre, $img-rotate-y);
-          // transform-origin: 0 0;
-          transform: translate(-.3px, -3px) scale(1.1);
-        }
-      }
-
-      &::before {
-        content: "";
-        position: absolute;
-        // background-color: rgba(0, 0, 0, 0.4);
-        background-color: rgba(255, 255, 255, 0.8);
-        border-radius: 100%;
-        height: $img-s + .33rem;
-        width: $img-s + .33rem;
-        z-index: -1;
-      }
-
-      &::before {
-        transform: translate(0, -2px);
-        // animation: profileAnim 1s infinite alternate;
-      }
 
       img {
         height: $img-s;
         width: $img-s;
         object-fit: cover;
+        border: 1px solid #fff;
+        box-shadow: $box-shadow;
         border-radius: 100%;
       }
     }
