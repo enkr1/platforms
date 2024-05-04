@@ -1,0 +1,109 @@
+// .fsmc-outter-wrapper {
+//     padding: 0 0 0 2rem;
+// }
+.floating-social-media-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 9998;
+    width: fit-content;
+    height: fit-content;
+    transition: all 0.5s ease;
+    margin: 0 0 0 1rem;
+    // opacity: .3;
+    padding: 2rem 0 3rem;
+
+    $bar-color: #fff;
+
+    @media all and (max-width: $screen_sm) {
+        margin: 0;
+        padding: 1rem 0 1rem;
+    }
+
+    $fsm-line-width: 2px;
+
+    // top bar
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 50%;
+        height: $fsm-line-width;
+        background-color: $bar-color;
+        z-index: -1;
+        transform: translate(-50%, 0) rotate(0deg);
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: $fsm-line-width;
+        height: 100%;
+        background-color: $bar-color;
+        z-index: -1;
+    }
+
+    &:hover {
+        opacity: 1 !important;
+    }
+
+    a {
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        text-align: center;
+        padding: 1rem;
+
+        img {
+            width: 2.8rem;
+            margin: 0 0 0 1px; // HACK: Hot fix for the off padding in image ...
+            transition: all 0.3s ease-in-out;
+
+            @media all and (max-width: $screen_sm) {
+                width: 3.3rem;
+            }
+
+            &.img-linkedin {
+                width: 3.5rem;
+            }
+
+            &.img-github {
+                width: 2.7rem;
+            }
+
+            &.img-instagram {
+                width: 3.1rem;
+            }
+
+            &.img-facebook {
+                width: 2.6rem;
+            }
+
+            @media screen and (max-width: $screen_sm) {
+                &.img-youtube {
+                    width: 2.8rem;
+                }
+                &.img-spotify {
+                    width: 2.7rem;
+                }
+            }
+
+            // NOTE: After all this, reduce by % in mobile view
+            @media all and (max-width: $screen_sm) {
+                transform: scale(.9);
+            }
+        }
+
+        &:hover img {
+            transform: scale(1.1);
+        }
+    }
+}
+
+.reduce-opacity {
+    opacity: 0.3;
+}
