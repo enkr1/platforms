@@ -182,38 +182,9 @@
       }
 
       a {
-        justify-content: center;
-        display: flex;
-        align-items: center;
-        padding: 1rem;
 
         img {
-          width: 2.5rem;
 
-          &.img-linkedin {
-            width: 3.2rem;
-          }
-
-          @media screen and (max-width: $screen_sm) {
-            width: 3rem;
-
-            &.img-spotify {
-              width: 2.4rem;
-            }
-
-          }
-
-          &.img-github {
-            width: 2.4rem;
-          }
-
-          &.img-instagram {
-            width: 2.8rem;
-          }
-
-          &.img-facebook {
-            width: 2.3rem;
-          }
         }
       }
     }
@@ -227,7 +198,7 @@
     align-items: center;
     gap: 2rem;
     z-index: 2;
-    margin: 2rem 0 0;
+    margin: 3rem 0 0;
 
     // Button
     .single-button {
