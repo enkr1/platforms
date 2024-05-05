@@ -93,14 +93,13 @@ body {
     transition: all .3s ease-in-out;
 
     .footer {
-        text-align: center;
-        height: 10vh;
-        width: 100%;
-        margin: auto 0 0;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        margin: 3rem 0 0;
+        text-align: center;
+        height: fit-content;
+        width: 100%;
+        margin: 3rem 0 3rem;
 
         p {
             font-size: 1.3rem;
@@ -110,6 +109,11 @@ body {
             @media screen and (max-width: $screen_xs) {
                 font-size: 1.1rem;
             }
+        }
+
+        .globe-view-counter-container {
+            // width: 13rem;
+            margin: 0rem 0 3rem;
         }
     }
 }
