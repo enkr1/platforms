@@ -9,7 +9,7 @@
     margin: 0 0 0 1rem;
     padding: 2rem 0 3rem;
 
-    $bar-color: #fff;
+    $bar-color: rgba(255, 255, 255, .8);
 
     @media all and (max-width: $screen_sm) {
         margin: 0;
@@ -83,6 +83,7 @@
                 &.img-youtube {
                     width: 2.8rem;
                 }
+
                 &.img-spotify {
                     width: 2.7rem;
                 }
