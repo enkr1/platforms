@@ -13,7 +13,7 @@ $spotify-theme-colour: #1BD760;
   border: 1px solid $spotify-theme-colour;
   backdrop-filter: blur(3px);
   padding: 1.5rem 1.8rem 1.1rem;
-  border-radius: 3rem;
+  border-radius: $border-radius;
   // box-shadow: 0 0 .8rem .8rem #1BD760;
   box-shadow: $box-shadow;
   background: #000;

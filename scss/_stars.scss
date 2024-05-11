@@ -26,6 +26,9 @@
   }
 }
 
+// .star-section {
+// position: relative;
+
 .star {
   position: absolute;
   display: block;
@@ -53,3 +56,5 @@
     border-top: calc(var(--star-size) * 1.73205) solid red;
   }
 }
+
+// }

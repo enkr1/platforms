@@ -1,18 +1,12 @@
 .priority-focuses-container {
-  width: 90%;
-  max-width: 90vw;
-  min-height: 10rem;
+  width: $global-container-width;
+  max-width: $global-container-width;
   text-align: center;
-  // border: 1px solid #fff;
-  border-radius: 3rem;
+  border-radius: $border-radius;
   box-shadow: $box-shadow;
   padding: 1.2rem 0;
-  background-color: #ffffff8d;
-
-  h1 {
-    color: $theme-color;
-    opacity: .8;
-  }
+  // background-color: #ffffff8d;
+  background-color: $container-bg-color;
 
   .pf-list {
     padding: 0 3.3rem 2rem;
