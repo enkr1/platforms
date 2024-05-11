@@ -20,7 +20,7 @@
   height: fit-content;
   // background: #ffffff1a;
   background-color: rgba(255, 255, 255, 0.13);
-  border-radius: 3rem;
+  border-radius: $border-radius;
   padding: 3rem 3rem 6rem;
   margin: 6vh auto auto;
   backdrop-filter: blur(3px);
@@ -37,7 +37,6 @@
     letter-spacing: .1rem;
   }
 
-  h2,
   p,
   span {
     color: $font-color-platform;
@@ -183,9 +182,7 @@
 
       a {
 
-        img {
-
-        }
+        img {}
       }
     }
 
@@ -208,7 +205,7 @@
       transition: all .3s ease-in-out;
       width: 90%;
       border: 1px solid transparent;
-      border-radius: .8rem;
+      border-radius: $border-radius-btn;
       backdrop-filter: blur(3px);
       background-color: rgba(255, 255, 255, 0.3);
       box-shadow: $box-shadow;
