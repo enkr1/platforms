@@ -43,20 +43,19 @@
         color: #000;
 
         b {
-          // flex: 3;
           width: fit-content;
           display: inline-block;
           white-space: nowrap;
         }
 
         span {
-          // flex: 5;
           width: 100%;
           display: block;
           color: #000 !important;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+          font-weight: 400;
         }
 
         &::before {
