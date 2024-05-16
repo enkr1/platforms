@@ -18,8 +18,7 @@
   width: fit-content;
   max-width: 87vw;
   height: fit-content;
-  // background: #ffffff1a;
-  background-color: rgba(255, 255, 255, 0.13);
+  background-color: $platform-container-color;
   border-radius: $border-radius;
   padding: 3rem 3rem 6rem;
   margin: 6vh auto auto;
@@ -207,7 +206,7 @@
       border: 1px solid transparent;
       border-radius: $border-radius-btn;
       backdrop-filter: blur(3px);
-      background-color: rgba(255, 255, 255, 0.3);
+      background-color: $single-btn-bg-color;
       box-shadow: $box-shadow;
 
       @media screen and (max-width: $screen_sm) {

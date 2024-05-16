@@ -33,14 +33,31 @@
       width: 100%;
 
       a {
-        display: block;
+        display: flex;
+        gap: 1rem;
         padding: .8rem 1rem;
         font-size: $font-size-sm;
         border-radius: $border-radius-btn;
         transition: all .3s ease-in-out;
-        width: 100%;
         border: 1px solid transparent;
         color: #000;
+
+        b {
+          // flex: 3;
+          width: fit-content;
+          display: inline-block;
+          white-space: nowrap;
+        }
+
+        span {
+          // flex: 5;
+          width: 100%;
+          display: block;
+          color: #000 !important;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
 
         &::before {
           content: "►";
@@ -59,7 +76,6 @@
         // mobile
         @media screen and (max-width: $screen_sm) {
           padding: .6rem 1rem;
-          // border: .3px solid #000000ad;
         }
 
         b {

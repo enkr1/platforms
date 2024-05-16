@@ -298,7 +298,7 @@
   border-radius: 0.8rem;
   -webkit-backdrop-filter: blur(3px);
           backdrop-filter: blur(3px);
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.9);
   -webkit-box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
           box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
 }
@@ -624,15 +624,32 @@
   width: 100%;
 }
 .blog-articles-container .list-articles-container .article-link-container a {
-  display: block;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1rem;
   padding: .8rem 1rem;
   font-size: 1.2rem;
   border-radius: 0.8rem;
   -webkit-transition: all .3s ease-in-out;
   transition: all .3s ease-in-out;
-  width: 100%;
   border: 1px solid transparent;
   color: #000;
+}
+.blog-articles-container .list-articles-container .article-link-container a b {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: inline-block;
+  white-space: nowrap;
+}
+.blog-articles-container .list-articles-container .article-link-container a span {
+  width: 100%;
+  display: block;
+  color: #000 !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .blog-articles-container .list-articles-container .article-link-container a::before {
   content: "►";
@@ -710,7 +727,7 @@ p {
 }
 
 h2 {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   margin: 0 0 2rem;
   text-align: center;
   color: #ff0000;
