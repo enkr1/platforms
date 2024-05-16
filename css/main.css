@@ -88,7 +88,7 @@
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
-  background-color: rgba(255, 255, 255, 0.13);
+  background-color: rgba(255, 255, 255, 0.33);
   border-radius: 3rem;
   padding: 3rem 3rem 6rem;
   margin: 6vh auto auto;
@@ -224,9 +224,8 @@
 #platform-page #profile-section .role-container .role-single {
   font-size: 1.2rem;
   padding: .3rem 1rem;
-  -webkit-backdrop-filter: blur(13px);
-          backdrop-filter: blur(13px);
-  color: #fff;
+  -webkit-backdrop-filter: blur(3px);
+          backdrop-filter: blur(3px);
   color: #842f2f;
   font-weight: 600;
   z-index: 2;
@@ -235,7 +234,7 @@
   -webkit-box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
           box-shadow: 0 0 0.8rem 0.8rem rgba(0, 0, 0, 0.043);
   cursor: unset;
-  background-color: rgba(255, 255, 255, 0.33);
+  background-color: rgba(255, 255, 255, 0.5);
 }
 @media screen and (max-width: 768px) {
   #platform-page #profile-section .role-container .role-single {

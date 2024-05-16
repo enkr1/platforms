@@ -145,8 +145,7 @@
       .role-single {
         font-size: 1.2rem;
         padding: .3rem 1rem;
-        backdrop-filter: blur(13px);
-        color: #fff;
+        backdrop-filter: blur(3px);
         color: $theme-font-color;
         font-weight: 600;
         z-index: 2;
@@ -154,7 +153,7 @@
         border-bottom-right-radius: 1rem;
         box-shadow: $box-shadow;
         cursor: unset;
-        background-color: rgba(255, 255, 255, 0.33);
+        background-color: rgba(255, 255, 255, 0.5);
 
         @media screen and (max-width: $screen_sm) {
           padding: .3rem .8rem;
