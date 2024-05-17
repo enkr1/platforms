@@ -14,7 +14,7 @@ Welcome to **Platforms**, a self-engineered Digital Navigation Hub that stands a
 
 ## Screenshots
 Include a screenshot of your project here.
-![Platforms Screenshot](_data/images/demo.png)
+![Demo](_data/images/platforms-demo-20240518-034633.gif)
 *The main interface of the Platforms app.*
 
 ## Usage

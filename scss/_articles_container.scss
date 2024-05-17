@@ -8,14 +8,9 @@
   margin: auto;
 
   @media screen and (max-width: $screen_sm) {
-    // width: 100%;
-    padding: 1.5rem 1.3rem 1.3rem;
+    padding: 1.5rem 1.3rem 1.3rem 1.8rem;
     margin: 0 auto 2rem;
   }
-
-  // .ba-title-section {
-  //   h2 {}
-  // }
 
   .list-articles-container {
     display: flex;
@@ -33,19 +28,54 @@
       width: 100%;
 
       a {
-        display: flex;
-        gap: 1rem;
-        padding: .8rem 1rem;
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr 11fr;
+        gap: .8rem;
+        padding: .8rem 1rem .8rem 1.8rem;
         font-size: $font-size-sm;
         border-radius: $border-radius-btn;
         transition: all .3s ease-in-out;
         border: 1px solid transparent;
         color: #000;
 
+        &::before {
+          content: "►";
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          transition: all .3s ease-in-out;
+        }
+
+        @media screen and (min-width: $screen_md_1) {
+          &:hover {
+            border: 1px solid #000;
+            background-color: #00000097;
+            color: #fff;
+            transform: scale(.99);
+
+            &::before {
+              left: .4rem;
+              transform: translateY(-50%) scale(.5);
+            }
+
+            span {
+              color: #fff !important;
+            }
+          }
+        }
+
+        // mobile
+        @media screen and (max-width: $screen_sm) {
+          padding: .3rem 1rem .3rem 1.8rem;
+        }
+
         b {
           width: fit-content;
           display: inline-block;
           white-space: nowrap;
+          font-weight: 600;
         }
 
         span {
@@ -56,29 +86,6 @@
           overflow: hidden;
           text-overflow: ellipsis;
           font-weight: 400;
-        }
-
-        &::before {
-          content: "►";
-          padding: 0 .8rem 0 0;
-        }
-
-        @media screen and (min-width: $screen_md_1) {
-          &:hover {
-            border: 1px solid #000;
-            background-color: #00000097;
-            color: #fff;
-            transform: scale(.99);
-          }
-        }
-
-        // mobile
-        @media screen and (max-width: $screen_sm) {
-          padding: .6rem 1rem;
-        }
-
-        b {
-          font-weight: 600;
         }
       }
     }
