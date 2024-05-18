@@ -48,7 +48,11 @@ $theme-gradient: linear-gradient(0deg, $theme-color, $theme-dark-color);
 
 // --background
 // $theme-background: linear-gradient(0deg, $theme-color, $theme-dark-color) no-repeat center fixed;
-$theme-background: linear-gradient(0deg, rgb(255, 255, 255) 0%, #c60000 100%);
+$theme-background: linear-gradient(0deg,
+    rgb(255, 255, 255) 0%,
+    #c60000 60%,
+    #420D08 100%,
+  );
 // --mobile-bar-color
 $theme-mobile-bar-color: linear-gradient(45deg, $theme-dark-color, $theme-color, $theme-light-color);
 // --mobile-bar-bg

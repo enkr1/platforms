@@ -31,7 +31,7 @@
         position: relative;
         display: grid;
         grid-template-columns: 1fr 11fr;
-        gap: .8rem;
+        gap: .3rem;
         padding: .8rem 1rem .8rem 1.8rem;
         font-size: $font-size-sm;
         border-radius: $border-radius-btn;
@@ -48,6 +48,7 @@
           transition: all .3s ease-in-out;
         }
 
+        // Animaition for larger screen
         @media screen and (min-width: $screen_md_1) {
           &:hover {
             border: 1px solid #000;
@@ -67,8 +68,10 @@
         }
 
         // mobile
-        @media screen and (max-width: $screen_sm) {
-          padding: .3rem 1rem .3rem 1.8rem;
+        @media screen and (max-width: $screen_xs) {
+          padding: .6rem 1rem .6rem 1.8rem;
+          grid-template-columns: 4fr auto;
+          width: fit-content;
         }
 
         b {
