@@ -479,8 +479,16 @@
 .floating-social-media-container {
   position: fixed;
   bottom: 0;
-  left: 0;
+  left: .6rem;
   z-index: 9998;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 1.3rem;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -495,7 +503,7 @@
 @media all and (max-width: 768px) {
   .floating-social-media-container {
     margin: 0;
-    padding: 1rem 0 1rem;
+    padding: 3rem 0 3rem;
   }
 }
 .floating-social-media-container::before {
@@ -505,7 +513,7 @@
   left: 50%;
   width: 50%;
   height: 2px;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.3);
   z-index: -1;
   -webkit-transform: translate(-50%, 0) rotate(0deg);
           transform: translate(-50%, 0) rotate(0deg);
@@ -517,7 +525,7 @@
   left: 50%;
   width: 2px;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.3);
   z-index: -1;
 }
 .floating-social-media-container:hover {
@@ -535,11 +543,15 @@
           align-items: center;
   text-decoration: none;
   text-align: center;
-  padding: 1rem;
+  padding: .3rem;
+  background-color: rgba(255, 255, 255, 0.33);
+  border-radius: 1rem;
+  height: 3.3rem;
+  width: 3.3rem;
+  z-index: 2;
 }
 .floating-social-media-container a img {
   width: 2.8rem;
-  margin: 0 0 0 1px;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
@@ -549,16 +561,19 @@
   }
 }
 .floating-social-media-container a img.img-linkedin {
-  width: 3.5rem;
+  width: 3.2rem;
 }
 .floating-social-media-container a img.img-github {
   width: 2.7rem;
 }
 .floating-social-media-container a img.img-instagram {
-  width: 3.1rem;
+  width: 2.9rem;
 }
 .floating-social-media-container a img.img-facebook {
-  width: 2.6rem;
+  width: 2.4rem;
+}
+.floating-social-media-container a img.img-spotify {
+  width: 2.7rem;
 }
 @media screen and (max-width: 768px) {
   .floating-social-media-container a img.img-youtube {
@@ -581,8 +596,8 @@
 
 .reduce-opacity {
   opacity: 0.3;
-  -webkit-transform: translateX(-3rem);
-          transform: translateX(-3rem);
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
 }
 
 .blog-articles-container {
@@ -666,7 +681,7 @@
 }
 @media screen and (max-width: 480px) {
   .blog-articles-container .list-articles-container .article-link-container a {
-    padding: .6rem 1rem .6rem 1.8rem;
+    padding: .6rem 1rem .6rem 1.5rem;
     grid-template-columns: 4fr auto;
     width: -webkit-fit-content;
     width: -moz-fit-content;
