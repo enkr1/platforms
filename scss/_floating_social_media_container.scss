@@ -63,11 +63,15 @@
         height: $fsm-a-size;
         width: $fsm-a-size;
         z-index: 2;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+            transform: scale(1.1);
+        }
 
         img {
             width: 2.8rem;
             // margin: 0 0 0 1px; // HACK: Hot fix for the off padding in image ...
-            transition: all 0.3s ease-in-out;
 
             @media all and (max-width: $screen_sm) {
                 width: 3.3rem;
@@ -108,14 +112,14 @@
                 transform: scale(.9);
             }
         }
-
-        &:hover img {
-            transform: scale(1.1);
-        }
     }
 }
 
 .reduce-opacity {
     opacity: 0.3;
-    transform: translateX(-50%);
+    transform: translateX(-1.3rem);
+
+    @media all and (max-width: $screen_sm) {
+        transform: translateX(-.6rem);
+    }
 }
