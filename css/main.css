@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200..900&display=swap");
 /**
 *
 **/
@@ -162,25 +163,43 @@
 }
 #platform-page #profile-section .fullname-container {
   padding: .8rem 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1.3rem;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
-#platform-page #profile-section .fullname-container p,
+#platform-page #profile-section .fullname-container .name-cn h1,
+#platform-page #profile-section .fullname-container .name-cn span {
+  font-family: "Noto Serif SC", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+#platform-page #profile-section .fullname-container h1,
 #platform-page #profile-section .fullname-container span {
   font-family: "Lora", serif;
-  font-size: 3.8rem;
+  font-size: 3.3rem;
   color: #fff;
   opacity: .8;
   font-weight: 400;
+  cursor: default;
 }
 @media screen and (max-width: 768px) {
-  #platform-page #profile-section .fullname-container p,
+  #platform-page #profile-section .fullname-container h1,
   #platform-page #profile-section .fullname-container span {
     padding: 0rem 0 0;
     font-size: 2.4rem;
   }
 }
-#platform-page #profile-section .fullname-container p .n-bold,
+#platform-page #profile-section .fullname-container h1 .n-bold,
 #platform-page #profile-section .fullname-container span .n-bold {
   font-weight: 600;
+  font-size: 4rem;
 }
 #platform-page #profile-section .quote-container span {
   display: block;

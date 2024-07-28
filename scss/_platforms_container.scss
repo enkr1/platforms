@@ -90,15 +90,31 @@
       // mix-blend-mode: difference;
       // color: #1c1c1c;
       padding: .8rem 0;
+      display: flex;
+      gap: 1.3rem;
+      justify-content: center;
+      align-items: center;
 
-      p,
+      .name-cn {
+
+        h1,
+        span {
+          font-family: "Noto Serif SC", serif;
+          font-optical-sizing: auto;
+          // font-weight: <weight>;
+          font-style: normal;
+        }
+      }
+
+      h1,
       span {
         // font-family: "Dancing Script", coaursive;
         font-family: "Lora", serif;
-        font-size: 3.8rem;
+        font-size: 3.3rem;
         color: #fff;
         opacity: .8;
         font-weight: 400; // 400 ~ 700
+        cursor: default;
 
         @media screen and (max-width: $screen_sm) {
           padding: 0rem 0 0;
@@ -107,6 +123,7 @@
 
         .n-bold {
           font-weight: 600; // 400 ~ 700
+          font-size: 4rem;
         }
       }
     }
