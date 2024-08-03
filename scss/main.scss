@@ -99,11 +99,15 @@ body {
     // background-color: #000000;
     // background-color: #15163a;
 
-    height: 100%;
-    min-height: 100vh;
+    // height: 100%;
+    // min-height: 100vh;
     background: $theme-background;
     background-size: cover !important;
     transition: all .3s ease-in-out;
+
+    height: 100vh;
+    max-height: 100vh;
+    overflow: scroll;
 
     // .overall-body-wrapper {
     //     position: absolute;
