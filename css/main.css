@@ -179,7 +179,7 @@
 }
 #platform-page #profile-section .role-container .role-single {
   font-size: 1.2rem;
-  padding: 0.3rem 1rem;
+  padding: 0.28rem 0.8rem 0.3rem;
   backdrop-filter: blur(3px);
   color: #842f2f;
   font-weight: 600;
@@ -434,13 +434,13 @@
   align-items: center;
   text-decoration: none;
   text-align: center;
-  padding: 0.3rem;
+  padding: 0;
   background-color: rgba(255, 255, 255, 0.33);
   border-radius: 1rem;
-  height: 3.3rem;
-  width: 3.3rem;
   z-index: 2;
   transition: all 0.3s ease-in-out;
+  height: 3.9rem;
+  width: 3.9rem;
 }
 .floating-social-media-container a:hover {
   transform: scale(1.1);
@@ -523,6 +523,10 @@
   text-align: left;
   width: 100%;
 }
+.blog-articles-container .list-articles-container .article-link-container a,
+.blog-articles-container .list-articles-container .article-link-container span {
+  color: #842f2f !important;
+}
 .blog-articles-container .list-articles-container .article-link-container a {
   position: relative;
   display: grid;
@@ -533,7 +537,6 @@
   border-radius: 0.8rem;
   transition: all 0.3s ease-in-out;
   border: 1px solid transparent;
-  color: #000;
 }
 .blog-articles-container .list-articles-container .article-link-container a::before {
   content: "►";
@@ -541,18 +544,19 @@
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  transition: all 0.3s ease-in-out;
+  transition: all 0.13s ease-in-out;
 }
 @media screen and (min-width: 1024px) {
   .blog-articles-container .list-articles-container .article-link-container a:hover {
     border: 1px solid #000;
     background-color: rgba(0, 0, 0, 0.5921568627);
-    color: #fff;
+    color: #fff !important;
     transform: scale(0.99);
   }
   .blog-articles-container .list-articles-container .article-link-container a:hover::before {
     left: 0.4rem;
     transform: translateY(-50%) scale(0.5);
+    color: #fff !important;
   }
   .blog-articles-container .list-articles-container .article-link-container a:hover span {
     color: #fff !important;
@@ -574,7 +578,6 @@
 .blog-articles-container .list-articles-container .article-link-container a span {
   width: 100%;
   display: block;
-  color: #000 !important;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -652,13 +655,16 @@ a:focus {
 
 html {
   font-size: 62.5%;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 body {
   /* scroll-snap-type: y mandatory;
   overflow-y: scroll; */
   /* This will be displayed if it is loading for too long */
+  background: linear-gradient(0deg, rgb(255, 255, 255) 0%, #c60000 60%, #420D08 100%);
+}
+body .overall-body-wrapper {
   background: linear-gradient(0deg, rgb(255, 255, 255) 0%, #c60000 60%, #420D08 100%);
   background-size: cover !important;
   transition: all 0.3s ease-in-out;

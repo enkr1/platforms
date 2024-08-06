@@ -27,6 +27,11 @@
       text-align: left;
       width: 100%;
 
+      a,
+      span {
+        color: $theme-font-color !important;
+      }
+
       a {
         position: relative;
         display: grid;
@@ -37,7 +42,6 @@
         border-radius: $border-radius-btn;
         transition: all .3s ease-in-out;
         border: 1px solid transparent;
-        color: #000;
 
         &::before {
           content: "►";
@@ -45,7 +49,7 @@
           left: 0;
           top: 50%;
           transform: translateY(-50%);
-          transition: all .3s ease-in-out;
+          transition: all .13s ease-in-out;
         }
 
         // Animaition for larger screen
@@ -53,12 +57,13 @@
           &:hover {
             border: 1px solid #000;
             background-color: #00000097;
-            color: #fff;
+            color: #fff !important;
             transform: scale(.99);
 
             &::before {
               left: .4rem;
               transform: translateY(-50%) scale(.5);
+              color: #fff !important;
             }
 
             span {
@@ -84,7 +89,7 @@
         span {
           width: 100%;
           display: block;
-          color: #000 !important;
+          // color: #000 !important;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;

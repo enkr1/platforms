@@ -1,7 +1,5 @@
 #platform-page {
-  $theme-font-color: #842f2f;
-  $font-color-platform: #fff;
-
+  
   $font-size-al-title-xl: 1.5rem;
   $font-size-al-title-sm: 1.4rem;
   $font-size-al-title-xs: 1.3rem;
@@ -163,7 +161,7 @@
 
       .role-single {
         font-size: 1.2rem;
-        padding: .3rem 1rem;
+        padding: .28rem .8rem .3rem;
         backdrop-filter: blur(3px);
         color: $theme-font-color;
         font-weight: 600;

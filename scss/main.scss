@@ -77,7 +77,8 @@ a:focus {
 
 html {
     font-size: 62.5%;
-    overflow-x: hidden;
+    // overflow-x: hidden;
+    overflow: hidden;
 }
 
 body {
@@ -102,23 +103,31 @@ body {
     // height: 100%;
     // min-height: 100vh;
     background: $theme-background;
-    background-size: cover !important;
-    transition: all .3s ease-in-out;
-
-    height: 100vh;
-    max-height: 100vh;
-    overflow: scroll;
-
-    // .overall-body-wrapper {
-    //     position: absolute;
-    //     background: $theme-background;
     //     background-size: cover !important;
     //     transition: all .3s ease-in-out;
-    //     width: 100%;
+    //
     //     height: 100vh;
-    //     top: 0;
+    //     max-height: 100vh;
     //     overflow: scroll;
-    // }
+
+    .overall-body-wrapper {
+        //     position: absolute;
+        //     background: $theme-background;
+        //     background-size: cover !important;
+        //     transition: all .3s ease-in-out;
+        //     width: 100%;
+        //     height: 100vh;
+        //     top: 0;
+        //     overflow: scroll;
+
+        background: $theme-background;
+        background-size: cover !important;
+        transition: all .3s ease-in-out;
+
+        height: 100vh;
+        max-height: 100vh;
+        overflow: scroll;
+    }
 
     .footer {
         display: flex;
