@@ -1,5 +1,5 @@
 #platform-page {
-  
+
   $font-size-al-title-xl: 1.5rem;
   $font-size-al-title-sm: 1.4rem;
   $font-size-al-title-xs: 1.3rem;
@@ -45,13 +45,12 @@
     position: relative;
 
     .logo-container {
-      opacity: .9;
       position: absolute;
       mix-blend-mode: soft-light;
       width: 100%;
       z-index: -1;
       user-select: none;
-      opacity: .3;
+      opacity: .13;
 
       @media screen and (max-width: $screen_sm) {
         top: 3.9rem;

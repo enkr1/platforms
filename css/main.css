@@ -80,13 +80,12 @@
   position: relative;
 }
 #platform-page #profile-section .logo-container {
-  opacity: 0.9;
   position: absolute;
   mix-blend-mode: soft-light;
   width: 100%;
   z-index: -1;
   user-select: none;
-  opacity: 0.3;
+  opacity: 0.13;
 }
 @media screen and (max-width: 768px) {
   #platform-page #profile-section .logo-container {
@@ -503,7 +502,7 @@
 }
 @media screen and (max-width: 768px) {
   .blog-articles-container {
-    padding: 1.5rem 1.3rem 1.3rem 1.8rem;
+    padding: 1.8rem 1.3rem 1rem 2rem;
     margin: 0 auto 2rem;
   }
 }
@@ -546,6 +545,11 @@
   transform: translateY(-50%);
   transition: all 0.13s ease-in-out;
 }
+@media screen and (max-width: 768px) {
+  .blog-articles-container .list-articles-container .article-link-container a::before {
+    font-size: 1.1rem;
+  }
+}
 @media screen and (min-width: 1024px) {
   .blog-articles-container .list-articles-container .article-link-container a:hover {
     border: 1px solid #000;
@@ -564,7 +568,7 @@
 }
 @media screen and (max-width: 480px) {
   .blog-articles-container .list-articles-container .article-link-container a {
-    padding: 0.6rem 1rem 0.6rem 1.5rem;
+    padding: 0.9rem 1rem 0.9rem 1.5rem;
     grid-template-columns: 4fr auto;
     width: fit-content;
   }
@@ -737,4 +741,17 @@ body .footer .globe-view-counter-container {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   display: none;
+}
+
+/* Make a custom fallback font based on the local Times New Roman */
+@font-face {
+  font-family: "Lora-fallback";
+  size-adjust: 115.62%;
+  src: local("Times New Roman");
+}
+/* Set the body (or any other selector) to Lora, but if it is missing fallback to our bespoke fallback 'Lora-fallback'  */
+body {
+  font-family: "Lora", "Lora-fallback";
+  /* The value doesn't matter, but you must specify a line-height for all text with custom fonts to avoid CLS */
+  line-height: 1.5em;
 }

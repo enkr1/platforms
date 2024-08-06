@@ -212,3 +212,18 @@ body {
     // background: $theme-color;
     display: none;
 }
+
+// https://www.industrialempathy.com/perfect-ish-font-fallback/?font=Lora
+/* Make a custom fallback font based on the local Times New Roman */
+@font-face {
+    font-family: "Lora-fallback";
+    size-adjust: 115.62%;
+    src: local("Times New Roman");
+}
+
+/* Set the body (or any other selector) to Lora, but if it is missing fallback to our bespoke fallback 'Lora-fallback'  */
+body {
+    font-family: "Lora", "Lora-fallback";
+    /* The value doesn't matter, but you must specify a line-height for all text with custom fonts to avoid CLS */
+    line-height: 1.5em;
+}

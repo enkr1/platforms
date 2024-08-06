@@ -8,7 +8,7 @@
   margin: auto;
 
   @media screen and (max-width: $screen_sm) {
-    padding: 1.5rem 1.3rem 1.3rem 1.8rem;
+    padding: 1.8rem 1.3rem 1rem 2rem;
     margin: 0 auto 2rem;
   }
 
@@ -50,6 +50,10 @@
           top: 50%;
           transform: translateY(-50%);
           transition: all .13s ease-in-out;
+
+          @media screen and (max-width: $screen_sm) {
+            font-size: 1.1rem;
+          }
         }
 
         // Animaition for larger screen
@@ -74,7 +78,7 @@
 
         // mobile
         @media screen and (max-width: $screen_xs) {
-          padding: .6rem 1rem .6rem 1.5rem;
+          padding: .9rem 1rem .9rem 1.5rem;
           grid-template-columns: 4fr auto;
           width: fit-content;
         }
