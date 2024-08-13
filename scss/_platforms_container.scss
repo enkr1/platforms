@@ -84,13 +84,19 @@
     }
 
     .fullname-container {
-      // mix-blend-mode: difference;
+      mix-blend-mode: difference;
       // color: #1c1c1c;
       padding: .8rem 0;
       display: flex;
       gap: .8rem;
       justify-content: center;
       align-items: center;
+
+      @media screen and (max-width: $screen_sm) {
+        flex-direction: column;
+        gap: 2rem 0;
+        margin: .8rem 0 0;
+      }
 
       .name-cn {
 

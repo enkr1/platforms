@@ -112,11 +112,19 @@
   text-align: center;
 }
 #platform-page #profile-section .fullname-container {
+  mix-blend-mode: difference;
   padding: 0.8rem 0;
   display: flex;
   gap: 0.8rem;
   justify-content: center;
   align-items: center;
+}
+@media screen and (max-width: 768px) {
+  #platform-page #profile-section .fullname-container {
+    flex-direction: column;
+    gap: 2rem 0;
+    margin: 0.8rem 0 0;
+  }
 }
 #platform-page #profile-section .fullname-container .name-cn h1,
 #platform-page #profile-section .fullname-container .name-cn span {
