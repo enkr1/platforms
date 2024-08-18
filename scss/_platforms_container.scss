@@ -177,6 +177,10 @@
         cursor: unset;
         background-color: rgba(255, 255, 255, 0.5);
 
+        opacity: 0;
+        transform: scale(0.98);
+        transition: opacity 1s ease-out, transform 1s ease-out;
+
         @media screen and (max-width: $screen_sm) {
           padding: .3rem .8rem;
           font-size: .9rem;
@@ -222,13 +226,16 @@
       text-align: center;
       height: -moz-max-content;
       height: fit-content !important;
-      transition: all .3s ease-in-out;
+      transition: all .9s ease-in-out;
       width: 90%;
       border: 1px solid transparent;
       border-radius: $border-radius-btn;
       backdrop-filter: blur(3px);
       background-color: $single-btn-bg-color;
       box-shadow: $box-shadow;
+
+      opacity: 0;
+      // transform: translateX(3rem);
 
       @media screen and (max-width: $screen_sm) {
         width: 80vw;

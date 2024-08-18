@@ -196,6 +196,9 @@
   box-shadow: 0 0 0.8rem 0.8rem rgba(66, 13, 8, 0.043);
   cursor: unset;
   background-color: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 1s ease-out, transform 1s ease-out;
 }
 @media screen and (max-width: 768px) {
   #platform-page #profile-section .role-container .role-single {
@@ -232,13 +235,14 @@
   text-align: center;
   height: -moz-max-content;
   height: fit-content !important;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.9s ease-in-out;
   width: 90%;
   border: 1px solid transparent;
   border-radius: 0.8rem;
   backdrop-filter: blur(3px);
   background-color: rgba(255, 255, 255, 0.8);
   box-shadow: 0 0 0.8rem 0.8rem rgba(66, 13, 8, 0.043);
+  opacity: 0;
 }
 @media screen and (max-width: 768px) {
   #platform-page #platform-section .single-button {
@@ -401,36 +405,17 @@
   gap: 1.3rem;
   width: fit-content;
   height: fit-content;
-  transition: all 0.3s ease;
+  transition: all 0.9s ease;
   margin: 0 0 0 1rem;
   padding: 2rem 0 3rem;
+  opacity: 0;
+  transform: translateX(-3rem);
 }
 @media all and (max-width: 768px) {
   .floating-social-media-container {
     margin: 0;
     padding: 3rem 0 3rem;
   }
-}
-.floating-social-media-container::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 50%;
-  height: 2px;
-  background-color: rgba(255, 255, 255, 0.3);
-  z-index: -1;
-  transform: translate(-50%, 0) rotate(0deg);
-}
-.floating-social-media-container::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 2px;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.3);
-  z-index: -1;
 }
 .floating-social-media-container:hover {
   opacity: 1 !important;
@@ -507,6 +492,7 @@
   box-shadow: 0 0 0.8rem 0.8rem rgba(66, 13, 8, 0.043);
   background-color: rgba(255, 255, 255, 0.8);
   margin: auto;
+  opacity: 0;
 }
 @media screen and (max-width: 768px) {
   .blog-articles-container {

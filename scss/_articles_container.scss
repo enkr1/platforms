@@ -7,6 +7,8 @@
   background-color: $container-bg-color;
   margin: auto;
 
+  opacity: 0;
+
   @media screen and (max-width: $screen_sm) {
     padding: 1.8rem 1.3rem 1rem 2rem;
     margin: 0 auto 2rem;
