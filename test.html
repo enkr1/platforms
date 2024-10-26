@@ -1,24 +1,3 @@
-<!--
-    --------------------------------------------------------------------------------------
-    Welcome to the source of ENKR1.github.io!
-
-    I am Pang Jing Hui, also known as ENKR, a Full-Stack Software Engineer and Beatbox Artist.
-    My work spans across innovative web development and rhythmic beatbox performances.
-
-    This website is a canvas where my technical skills and creative passions converge.
-    Developed and designed entirely by myself, it showcases my journey and projects in both
-    the tech world and the beatboxing community.
-
-    Feel free to explore the code and connect with me:
-    - LinkedIn: https://www.linkedin.com/in/jinghuipang/
-    - GitHub: @enkr1
-    - Instagram: @enkr1
-    - YouTube: @enkr1
-
-    Thank you for visiting and happy coding!
-    --------------------------------------------------------------------------------------
--->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -122,66 +101,93 @@
         ]
     }
     </script>
-
-    <!-- OpenReplay Tracking Code for my first project -->
-    <script>
-        var initOpts = {
-            projectKey: "EStbutQnVBLkYbw4aRtA",
-            defaultInputMode: 0,
-            obscureTextNumbers: false,
-            obscureTextEmails: false,
-        };
-        var startOpts = { userID: "" };
-        (function (A, s, a, y, e, r) {
-            r = window.OpenReplay = [e, r, y, [s - 1, e]];
-            s = document.createElement('script'); s.src = A; s.async = !a;
-            document.getElementsByTagName('head')[0].appendChild(s);
-            r.start = function (v) { r.push([0]) };
-            r.stop = function (v) { r.push([1]) };
-            r.setUserID = function (id) { r.push([2, id]) };
-            r.setUserAnonymousID = function (id) { r.push([3, id]) };
-            r.setMetadata = function (k, v) { r.push([4, k, v]) };
-            r.event = function (k, p, i) { r.push([5, k, p, i]) };
-            r.issue = function (k, p) { r.push([6, k, p]) };
-            r.isActive = function () { return false };
-            r.getSessionToken = function () { };
-        })("//static.openreplay.com/latest/openreplay-assist.js", 1, 0, initOpts, startOpts);
-    </script>
 </head>
 
+<style>
+    #loading-screen {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-color: #000000;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    #loading-bar {
+        height: 10px;
+        background-color: #ffffff;
+    }
+
+    #loading-text {
+        margin-top: 10px;
+        color: #ffffff;
+    }
+</style>
+
 <body>
-
     <div id="loading-screen">
-        <div class="loading-bar-container">
-            <div id="loading-bar" style="width: 0%;"></div>
-            <p id="loading-text">0%</p>
-        </div>
+        <div id="loading-bar" style="width: 0%;"></div>
+        <p id="loading-text">0%</p>
     </div>
 
-    <div class="overall-body-wrapper">
-        <div id="platform-page"></div>
+    <!-- Add your page content here -->
 
-        <div id="star-section"></div>
-
-        <div class="footer">
-            <p>&copy; 2021 - 2024 ENKR. All rights reserved.</p>
-            <p>Developed and designed by ENKR</p>
-            <!-- <p>Developed and designed by ENKR, specialising in full-stack development, cloud-native solutions, and innovative web design.</p> -->
-        </div>
-    </div>
-
-    <script type="text/javascript" defer src="js/main.js"></script>
-    <audio controls autoplay loop hidden>
-        <source src="assets/audios/melancholy.wav" type="audio/wav">
-    </audio>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-762EFMDQV8"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-762EFMDQV8');
+        const images = ['assets/images/1.jpg', 'assets/images/2.jpg', 'assets/images/3.jpg']; // Add paths to images
+        const apiRequests = [
+            fetch('https://jsonplaceholder.typicode.com/todos/1'),  // Simulating API requests
+            fetch('https://jsonplaceholder.typicode.com/todos/2')
+        ];
+
+        let loadedItems = 0;
+        const totalItems = images.length + apiRequests.length;
+
+        const updateProgress = (loaded, total) => {
+            const percent = (loaded / total) * 100;
+            document.getElementById('loading-bar').style.width = percent + '%';
+            document.getElementById('loading-text').innerText = Math.floor(percent) + '%';
+
+            // Remove loading screen when 100% is reached
+            if (percent === 100) {
+                setTimeout(() => {
+                    document.getElementById('loading-screen').style.display = 'none';
+                }, 500); // Give some time for the user to notice
+            }
+        };
+
+        // Load images dynamically
+        const loadImage = (src) => {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.src = src;
+                img.onload = () => resolve(src);
+                img.onerror = reject;
+            });
+        };
+
+        // Track image loading
+        images.forEach(src => {
+            loadImage(src).then(() => {
+                loadedItems++;
+                updateProgress(loadedItems, totalItems);
+            }).catch(() => {
+                loadedItems++;
+                updateProgress(loadedItems, totalItems); // Count failed loads to not hang the progress
+            });
+        });
+
+        // Track API requests
+        Promise.all(apiRequests.map(req => req.then(() => {
+            loadedItems++;
+            updateProgress(loadedItems, totalItems);
+        }))).catch(() => {
+            loadedItems++;
+            updateProgress(loadedItems, totalItems);
+        });
     </script>
 </body>
 

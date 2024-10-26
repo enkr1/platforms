@@ -3,6 +3,37 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200..900&display=swap");
+#loading-screen {
+  position: fixed;
+  width: 100dvw;
+  height: 100dvh;
+  background-color: #000000;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: all 1.3s ease-in-out;
+}
+#loading-screen .loading-bar-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+#loading-screen .loading-bar-container #loading-bar {
+  display: none;
+  height: 1rem;
+  background-color: #ffffff;
+}
+#loading-screen .loading-bar-container #loading-text {
+  color: #ffffff;
+  margin: 0 0 0 1rem;
+  font-size: 1.8rem;
+}
+
 /**
 *
 **/
@@ -51,14 +82,17 @@
   position: relative;
   z-index: 2;
   min-width: 60vw;
+  width: -moz-fit-content;
   width: fit-content;
   max-width: 87vw;
+  height: -moz-fit-content;
   height: fit-content;
   background-color: rgba(255, 255, 255, 0.13);
   border-radius: 3rem;
   padding: 3rem 3rem 6rem;
   margin: 6vh auto auto;
-  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+          backdrop-filter: blur(3px);
   box-shadow: 0 0 0.8rem 0.8rem rgba(66, 13, 8, 0.043);
 }
 @media screen and (max-width: 768px) {
@@ -84,7 +118,9 @@
   mix-blend-mode: soft-light;
   width: 100%;
   z-index: -1;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   opacity: 0.13;
 }
 @media screen and (max-width: 768px) {
@@ -102,7 +138,8 @@
 #platform-page #profile-section .profile-image-container img {
   height: 10rem;
   width: 10rem;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border: 1px solid rgba(255, 255, 255, 0.88);
   box-shadow: 0 0 0.8rem 0.8rem rgba(66, 13, 8, 0.043);
   border-radius: 100%;
@@ -168,6 +205,7 @@
   padding: 1rem 1.2rem;
   margin: 2rem auto 1rem;
   box-shadow: 0 0 0.8rem 0.8rem rgba(66, 13, 8, 0.043);
+  width: -moz-fit-content;
   width: fit-content;
 }
 @media screen and (max-width: 768px) {
@@ -187,7 +225,8 @@
 #platform-page #profile-section .role-container .role-single {
   font-size: 1.2rem;
   padding: 0.28rem 0.8rem 0.3rem;
-  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+          backdrop-filter: blur(3px);
   color: #842f2f;
   font-weight: 600;
   z-index: 2;
@@ -234,12 +273,14 @@
 #platform-page #platform-section .single-button {
   text-align: center;
   height: -moz-max-content;
+  height: -moz-fit-content !important;
   height: fit-content !important;
   transition: all 0.9s ease-in-out;
   width: 90%;
   border: 1px solid transparent;
   border-radius: 0.8rem;
-  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+          backdrop-filter: blur(3px);
   background-color: rgba(255, 255, 255, 0.8);
   box-shadow: 0 0 0.8rem 0.8rem rgba(66, 13, 8, 0.043);
   opacity: 0;
@@ -309,12 +350,14 @@
 
 .spotify-container {
   min-width: 27rem;
+  width: -moz-fit-content;
   width: fit-content;
   max-width: 90vw;
   margin: 0 auto 0;
   text-align: center;
   border: 1px solid #1BD760;
-  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+          backdrop-filter: blur(3px);
   padding: 1.5rem 1.8rem 1.1rem;
   border-radius: 3rem;
   box-shadow: 0 0 0.8rem 0.8rem rgba(66, 13, 8, 0.043);
@@ -327,6 +370,7 @@
 .spotify-container #track-info a {
   display: block;
   margin: auto;
+  width: -moz-fit-content;
   width: fit-content;
   padding: 1rem;
 }
@@ -403,7 +447,9 @@
   display: flex;
   flex-direction: column;
   gap: 1.3rem;
+  width: -moz-fit-content;
   width: fit-content;
+  height: -moz-fit-content;
   height: fit-content;
   transition: all 0.9s ease;
   margin: 0 0 0 1rem;
@@ -564,10 +610,12 @@
   .blog-articles-container .list-articles-container .article-link-container a {
     padding: 0.9rem 1rem 0.9rem 1.5rem;
     grid-template-columns: 4fr auto;
+    width: -moz-fit-content;
     width: fit-content;
   }
 }
 .blog-articles-container .list-articles-container .article-link-container a b {
+  width: -moz-fit-content;
   width: fit-content;
   display: inline-block;
   white-space: nowrap;
@@ -587,7 +635,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   font-family: "Poppins", sans-serif;
 }
 
@@ -675,6 +725,7 @@ body .footer {
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  height: -moz-fit-content;
   height: fit-content;
   width: 100%;
   margin: 3rem 0 3rem;
@@ -687,25 +738,6 @@ body .footer p {
 @media screen and (max-width: 480px) {
   body .footer p {
     font-size: 1.1rem;
-  }
-}
-body .footer .globe-view-counter-container {
-  margin: 0rem 0 3rem;
-}
-
-.loading-indicator {
-  font-size: 1.4rem;
-  text-align: center;
-  width: 100%;
-  color: #fff;
-  animation: fadeInOut 1.8s infinite;
-  letter-spacing: 0.1rem;
-  padding: 2.5rem 0 0;
-}
-@media screen and (max-width: 768px) {
-  .loading-indicator {
-    font-size: 1rem;
-    padding: 0.8rem;
   }
 }
 

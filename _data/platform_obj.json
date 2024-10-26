@@ -48,6 +48,11 @@
       "link": "https://enkr1.github.io/"
     },
     {
+      "name": "Resume",
+      "className": "resume",
+      "link": "https://enkr1.github.io/resume/"
+    },
+    {
       "name": "16Personalities",
       "className": "personalities",
       "link": "https://www.16personalities.com/profiles/700b68ab29a1b"
