@@ -4,7 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200..900&display=swap');
 
 @import "_00-colours";
-@import "_03-loading";
+@import "_01-loading";
 @import "_variables";
 @import "_stars";
 @import "_platforms_container";
@@ -151,24 +151,6 @@ body {
     }
 }
 
-// .loading-indicator {
-//     // position: absolute;
-//     // top: 50%;
-//     // left: 50%;
-//     // transform: translate(-50%, -50%);
-//     font-size: 1.4rem;
-//     text-align: center;
-//     width: 100%;
-//     color: #fff;
-//     animation: fadeInOut 1.8s infinite;
-//     letter-spacing: .1rem;
-//     padding: 2.5rem 0 0;
-//
-//     @media screen and (max-width: $screen_sm) {
-//         font-size: 1rem;
-//         padding: .8rem;
-//     }
-// }
 
 @keyframes fadeInOut {
 
