@@ -127,9 +127,18 @@
 <body>
     <div id="loading-screen">
         <div class="loading-element-container">
-            <div id="circle-progress">
-                <svg id="svg-progress-element" width="2104" height="2104" viewBox="0 0 2104 2104" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle id="progress-circle" cx="1052" cy="1052" r="987" stroke="white" stroke-width="130"
+            <div id="circle-progress-top" class="circle-progress circle-progress-top">
+                <svg class="svg-progress-element" width="2104" height="2104" viewBox="0 0 2104 2104" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <circle id="progress-circle-top" cx="1052" cy="1052" r="987" stroke="black" stroke-width="130"
+                        stroke-dasharray="30 10" />
+                </svg>
+            </div>
+
+            <div id="circle-progress-bottom" class="circle-progress circle-progress-bottom">
+                <svg id="svg-progress-element" class="svg-progress-element" width="2104" height="2104"
+                    viewBox="0 0 2104 2104" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle id="progress-circle-bottom" cx="1052" cy="1052" r="987" stroke="white" stroke-width="130"
                         stroke-dasharray="10 30" />
                 </svg>
             </div>
@@ -137,7 +146,7 @@
         </div>
     </div>
 
-    <div class="overall-body-wrapper">
+    <div id="overall-body-wrapper" class="overall-body-wrapper">
         <div id="platform-page"></div>
 
         <div id="star-section"></div>

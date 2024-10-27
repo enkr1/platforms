@@ -16,6 +16,9 @@
   align-items: center;
   z-index: 9999;
   transition: all 1.3s ease-in-out;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 #loading-screen .loading-element-container {
   width: 100%;
@@ -24,22 +27,41 @@
   align-items: center;
   padding: 1rem;
 }
-#loading-screen .loading-element-container #circle-progress {
+#loading-screen .loading-element-container .circle-progress-top {
+  z-index: 2;
+}
+#loading-screen .loading-element-container .circle-progress-bottom {
+  z-index: 1;
+}
+#loading-screen .loading-element-container #circle-progres,
+#loading-screen .loading-element-container .circle-progress {
+  transform: rotate(-90deg);
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-#loading-screen .loading-element-container #circle-progress svg#svg-progress-element {
+#loading-screen .loading-element-container #circle-progres svg#svg-progress-element,
+#loading-screen .loading-element-container #circle-progres svg.svg-progress-element,
+#loading-screen .loading-element-container .circle-progress svg#svg-progress-element,
+#loading-screen .loading-element-container .circle-progress svg.svg-progress-element {
   width: 30rem;
   height: 30rem;
-  opacity: 0.3;
   transition: all 0.3s ease-in-out;
 }
-#loading-screen .loading-element-container #circle-progress #progress-circle {
+#loading-screen .loading-element-container #circle-progres #progress-circle,
+#loading-screen .loading-element-container #circle-progres .progress-circle,
+#loading-screen .loading-element-container .circle-progress #progress-circle,
+#loading-screen .loading-element-container .circle-progress .progress-circle {
   fill: none;
-  stroke: #fff;
   stroke-width: 130;
   stroke-dasharray: 10 30;
+  stroke-dashoffset: 0;
+}
+#loading-screen .loading-element-container #circle-progres .progress-circle-top,
+#loading-screen .loading-element-container .circle-progress .progress-circle-top {
+  stroke-width: 200;
+  stroke-dasharray: 30 30;
   stroke-dashoffset: 0;
 }
 #loading-screen .loading-element-container #loading-text {

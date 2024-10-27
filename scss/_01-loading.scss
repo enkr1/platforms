@@ -3,6 +3,7 @@
   width: 100dvw;
   height: 100dvh;
   background-color: #000;
+  // background-color: #335b58;
   color: #ffffff;
   top: 0;
   left: 0;
@@ -12,6 +13,7 @@
   z-index: 9999;
   transition: all 1.3s ease-in-out;
   // transition: opacity 1.3s ease, z-index 0.3s ease;
+  user-select: none;
 
   .loading-element-container {
     width: 100%;
@@ -20,23 +22,42 @@
     align-items: center;
     padding: 1rem;
 
-    #circle-progress {
+    .circle-progress-top {
+      z-index: 2;
+    }
+
+    .circle-progress-bottom {
+      z-index: 1;
+    }
+
+    #circle-progres,
+    .circle-progress {
+      transform: rotate(-90deg);
+      position: absolute;
       display: flex;
       justify-content: center;
       align-items: center;
 
-      svg#svg-progress-element {
+      svg#svg-progress-element,
+      svg.svg-progress-element {
         width: 30rem;
         height: 30rem;
-        opacity: .3;
+        // opacity: .3;
         transition: all .3s ease-in-out;
       }
 
-      #progress-circle {
+      #progress-circle,
+      .progress-circle {
         fill: none;
-        stroke: #fff;
+        // stroke: #fff;
         stroke-width: 130;
         stroke-dasharray: 10 30;
+        stroke-dashoffset: 0;
+      }
+
+      .progress-circle-top {
+        stroke-width: 200;
+        stroke-dasharray: 30 30;
         stroke-dashoffset: 0;
       }
     }

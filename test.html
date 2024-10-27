@@ -108,7 +108,8 @@
         position: fixed;
         width: 100%;
         height: 100%;
-        background-color: #000000;
+        /* background-color: #335b58; */
+        background-color: #000;
         top: 0;
         left: 0;
         display: flex;
@@ -117,76 +118,74 @@
         z-index: 9999;
     }
 
-    #loading-bar {
-        height: 10px;
-        background-color: #ffffff;
-    }
-
     #loading-text {
         margin-top: 10px;
         color: #ffffff;
     }
+
+    #circle-progress-2,
+    #circle-progress-1 {
+        position: absolute;
+    }
+
 </style>
 
 <body>
     <div id="loading-screen">
-        <div id="loading-bar" style="width: 0%;"></div>
-        <p id="loading-text">0%</p>
+        <div class="loading-element-container">
+            <div id="circle-progress-top" class="circle-progress circle-progress-top">
+                <svg class="svg-progress-element" width="2104" height="2104" viewBox="0 0 2104 2104" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <circle id="progress-circle-top" cx="1052" cy="1052" r="987" stroke="black" stroke-width="130"
+                        stroke-dasharray="30 10" />
+                </svg>
+            </div>
+
+            <div id="circle-progress-bottom" class="circle-progress circle-progress-bottom">
+                <svg id="svg-progress-element" class="svg-progress-element" width="2104" height="2104" viewBox="0 0 2104 2104" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <circle id="progress-circle-bottom" cx="1052" cy="1052" r="987" stroke="white" stroke-width="130"
+                        stroke-dasharray="10 30" />
+                </svg>
+            </div>
+            <p id="loading-text">0%</p>
+        </div>
     </div>
 
-    <!-- Add your page content here -->
-
     <script>
-        const images = ['assets/images/1.jpg', 'assets/images/2.jpg', 'assets/images/3.jpg']; // Add paths to images
-        const apiRequests = [
-            fetch('https://jsonplaceholder.typicode.com/todos/1'),  // Simulating API requests
-            fetch('https://jsonplaceholder.typicode.com/todos/2')
-        ];
+        document.addEventListener("DOMContentLoaded", () => {
+            const circle = document.getElementById("progress-circle-bottom");
+            const loadingText = document.getElementById("loading-text");
+            let currentPercent = 0;
 
-        let loadedItems = 0;
-        const totalItems = images.length + apiRequests.length;
+            const totalLength = circle.getTotalLength();
+            circle.style.strokeDasharray = `${totalLength}`; // Set the length of dashes
+            circle.style.strokeDashoffset = totalLength; // Start with an empty circle
 
-        const updateProgress = (loaded, total) => {
-            const percent = (loaded / total) * 100;
-            document.getElementById('loading-bar').style.width = percent + '%';
-            document.getElementById('loading-text').innerText = Math.floor(percent) + '%';
+            // Function to update the circle's progress based on percentage
+            const updateCircleProgress = (percent) => {
+                const dashOffset = totalLength * (1 - percent / 100);
+                circle.style.strokeDashoffset = dashOffset;
+                loadingText.innerText = `${Math.floor(percent)}%`;
+            };
 
-            // Remove loading screen when 100% is reached
-            if (percent === 100) {
-                setTimeout(() => {
-                    document.getElementById('loading-screen').style.display = 'none';
-                }, 500); // Give some time for the user to notice
-            }
-        };
+            // Increment progress gradually to show dash by dash effect
+            const incrementProgress = (targetPercent) => {
+                let currentStep = 0;
 
-        // Load images dynamically
-        const loadImage = (src) => {
-            return new Promise((resolve, reject) => {
-                const img = new Image();
-                img.src = src;
-                img.onload = () => resolve(src);
-                img.onerror = reject;
-            });
-        };
+                // Control the speed of the dash-by-dash effect
+                const interval = setInterval(() => {
+                    if (currentStep <= targetPercent) {
+                        updateCircleProgress(currentStep);
+                        currentStep += 1; // Increment by 1 percent
+                    } else {
+                        clearInterval(interval);
+                    }
+                }, 50); // Adjust speed here: smaller numbers will make it faster
+            };
 
-        // Track image loading
-        images.forEach(src => {
-            loadImage(src).then(() => {
-                loadedItems++;
-                updateProgress(loadedItems, totalItems);
-            }).catch(() => {
-                loadedItems++;
-                updateProgress(loadedItems, totalItems); // Count failed loads to not hang the progress
-            });
-        });
-
-        // Track API requests
-        Promise.all(apiRequests.map(req => req.then(() => {
-            loadedItems++;
-            updateProgress(loadedItems, totalItems);
-        }))).catch(() => {
-            loadedItems++;
-            updateProgress(loadedItems, totalItems);
+            // Start the progress increment
+            incrementProgress(100);
         });
     </script>
 </body>
