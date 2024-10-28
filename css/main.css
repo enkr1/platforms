@@ -58,11 +58,9 @@
   stroke-dasharray: 10 30;
   stroke-dashoffset: 0;
 }
-#loading-screen .loading-element-container #circle-progres .progress-circle-top,
-#loading-screen .loading-element-container .circle-progress .progress-circle-top {
-  stroke-width: 200;
-  stroke-dasharray: 30 30;
-  stroke-dashoffset: 0;
+#loading-screen .loading-element-container #circle-progres #progress-circle-bottom,
+#loading-screen .loading-element-container .circle-progress #progress-circle-bottom {
+  stroke: transparent;
 }
 #loading-screen .loading-element-container #loading-text {
   position: absolute;

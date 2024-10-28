@@ -55,10 +55,14 @@
         stroke-dashoffset: 0;
       }
 
-      .progress-circle-top {
-        stroke-width: 200;
-        stroke-dasharray: 30 30;
-        stroke-dashoffset: 0;
+      // #progress-circle-top {
+      //   stroke-width: 200;
+      //   stroke-dasharray: 30 30;
+      //   stroke-dashoffset: 0;
+      // }
+
+      #progress-circle-bottom {
+        stroke: transparent;
       }
     }
 
