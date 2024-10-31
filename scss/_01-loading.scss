@@ -50,7 +50,7 @@
       #progress-circle,
       .progress-circle {
         fill: none;
-        // stroke: #fff;
+        // stroke: $theme-color;
         stroke-width: 130;
         stroke-dasharray: 10 30;
         stroke-dashoffset: 0;
@@ -71,6 +71,7 @@
       position: absolute;
       font-size: 2rem;
       transition: all .9s ease-in-out;
+      // color: $theme-color;
     }
   }
 }
