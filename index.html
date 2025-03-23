@@ -152,16 +152,22 @@
         <div id="star-section"></div>
 
         <div class="footer">
-            <p>&copy; 2021 - 2024 ENKR. All rights reserved.</p>
+            <p>&copy; 2021 - <span id="current-year"></span> ENKR. All rights reserved.</p>
             <p>Developed and designed by ENKR</p>
             <!-- <p>Developed and designed by ENKR, specialising in full-stack development, cloud-native solutions, and innovative web design.</p> -->
         </div>
     </div>
 
-    <script type="text/javascript" defer src="js/main.js"></script>
+
     <audio controls autoplay loop hidden>
         <source src="assets/audios/melancholy.wav" type="audio/wav">
     </audio>
+
+    <script type="text/javascript" defer src="js/main.js"></script>
+    <script>
+        // Set the current year in the footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-762EFMDQV8"></script>

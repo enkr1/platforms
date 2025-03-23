@@ -764,13 +764,13 @@ body .footer {
   width: 100%;
   margin: 3rem 0 3rem;
 }
-body .footer p {
+body .footer p, body .footer span {
   font-size: 1.3rem;
   letter-spacing: 0.1rem;
   color: rgba(0, 0, 0, 0.8);
 }
 @media screen and (max-width: 480px) {
-  body .footer p {
+  body .footer p, body .footer span {
     font-size: 1.1rem;
   }
 }

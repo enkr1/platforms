@@ -139,10 +139,11 @@ body {
         width: 100%;
         margin: 3rem 0 3rem;
 
-        p {
+        p, span {
             font-size: 1.3rem;
             letter-spacing: .1rem;
             color: rgba(0, 0, 0, 0.8);
+            cursor: default;
 
             @media screen and (max-width: $screen_xs) {
                 font-size: 1.1rem;
