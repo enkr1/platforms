@@ -48,14 +48,14 @@
       "link": "https://enkr1.github.io/blog/"
     },
     {
-      "name": "Personal Website",
-      "className": "website",
-      "link": "https://enkr1.github.io/"
-    },
-    {
       "name": "16Personalities",
       "className": "personalities",
       "link": "https://www.16personalities.com/profiles/700b68ab29a1b"
+    },
+    {
+      "name": "Personal Website",
+      "className": "website",
+      "link": "https://enkr1.github.io/"
     },
     {
       "name": "Google for Developers",
@@ -63,24 +63,14 @@
       "link": "https://developers.google.com/profile/u/enkr1"
     },
     {
-      "name": "LeetCode",
-      "className": "leetcode",
-      "link": "https://leetcode.com/enkr1/"
-    },
-    {
-      "name": "LeetCode (CN)",
-      "className": "leetcode_cn",
-      "link": "https://leetcode.cn/u/enkr1/"
-    },
-    {
-      "name": "StackOverflow",
-      "className": "stackoverflow",
-      "link": "https://stackoverflow.com/users/13677125/jinghui-p"
-    },
-    {
       "name": "WakaTime",
       "className": "wakatime",
       "link": "https://wakatime.com/@enkr1"
+    },
+    {
+      "name": "Instagram (Fitness Account)",
+      "className": "instagram",
+      "link": "https://www.instagram.com/fitnesspang/"
     },
     {
       "name": "Twitter/X",
@@ -93,14 +83,14 @@
       "link": "https://soundcloud.com/enkr1"
     },
     {
-      "name": "Instagram (Fitness Account)",
-      "className": "instagram",
-      "link": "https://www.instagram.com/fitnesspang/"
-    },
-    {
       "name": "TikTok",
       "className": "tiktok",
       "link": "https://www.tiktok.com/@enkr1"
+    },
+    {
+      "name": "StackOverflow",
+      "className": "stackoverflow",
+      "link": "https://stackoverflow.com/users/13677125/jinghui-p"
     }
   ]
 }
