@@ -36,10 +36,16 @@ const generateSpotifyContainer = () => {
     if (trackInfo) trackInfo.innerHTML = loginMsg;
     return;
   } else {
-    fetchAccessToken(code, accessToken => {
-      if (!accessToken) {
-        error("Error gettin accessToken");
-        trackInfo.innerHTML = loginMsg;
+    fetchAccessToken(code, (accessToken, fetchError) => {
+      if (fetchError || !accessToken) {
+        let userMessage = loginMsg; // Default message
+        if (fetchError) {
+          console.error('Error fetching access token:', fetchError); // Log detailed error
+          userMessage = `<p class="nicp nicp-error">Failed to authenticate with Spotify. Please ensure you are connected to the internet and try again. If the problem persists, the authentication service may be temporarily unavailable.</p> <a href="spotify_callback">Try to authenticate again.</a>`;
+        } else {
+          console.warn("Access token was not retrieved; no specific error provided by fetchAccessToken. Displaying login message.");
+        }
+        if (trackInfo) trackInfo.innerHTML = userMessage;
         return;
       }
 
@@ -65,42 +71,55 @@ const generateSpotifyContainer = () => {
       body: formData
     })
       .then(response => {
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        if (!response.ok) throw new Error(`Spotify API Error: ${response.status} ${response.statusText || ''}`);
         return response.json();
       })
       .then(data => {
+        if (data.error) { // Spotify API can return 200 OK with an error object in the JSON body
+            throw new Error(`Spotify API Error: ${data.error_description || data.error}`);
+        }
+        if (!data.access_token) { // Ensure access_token is present
+            throw new Error('Access token not found in Spotify API response.');
+        }
         console.log('Access token received:', data.access_token);
-        callback(data.access_token); // Pass the token to the callback function
+        callback(data.access_token, null); // Pass token and null for error
       })
       .catch(error => {
         console.error('Error exchanging code for token:', error);
-        callback(null); // Pass null to the callback to indicate an error
+        callback(null, error); // Pass null for token and the error object
       });
   }
 
   function fetchCurrentlyPlaying(accessToken) {
     log("accessToken", accessToken);
+    let trackInfoDiv = document.getElementById('track-info'); // Get trackInfoDiv for potential error display
 
     fetch("https://api.spotify.com/v1/me/player/currently-playing", {
       method: 'GET',
       headers: { 'Authorization': `Bearer ${accessToken}` }
     })
       .then(async response => {
-        log("response", response)
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        log("check1", response)
-        // log("check2", await response.json())
-        log("check3", response.status)
+        log("response", response);
+        // Handle non-OK responses that are not 204 first
+        if (response.status !== 204 && !response.ok) {
+          throw new Error(`Spotify API Error: ${response.status} ${response.statusText || ''}`);
+        }
+        log("check1", response);
+        log("check3", response.status);
 
         if (response.status === 204) {
-          // throw new Error('No content'); // No currently playing track
-          log("no content");
-          return null;
+          log("no content - 204 status");
+          return null; // No currently playing track, handled by displayTrackInfo
         }
         return response.json();
       })
-      .then(data => displayTrackInfo(data))
-      .catch(error => error('Error fetching currently playing:', error));
+      .then(data => displayTrackInfo(data)) // displayTrackInfo will handle null data for 204
+      .catch(err => {
+        console.error('Error fetching currently playing:', err);
+        if (trackInfoDiv) {
+          trackInfoDiv.innerHTML = `<p class="nicp nicp-error">Could not fetch your currently playing track. Spotify might not be active, or there might be a connection issue. Please try again later.</p>`;
+        }
+      });
   }
 
   // Display the currently playing track info
