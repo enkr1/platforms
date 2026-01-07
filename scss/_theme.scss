@@ -1,0 +1,166 @@
+// ============================================
+// Theme - CSS Custom Properties
+// ============================================
+
+:root {
+  // ========================================
+  // Typography
+  // ========================================
+  --font-primary: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'Fira Code', 'Monaco', 'Consolas', monospace;
+
+  --font-size-xs: 0.75rem;    // 12px
+  --font-size-sm: 0.875rem;   // 14px
+  --font-size-base: 1rem;     // 16px
+  --font-size-lg: 1.125rem;   // 18px
+  --font-size-xl: 1.25rem;    // 20px
+  --font-size-2xl: 1.5rem;    // 24px
+  --font-size-3xl: 1.875rem;  // 30px
+  --font-size-4xl: 2.25rem;   // 36px
+  --font-size-5xl: 3rem;      // 48px
+  --font-size-6xl: 3.75rem;   // 60px
+  --font-size-7xl: 4.5rem;    // 72px
+
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.6;
+  --line-height-relaxed: 1.8;
+
+  // ========================================
+  // Colors - Base Palette
+  // ========================================
+  --color-bg: #0a0a0f;
+  --color-bg-elevated: #12121a;
+  --color-bg-muted: #1a1a24;
+
+  --color-text: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.8);
+  --color-text-muted: rgba(255, 255, 255, 0.5);
+  --color-text-subtle: rgba(255, 255, 255, 0.3);
+
+  --color-accent: #8b5cf6;  // Purple accent
+  --color-accent-hover: #a78bfa;
+
+  // ========================================
+  // Colors - Work Mode (Professional Blue)
+  // ========================================
+  --color-work-bg: #0d1117;
+  --color-work-primary: #58a6ff;
+  --color-work-secondary: #388bfd;
+  --color-work-accent: #79c0ff;
+  --color-work-muted: #8b949e;
+
+  // ========================================
+  // Colors - Experience Mode (Energetic Red)
+  // ========================================
+  --color-experience-bg: #1a0a0a;
+  --color-experience-primary: #ff6b6b;
+  --color-experience-secondary: #ee5253;
+  --color-experience-accent: #ffa8a8;
+  --color-experience-muted: #c44569;
+
+  // ========================================
+  // Colors - Spotify Green
+  // ========================================
+  --color-spotify: #1db954;
+  --color-spotify-dark: #191414;
+
+  // ========================================
+  // Gradient - Hero Background
+  // ========================================
+  --gradient-hero: linear-gradient(
+    135deg,
+    #0a0a0f 0%,
+    #1a0a2e 25%,
+    #0f1a2e 50%,
+    #0a0a0f 75%,
+    #1a0a1a 100%
+  );
+
+  --gradient-work: linear-gradient(
+    135deg,
+    #0d1117 0%,
+    #161b22 50%,
+    #0d1117 100%
+  );
+
+  --gradient-experience: linear-gradient(
+    135deg,
+    #1a0a0a 0%,
+    #2a0f0f 50%,
+    #1a0a0a 100%
+  );
+
+  // ========================================
+  // Glass Morphism
+  // ========================================
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-bg-hover: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-border-hover: rgba(255, 255, 255, 0.15);
+  --glass-blur: 20px;
+  --glass-blur-light: 10px;
+
+  // ========================================
+  // Shadows
+  // ========================================
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 40px rgba(139, 92, 246, 0.3);
+  --shadow-glow-work: 0 0 40px rgba(88, 166, 255, 0.3);
+  --shadow-glow-experience: 0 0 40px rgba(255, 107, 107, 0.3);
+
+  // ========================================
+  // Spacing
+  // ========================================
+  --section-padding-x: 1.5rem;
+  --section-padding-y: 4rem;
+  --container-max: 1200px;
+
+  @media (min-width: 768px) {
+    --section-padding-x: 3rem;
+    --section-padding-y: 6rem;
+  }
+
+  @media (min-width: 1024px) {
+    --section-padding-x: 4rem;
+    --section-padding-y: 8rem;
+  }
+
+  // ========================================
+  // Border Radius
+  // ========================================
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-full: 9999px;
+
+  // ========================================
+  // Transitions & Easing
+  // ========================================
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-circ: cubic-bezier(0, 0.55, 0.45, 1);
+  --ease-in-out-circ: cubic-bezier(0.85, 0, 0.15, 1);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  --duration-fast: 200ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --duration-reveal: 1200ms;
+
+  // ========================================
+  // Scroll-based animations (set by JS)
+  // ========================================
+  --scroll: 0;
+  --scroll-section: 0;
+}

@@ -15,38 +15,273 @@
 <html lang="en">
 
 <head>
-
-    <link rel="icon" href="https://cdn.discordapp.com/attachments/826877621061156904/841902004799668275/logo.gif"
-        type="image/gif" sizes="16x16" />
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="referrer" content="origin" />
-    <meta name="description"
-        content="Pang Jing Hui, also known as EnKr, is a software developer and beatboxer. This is a pure HTML, CSS, and JS website developed and designed all by himself." />
-    <meta name="keywords"
-        content="enkr1, enkr, enkr beatbox, beatbox, singapore beatbox, asia beatboix, vonderie, vonderie beatbox, 555, 555 beatbox" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="referrer" content="origin">
 
+    <!-- SEO Meta Tags -->
+    <title>ENKR | Full-Stack Engineer & Beatboxer</title>
+    <meta name="description" content="ENKR (Pang Jing Hui) - Full-Stack Software Engineer at ByteDance and 4x Singapore Beatbox Champion. Building rhythm in code.">
+    <meta name="keywords" content="enkr, enkr1, enkr beatbox, singapore beatbox, full-stack developer, bytedance, software engineer">
+    <meta name="author" content="Pang Jing Hui (ENKR)">
 
-    <title>ENKR | Pang Jing Hui | 彭競辉</title>
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ENKR | Full-Stack Engineer & Beatboxer">
+    <meta property="og:description" content="Building rhythm in code. Full-Stack Engineer at ByteDance. 4x Singapore Beatbox Champion.">
+    <meta property="og:url" content="https://www.enkr1.com/platforms">
+    <meta property="og:image" content="https://raw.githubusercontent.com/enkr1/platforms/master/_data/images/profile.jpeg">
 
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ENKR | Full-Stack Engineer & Beatboxer">
+    <meta name="twitter:description" content="Building rhythm in code.">
 
-    <link rel="stylesheet" href="css/main.css?v=1.0.0" />
-    <script type="text/javascript" defer src="js/main.js"></script>
+    <!-- Favicon -->
+    <link rel="icon" href="https://cdn.discordapp.com/attachments/826877621061156904/841902004799668275/logo.gif" type="image/gif" sizes="16x16">
 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/main.css?v=2.0.0">
 </head>
 
-<body class="is-loading">
-    <div id="wrapper">
-        <div id="main-section"></div>
-    </div>
-</body>
+<body>
+    <!-- ============================================ -->
+    <!-- ACT 1: LOADING & REVEAL                      -->
+    <!-- ============================================ -->
 
-<footer>
-    <div>
-        <p>&copy; 2022 ENKR. All rights reserved.</p>
-        <p>Developed and designed by ENKR</p>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">ENKR</div>
+            <div class="loading-progress">
+                <svg class="progress-ring" viewBox="0 0 100 100">
+                    <circle class="progress-ring-bg" cx="50" cy="50" r="45"></circle>
+                    <circle id="progress-circle" class="progress-ring-fill" cx="50" cy="50" r="45"></circle>
+                </svg>
+                <span id="loading-text" class="loading-percentage">0%</span>
+            </div>
+            <div class="loading-tagline">Building rhythm in code...</div>
+        </div>
     </div>
-</footer>
+
+    <!-- Camera Iris Reveal Overlay -->
+    <div id="reveal-overlay" class="reveal-overlay"></div>
+
+    <!-- ============================================ -->
+    <!-- ACT 2: MAIN EXPERIENCE                       -->
+    <!-- ============================================ -->
+
+    <main id="frequency-app" class="frequency-app" data-mode="explore">
+
+        <!-- Hero Section with Animated Gradient -->
+        <section id="hero" class="hero" data-scroll-section>
+            <div class="hero-gradient"></div>
+            <div class="hero-particles"></div>
+
+            <div class="hero-content">
+                <div class="profile-card">
+                    <div class="profile-image-wrapper">
+                        <img id="profile-image" src="" alt="ENKR Profile" class="profile-image">
+                        <div class="profile-glow"></div>
+                    </div>
+                    <div class="profile-info">
+                        <h1 class="profile-name">
+                            <span class="name-cn" id="name-cn"></span>
+                            <span class="name-en" id="name-en"></span>
+                        </h1>
+                        <p class="profile-tagline">Full-Stack Engineer. Beatbox Champion. <br>Building rhythm in code.</p>
+                    </div>
+                </div>
+
+                <!-- Two Path CTAs -->
+                <div class="hero-cta">
+                    <button class="cta-button cta-work" data-mode="work">
+                        <span class="cta-icon">&#x1F4BC;</span>
+                        <span class="cta-text">Work With Me</span>
+                        <span class="cta-hint">Press W</span>
+                    </button>
+                    <button class="cta-button cta-experience" data-mode="experience">
+                        <span class="cta-icon">&#x1F3A4;</span>
+                        <span class="cta-text">Experience My Art</span>
+                        <span class="cta-hint">Press E</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="scroll-indicator">
+                <div class="scroll-arrow"></div>
+                <span>Scroll to explore</span>
+            </div>
+        </section>
+
+        <!-- Intro Section -->
+        <section id="intro" class="intro" data-scroll-section>
+            <div class="intro-content">
+                <h2 class="intro-title">
+                    <span class="intro-line">Who is</span>
+                    <span class="intro-highlight">ENKR</span>
+                    <span class="intro-line">?</span>
+                </h2>
+                <div id="roles-container" class="roles-container">
+                    <!-- Roles will be injected here -->
+                </div>
+                <blockquote id="bio-quote" class="bio-quote">
+                    <!-- Bio quote will be injected here -->
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- Mode Toggle (becomes sticky) -->
+        <section id="mode-toggle" class="mode-toggle" data-scroll-sticky>
+            <div class="mode-toggle-inner">
+                <button class="mode-btn mode-btn-explore active" data-mode="explore">
+                    <span>Explore</span>
+                </button>
+                <button class="mode-btn mode-btn-work" data-mode="work">
+                    <span>Work</span>
+                </button>
+                <button class="mode-btn mode-btn-experience" data-mode="experience">
+                    <span>Experience</span>
+                </button>
+                <div class="mode-indicator"></div>
+            </div>
+        </section>
+
+        <!-- Content Cards Section -->
+        <section id="content-cards" class="content-cards" data-scroll-section>
+
+            <!-- WORK MODE Content -->
+            <div class="mode-content mode-content-work" data-for-mode="work">
+                <div class="cards-grid">
+                    <div class="card-group card-group-primary">
+                        <h3 class="card-group-title">Connect</h3>
+                        <div id="work-primary-chips" class="chips-container">
+                            <!-- Email, Cal.com will be injected -->
+                        </div>
+                    </div>
+                    <div class="card-group card-group-credentials">
+                        <h3 class="card-group-title">Credentials</h3>
+                        <div id="work-credentials-chips" class="chips-container">
+                            <!-- Resume, GitHub, LinkedIn, StackOverflow will be injected -->
+                        </div>
+                    </div>
+                    <div class="card-group card-group-activity">
+                        <h3 class="card-group-title">Activity</h3>
+                        <div id="work-activity-chips" class="chips-container">
+                            <!-- WakaTime, Google Developers will be injected -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXPERIENCE MODE Content -->
+            <div class="mode-content mode-content-experience" data-for-mode="experience">
+                <div class="cards-grid">
+                    <div class="card-group card-group-primary">
+                        <h3 class="card-group-title">Watch</h3>
+                        <div id="experience-primary-chips" class="chips-container">
+                            <!-- YouTube, TikTok will be injected -->
+                        </div>
+                    </div>
+                    <div class="card-group card-group-media">
+                        <h3 class="card-group-title">Listen</h3>
+                        <div id="experience-media-chips" class="chips-container">
+                            <!-- SoundCloud, Spotify will be injected -->
+                        </div>
+                    </div>
+                    <div class="card-group card-group-social">
+                        <h3 class="card-group-title">Follow</h3>
+                        <div id="experience-social-chips" class="chips-container">
+                            <!-- Instagram, Twitter, Facebook will be injected -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achievements -->
+                <div class="achievements-section">
+                    <h3 class="achievements-title">Championship Record</h3>
+                    <div id="achievements-container" class="achievements-container">
+                        <!-- Achievements will be injected -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXPLORE MODE Content (shows both) -->
+            <div class="mode-content mode-content-explore active" data-for-mode="explore">
+                <div class="explore-grid">
+                    <div class="explore-card explore-work">
+                        <h3>For Recruiters & Clients</h3>
+                        <p>Resume, GitHub, LinkedIn, and ways to get in touch.</p>
+                        <button class="explore-cta" data-mode="work">Explore Work →</button>
+                    </div>
+                    <div class="explore-card explore-experience">
+                        <h3>For Fans & Community</h3>
+                        <p>Beatbox battles, music, social media, and more.</p>
+                        <button class="explore-cta" data-mode="experience">Explore Art →</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Stream Section -->
+        <section id="blog-stream" class="blog-stream" data-scroll-section>
+            <div class="blog-header">
+                <h2 class="blog-title">Thought Stream</h2>
+                <a href="https://blog.enkr1.com" target="_blank" class="blog-view-all">View All →</a>
+            </div>
+            <div id="blog-timeline" class="blog-timeline">
+                <!-- Blog posts will be injected here -->
+            </div>
+        </section>
+
+        <!-- Waveform Visualization -->
+        <div id="waveform" class="waveform">
+            <svg class="waveform-svg" viewBox="0 0 1440 200" preserveAspectRatio="none">
+                <path class="waveform-path waveform-path-1" d=""></path>
+                <path class="waveform-path waveform-path-2" d=""></path>
+                <path class="waveform-path waveform-path-3" d=""></path>
+            </svg>
+        </div>
+
+    </main>
+
+    <!-- Spotify Bar (Fixed Bottom) -->
+    <aside id="spotify-bar" class="spotify-bar">
+        <div class="spotify-content">
+            <div class="spotify-album">
+                <img id="spotify-album-art" src="" alt="Album Art" class="spotify-album-art">
+                <div class="spotify-equalizer">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+            <div class="spotify-info">
+                <span id="spotify-status" class="spotify-status">Not Playing</span>
+                <span id="spotify-track" class="spotify-track"></span>
+                <span id="spotify-artist" class="spotify-artist"></span>
+            </div>
+            <a href="#" id="spotify-link" class="spotify-link" target="_blank">
+                <svg class="spotify-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; <span id="footer-year">2025</span> ENKR. Built with passion.</p>
+            <p class="footer-hint">Press <kbd>W</kbd> for Work | <kbd>E</kbd> for Experience | <kbd>Esc</kbd> to Explore</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="text/javascript" defer src="js/main.js"></script>
+</body>
 
 </html>

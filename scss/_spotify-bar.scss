@@ -1,0 +1,208 @@
+// ============================================
+// Spotify Bar - Fixed Bottom Now Playing
+// ============================================
+
+.spotify-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  padding: 0.75rem 1rem;
+  background: rgba(25, 20, 20, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  transform: translateY(100%);
+  transition: transform 0.5s var(--ease-out-expo);
+
+  &.visible {
+    transform: translateY(0);
+  }
+
+  @media (min-width: 640px) {
+    padding: 0.75rem 2rem;
+  }
+}
+
+.spotify-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+// Album Art
+.spotify-album {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--glass-bg);
+
+  @media (min-width: 640px) {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+.spotify-album-art {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+
+  .spotify-bar:hover & {
+    transform: scale(1.05);
+  }
+}
+
+// Equalizer animation (when playing)
+.spotify-equalizer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 3px;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  .spotify-bar.playing & {
+    opacity: 1;
+  }
+
+  span {
+    width: 4px;
+    background: var(--color-spotify);
+    border-radius: 2px;
+    animation: equalizerBounce 0.8s ease-in-out infinite;
+
+    &:nth-child(1) {
+      animation-delay: 0s;
+      height: 40%;
+    }
+    &:nth-child(2) {
+      animation-delay: 0.2s;
+      height: 70%;
+    }
+    &:nth-child(3) {
+      animation-delay: 0.4s;
+      height: 50%;
+    }
+  }
+}
+
+@keyframes equalizerBounce {
+  0%, 100% {
+    transform: scaleY(0.5);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+// Track Info
+.spotify-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.spotify-status {
+  font-size: var(--font-size-xs);
+  color: var(--color-spotify);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.8;
+}
+
+.spotify-track {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @media (min-width: 640px) {
+    font-size: var(--font-size-base);
+  }
+}
+
+.spotify-artist {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @media (min-width: 640px) {
+    font-size: var(--font-size-sm);
+  }
+}
+
+// Spotify Link
+.spotify-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: var(--color-spotify);
+  border-radius: var(--radius-full);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(29, 185, 84, 0.2);
+    transform: scale(1.1);
+  }
+}
+
+.spotify-icon {
+  width: 24px;
+  height: 24px;
+}
+
+// States
+
+// Not authenticated
+.spotify-bar.not-authenticated {
+  .spotify-album {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--color-spotify) 0%, #1a1a1a 100%);
+  }
+
+  .spotify-status {
+    color: var(--color-text-muted);
+  }
+}
+
+// Error state
+.spotify-bar.error {
+  .spotify-status {
+    color: var(--color-experience-primary);
+  }
+}
+
+// Silent state (nothing playing)
+.spotify-bar.silent {
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  .spotify-status {
+    color: var(--color-text-muted);
+  }
+}

@@ -1,0 +1,93 @@
+// ============================================
+// Camera Iris Reveal Effect
+// ============================================
+
+.reveal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9500;
+  background: var(--color-bg);
+  pointer-events: none;
+
+  // Camera iris effect using clip-path
+  // Starts as a tiny circle (0%) and expands to reveal content
+  clip-path: circle(0% at 50% 50%);
+  transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+
+  // When reveal is triggered
+  &.revealing {
+    clip-path: circle(150% at 50% 50%);
+  }
+
+  // When fully revealed, hide completely
+  &.revealed {
+    display: none;
+  }
+}
+
+// Alternative reveal effects (can be toggled via data attribute)
+
+// Horizontal Slider
+.reveal-overlay[data-effect="slider"] {
+  clip-path: inset(0 50% 0 50%);
+
+  &.revealing {
+    clip-path: inset(0 0% 0 0%);
+  }
+}
+
+// Vertical Blinds
+.reveal-overlay[data-effect="blinds"] {
+  clip-path: polygon(
+    0% 0%, 10% 0%, 10% 100%, 0% 100%,
+    20% 0%, 30% 0%, 30% 100%, 20% 100%,
+    40% 0%, 50% 0%, 50% 100%, 40% 100%,
+    60% 0%, 70% 0%, 70% 100%, 60% 100%,
+    80% 0%, 90% 0%, 90% 100%, 80% 100%,
+    100% 0%, 100% 100%, 0% 100%
+  );
+
+  &.revealing {
+    clip-path: polygon(
+      0% 0%, 0% 0%, 0% 100%, 0% 100%,
+      0% 0%, 0% 0%, 0% 100%, 0% 100%,
+      0% 0%, 0% 0%, 0% 100%, 0% 100%,
+      0% 0%, 0% 0%, 0% 100%, 0% 100%,
+      0% 0%, 0% 0%, 0% 100%, 0% 100%,
+      0% 0%, 0% 100%, 0% 100%
+    );
+  }
+}
+
+// Scale Fade
+.reveal-overlay[data-effect="scale"] {
+  opacity: 1;
+  transform: scale(1.1);
+  transition:
+    opacity 0.8s var(--ease-out-expo),
+    transform 0.8s var(--ease-out-expo);
+
+  &.revealing {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+// Iris aperture blades effect (optional decorative)
+.reveal-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    transparent 0%,
+    transparent 20%,
+    var(--color-bg) 21%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.reveal-overlay.revealing::before {
+  opacity: 0;
+}
