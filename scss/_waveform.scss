@@ -7,10 +7,10 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 100px;
+  height: 200px;
   pointer-events: none;
   z-index: 5;
-  opacity: 0.4;
+  opacity: 0.5;
   transition: opacity 0.5s ease;
 
   // Hide when Spotify bar is expanded
@@ -145,8 +145,8 @@
 // Mobile Optimizations - Simplified waveform
 @media (max-width: 639px) {
   .waveform {
-    height: 60px;
-    opacity: 0.3;
+    height: 100px;
+    opacity: 0.4;
   }
 
   // Hide extra layers on mobile for performance
