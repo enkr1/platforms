@@ -205,3 +205,65 @@
   color: var(--color-text-muted);
   font-style: italic;
 }
+
+// ========================================
+// Mobile Optimizations
+// ========================================
+
+@media (max-width: 639px) {
+  .blog-stream {
+    padding: 2rem 1rem;
+  }
+
+  .blog-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .blog-title {
+    font-size: var(--font-size-xl);
+  }
+
+  .blog-view-all {
+    padding: 0.375rem 0.75rem;
+    font-size: var(--font-size-xs);
+  }
+
+  .blog-timeline {
+    gap: 1rem;
+    // Enable momentum scrolling
+    -webkit-overflow-scrolling: touch;
+    scroll-padding: 1rem;
+  }
+
+  .blog-post {
+    flex: 0 0 240px;
+    padding: 1.25rem;
+
+    // Disable hover on mobile
+    &:hover {
+      transform: none;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  .blog-post-title {
+    font-size: var(--font-size-sm);
+    -webkit-line-clamp: 2;
+  }
+
+  .blog-post-arrow {
+    opacity: 0.5;
+    margin-top: 0.75rem;
+  }
+
+  .blog-post.featured {
+    flex: 0 0 280px;
+  }
+
+  .blog-empty {
+    padding: 2rem;
+  }
+}

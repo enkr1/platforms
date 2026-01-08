@@ -368,3 +368,105 @@
   opacity: 0;
   pointer-events: none;
 }
+
+// ========================================
+// Mobile Optimizations
+// ========================================
+
+@media (max-width: 639px) {
+  .hero {
+    min-height: calc(100vh - env(safe-area-inset-top));
+    padding: 2rem 1rem;
+    padding-top: calc(2rem + env(safe-area-inset-top));
+  }
+
+  .hero-content {
+    gap: 2rem;
+  }
+
+  // Simplified gradient on mobile for performance
+  .hero-gradient {
+    animation-duration: 30s; // Slower for battery
+  }
+
+  // Hide particles on mobile
+  .hero-particles {
+    display: none;
+  }
+
+  .profile-image-wrapper {
+    width: 100px;
+    height: 100px;
+  }
+
+  .profile-glow {
+    inset: -5px;
+    filter: blur(15px);
+    // Reduce animation on mobile
+    animation: none;
+    opacity: 0.2;
+  }
+
+  .name-cn {
+    font-size: var(--font-size-lg);
+    letter-spacing: 0.15em;
+  }
+
+  .name-en {
+    font-size: var(--font-size-2xl);
+  }
+
+  .profile-tagline {
+    font-size: var(--font-size-sm);
+  }
+
+  .hero-cta {
+    gap: 0.75rem;
+  }
+
+  .cta-button {
+    padding: 0.875rem 1.5rem;
+    min-height: 48px; // Touch target
+
+    // No hover on mobile
+    &:hover {
+      transform: none;
+    }
+
+    &:active {
+      transform: scale(0.98);
+      background: var(--glass-bg-hover);
+    }
+  }
+
+  // Hide keyboard hints on mobile
+  .cta-hint {
+    display: none;
+  }
+
+  .scroll-indicator {
+    bottom: 1rem;
+    font-size: 10px;
+
+    .scroll-arrow {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+// Very small screens
+@media (max-width: 400px) {
+  .profile-image-wrapper {
+    width: 80px;
+    height: 80px;
+  }
+
+  .name-cn {
+    font-size: var(--font-size-base);
+  }
+
+  .name-en {
+    font-size: var(--font-size-xl);
+  }
+}

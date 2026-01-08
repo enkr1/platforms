@@ -106,7 +106,7 @@
   }
 }
 
-// Keyboard hint on hover
+// Keyboard hint on hover (desktop only)
 .mode-btn::after {
   content: attr(data-key);
   position: absolute;
@@ -119,8 +119,34 @@
   opacity: 0;
   transition: opacity 0.2s ease;
   white-space: nowrap;
+
+  // Hide on touch devices
+  @media (max-width: 639px) {
+    display: none;
+  }
 }
 
 .mode-toggle:hover .mode-btn::after {
   opacity: 1;
+}
+
+// Mobile optimizations
+@media (max-width: 639px) {
+  .mode-toggle {
+    padding: 0.75rem 1rem;
+    // Safe area for notch devices
+    padding-top: max(0.75rem, env(safe-area-inset-top));
+  }
+
+  .mode-toggle-inner {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .mode-btn {
+    flex: 1;
+    text-align: center;
+    padding: 0.5rem 0.75rem;
+    font-size: var(--font-size-xs);
+  }
 }

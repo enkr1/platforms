@@ -229,3 +229,49 @@
     }
   }
 }
+
+// ========================================
+// Mobile Optimizations
+// ========================================
+
+@media (max-width: 639px) {
+  .chips-container {
+    gap: 0.625rem;
+  }
+
+  .chip {
+    // Minimum touch target 44px (Apple HIG)
+    min-height: 44px;
+    padding: 0.75rem 1rem;
+    gap: 0.5rem;
+    font-size: var(--font-size-xs);
+
+    // Full width on very small screens
+    @media (max-width: 400px) {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    // Show arrow always on mobile (no hover)
+    .chip-arrow {
+      opacity: 0.5;
+      transform: translateX(0);
+    }
+
+    // Disable hover transform on touch
+    &:hover {
+      transform: none;
+    }
+
+    &:active {
+      transform: scale(0.98);
+      background: var(--glass-bg-hover);
+    }
+  }
+
+  .chip-lg {
+    padding: 1rem 1.25rem;
+    font-size: var(--font-size-sm);
+    min-height: 48px;
+  }
+}

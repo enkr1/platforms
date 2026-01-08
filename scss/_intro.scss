@@ -152,3 +152,57 @@
     padding: 2rem 3rem;
   }
 }
+
+// ========================================
+// Mobile Optimizations
+// ========================================
+
+@media (max-width: 639px) {
+  .intro {
+    min-height: auto;
+    padding: 3rem 1rem;
+  }
+
+  .intro-content {
+    gap: 2rem;
+  }
+
+  .intro-title {
+    font-size: var(--font-size-2xl);
+    gap: 0.375rem;
+  }
+
+  .intro-highlight {
+    font-size: 1.3em;
+    // Disable animation on mobile
+    animation: none;
+    background-position: 50% 50%;
+  }
+
+  .roles-container {
+    gap: 0.5rem;
+  }
+
+  .role-tag {
+    padding: 0.375rem 0.75rem;
+    font-size: var(--font-size-xs);
+
+    &:hover {
+      transform: none;
+    }
+
+    &:active {
+      background: var(--glass-bg-hover);
+    }
+  }
+
+  .bio-quote {
+    padding: 1rem 1.5rem;
+    font-size: var(--font-size-base);
+
+    &::before,
+    &::after {
+      font-size: var(--font-size-2xl);
+    }
+  }
+}

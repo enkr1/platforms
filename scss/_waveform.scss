@@ -141,3 +141,30 @@
     animation: none !important;
   }
 }
+
+// Mobile Optimizations - Simplified waveform
+@media (max-width: 639px) {
+  .waveform {
+    height: 60px;
+    opacity: 0.3;
+  }
+
+  // Hide extra layers on mobile for performance
+  .waveform-path-1,
+  .waveform-path-3 {
+    display: none;
+  }
+
+  .waveform-path-2 {
+    stroke-width: 1.5;
+    opacity: 0.6;
+  }
+}
+
+// Very small screens - even simpler
+@media (max-width: 400px) {
+  .waveform {
+    height: 40px;
+    opacity: 0.2;
+  }
+}
