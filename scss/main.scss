@@ -15,9 +15,8 @@
 
 // Components
 @import "intro";
-@import "mode-toggle";
+@import "parallax-sections";
 @import "chips";
-@import "content-cards";
 @import "blog-stream";
 @import "waveform";
 @import "status-indicator";
@@ -66,24 +65,8 @@ body {
   }
 }
 
-// Mode-based theming
-[data-mode="work"] {
-  --mode-primary: var(--color-work-primary);
-  --mode-bg: var(--color-work-bg);
-  --mode-accent: var(--color-work-accent);
-}
-
-[data-mode="experience"] {
-  --mode-primary: var(--color-experience-primary);
-  --mode-bg: var(--color-experience-bg);
-  --mode-accent: var(--color-experience-accent);
-}
-
-[data-mode="explore"] {
-  --mode-primary: var(--color-text);
-  --mode-bg: var(--color-bg);
-  --mode-accent: var(--color-accent);
-}
+// Mode colors are now applied per-section via parallax-sections
+// See _parallax-sections.scss for section-specific theming
 
 // Utility classes
 .visually-hidden {

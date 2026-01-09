@@ -77,7 +77,7 @@
     <!-- ACT 2: MAIN EXPERIENCE                       -->
     <!-- ============================================ -->
 
-    <main id="frequency-app" class="frequency-app" data-mode="explore">
+    <main id="frequency-app" class="frequency-app">
 
         <!-- Hero Section with Animated Gradient -->
         <section id="hero" class="hero" data-scroll-section>
@@ -99,14 +99,14 @@
                     </div>
                 </div>
 
-                <!-- Two Path CTAs -->
+                <!-- Two Path CTAs - Scroll to sections -->
                 <div class="hero-cta">
-                    <button class="cta-button cta-work" data-mode="work">
+                    <button class="cta-button cta-work" data-scroll-to="section-work">
                         <span class="cta-icon">&#x1F4BC;</span>
                         <span class="cta-text">Work With Me</span>
                         <span class="cta-hint">Press W</span>
                     </button>
-                    <button class="cta-button cta-experience" data-mode="experience">
+                    <button class="cta-button cta-experience" data-scroll-to="section-experience">
                         <span class="cta-icon">&#x1F3A4;</span>
                         <span class="cta-text">Experience My Art</span>
                         <span class="cta-hint">Press E</span>
@@ -138,27 +138,15 @@
             </div>
         </section>
 
-        <!-- Mode Toggle (becomes sticky) -->
-        <section id="mode-toggle" class="mode-toggle" data-scroll-sticky>
-            <div class="mode-toggle-inner">
-                <button class="mode-btn mode-btn-explore active" data-mode="explore">
-                    <span>Explore</span>
-                </button>
-                <button class="mode-btn mode-btn-work" data-mode="work">
-                    <span>Work</span>
-                </button>
-                <button class="mode-btn mode-btn-experience" data-mode="experience">
-                    <span>Experience</span>
-                </button>
-                <div class="mode-indicator"></div>
+        <!-- ============================================ -->
+        <!-- WORK SECTION (Parallax Layer)               -->
+        <!-- ============================================ -->
+        <section id="section-work" class="parallax-section parallax-section-work" data-scroll-section>
+            <div class="parallax-bg parallax-bg-work"></div>
+            <div class="parallax-label">
+                <span>Work</span>
             </div>
-        </section>
-
-        <!-- Content Cards Section -->
-        <section id="content-cards" class="content-cards" data-scroll-section>
-
-            <!-- WORK MODE Content -->
-            <div class="mode-content mode-content-work" data-for-mode="work">
+            <div class="parallax-content">
                 <div class="cards-grid">
                     <div class="card-group card-group-primary">
                         <h3 class="card-group-title">Connect</h3>
@@ -180,9 +168,17 @@
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- EXPERIENCE MODE Content -->
-            <div class="mode-content mode-content-experience" data-for-mode="experience">
+        <!-- ============================================ -->
+        <!-- EXPERIENCE SECTION (Parallax Layer)         -->
+        <!-- ============================================ -->
+        <section id="section-experience" class="parallax-section parallax-section-experience" data-scroll-section>
+            <div class="parallax-bg parallax-bg-experience"></div>
+            <div class="parallax-label">
+                <span>Art</span>
+            </div>
+            <div class="parallax-content">
                 <div class="cards-grid">
                     <div class="card-group card-group-primary">
                         <h3 class="card-group-title">Watch</h3>
@@ -209,22 +205,6 @@
                     <h3 class="achievements-title">Championship Record</h3>
                     <div id="achievements-container" class="achievements-container">
                         <!-- Achievements will be injected -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- EXPLORE MODE Content (shows both) -->
-            <div class="mode-content mode-content-explore active" data-for-mode="explore">
-                <div class="explore-grid">
-                    <div class="explore-card explore-work">
-                        <h3>For Recruiters & Clients</h3>
-                        <p>Resume, GitHub, LinkedIn, and ways to get in touch.</p>
-                        <button class="explore-cta" data-mode="work">Explore Work →</button>
-                    </div>
-                    <div class="explore-card explore-experience">
-                        <h3>For Fans & Community</h3>
-                        <p>Beatbox battles, music, social media, and more.</p>
-                        <button class="explore-cta" data-mode="experience">Explore Art →</button>
                     </div>
                 </div>
             </div>
@@ -264,7 +244,7 @@
     <footer class="footer">
         <div class="footer-content">
             <p>&copy; <span id="footer-year">2025</span> ENKR. Built with passion.</p>
-            <p class="footer-hint">Press <kbd>W</kbd> for Work | <kbd>E</kbd> for Experience | <kbd>Esc</kbd> to Explore</p>
+            <p class="footer-hint">Press <kbd>W</kbd> to jump to Work | <kbd>E</kbd> to jump to Art | <kbd>Home</kbd> to return</p>
         </div>
     </footer>
 
