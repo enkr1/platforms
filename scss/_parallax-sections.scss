@@ -119,40 +119,29 @@
 // Section-Specific Theming
 // ============================================
 
-.parallax-section-work {
-  background: linear-gradient(
-    180deg,
-    var(--color-bg) 0%,
-    rgba(59, 130, 246, 0.02) 50%,
-    var(--color-bg) 100%
-  );
+// Unified premium styling - Gold accent for both sections
+.parallax-section-work,
+.parallax-section-experience {
+  background: var(--color-bg);
 
   .card-group-title {
-    color: var(--color-work-primary);
+    color: var(--color-text-muted);
+    font-weight: var(--font-weight-medium);
   }
 
   .chip:hover {
-    border-color: var(--color-work-primary);
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-glow);
   }
 }
 
-.parallax-section-experience {
-  background: linear-gradient(
-    180deg,
-    var(--color-bg) 0%,
-    rgba(239, 68, 68, 0.02) 50%,
-    var(--color-bg) 100%
-  );
+// Subtle label color differentiation only
+.parallax-section-work .parallax-label span {
+  color: var(--color-work-primary);
+}
 
-  .card-group-title {
-    color: var(--color-experience-primary);
-  }
-
-  .chip:hover {
-    border-color: var(--color-experience-primary);
-    box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
-  }
+.parallax-section-experience .parallax-label span {
+  color: var(--color-experience-primary);
 }
 
 // ============================================

@@ -32,90 +32,93 @@
   --line-height-relaxed: 1.8;
 
   // ========================================
-  // Colors - Base Palette
+  // Colors - 「金渊映日」Ba Zi Palette (Refined)
+  // Premium: Navy + Silver + Gold (restrained)
   // ========================================
-  --color-bg: #0a0a0f;
-  --color-bg-elevated: #12121a;
-  --color-bg-muted: #1a1a24;
 
-  --color-text: #ffffff;
-  --color-text-secondary: rgba(255, 255, 255, 0.8);
-  --color-text-muted: rgba(255, 255, 255, 0.5);
-  --color-text-subtle: rgba(255, 255, 255, 0.3);
+  // Base - 渊墨黑 (Abyss Black) - Deep Water
+  --color-bg: #0A1A2F;
+  --color-bg-elevated: #102540;
+  --color-bg-muted: #0D1F35;
 
-  --color-accent: #8b5cf6;  // Purple accent
-  --color-accent-hover: #a78bfa;
+  // Text - 月光银 (Moonlight Silver) - Pure Metal
+  --color-text: #F0F6FF;
+  --color-text-secondary: #C8D9F0;
+  --color-text-muted: #7A96B8;
+  --color-text-subtle: #4A6585;
 
-  // ========================================
-  // Colors - Work Mode (Professional Blue)
-  // ========================================
-  --color-work-bg: #0d1117;
-  --color-work-primary: #58a6ff;
-  --color-work-secondary: #388bfd;
-  --color-work-accent: #79c0ff;
-  --color-work-muted: #8b949e;
+  // Accent - 旭日金 (Rising Sun Gold) - THE accent
+  // Use sparingly: CTAs, hover states, key highlights only
+  --color-accent: #E8A848;
+  --color-accent-hover: #F4C06A;
+  --color-accent-muted: rgba(232, 168, 72, 0.15);
 
   // ========================================
-  // Colors - Experience Mode (Energetic Red)
+  // Section Colors (Subtle variations, not competing)
+  // Both derive from the navy base, gold remains THE accent
   // ========================================
-  --color-experience-bg: #1a0a0a;
-  --color-experience-primary: #ff6b6b;
-  --color-experience-secondary: #ee5253;
-  --color-experience-accent: #ffa8a8;
-  --color-experience-muted: #c44569;
+  --color-work-bg: #0A1A2F;
+  --color-work-primary: #4A7DB8;        // Lighter blue for labels
+  --color-work-secondary: #3A6698;
+  --color-work-accent: var(--color-accent);  // Gold, not blue
+  --color-work-muted: #3D5A7A;
+
+  --color-experience-bg: #0A1A2F;
+  --color-experience-primary: #5BA3A0;  // Muted teal (subtle)
+  --color-experience-secondary: #4A8A87;
+  --color-experience-accent: var(--color-accent);  // Gold, not cyan
+  --color-experience-muted: #3D6B69;
 
   // ========================================
-  // Colors - Spotify Green
+  // Colors - Status/Utility
   // ========================================
   --color-spotify: #1db954;
-  --color-spotify-dark: #191414;
+  --color-spotify-dark: #0A1A2F;
 
   // ========================================
-  // Gradient - Hero Background
+  // Gradient - Hero Background (Subtle depth)
   // ========================================
   --gradient-hero: linear-gradient(
     135deg,
-    #0a0a0f 0%,
-    #1a0a2e 25%,
-    #0f1a2e 50%,
-    #0a0a0f 75%,
-    #1a0a1a 100%
+    #0A1A2F 0%,
+    #0D2240 30%,
+    #102540 50%,
+    #0D2240 70%,
+    #0A1A2F 100%
   );
 
   --gradient-work: linear-gradient(
-    135deg,
-    #0d1117 0%,
-    #161b22 50%,
-    #0d1117 100%
+    180deg,
+    #0A1A2F 0%,
+    #0D2240 100%
   );
 
   --gradient-experience: linear-gradient(
-    135deg,
-    #1a0a0a 0%,
-    #2a0f0f 50%,
-    #1a0a0a 100%
+    180deg,
+    #0A1A2F 0%,
+    #0D2240 100%
   );
 
   // ========================================
-  // Glass Morphism
+  // Glass Morphism (Subtle silver tints)
   // ========================================
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-bg-hover: rgba(255, 255, 255, 0.08);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-border-hover: rgba(255, 255, 255, 0.15);
+  --glass-bg: rgba(240, 246, 255, 0.03);
+  --glass-bg-hover: rgba(240, 246, 255, 0.06);
+  --glass-border: rgba(240, 246, 255, 0.08);
+  --glass-border-hover: rgba(232, 168, 72, 0.3);  // Gold on hover
   --glass-blur: 20px;
   --glass-blur-light: 10px;
 
   // ========================================
-  // Shadows
+  // Shadows (Gold glow for accents only)
   // ========================================
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
-  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.6);
-  --shadow-glow: 0 0 40px rgba(139, 92, 246, 0.3);
-  --shadow-glow-work: 0 0 40px rgba(88, 166, 255, 0.3);
-  --shadow-glow-experience: 0 0 40px rgba(255, 107, 107, 0.3);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.7);
+  --shadow-glow: 0 0 30px rgba(232, 168, 72, 0.25);  // Subtle gold glow
+  --shadow-glow-work: 0 0 30px rgba(232, 168, 72, 0.2);
+  --shadow-glow-experience: 0 0 30px rgba(232, 168, 72, 0.2);
 
   // ========================================
   // Spacing
