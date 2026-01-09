@@ -55,32 +55,13 @@
     <!-- ACT 1: LOADING & REVEAL                      -->
     <!-- ============================================ -->
 
-    <!-- Loading Screen - Beatbox Pattern -->
+    <!-- Loading Screen - Minimal Waveform -->
     <div id="loading-screen" class="loading-screen">
         <div class="loading-content">
-            <!-- Beatbox Pattern Notation -->
-            <div class="beatbox-pattern">
-                <span class="beat beat-kick" data-sound="kick">B</span>
-                <span class="beat beat-hat" data-sound="hat">t</span>
-                <span class="beat beat-snare" data-sound="snare">K</span>
-                <span class="beat beat-hat" data-sound="hat">t</span>
-                <span class="beat beat-kick" data-sound="kick">B</span>
-                <span class="beat beat-hat" data-sound="hat">t</span>
-                <span class="beat beat-snare" data-sound="snare">K</span>
-                <span class="beat beat-pf" data-sound="pf">Pf</span>
-            </div>
-            <!-- Logo -->
-            <div class="loading-logo">
-                <span class="logo-letter">E</span>
-                <span class="logo-letter">N</span>
-                <span class="logo-letter">K</span>
-                <span class="logo-letter">R</span>
-            </div>
-            <!-- Progress indicator -->
-            <div class="loading-progress-bar">
-                <div id="progress-fill" class="progress-fill"></div>
-            </div>
-            <span id="loading-text" class="loading-status">Initializing...</span>
+            <!-- Self-Drawing Waveform -->
+            <svg class="loading-waveform" viewBox="0 0 200 40" preserveAspectRatio="xMidYMid meet">
+                <path class="waveform-line" d="M0,20 Q25,5 50,20 T100,20 T150,20 T200,20" />
+            </svg>
         </div>
     </div>
 

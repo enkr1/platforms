@@ -1,6 +1,6 @@
 // ============================================
-// Loading Screen - Beatbox Pattern Notation
-// Each sound lights up in rhythm sequence
+// Loading Screen - Minimal Self-Drawing Waveform
+// Premium, ultra-lean: one gold line coming to life
 // ============================================
 
 .loading-screen {
@@ -22,189 +22,53 @@
 
 .loading-content {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2.5rem;
-}
-
-// ============================================
-// Beatbox Pattern Notation
-// Pattern: B t K t B t K Pf (customize later)
-// ============================================
-
-.beatbox-pattern {
-  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  font-family: var(--font-mono);
-  font-size: clamp(1.5rem, 5vw, 2.5rem);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: 0.05em;
-
-  @media (min-width: 768px) {
-    gap: 0.75rem;
-  }
-}
-
-.beat {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 2em;
-  padding: 0.3em 0.4em;
-  border-radius: var(--radius-md);
-  color: var(--color-text-muted);
-  background: transparent;
-  transition: all 0.1s ease-out;
-  opacity: 0.3;
-  transform: scale(0.9);
-
-  // Pulse animation - each beat lights up in sequence
-  animation: beatPulse 1.6s ease-in-out infinite;
-
-  // Staggered timing for 8-beat pattern
-  @for $i from 1 through 8 {
-    &:nth-child(#{$i}) {
-      animation-delay: #{($i - 1) * 0.2}s;
-    }
-  }
-}
-
-// Sound colors - Gold accent only (premium, unified)
-.beat-kick,
-.beat-snare,
-.beat-pf {
-  --beat-color: var(--color-accent); // Rising Sun Gold
-  --beat-glow: rgba(232, 168, 72, 0.5);
-}
-
-.beat-hat {
-  --beat-color: var(--color-text-muted); // Subtle silver for hi-hats
-  --beat-glow: rgba(122, 150, 184, 0.3);
-}
-
-@keyframes beatPulse {
-  0%, 20%, 100% {
-    opacity: 0.3;
-    transform: scale(0.9);
-    color: var(--color-text-muted);
-    text-shadow: none;
-  }
-  10% {
-    opacity: 1;
-    transform: scale(1.15);
-    color: var(--beat-color, var(--color-accent));
-    text-shadow:
-      0 0 20px var(--beat-glow, rgba(139, 92, 246, 0.5)),
-      0 0 40px var(--beat-glow, rgba(139, 92, 246, 0.3));
-  }
 }
 
 // ============================================
-// Logo with Letter Animation
+// Self-Drawing Waveform SVG
 // ============================================
 
-.loading-logo {
-  display: flex;
-  gap: 0.1em;
-  font-family: var(--font-primary);
-  font-size: clamp(3rem, 10vw, 5rem);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+.loading-waveform {
+  width: clamp(120px, 40vw, 200px);
+  height: auto;
+  overflow: visible;
 }
 
-.logo-letter {
-  display: inline-block;
-  color: var(--color-text);
-  opacity: 0;
-  transform: translateY(30px) scale(0.8);
-  animation: letterReveal 0.6s var(--ease-out-expo) forwards;
+.waveform-line {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 
-  // Staggered reveal
-  @for $i from 1 through 4 {
-    &:nth-child(#{$i}) {
-      animation-delay: #{0.3 + ($i - 1) * 0.1}s;
-    }
-  }
+  // Line drawing animation
+  stroke-dasharray: 250;
+  stroke-dashoffset: 250;
+  animation: drawWave 2s var(--ease-out-expo) forwards,
+             waveGlow 2s ease-in-out 1.5s infinite;
 
-  // Subtle glow effect (Rising Sun Gold)
-  text-shadow:
-    0 0 20px rgba(232, 168, 72, 0.3),
-    0 0 40px rgba(232, 168, 72, 0.1);
+  // Subtle glow
+  filter: drop-shadow(0 0 8px rgba(232, 168, 72, 0.4));
 }
 
-@keyframes letterReveal {
+// Draw the line from start to end
+@keyframes drawWave {
   to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+    stroke-dashoffset: 0;
   }
 }
 
-// ============================================
-// Progress Bar (Thin, Premium)
-// ============================================
-
-.loading-progress-bar {
-  width: 200px;
-  height: 2px;
-  background: var(--glass-border);
-  border-radius: 1px;
-  overflow: hidden;
-  opacity: 0;
-  animation: fadeIn 0.5s var(--ease-out-expo) 0.8s forwards;
-
-  @media (min-width: 768px) {
-    width: 280px;
-  }
-}
-
-.progress-fill {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(
-    90deg,
-    var(--color-accent),
-    var(--color-work-primary),
-    var(--color-experience-primary)
-  );
-  background-size: 200% 100%;
-  border-radius: 1px;
-  transition: width 0.3s var(--ease-out-expo);
-  animation: gradientShift 2s ease infinite;
-}
-
-@keyframes gradientShift {
+// Gentle pulsing glow after drawn
+@keyframes waveGlow {
   0%, 100% {
-    background-position: 0% 50%;
+    filter: drop-shadow(0 0 8px rgba(232, 168, 72, 0.4));
+    opacity: 1;
   }
   50% {
-    background-position: 100% 50%;
-  }
-}
-
-// ============================================
-// Status Text
-// ============================================
-
-.loading-status {
-  font-family: var(--font-mono);
-  font-size: var(--font-size-xs);
-  color: var(--color-text-muted);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  opacity: 0;
-  animation: fadeIn 0.5s var(--ease-out-expo) 1s forwards;
-
-  @media (min-width: 768px) {
-    font-size: var(--font-size-sm);
-  }
-}
-
-@keyframes fadeIn {
-  to {
-    opacity: 1;
+    filter: drop-shadow(0 0 16px rgba(232, 168, 72, 0.6));
+    opacity: 0.8;
   }
 }
 
@@ -213,32 +77,15 @@
 // ============================================
 
 .loading-screen.complete {
-  .beat {
-    animation: beatComplete 0.4s var(--ease-out-expo) forwards;
-  }
-
-  .loading-logo .logo-letter {
-    animation: letterPulse 0.3s var(--ease-out-expo);
+  .waveform-line {
+    animation: waveComplete 0.4s var(--ease-out-expo) forwards;
   }
 }
 
-@keyframes beatComplete {
+@keyframes waveComplete {
   to {
-    opacity: 1;
-    transform: scale(1.1);
-    color: var(--beat-color, var(--color-accent));
-    text-shadow:
-      0 0 25px var(--beat-glow, rgba(232, 168, 72, 0.6)),
-      0 0 40px var(--beat-glow, rgba(232, 168, 72, 0.3));
-  }
-}
-
-@keyframes letterPulse {
-  50% {
-    transform: scale(1.05);
-    text-shadow:
-      0 0 25px rgba(232, 168, 72, 0.5),
-      0 0 50px rgba(232, 168, 72, 0.2);
+    filter: drop-shadow(0 0 24px rgba(232, 168, 72, 0.8));
+    stroke-width: 3;
   }
 }
 
@@ -247,25 +94,9 @@
 // ============================================
 
 @media (prefers-reduced-motion: reduce) {
-  .beat {
+  .waveform-line {
     animation: none;
-    opacity: 0.6;
-    transform: scale(1);
-  }
-
-  .logo-letter {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
-
-  .loading-progress-bar,
-  .loading-status {
-    animation: none;
-    opacity: 1;
-  }
-
-  .progress-fill {
-    animation: none;
+    stroke-dashoffset: 0;
+    filter: drop-shadow(0 0 8px rgba(232, 168, 72, 0.4));
   }
 }
