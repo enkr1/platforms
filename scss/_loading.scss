@@ -1,6 +1,6 @@
 // ============================================
-// Loading Screen - Canvas Waveform
-// Premium multi-layer waves with organic motion
+// Loading Screen - Waveform Transition
+// Waves enter from edges → animate → drop to bottom
 // ============================================
 
 .loading-screen {
@@ -11,7 +11,11 @@
   align-items: center;
   justify-content: center;
   background: var(--color-bg);
-  transition: opacity 0.8s var(--ease-out-expo), visibility 0.8s;
+  transition: background 0.8s ease, opacity 0.8s var(--ease-out-expo);
+
+  &.loading-screen--fading {
+    background: transparent;
+  }
 
   &.hidden {
     opacity: 0;
@@ -21,51 +25,142 @@
 }
 
 // ============================================
-// Canvas Element
+// ENKR Logo
 // ============================================
 
-.loading-waveform {
-  width: 100%;
-  height: 100%;
-  display: block;
+.loading-logo {
+  position: absolute;
+  top: calc(50% + 70px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.15em;
+  font-family: var(--font-primary);
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.2em;
+  color: var(--color-text);
+  z-index: 10;
+
+  span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s var(--ease-out-expo),
+                transform 0.5s var(--ease-out-expo);
+
+    // Subtle glow
+    text-shadow: 0 0 20px rgba(232, 168, 72, 0.3);
+  }
+}
+
+.loading-logo--visible span {
+  opacity: 1;
+  transform: translateY(0);
+
+  // Staggered reveal
+  @for $i from 1 through 4 {
+    &:nth-child(#{$i}) {
+      transition-delay: #{($i - 1) * 0.1}s;
+    }
+  }
+}
+
+.loading-logo--fading {
+  span {
+    opacity: 0 !important;
+    transform: translateY(-10px) !important;
+    transition: opacity 0.4s ease, transform 0.4s ease !important;
+  }
 }
 
 // ============================================
-// Loading Complete State
+// Waveform Loading States
+// Staggered fade-in → elegant drop to bottom
 // ============================================
 
-.loading-screen.complete {
-  // No flash - just smooth fade out via .hidden class
+// Initial state - staggered vertical positions, hidden
+.waveform--loading {
+  position: fixed !important;
+  bottom: auto !important;
+  top: 40% !important;
+  left: 0 !important;
+  right: 0 !important;
+  transform: translateY(-50%) !important;
+  width: 100% !important;
+  height: 200px !important;
+  z-index: 9001;
+
+  .waveform-svg {
+    overflow: visible;
+  }
+
+  // Each wave at different starting heights + hidden
+  .waveform-path {
+    opacity: 0;
+    transition: opacity 0.3s ease-out, transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  // Staggered starting positions (Wave 1 highest, Wave 3 lowest)
+  .waveform-path-1 { transform: translateY(-40px); }
+  .waveform-path-2 { transform: translateY(0); }
+  .waveform-path-3 { transform: translateY(40px); }
+}
+
+// Phase 1: Staggered fade-in (waves already animating)
+.waveform--drawing {
+  // Fade in with staggered delays - opacities match final state to avoid flash
+  .waveform-path-1 {
+    opacity: 0.3;
+    transition-delay: 0s;
+  }
+  .waveform-path-2 {
+    opacity: 0.5;
+    transition-delay: 0.2s;
+  }
+  .waveform-path-3 {
+    opacity: 0.7;
+    transition-delay: 0.4s;
+  }
+}
+
+// Phase 2: Elegant drop to bottom (overrides --loading)
+.waveform--dropping.waveform--dropping {
+  top: auto !important;
+  bottom: 0 !important;
+  transform: none !important;
+  z-index: 9501; // Stay above reveal overlay (z-index: 9500)
+  transition: top 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              bottom 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  // Converge to same position + final opacity
+  .waveform-path {
+    transform: translateY(0) !important;
+    transition: opacity 1s ease, transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  }
+
+  .waveform-path-1 { opacity: 0.3 !important; }
+  .waveform-path-2 { opacity: 0.5 !important; }
+  .waveform-path-3 { opacity: 0.7 !important; }
 }
 
 // ============================================
-// Reduced Motion - Show static golden line
+// Reduced Motion
 // ============================================
 
 @media (prefers-reduced-motion: reduce) {
-  .loading-screen {
-    // Canvas will be hidden, show fallback
-    &::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 200px;
-      height: 2px;
-      background: linear-gradient(
-        90deg,
-        transparent 0%,
-        var(--color-accent) 20%,
-        var(--color-accent) 80%,
-        transparent 100%
-      );
-      border-radius: 1px;
-      box-shadow: 0 0 20px rgba(232, 168, 72, 0.5);
-    }
+  .loading-logo span {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 
-    .loading-waveform {
-      display: none;
-    }
+  .waveform--loading .waveform-path {
+    clip-path: inset(0 0 0 0);
+  }
+
+  .waveform--dropping {
+    transition: none;
   }
 }

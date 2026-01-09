@@ -55,9 +55,16 @@
     <!-- ACT 1: LOADING & REVEAL                      -->
     <!-- ============================================ -->
 
-    <!-- Loading Screen - Canvas Waveform -->
-    <div id="loading-screen" class="loading-screen">
-        <canvas id="loading-waveform" class="loading-waveform"></canvas>
+    <!-- Loading Screen - Background only -->
+    <div id="loading-screen" class="loading-screen"></div>
+
+    <!-- Waveform - OUTSIDE loading screen, animates from center to bottom -->
+    <div id="waveform" class="waveform waveform--loading">
+        <svg class="waveform-svg" viewBox="0 0 1440 200" preserveAspectRatio="none">
+            <path class="waveform-path waveform-path-1" d=""></path>
+            <path class="waveform-path waveform-path-2" d=""></path>
+            <path class="waveform-path waveform-path-3" d=""></path>
+        </svg>
     </div>
 
     <!-- Camera Iris Reveal Overlay -->
@@ -210,15 +217,6 @@
                 <!-- Blog posts will be injected here -->
             </div>
         </section>
-
-        <!-- Waveform Visualization -->
-        <div id="waveform" class="waveform">
-            <svg class="waveform-svg" viewBox="0 0 1440 200" preserveAspectRatio="none">
-                <path class="waveform-path waveform-path-1" d=""></path>
-                <path class="waveform-path waveform-path-2" d=""></path>
-                <path class="waveform-path waveform-path-3" d=""></path>
-            </svg>
-        </div>
 
     </main>
 

@@ -11,11 +11,20 @@
   pointer-events: none;
   z-index: 5;
   opacity: 0.5;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.8s ease; // Smooth fade when loading classes removed
 
-  // Hide when Spotify bar is expanded
-  .spotify-bar.expanded ~ & {
-    opacity: 0;
+  // During loading, override opacity
+  &.waveform--loading,
+  &.waveform--drawing,
+  &.waveform--dropping {
+    opacity: 1;
+  }
+
+  // Hide when Spotify bar is expanded (only in final state)
+  &:not(.waveform--loading):not(.waveform--drawing):not(.waveform--dropping) {
+    .spotify-bar.expanded ~ & {
+      opacity: 0;
+    }
   }
 }
 
@@ -87,28 +96,28 @@
 
 @keyframes waveformAnimate1 {
   0%, 100% {
-    d: path("M0,100 Q360,50 720,100 T1440,100 L1440,200 L0,200 Z");
+    d: path("M0,100 Q360,50 720,100 T1440,100");
   }
   50% {
-    d: path("M0,100 Q360,150 720,100 T1440,100 L1440,200 L0,200 Z");
+    d: path("M0,100 Q360,150 720,100 T1440,100");
   }
 }
 
 @keyframes waveformAnimate2 {
   0%, 100% {
-    d: path("M0,120 Q360,80 720,120 T1440,120 L1440,200 L0,200 Z");
+    d: path("M0,120 Q360,80 720,120 T1440,120");
   }
   50% {
-    d: path("M0,120 Q360,160 720,120 T1440,120 L1440,200 L0,200 Z");
+    d: path("M0,120 Q360,160 720,120 T1440,120");
   }
 }
 
 @keyframes waveformAnimate3 {
   0%, 100% {
-    d: path("M0,140 Q360,120 720,140 T1440,140 L1440,200 L0,200 Z");
+    d: path("M0,140 Q360,120 720,140 T1440,140");
   }
   50% {
-    d: path("M0,140 Q360,160 720,140 T1440,140 L1440,200 L0,200 Z");
+    d: path("M0,140 Q360,160 720,140 T1440,140");
   }
 }
 
@@ -125,13 +134,13 @@
 
 @keyframes heartbeatWave {
   0%, 100% {
-    d: path("M0,150 L400,150 Q450,150 500,150 Q550,100 600,150 Q650,200 700,150 Q750,150 800,150 L1440,150 L1440,200 L0,200 Z");
+    d: path("M0,150 L400,150 Q450,150 500,150 Q550,100 600,150 Q650,200 700,150 Q750,150 800,150 L1440,150");
   }
   25% {
-    d: path("M0,150 L400,150 Q450,150 500,150 Q550,80 600,150 Q650,220 700,150 Q750,150 800,150 L1440,150 L1440,200 L0,200 Z");
+    d: path("M0,150 L400,150 Q450,150 500,150 Q550,80 600,150 Q650,220 700,150 Q750,150 800,150 L1440,150");
   }
   50% {
-    d: path("M0,150 L400,150 Q450,150 500,150 Q550,120 600,150 Q650,180 700,150 Q750,150 800,150 L1440,150 L1440,200 L0,200 Z");
+    d: path("M0,150 L400,150 Q450,150 500,150 Q550,120 600,150 Q650,180 700,150 Q750,150 800,150 L1440,150");
   }
 }
 
