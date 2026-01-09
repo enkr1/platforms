@@ -31,25 +31,11 @@
 }
 
 // ============================================
-// Loading Complete State - Glow Burst
+// Loading Complete State
 // ============================================
 
 .loading-screen.complete {
-  .loading-waveform {
-    animation: canvasGlowBurst 0.5s var(--ease-out-expo) forwards;
-  }
-}
-
-@keyframes canvasGlowBurst {
-  0% {
-    filter: brightness(1) saturate(1);
-  }
-  50% {
-    filter: brightness(1.5) saturate(1.3);
-  }
-  100% {
-    filter: brightness(1) saturate(1);
-  }
+  // No flash - just smooth fade out via .hidden class
 }
 
 // ============================================
