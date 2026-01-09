@@ -55,14 +55,9 @@
     <!-- ACT 1: LOADING & REVEAL                      -->
     <!-- ============================================ -->
 
-    <!-- Loading Screen - Minimal Waveform -->
+    <!-- Loading Screen - Canvas Waveform -->
     <div id="loading-screen" class="loading-screen">
-        <div class="loading-content">
-            <!-- Self-Drawing Waveform -->
-            <svg class="loading-waveform" viewBox="0 0 200 40" preserveAspectRatio="xMidYMid meet">
-                <path class="waveform-line" d="M0,20 Q25,5 50,20 T100,20 T150,20 T200,20" />
-            </svg>
-        </div>
+        <canvas id="loading-waveform" class="loading-waveform"></canvas>
     </div>
 
     <!-- Camera Iris Reveal Overlay -->
