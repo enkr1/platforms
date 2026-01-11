@@ -1,6 +1,6 @@
 // ============================================
-// Scroll Indicator - Premium animated icon
-// Replaces text "Scroll to explore" with clean animation
+// Scroll Indicator - Minimal Gold Line
+// Ultra-clean animated vertical line with gold accent
 // ============================================
 
 .scroll-indicator {
@@ -11,7 +11,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0;
   opacity: 0;
   transition: opacity 0.8s ease 1.5s;
   cursor: pointer;
@@ -29,119 +29,89 @@
     transition: opacity 0.4s ease;
   }
 
-  // Mouse icon container
+  // The line track
   &__mouse {
     position: relative;
-    width: 24px;
-    height: 40px;
-    border: 2px solid var(--color-text-muted);
-    border-radius: 12px;
-    transition: border-color 0.3s ease;
+    width: 1px;
+    height: 48px;
+    background: rgba(240, 246, 255, 0.15); // Subtle silver track
+    border: none;
+    border-radius: 0;
+    overflow: hidden;
 
-    // Scroll dot
+    // Animated gold light traveling down
     &::before {
       content: '';
       position: absolute;
-      top: 8px;
+      top: -16px;
+      left: 0;
+      width: 100%;
+      height: 16px;
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        var(--color-accent) 50%,
+        transparent
+      );
+      border-radius: 0;
+      animation: gold-drop 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    // Soft glow around line
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
       left: 50%;
-      width: 4px;
-      height: 8px;
       transform: translateX(-50%);
-      background: var(--color-accent);
-      border-radius: 2px;
-      animation: scroll-dot 1.5s ease-in-out infinite;
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(232, 168, 72, 0.2) 50%,
+        transparent
+      );
+      filter: blur(2px);
+      opacity: 0.5;
     }
   }
 
-  // Chevron arrows
+  // Hide chevrons (not used in minimal design)
   &__chevrons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-    opacity: 0.6;
+    display: none;
   }
 
   &__chevron {
-    width: 12px;
-    height: 12px;
-    border-right: 2px solid var(--color-text-muted);
-    border-bottom: 2px solid var(--color-text-muted);
-    transform: rotate(45deg);
-    animation: chevron-bounce 1.5s ease-in-out infinite;
-
-    &:nth-child(2) {
-      animation-delay: 0.15s;
-      opacity: 0.6;
-    }
-
-    &:nth-child(3) {
-      animation-delay: 0.3s;
-      opacity: 0.3;
-    }
+    display: none;
   }
 
-  // Hover state
+  // Hover state - brighten
   &:hover {
     .scroll-indicator__mouse {
-      border-color: var(--color-accent);
+      background: rgba(240, 246, 255, 0.25);
+
+      &::before {
+        animation-duration: 1.2s; // Speed up on hover
+      }
     }
-
-    .scroll-indicator__chevron {
-      border-color: var(--color-accent);
-    }
   }
 }
 
-@keyframes scroll-dot {
-  0%, 100% {
-    top: 8px;
-    opacity: 1;
-  }
-  50% {
-    top: 20px;
-    opacity: 0.3;
-  }
-}
-
-@keyframes chevron-bounce {
-  0%, 100% {
-    transform: rotate(45deg) translateY(0);
-    opacity: 0.6;
-  }
-  50% {
-    transform: rotate(45deg) translateY(4px);
-    opacity: 1;
-  }
-}
-
-// Alternative: Simple animated line
-.scroll-indicator--line {
-  width: 1px;
-  height: 60px;
-  background: var(--color-text-muted);
-  opacity: 0.5;
-  position: relative;
-  overflow: hidden;
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 20px;
-    background: var(--color-accent);
-    animation: line-scroll 1.5s ease-in-out infinite;
-  }
-}
-
-@keyframes line-scroll {
+@keyframes gold-drop {
   0% {
-    transform: translateY(-100%);
+    top: -16px;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
   }
   100% {
-    transform: translateY(300%);
+    top: 48px;
+    opacity: 0;
   }
 }
 
@@ -151,8 +121,7 @@
     bottom: 1.5rem;
 
     &__mouse {
-      width: 20px;
-      height: 34px;
+      height: 40px;
     }
   }
 }
