@@ -31,7 +31,7 @@
   stroke-width: 2;
   stroke-linecap: round;
   opacity: 0; // Start invisible, loading animation will fade in
-  transition: opacity 2s cubic-bezier(0.25, 0.46, 0.45, 0.94), stroke 0.5s ease;
+  transition: opacity var(--duration-wave-animation) cubic-bezier(0.25, 0.46, 0.45, 0.94), stroke 0.5s ease;
 }
 
 // Layer 1 - Back (slowest, largest amplitude)

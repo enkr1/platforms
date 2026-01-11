@@ -92,7 +92,7 @@
   z-index: 9600; // Above reveal overlay (9500) so waves aren't covered
   overflow: visible !important;
   // Container drops smoothly
-  transition: transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform var(--duration-wave-animation) cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
   .waveform-svg {
     overflow: visible;
@@ -101,19 +101,19 @@
   // Waves start invisible at DIFFERENT positions
   .waveform-path {
     opacity: 0;
-    transition: opacity 2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: opacity var(--duration-wave-animation) cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform var(--duration-wave-animation) cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
-  // Each wave starts from a different direction
+  // Each wave starts OFF-SCREEN from different directions
   .waveform-path-1 {
-    transform: translate(-30%, -80px); // Top-left
+    transform: translate(-50%, -50vh); // Far top-left, off screen
   }
   .waveform-path-2 {
-    transform: translateY(-100px); // Top-center
+    transform: translateY(-50vh); // Far top, off screen
   }
   .waveform-path-3 {
-    transform: translate(30%, -80px); // Top-right
+    transform: translate(50%, -50vh); // Far top-right, off screen
   }
 }
 

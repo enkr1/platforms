@@ -74,6 +74,7 @@
   --duration-normal: 300ms;
   --duration-slow: 500ms;
   --duration-reveal: 1200ms;
+  --duration-wave-animation: 2s;
   --scroll: 0;
   --scroll-section: 0;
 }
@@ -382,23 +383,23 @@ body.depth-active::-webkit-scrollbar {
   height: 200px !important;
   z-index: 9600;
   overflow: visible !important;
-  transition: transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform var(--duration-wave-animation) cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .waveform--loading .waveform-svg {
   overflow: visible;
 }
 .waveform--loading .waveform-path {
   opacity: 0;
-  transition: opacity 2s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: opacity var(--duration-wave-animation) cubic-bezier(0.25, 0.46, 0.45, 0.94), transform var(--duration-wave-animation) cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .waveform--loading .waveform-path-1 {
-  transform: translate(-30%, -80px);
+  transform: translate(-50%, -50vh);
 }
 .waveform--loading .waveform-path-2 {
-  transform: translateY(-100px);
+  transform: translateY(-50vh);
 }
 .waveform--loading .waveform-path-3 {
-  transform: translate(30%, -80px);
+  transform: translate(50%, -50vh);
 }
 
 .waveform--loading.waveform--drawing {
@@ -1531,7 +1532,7 @@ body.depth-active::-webkit-scrollbar {
   stroke-width: 2;
   stroke-linecap: round;
   opacity: 0;
-  transition: opacity 2s cubic-bezier(0.25, 0.46, 0.45, 0.94), stroke 0.5s ease;
+  transition: opacity var(--duration-wave-animation) cubic-bezier(0.25, 0.46, 0.45, 0.94), stroke 0.5s ease;
 }
 
 .waveform-path-1 {
@@ -1647,119 +1648,6 @@ body.depth-active::-webkit-scrollbar {
   .waveform {
     height: 40px;
     opacity: 0.2;
-  }
-}
-.status-indicator {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  z-index: 50;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: statusSlideIn 0.5s var(--ease-out-expo) 3s forwards;
-}
-@media (min-width: 640px) {
-  .status-indicator {
-    bottom: 2rem;
-    right: 2rem;
-  }
-}
-
-@keyframes statusSlideIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.status-content {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.625rem 1rem;
-  background: rgba(25, 20, 20, 0.9);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-full);
-  font-size: var(--font-size-xs);
-  color: var(--color-text-secondary);
-  transition: all 0.3s ease;
-}
-.status-content:hover {
-  background: rgba(25, 20, 20, 0.95);
-  border-color: var(--color-work-primary);
-  transform: scale(1.02);
-}
-@media (min-width: 640px) {
-  .status-content {
-    padding: 0.75rem 1.25rem;
-    font-size: var(--font-size-sm);
-  }
-}
-
-.status-dot {
-  width: 8px;
-  height: 8px;
-  background: #4ade80;
-  border-radius: 50%;
-  animation: statusPulse 2s ease-in-out infinite;
-}
-
-@keyframes statusPulse {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.1);
-    box-shadow: 0 0 0 6px rgba(74, 222, 128, 0);
-  }
-}
-.status-text {
-  font-weight: var(--font-weight-medium);
-  letter-spacing: 0.02em;
-}
-
-.status-indicator.busy .status-dot {
-  background: #fbbf24;
-}
-@keyframes statusPulse {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 0 6px rgba(251, 191, 36, 0);
-  }
-}
-
-.status-indicator.offline .status-dot {
-  background: #ef4444;
-  animation: none;
-}
-
-@media (max-width: 400px) {
-  .status-indicator {
-    bottom: 1rem;
-    right: 1rem;
-  }
-  .status-indicator .status-text {
-    display: none;
-  }
-  .status-indicator .status-content {
-    padding: 0.5rem;
-    border-radius: 50%;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .status-indicator {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
-  .status-dot {
-    animation: none;
   }
 }
 .footer {
