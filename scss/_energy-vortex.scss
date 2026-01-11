@@ -141,11 +141,11 @@
 @keyframes vortex-pulse {
   0%, 100% {
     opacity: 0.3;
-    transform: scale(0.98);
+    transform: translate(-50%, -50%) scale(0.98);
   }
   50% {
     opacity: 0.6;
-    transform: scale(1.02);
+    transform: translate(-50%, -50%) scale(1.02);
   }
 }
 

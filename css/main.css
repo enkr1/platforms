@@ -374,7 +374,7 @@ body.depth-active::-webkit-scrollbar {
 .waveform--loading {
   position: fixed !important;
   bottom: auto !important;
-  top: 40% !important;
+  top: 50% !important;
   left: 0 !important;
   right: 0 !important;
   transform: translateY(-50%) !important;
@@ -393,7 +393,7 @@ body.depth-active::-webkit-scrollbar {
 }
 
 .waveform--loading.waveform--drawing {
-  transform: translateY(calc(60vh - 200px)) !important;
+  transform: translateY(calc(50vh - 100px)) !important;
   z-index: 9501;
 }
 .waveform--loading.waveform--drawing .waveform-path-1 {
@@ -1518,6 +1518,7 @@ body.depth-active::-webkit-scrollbar {
   fill: none;
   stroke-width: 2;
   stroke-linecap: round;
+  opacity: 0;
   transition: opacity 2s cubic-bezier(0.25, 0.46, 0.45, 0.94), stroke 0.5s ease;
 }
 
@@ -2089,11 +2090,11 @@ body.depth-active::-webkit-scrollbar {
 @keyframes vortex-pulse {
   0%, 100% {
     opacity: 0.3;
-    transform: scale(0.98);
+    transform: translate(-50%, -50%) scale(0.98);
   }
   50% {
     opacity: 0.6;
-    transform: scale(1.02);
+    transform: translate(-50%, -50%) scale(1.02);
   }
 }
 .energy-vortex:hover .energy-vortex__ring--gold {
