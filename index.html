@@ -52,6 +52,23 @@
 
 <body>
     <!-- ============================================ -->
+    <!-- DEPTH LAYERS - 三层能量场                    -->
+    <!-- ============================================ -->
+
+    <!-- Layer 1: Abyss (deepest - static background) -->
+    <div class="depth-layer-abyss"></div>
+
+    <!-- Layer 2: Star Trails (middle - canvas) -->
+    <div id="star-trails" class="star-trails depth-layer-stars">
+        <canvas id="star-trails-canvas"></canvas>
+    </div>
+
+    <!-- Layer 3: Gold Particles (shallow - canvas) -->
+    <div id="particles" class="particles depth-layer-particles">
+        <canvas id="particles-canvas"></canvas>
+    </div>
+
+    <!-- ============================================ -->
     <!-- ACT 1: LOADING & REVEAL                      -->
     <!-- ============================================ -->
 
@@ -76,60 +93,84 @@
 
     <main id="frequency-app" class="frequency-app">
 
-        <!-- Hero Section with Animated Gradient -->
+        <!-- Hero Section - Energy Vortex (能量涡旋) -->
         <section id="hero" class="hero" data-scroll-section>
             <div class="hero-gradient"></div>
-            <div class="hero-particles"></div>
 
             <div class="hero-content">
-                <div class="profile-card">
-                    <div class="profile-image-wrapper">
-                        <img id="profile-image" src="" alt="ENKR Profile" class="profile-image">
-                        <div class="profile-glow"></div>
+                <!-- Energy Vortex - Abstract centerpiece -->
+                <div class="energy-vortex" id="energy-vortex">
+                    <div class="energy-vortex__rings">
+                        <div class="energy-vortex__ring energy-vortex__ring--gold"></div>
+                        <div class="energy-vortex__ring energy-vortex__ring--teal"></div>
+                        <div class="energy-vortex__ring energy-vortex__ring--glow"></div>
                     </div>
-                    <div class="profile-info">
-                        <h1 class="profile-name">
-                            <span class="name-cn" id="name-cn"></span>
-                            <span class="name-en" id="name-en"></span>
+                    <div class="energy-vortex__center">
+                        <h1 class="energy-vortex__title" id="vortex-title">
+                            <span>E</span><span>N</span><span>K</span><span>R</span>
                         </h1>
-                        <p class="profile-tagline">Full-Stack Engineer. Beatbox Champion. <br>Building rhythm in code.</p>
+                        <p class="energy-vortex__subtitle">Enter the frequency</p>
                     </div>
-                </div>
-
-                <!-- Two Path CTAs - Scroll to sections -->
-                <div class="hero-cta">
-                    <button class="cta-button cta-work" data-scroll-to="section-work">
-                        <span class="cta-icon">&#x1F4BC;</span>
-                        <span class="cta-text">Work With Me</span>
-                        <span class="cta-hint">Press W</span>
-                    </button>
-                    <button class="cta-button cta-experience" data-scroll-to="section-experience">
-                        <span class="cta-icon">&#x1F3A4;</span>
-                        <span class="cta-text">Experience My Art</span>
-                        <span class="cta-hint">Press E</span>
-                    </button>
                 </div>
             </div>
 
-            <!-- Scroll Indicator -->
-            <div class="scroll-indicator">
-                <div class="scroll-arrow"></div>
-                <span>Scroll to explore</span>
+            <!-- Premium Scroll Indicator -->
+            <div class="scroll-indicator" id="scroll-indicator">
+                <div class="scroll-indicator__mouse">
+                    <!-- Scroll dot animated via CSS -->
+                </div>
+                <div class="scroll-indicator__chevrons">
+                    <div class="scroll-indicator__chevron"></div>
+                    <div class="scroll-indicator__chevron"></div>
+                    <div class="scroll-indicator__chevron"></div>
+                </div>
             </div>
         </section>
 
-        <!-- Intro Section -->
+        <!-- Intro Section - Identity Reveal with Bagua Wheel -->
         <section id="intro" class="intro" data-scroll-section>
             <div class="intro-content">
-                <h2 class="intro-title">
+                <h2 class="intro-title depth-reveal">
                     <span class="intro-line">Who is</span>
                     <span class="intro-highlight">ENKR</span>
                     <span class="intro-line">?</span>
                 </h2>
-                <div id="roles-container" class="roles-container">
+
+                <!-- Bagua Wheel with Profile Picture -->
+                <div class="bagua-wheel" id="bagua-wheel" data-scroll-reveal>
+                    <div class="bagua-wheel__outer">
+                        <div class="bagua-wheel__ring bagua-wheel__ring--gold"></div>
+                        <div class="bagua-wheel__ring bagua-wheel__ring--teal"></div>
+                        <div class="bagua-wheel__ring bagua-wheel__ring--glow"></div>
+                        <div class="bagua-wheel__trigrams">
+                            <div class="trigram"></div>
+                            <div class="trigram"></div>
+                            <div class="trigram"></div>
+                            <div class="trigram"></div>
+                            <div class="trigram"></div>
+                            <div class="trigram"></div>
+                            <div class="trigram"></div>
+                            <div class="trigram"></div>
+                        </div>
+                    </div>
+                    <div class="bagua-wheel__glow"></div>
+                    <div class="bagua-wheel__center">
+                        <img id="profile-image" src="" alt="ENKR Profile" class="profile-image">
+                    </div>
+                </div>
+
+                <!-- Name (moved from hero) -->
+                <div class="profile-name-container depth-reveal">
+                    <h3 class="profile-name">
+                        <span class="name-cn" id="name-cn"></span>
+                        <span class="name-en" id="name-en"></span>
+                    </h3>
+                </div>
+
+                <div id="roles-container" class="roles-container depth-reveal-group">
                     <!-- Roles will be injected here -->
                 </div>
-                <blockquote id="bio-quote" class="bio-quote">
+                <blockquote id="bio-quote" class="bio-quote depth-reveal">
                     <!-- Bio quote will be injected here -->
                 </blockquote>
             </div>
@@ -140,26 +181,26 @@
         <!-- ============================================ -->
         <section id="section-work" class="parallax-section parallax-section-work" data-scroll-section>
             <div class="parallax-bg parallax-bg-work"></div>
-            <div class="parallax-label">
+            <div class="parallax-label depth-strip">
                 <span>Work</span>
             </div>
             <div class="parallax-content">
-                <div class="cards-grid">
-                    <div class="card-group card-group-primary">
+                <div class="cards-grid depth-reveal-group">
+                    <div class="card-group card-group-primary depth-reveal depth-floating">
                         <h3 class="card-group-title">Connect</h3>
-                        <div id="work-primary-chips" class="chips-container">
+                        <div id="work-primary-chips" class="chips-container particle-attractor" data-attraction="0.8">
                             <!-- Email, Cal.com will be injected -->
                         </div>
                     </div>
-                    <div class="card-group card-group-credentials">
+                    <div class="card-group card-group-credentials depth-reveal depth-floating">
                         <h3 class="card-group-title">Credentials</h3>
-                        <div id="work-credentials-chips" class="chips-container">
+                        <div id="work-credentials-chips" class="chips-container particle-attractor" data-attraction="0.6">
                             <!-- Resume, GitHub, LinkedIn, StackOverflow will be injected -->
                         </div>
                     </div>
-                    <div class="card-group card-group-activity">
+                    <div class="card-group card-group-activity depth-reveal depth-floating">
                         <h3 class="card-group-title">Activity</h3>
-                        <div id="work-activity-chips" class="chips-container">
+                        <div id="work-activity-chips" class="chips-container particle-attractor" data-attraction="0.5">
                             <!-- WakaTime, Google Developers will be injected -->
                         </div>
                     </div>
@@ -172,48 +213,48 @@
         <!-- ============================================ -->
         <section id="section-experience" class="parallax-section parallax-section-experience" data-scroll-section>
             <div class="parallax-bg parallax-bg-experience"></div>
-            <div class="parallax-label">
+            <div class="parallax-label depth-strip">
                 <span>Art</span>
             </div>
             <div class="parallax-content">
-                <div class="cards-grid">
-                    <div class="card-group card-group-primary">
+                <div class="cards-grid depth-reveal-group">
+                    <div class="card-group card-group-primary depth-reveal depth-floating">
                         <h3 class="card-group-title">Watch</h3>
-                        <div id="experience-primary-chips" class="chips-container">
+                        <div id="experience-primary-chips" class="chips-container particle-attractor" data-attraction="0.8">
                             <!-- YouTube, TikTok will be injected -->
                         </div>
                     </div>
-                    <div class="card-group card-group-media">
+                    <div class="card-group card-group-media depth-reveal depth-floating">
                         <h3 class="card-group-title">Listen</h3>
-                        <div id="experience-media-chips" class="chips-container">
+                        <div id="experience-media-chips" class="chips-container particle-attractor" data-attraction="0.7">
                             <!-- SoundCloud, Spotify will be injected -->
                         </div>
                     </div>
-                    <div class="card-group card-group-social">
+                    <div class="card-group card-group-social depth-reveal depth-floating">
                         <h3 class="card-group-title">Follow</h3>
-                        <div id="experience-social-chips" class="chips-container">
+                        <div id="experience-social-chips" class="chips-container particle-attractor" data-attraction="0.6">
                             <!-- Instagram, Twitter, Facebook will be injected -->
                         </div>
                     </div>
                 </div>
 
-                <!-- Achievements -->
-                <div class="achievements-section">
+                <!-- Achievements (Constellation layout) -->
+                <div class="achievements-section depth-reveal">
                     <h3 class="achievements-title">Championship Record</h3>
-                    <div id="achievements-container" class="achievements-container">
+                    <div id="achievements-container" class="achievements-container depth-reveal-group">
                         <!-- Achievements will be injected -->
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Blog Stream Section -->
+        <!-- Blog Stream Section - Thoughts from the Depths -->
         <section id="blog-stream" class="blog-stream" data-scroll-section>
-            <div class="blog-header">
+            <div class="blog-header depth-reveal">
                 <h2 class="blog-title">Thought Stream</h2>
-                <a href="https://blog.enkr1.com" target="_blank" class="blog-view-all">View All →</a>
+                <a href="https://blog.enkr1.com" target="_blank" class="blog-view-all particle-converge-target">View All →</a>
             </div>
-            <div id="blog-timeline" class="blog-timeline">
+            <div id="blog-timeline" class="blog-timeline depth-reveal-group">
                 <!-- Blog posts will be injected here -->
             </div>
         </section>

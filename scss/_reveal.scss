@@ -78,12 +78,8 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    circle at 50% 50%,
-    transparent 0%,
-    transparent 20%,
-    var(--color-bg) 21%
-  );
+  background: var(--color-bg);
+  border-radius: 50%;
   opacity: 0;
   transition: opacity 0.3s ease;
 }

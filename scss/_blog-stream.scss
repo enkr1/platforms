@@ -90,21 +90,16 @@
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl);
   text-decoration: none;
-  transition: all 0.3s var(--ease-out-expo);
+  transition: border-color 0.3s ease;
 
-  &:hover {
-    transform: translateY(-5px);
-    border-color: var(--color-accent);
-    box-shadow: var(--shadow-lg);
-
-    .blog-post-title {
-      color: var(--color-accent);
+  @media (hover: hover) {
+    &:hover {
+      border-color: var(--color-accent);
     }
+  }
 
-    .blog-post-arrow {
-      transform: translateX(5px);
-      opacity: 1;
-    }
+  &:active {
+    background: var(--glass-bg-hover);
   }
 
   @media (min-width: 640px) {
@@ -166,17 +161,13 @@
 // Featured post styling
 .blog-post.featured {
   flex: 0 0 350px;
-  background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(139, 92, 246, 0.1) 100%);
+  background: rgba(139, 92, 246, 0.06);
   border-color: rgba(139, 92, 246, 0.3);
 
   .blog-post-date::before {
     background: var(--color-accent);
     opacity: 1;
     animation: featuredPulse 2s ease-in-out infinite;
-  }
-
-  &:hover {
-    box-shadow: var(--shadow-glow);
   }
 
   @media (min-width: 640px) {
@@ -238,15 +229,6 @@
   .blog-post {
     flex: 0 0 240px;
     padding: 1.25rem;
-
-    // Disable hover on mobile
-    &:hover {
-      transform: none;
-    }
-
-    &:active {
-      transform: scale(0.98);
-    }
   }
 
   .blog-post-title {

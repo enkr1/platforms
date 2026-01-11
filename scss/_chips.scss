@@ -1,11 +1,17 @@
 // ============================================
-// Premium Chip Components
+// Premium Chip Components - 「聚光成芒」
+// Particle attraction creates "nobles attracted by talent"
 // ============================================
 
 .chips-container {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
+
+  // When container is a particle attractor
+  &.particle-attractor {
+    position: relative;
+  }
 }
 
 .chip {
@@ -22,31 +28,19 @@
   color: var(--color-text);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
-  transition: all 0.3s var(--ease-out-expo);
+  transition: border-color 0.3s ease;
   overflow: hidden;
 
-  // Gradient overlay on hover
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.05) 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  &:hover {
-    transform: translateY(-3px);
-    border-color: var(--glass-border-hover);
-    box-shadow: var(--shadow-lg);
-
-    &::before {
-      opacity: 1;
+  // Hover: border color only (desktop with hover capability)
+  @media (hover: hover) {
+    &:hover {
+      border-color: var(--color-accent);
     }
   }
 
+  // Active state for touch feedback
   &:active {
-    transform: translateY(-1px);
+    background: var(--glass-bg-hover);
   }
 
   @media (min-width: 640px) {
@@ -92,118 +86,39 @@
 
 // ========================================
 // Chip Variants - Work Mode
+// All hover states use gold accent per 「金渊映日」guidelines
 // ========================================
 
 .chip-primary {
-  background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(88, 166, 255, 0.1) 100%);
-  border-color: rgba(88, 166, 255, 0.3);
-
-  &:hover {
-    border-color: var(--color-work-primary);
-    box-shadow: var(--shadow-glow-work);
-  }
+  background: var(--glass-bg);
+  border-color: rgba(232, 168, 72, 0.25);
 }
 
-.chip-email {
-  &:hover {
-    border-color: var(--color-work-primary);
-    background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(88, 166, 255, 0.15) 100%);
-  }
-}
-
-.chip-calendar {
-  &:hover {
-    border-color: #7c3aed;
-    background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(124, 58, 237, 0.15) 100%);
-  }
-}
-
-.chip-resume {
-  &:hover {
-    border-color: #10b981;
-    background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(16, 185, 129, 0.15) 100%);
-  }
-}
-
-.chip-github {
-  &:hover {
-    border-color: #ffffff;
-    background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(255, 255, 255, 0.1) 100%);
-  }
-}
-
-.chip-linkedin {
-  &:hover {
-    border-color: #0a66c2;
-    background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(10, 102, 194, 0.15) 100%);
-  }
-}
-
-.chip-stackoverflow {
-  &:hover {
-    border-color: #f48024;
-    background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(244, 128, 36, 0.15) 100%);
-  }
-}
-
+.chip-email,
+.chip-calendar,
+.chip-resume,
+.chip-github,
+.chip-linkedin,
+.chip-stackoverflow,
 .chip-wakatime {
-  &:hover {
-    border-color: #0084ff;
-    background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(0, 132, 255, 0.15) 100%);
-  }
+  // All work chips use gold hover (consistent with design system)
+  // Individual brand colors removed to maintain gold accent unity
 }
 
 // ========================================
 // Chip Variants - Experience Mode
+// All hover states use gold accent per 「金渊映日」guidelines
 // ========================================
 
-.chip-youtube {
-  &:hover {
-    border-color: #ff0000;
-    background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(255, 0, 0, 0.15) 100%);
-  }
-}
-
-.chip-tiktok {
-  &:hover {
-    border-color: #ff0050;
-    background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(255, 0, 80, 0.15) 100%);
-  }
-}
-
-.chip-soundcloud {
-  &:hover {
-    border-color: #ff5500;
-    background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(255, 85, 0, 0.15) 100%);
-  }
-}
-
-.chip-spotify {
-  &:hover {
-    border-color: var(--color-spotify);
-    background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(29, 185, 84, 0.15) 100%);
-  }
-}
-
-.chip-instagram {
-  &:hover {
-    border-color: #e1306c;
-    background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(225, 48, 108, 0.15) 100%);
-  }
-}
-
-.chip-twitter {
-  &:hover {
-    border-color: #1da1f2;
-    background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(29, 161, 242, 0.15) 100%);
-  }
-}
-
+.chip-youtube,
+.chip-tiktok,
+.chip-soundcloud,
+.chip-spotify,
+.chip-instagram,
+.chip-twitter,
 .chip-facebook {
-  &:hover {
-    border-color: #1877f2;
-    background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(24, 119, 242, 0.15) 100%);
-  }
+  // All experience chips use gold hover (consistent with design system)
+  // Individual brand colors removed to maintain gold accent unity
 }
 
 // ========================================
@@ -256,16 +171,6 @@
     .chip-arrow {
       opacity: 0.5;
       transform: translateX(0);
-    }
-
-    // Disable hover transform on touch
-    &:hover {
-      transform: none;
-    }
-
-    &:active {
-      transform: scale(0.98);
-      background: var(--glass-bg-hover);
     }
   }
 

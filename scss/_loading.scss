@@ -10,8 +10,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-bg);
-  transition: background 0.8s ease, opacity 0.8s var(--ease-out-expo);
+  background: transparent; // Let waves show through
+  transition: opacity 0.8s var(--ease-out-expo);
 
   &.loading-screen--fading {
     background: transparent;
@@ -90,54 +90,60 @@
   width: 100% !important;
   height: 200px !important;
   z-index: 9001;
+  overflow: visible !important;
+  // Container transition for drop animation (must be defined before --dropping changes transform)
+  transition: transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
   .waveform-svg {
     overflow: visible;
   }
 
-  // Each wave at different starting heights + hidden
+  // Waves fade in + move when --drawing added
   .waveform-path {
-    opacity: 0;
-    transition: opacity 0.3s ease-out, transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: opacity 1.5s ease-out, transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
-  // Staggered starting positions (Wave 1 highest, Wave 3 lowest)
-  .waveform-path-1 { transform: translateY(-40px); }
-  .waveform-path-2 { transform: translateY(0); }
-  .waveform-path-3 { transform: translateY(40px); }
+  // Waves start hidden at edge positions, fade in when --drawing added
+  .waveform-path-1 {
+    opacity: 0;
+    transform: translate(-40%, -100px); // Top-left
+  }
+  .waveform-path-2 {
+    opacity: 0;
+    transform: translateY(-150px); // Top-center
+  }
+  .waveform-path-3 {
+    opacity: 0;
+    transform: translate(40%, -100px); // Top-right
+  }
 }
 
-// Phase 1: Staggered fade-in (waves already animating)
+// Phase 1: Fade in + converge to center
 .waveform--drawing {
-  // Fade in with staggered delays - opacities match final state to avoid flash
   .waveform-path-1 {
     opacity: 0.3;
-    transition-delay: 0s;
+    transform: translate(0, 0);
   }
   .waveform-path-2 {
     opacity: 0.5;
-    transition-delay: 0.2s;
+    transform: translate(0, 0);
   }
   .waveform-path-3 {
     opacity: 0.7;
-    transition-delay: 0.4s;
+    transform: translate(0, 0);
   }
 }
 
-// Phase 2: Elegant drop to bottom (overrides --loading)
+// Phase 2: Elegant drop to bottom (use transform to animate, not top/bottom)
 .waveform--dropping.waveform--dropping {
-  top: auto !important;
-  bottom: 0 !important;
-  transform: none !important;
+  // Keep top: 40%, use transform to drop to bottom
+  // 60vh - 200px accounts for: 60vh travel + 200px container height
+  transform: translateY(calc(60vh - 200px)) !important;
   z-index: 9501; // Stay above reveal overlay (z-index: 9500)
-  transition: top 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              bottom 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
-  // Converge to same position + final opacity
   .waveform-path {
     transform: translateY(0) !important;
-    transition: opacity 1s ease, transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
   }
 
   .waveform-path-1 { opacity: 0.3 !important; }

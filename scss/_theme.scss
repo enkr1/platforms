@@ -76,28 +76,11 @@
   --color-spotify-dark: #0A1A2F;
 
   // ========================================
-  // Gradient - Hero Background (Subtle depth)
+  // Backgrounds (Solid colors, no gradients)
+  // Premium = Restraint = Solid colors only
   // ========================================
-  --gradient-hero: linear-gradient(
-    135deg,
-    #0A1A2F 0%,
-    #0D2240 30%,
-    #102540 50%,
-    #0D2240 70%,
-    #0A1A2F 100%
-  );
-
-  --gradient-work: linear-gradient(
-    180deg,
-    #0A1A2F 0%,
-    #0D2240 100%
-  );
-
-  --gradient-experience: linear-gradient(
-    180deg,
-    #0A1A2F 0%,
-    #0D2240 100%
-  );
+  // All backgrounds use --color-bg (#0A1A2F)
+  // Depth comes from layered elements, not gradients
 
   // ========================================
   // Glass Morphism (Subtle silver tints)

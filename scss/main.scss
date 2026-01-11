@@ -1,11 +1,14 @@
 // ============================================
 // ENKR Platforms - The Frequency
-// Premium Cinematic Portfolio Experience
+// 「渊渟星聚」Premium Cinematic Portfolio Experience
 // ============================================
 
 // Core
 @import "variables";
 @import "theme";
+
+// Depth System (三层能量场)
+@import "depth-system";
 
 // Cinematic Experience
 @import "loading";
@@ -21,6 +24,13 @@
 @import "waveform";
 @import "status-indicator";
 @import "footer";
+
+// Depth Components (NEW)
+@import "star-trails";
+@import "particles";
+@import "energy-vortex";
+@import "bagua-wheel";
+@import "scroll-indicator";
 
 // ============================================
 // Base Styles
@@ -124,21 +134,15 @@ img {
   color: var(--color-bg);
 }
 
-// Scrollbar (webkit)
-::-webkit-scrollbar {
-  width: 8px;
-}
+// Scrollbar - Hidden for immersive experience
+// (depth-system handles .depth-active class for hide-scrollbar)
+html,
+body {
+  scrollbar-width: none; // Firefox
+  -ms-overflow-style: none; // IE/Edge
 
-::-webkit-scrollbar-track {
-  background: var(--color-bg);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-text-muted);
-  border-radius: 4px;
-
-  &:hover {
-    background: var(--color-text);
+  &::-webkit-scrollbar {
+    display: none; // Chrome/Safari/Opera
   }
 }
 

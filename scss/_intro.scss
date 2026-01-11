@@ -43,20 +43,43 @@
   color: var(--color-accent);
   font-weight: var(--font-weight-bold);
   font-size: 1.5em;
-  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-work-primary) 50%, var(--color-experience-primary) 100%);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradientText 5s ease infinite;
+  // Solid gold color, no gradient (premium restraint)
+  text-shadow: 0 0 30px rgba(232, 168, 72, 0.3);
 }
 
-@keyframes gradientText {
-  0%, 100% {
-    background-position: 0% 50%;
+// Profile Name Container (moved from hero)
+.profile-name-container {
+  text-align: center;
+  margin-top: 1.5rem;
+
+  .profile-name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
   }
-  50% {
-    background-position: 100% 50%;
+
+  .name-cn {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    letter-spacing: 0.2em;
+
+    @media (min-width: 768px) {
+      font-size: var(--font-size-3xl);
+    }
+  }
+
+  .name-en {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-normal);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+
+    @media (min-width: 768px) {
+      font-size: var(--font-size-xl);
+    }
   }
 }
 
@@ -79,35 +102,29 @@
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
   backdrop-filter: blur(var(--glass-blur-light));
-  transition: all 0.3s var(--ease-out-expo);
+  transition: border-color 0.3s ease;
 
-  &:hover {
-    background: var(--glass-bg-hover);
-    border-color: var(--color-accent);
-    color: var(--color-text);
-    transform: translateY(-2px);
-  }
-
-  // Different colors for different role types
-  &.role-dev {
+  // Hover: border color only (desktop)
+  @media (hover: hover) {
     &:hover {
+      border-color: var(--color-accent);
+    }
+
+    &.role-dev:hover {
       border-color: var(--color-work-primary);
-      box-shadow: 0 0 20px rgba(88, 166, 255, 0.2);
     }
-  }
 
-  &.role-music {
-    &:hover {
+    &.role-music:hover {
       border-color: var(--color-experience-primary);
-      box-shadow: 0 0 20px rgba(255, 107, 107, 0.2);
+    }
+
+    &.role-fitness:hover {
+      border-color: var(--color-spotify);
     }
   }
 
-  &.role-fitness {
-    &:hover {
-      border-color: var(--color-spotify);
-      box-shadow: 0 0 20px rgba(29, 185, 84, 0.2);
-    }
+  &:active {
+    background: var(--glass-bg-hover);
   }
 
   @media (min-width: 768px) {
@@ -174,9 +191,6 @@
 
   .intro-highlight {
     font-size: 1.3em;
-    // Disable animation on mobile
-    animation: none;
-    background-position: 50% 50%;
   }
 
   .roles-container {
@@ -186,14 +200,6 @@
   .role-tag {
     padding: 0.375rem 0.75rem;
     font-size: var(--font-size-xs);
-
-    &:hover {
-      transform: none;
-    }
-
-    &:active {
-      background: var(--glass-bg-hover);
-    }
   }
 
   .bio-quote {

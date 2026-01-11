@@ -28,17 +28,19 @@
   transition: transform 0.1s linear;
   pointer-events: none;
 
-  // Gradient effect
+  // Glow effect (solid, no gradient)
   &::before {
     content: '';
     position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      ellipse 80% 60% at 50% 50%,
-      var(--parallax-color, var(--color-accent)) 0%,
-      transparent 70%
-    );
-    opacity: 0.6;
+    top: 50%;
+    left: 50%;
+    width: 60%;
+    height: 40%;
+    transform: translate(-50%, -50%);
+    background: var(--parallax-color, var(--color-accent));
+    opacity: 0.08;
+    border-radius: 50%;
+    filter: blur(60px);
   }
 }
 

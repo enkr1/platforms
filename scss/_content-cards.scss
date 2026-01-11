@@ -108,24 +108,7 @@
   border-radius: var(--radius-xl);
   backdrop-filter: blur(var(--glass-blur-light));
   overflow: hidden;
-  transition: all 0.4s var(--ease-out-expo);
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-xl);
-
-    &::before {
-      opacity: 1;
-    }
-  }
+  transition: border-color 0.3s ease;
 
   h3 {
     font-size: var(--font-size-xl);
@@ -141,28 +124,28 @@
     line-height: var(--line-height-relaxed);
   }
 
+  &:active {
+    background: var(--glass-bg-hover);
+  }
+
   @media (min-width: 768px) {
     padding: 2.5rem;
   }
 }
 
 .explore-work {
-  &::before {
-    background: linear-gradient(135deg, rgba(88, 166, 255, 0.1) 0%, transparent 60%);
-  }
-
-  &:hover {
-    border-color: var(--color-work-primary);
+  @media (hover: hover) {
+    &:hover {
+      border-color: var(--color-work-primary);
+    }
   }
 }
 
 .explore-experience {
-  &::before {
-    background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, transparent 60%);
-  }
-
-  &:hover {
-    border-color: var(--color-experience-primary);
+  @media (hover: hover) {
+    &:hover {
+      border-color: var(--color-experience-primary);
+    }
   }
 }
 
@@ -177,12 +160,17 @@
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   color: var(--color-text);
-  transition: all 0.3s var(--ease-out-expo);
+  transition: border-color 0.3s ease;
 
-  &:hover {
-    background: var(--color-text);
+  @media (hover: hover) {
+    &:hover {
+      border-color: var(--color-accent);
+    }
+  }
+
+  &:active {
+    background: var(--color-accent);
     color: var(--color-bg);
-    transform: translateX(5px);
   }
 }
 
@@ -217,14 +205,15 @@
   align-items: center;
   gap: 0.5rem;
   padding: 1rem;
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 107, 107, 0.05) 100%);
-  border: 1px solid rgba(255, 215, 0, 0.3);
+  background: rgba(232, 168, 72, 0.08);
+  border: 1px solid rgba(232, 168, 72, 0.3);
   border-radius: var(--radius-lg);
-  transition: all 0.3s var(--ease-out-expo);
+  transition: border-color 0.3s ease;
 
-  &:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+  @media (hover: hover) {
+    &:hover {
+      border-color: var(--color-accent);
+    }
   }
 
   .badge-icon {
@@ -273,15 +262,6 @@
       font-size: var(--font-size-sm);
       margin-bottom: 1rem;
     }
-
-    // Disable hover on mobile
-    &:hover {
-      transform: none;
-    }
-
-    &:active {
-      transform: scale(0.99);
-    }
   }
 
   .explore-cta {
@@ -289,15 +269,6 @@
     justify-content: center;
     padding: 0.875rem 1.25rem;
     min-height: 44px;
-
-    &:hover {
-      transform: none;
-    }
-
-    &:active {
-      background: var(--color-text);
-      color: var(--color-bg);
-    }
   }
 
   .achievements-section {
@@ -311,14 +282,6 @@
 
     .badge-icon {
       font-size: 1.5rem;
-    }
-
-    &:hover {
-      transform: none;
-    }
-
-    &:active {
-      transform: scale(0.95);
     }
   }
 }
