@@ -388,50 +388,26 @@ body.depth-active::-webkit-scrollbar {
   overflow: visible;
 }
 .waveform--loading .waveform-path {
-  transition: opacity 1.5s ease-out, transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-.waveform--loading .waveform-path-1 {
   opacity: 0;
-  transform: translate(-40%, -100px);
-}
-.waveform--loading .waveform-path-2 {
-  opacity: 0;
-  transform: translateY(-150px);
-}
-.waveform--loading .waveform-path-3 {
-  opacity: 0;
-  transform: translate(40%, -100px);
+  transition: opacity 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.waveform--drawing .waveform-path-1 {
-  opacity: 0.3;
-  transform: translate(0, 0);
-}
-.waveform--drawing .waveform-path-2 {
-  opacity: 0.5;
-  transform: translate(0, 0);
-}
-.waveform--drawing .waveform-path-3 {
-  opacity: 0.7;
-  transform: translate(0, 0);
-}
-
-.waveform--dropping.waveform--dropping {
+.waveform--loading.waveform--drawing {
   transform: translateY(calc(60vh - 200px)) !important;
   z-index: 9501;
-  transition: transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-.waveform--dropping.waveform--dropping .waveform-path {
-  transform: translateY(0) !important;
+.waveform--loading.waveform--drawing .waveform-path-1 {
+  opacity: 0.3;
 }
-.waveform--dropping.waveform--dropping .waveform-path-1 {
-  opacity: 0.3 !important;
+.waveform--loading.waveform--drawing .waveform-path-2 {
+  opacity: 0.5;
 }
-.waveform--dropping.waveform--dropping .waveform-path-2 {
-  opacity: 0.5 !important;
+.waveform--loading.waveform--drawing .waveform-path-3 {
+  opacity: 0.7;
 }
-.waveform--dropping.waveform--dropping .waveform-path-3 {
-  opacity: 0.7 !important;
+
+.waveform--dropping:not(.waveform--loading) {
+  transform: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1542,28 +1518,35 @@ body.depth-active::-webkit-scrollbar {
   fill: none;
   stroke-width: 2;
   stroke-linecap: round;
-  transition: stroke 0.5s ease;
+  transition: opacity 2s cubic-bezier(0.25, 0.46, 0.45, 0.94), stroke 0.5s ease;
 }
 
 .waveform-path-1 {
   stroke: var(--color-accent);
-  opacity: 0.3;
   stroke-width: 3;
   animation: waveformAnimate1 8s ease-in-out infinite;
 }
 
 .waveform-path-2 {
   stroke: var(--color-work-primary);
-  opacity: 0.5;
   stroke-width: 2;
   animation: waveformAnimate2 6s ease-in-out infinite;
 }
 
 .waveform-path-3 {
   stroke: var(--color-experience-primary);
-  opacity: 0.7;
   stroke-width: 1.5;
   animation: waveformAnimate3 4s ease-in-out infinite;
+}
+
+.waveform:not(.waveform--loading) .waveform-path-1 {
+  opacity: 0.3;
+}
+.waveform:not(.waveform--loading) .waveform-path-2 {
+  opacity: 0.5;
+}
+.waveform:not(.waveform--loading) .waveform-path-3 {
+  opacity: 0.7;
 }
 
 [data-mode=work] .waveform-path-1 {

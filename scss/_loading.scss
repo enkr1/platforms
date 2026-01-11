@@ -76,10 +76,10 @@
 
 // ============================================
 // Waveform Loading States
-// Staggered fade-in → elegant drop to bottom
+// Fade in + drop to bottom TOGETHER (synchronized)
 // ============================================
 
-// Initial state - staggered vertical positions, hidden
+// Initial state - centered, invisible
 .waveform--loading {
   position: fixed !important;
   bottom: auto !important;
@@ -91,64 +91,36 @@
   height: 200px !important;
   z-index: 9001;
   overflow: visible !important;
-  // Container transition for drop animation (must be defined before --dropping changes transform)
+  // Container drops smoothly
   transition: transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
   .waveform-svg {
     overflow: visible;
   }
 
-  // Waves fade in + move when --drawing added
+  // Waves start invisible (centered, no offset)
   .waveform-path {
-    transition: opacity 1.5s ease-out, transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-
-  // Waves start hidden at edge positions, fade in when --drawing added
-  .waveform-path-1 {
     opacity: 0;
-    transform: translate(-40%, -100px); // Top-left
-  }
-  .waveform-path-2 {
-    opacity: 0;
-    transform: translateY(-150px); // Top-center
-  }
-  .waveform-path-3 {
-    opacity: 0;
-    transform: translate(40%, -100px); // Top-right
+    transition: opacity 2s cubic-bezier(0.25, 0.46, 0.45, 0.94); // Same duration as drop
   }
 }
 
-// Phase 1: Fade in + converge to center
-.waveform--drawing {
-  .waveform-path-1 {
-    opacity: 0.3;
-    transform: translate(0, 0);
-  }
-  .waveform-path-2 {
-    opacity: 0.5;
-    transform: translate(0, 0);
-  }
-  .waveform-path-3 {
-    opacity: 0.7;
-    transform: translate(0, 0);
-  }
-}
-
-// Phase 2: Elegant drop to bottom (use transform to animate, not top/bottom)
-.waveform--dropping.waveform--dropping {
-  // Keep top: 40%, use transform to drop to bottom
-  // 60vh - 200px accounts for: 60vh travel + 200px container height
+// Animation: fade in + drop TOGETHER (triggered by --drawing)
+.waveform--loading.waveform--drawing {
+  // Container drops to bottom (from top:40% centered to bottom of screen)
+  // 60vh moves from 40% to 100%, minus container height
   transform: translateY(calc(60vh - 200px)) !important;
-  z-index: 9501; // Stay above reveal overlay (z-index: 9500)
-  transition: transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 9501;
 
-  .waveform-path {
-    transform: translateY(0) !important;
-  }
+  // Waves fade in (same 2s duration as drop = synchronized)
+  .waveform-path-1 { opacity: 0.3; }
+  .waveform-path-2 { opacity: 0.5; }
+  .waveform-path-3 { opacity: 0.7; }
+}
 
-  .waveform-path-1 { opacity: 0.3 !important; }
-  .waveform-path-2 { opacity: 0.5 !important; }
-  .waveform-path-3 { opacity: 0.7 !important; }
+// Final state - use base positioning (bottom: 0)
+.waveform--dropping:not(.waveform--loading) {
+  transform: none !important;
 }
 
 // ============================================

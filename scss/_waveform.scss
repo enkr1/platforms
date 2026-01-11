@@ -30,13 +30,14 @@
   fill: none;
   stroke-width: 2;
   stroke-linecap: round;
-  transition: stroke 0.5s ease;
+  // Always have opacity transition ready for loading animation
+  transition: opacity 2s cubic-bezier(0.25, 0.46, 0.45, 0.94), stroke 0.5s ease;
 }
 
 // Layer 1 - Back (slowest, largest amplitude)
+// Note: opacity controlled by loading states in _loading.scss
 .waveform-path-1 {
   stroke: var(--color-accent);
-  opacity: 0.3;
   stroke-width: 3;
   animation: waveformAnimate1 8s ease-in-out infinite;
 }
@@ -44,7 +45,6 @@
 // Layer 2 - Middle
 .waveform-path-2 {
   stroke: var(--color-work-primary);
-  opacity: 0.5;
   stroke-width: 2;
   animation: waveformAnimate2 6s ease-in-out infinite;
 }
@@ -52,9 +52,15 @@
 // Layer 3 - Front (fastest, smallest amplitude)
 .waveform-path-3 {
   stroke: var(--color-experience-primary);
-  opacity: 0.7;
   stroke-width: 1.5;
   animation: waveformAnimate3 4s ease-in-out infinite;
+}
+
+// Final opacity state (after loading animation completes)
+.waveform:not(.waveform--loading) {
+  .waveform-path-1 { opacity: 0.3; }
+  .waveform-path-2 { opacity: 0.5; }
+  .waveform-path-3 { opacity: 0.7; }
 }
 
 // Mode-based waveform colors
