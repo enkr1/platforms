@@ -436,60 +436,6 @@ body.depth-active::-webkit-scrollbar {
     transition: none;
   }
 }
-.reveal-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 9500;
-  background: var(--color-bg);
-  pointer-events: none;
-  clip-path: circle(0% at 50% 50%);
-  transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
-}
-.reveal-overlay.revealing {
-  clip-path: circle(150% at 50% 50%);
-}
-.reveal-overlay.revealed {
-  display: none;
-}
-
-.reveal-overlay[data-effect=slider] {
-  clip-path: inset(0 50% 0 50%);
-}
-.reveal-overlay[data-effect=slider].revealing {
-  clip-path: inset(0 0% 0 0%);
-}
-
-.reveal-overlay[data-effect=blinds] {
-  clip-path: polygon(0% 0%, 10% 0%, 10% 100%, 0% 100%, 20% 0%, 30% 0%, 30% 100%, 20% 100%, 40% 0%, 50% 0%, 50% 100%, 40% 100%, 60% 0%, 70% 0%, 70% 100%, 60% 100%, 80% 0%, 90% 0%, 90% 100%, 80% 100%, 100% 0%, 100% 100%, 0% 100%);
-}
-.reveal-overlay[data-effect=blinds].revealing {
-  clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%, 0% 0%, 0% 0%, 0% 100%, 0% 100%, 0% 0%, 0% 0%, 0% 100%, 0% 100%, 0% 0%, 0% 0%, 0% 100%, 0% 100%, 0% 0%, 0% 0%, 0% 100%, 0% 100%, 0% 0%, 0% 100%, 0% 100%);
-}
-
-.reveal-overlay[data-effect=scale] {
-  opacity: 1;
-  transform: scale(1.1);
-  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
-}
-.reveal-overlay[data-effect=scale].revealing {
-  opacity: 0;
-  transform: scale(1);
-}
-
-.reveal-overlay::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--color-bg);
-  border-radius: 50%;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.reveal-overlay.revealing::before {
-  opacity: 0;
-}
-
 .hero {
   position: relative;
   min-height: 100vh;
