@@ -2128,6 +2128,62 @@ body.depth-active::-webkit-scrollbar {
     font-size: clamp(2.5rem, 15vw, 4rem);
   }
 }
+.enkr-logo {
+  width: clamp(21rem, 90vw, 44rem);
+  height: auto;
+  overflow: visible;
+  display: block;
+  color: var(--color-text);
+  position: relative;
+  z-index: 20;
+}
+.enkr-logo__letters {
+  filter: none;
+  transition: filter 0.8s ease;
+}
+.enkr-logo__letter {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+}
+
+.energy-vortex__title.revealed .enkr-logo__letter--e {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0ms;
+}
+.energy-vortex__title.revealed .enkr-logo__letter--n {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 280ms;
+}
+.energy-vortex__title.revealed .enkr-logo__letter--k {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 560ms;
+}
+.energy-vortex__title.revealed .enkr-logo__letter--r {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 840ms;
+}
+.energy-vortex__title.revealed .enkr-logo__letters {
+  animation: enkr-glow-fade 800ms ease 1200ms forwards;
+}
+
+@keyframes enkr-glow-fade {
+  from {
+    filter: none;
+  }
+  to {
+    filter: url(#enkr-glow);
+  }
+}
+@media (max-width: 768px) {
+  .enkr-logo {
+    width: clamp(18rem, 95vw, 29rem);
+  }
+}
 .bagua-wheel {
   position: relative;
   display: flex;
