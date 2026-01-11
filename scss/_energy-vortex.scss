@@ -170,3 +170,70 @@
     }
   }
 }
+
+// ============================================
+// ENKR Logo - v2 Design (Filled shapes)
+// Using actual logo from enkr1.com/v2/
+// ============================================
+
+.enkr-logo {
+  width: clamp(21rem, 90vw, 44rem);  // 20% larger, in rem
+  height: auto;
+  overflow: visible;
+  display: block;
+  color: var(--color-text); // #F0F6FF Moonlight Silver
+  position: relative;
+  z-index: 20;  // Above the rings
+
+  &__letters {
+    filter: none;
+    transition: filter 0.8s ease;
+  }
+
+  &__letter {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+  }
+}
+
+// Animation: Staggered Reveal (triggered by .revealed)
+.energy-vortex__title.revealed {
+  .enkr-logo__letter--e {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0ms;
+  }
+  .enkr-logo__letter--n {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 280ms;
+  }
+  .enkr-logo__letter--k {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 560ms;
+  }
+  .enkr-logo__letter--r {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 840ms;
+  }
+
+  // Gold glow fades in after all letters reveal
+  .enkr-logo__letters {
+    animation: enkr-glow-fade 800ms ease 1200ms forwards;
+  }
+}
+
+@keyframes enkr-glow-fade {
+  from { filter: none; }
+  to { filter: url(#enkr-glow); }
+}
+
+// Mobile adjustments for logo
+@media (max-width: 768px) {
+  .enkr-logo {
+    width: clamp(18rem, 95vw, 29rem);  // 20% larger on mobile, in rem
+  }
+}

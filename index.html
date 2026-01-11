@@ -107,7 +107,26 @@
                     </div>
                     <div class="energy-vortex__center">
                         <h1 class="energy-vortex__title" id="vortex-title">
-                            <span>E</span><span>N</span><span>K</span><span>R</span>
+                            <svg class="enkr-logo" viewBox="0 0 2100.55 467.32" aria-label="ENKR" role="img">
+                                <title>ENKR</title>
+                                <defs>
+                                    <filter id="enkr-glow" x="-50%" y="-50%" width="200%" height="200%">
+                                        <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#E8A848" flood-opacity="0.6"/>
+                                        <feDropShadow dx="0" dy="0" stdDeviation="20" flood-color="#E8A848" flood-opacity="0.3"/>
+                                        <feDropShadow dx="0" dy="0" stdDeviation="40" flood-color="#E8A848" flood-opacity="0.15"/>
+                                    </filter>
+                                </defs>
+                                <g class="enkr-logo__letters" fill="currentColor">
+                                    <polygon class="enkr-logo__letter enkr-logo__letter--e"
+                                             points="733.16,21.27 733.15,21.27 733.15,20.94 538.82,20.94 538.82,41.08 714.68,41.08 725.53,164.22 0.88,164.22 0.88,184.37 727.3,184.37 739.91,327.46 370.72,327.46 370.72,347.61 742.05,347.61 742.05,347.41 761.74,345.67"/>
+                                    <polygon class="enkr-logo__letter enkr-logo__letter--n"
+                                             points="1012.07,316.73 855.14,33.78 855.21,33.1 835.15,31.21 798.31,421.64 818.37,423.54 851.8,69.27 1012.07,358.26 1012.07,359.16 1032.22,359.16 1032.22,37.16 1012.07,37.16"/>
+                                    <polygon class="enkr-logo__letter enkr-logo__letter--k"
+                                             points="1335.42,25 1321.94,10.02 1110.42,200.43 1110.42,0.16 1090.28,0.16 1090.28,413.55 1110.42,413.55 1110.42,227.53 1151.1,190.92 1275.32,406.06 1292.77,395.99 1166.41,177.14"/>
+                                    <path class="enkr-logo__letter enkr-logo__letter--r"
+                                          d="M2100.28,164.22h-548.87l-28.13-140.05v-1.24h-146.82v0.16l-0.5-0.07l-45.56,343.35l19.97,2.65l22.41-168.86l216.7,266.51l15.63-12.71l-219.22-269.6h714.39V164.22z M1530.86,164.22h-153.32l16.07-121.14h112.91L1530.86,164.22z"/>
+                                </g>
+                            </svg>
                         </h1>
                         <p class="energy-vortex__subtitle">Enter the frequency</p>
                     </div>
@@ -248,14 +267,23 @@
             </div>
         </section>
 
-        <!-- Blog Stream Section - Thoughts from the Depths -->
-        <section id="blog-stream" class="blog-stream" data-scroll-section>
-            <div class="blog-header depth-reveal">
-                <h2 class="blog-title">Thought Stream</h2>
-                <a href="https://blog.enkr1.com" target="_blank" class="blog-view-all particle-converge-target">View All →</a>
+        <!-- ============================================ -->
+        <!-- THOUGHTS SECTION (Parallax Layer)            -->
+        <!-- ============================================ -->
+        <section id="section-thoughts" class="parallax-section parallax-section-thoughts" data-scroll-section>
+            <div class="parallax-bg parallax-bg-thoughts"></div>
+            <div class="parallax-label depth-strip">
+                <span>Thoughts</span>
             </div>
-            <div id="blog-timeline" class="blog-timeline depth-reveal-group">
-                <!-- Blog posts will be injected here -->
+            <div class="parallax-content">
+                <div class="thoughts-header depth-reveal">
+                    <a href="https://blog.enkr1.com" target="_blank" class="thoughts-view-all particle-converge-target">
+                        View All Thoughts →
+                    </a>
+                </div>
+                <div id="blog-grid" class="cards-grid depth-reveal-group">
+                    <!-- Blog posts will be injected here -->
+                </div>
             </div>
         </section>
 
