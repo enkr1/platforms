@@ -389,7 +389,16 @@ body.depth-active::-webkit-scrollbar {
 }
 .waveform--loading .waveform-path {
   opacity: 0;
-  transition: opacity 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: opacity 2s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.waveform--loading .waveform-path-1 {
+  transform: translate(-30%, -80px);
+}
+.waveform--loading .waveform-path-2 {
+  transform: translateY(-100px);
+}
+.waveform--loading .waveform-path-3 {
+  transform: translate(30%, -80px);
 }
 
 .waveform--loading.waveform--drawing {
@@ -397,12 +406,15 @@ body.depth-active::-webkit-scrollbar {
 }
 .waveform--loading.waveform--drawing .waveform-path-1 {
   opacity: 0.3;
+  transform: translate(0, 0);
 }
 .waveform--loading.waveform--drawing .waveform-path-2 {
   opacity: 0.5;
+  transform: translate(0, 0);
 }
 .waveform--loading.waveform--drawing .waveform-path-3 {
   opacity: 0.7;
+  transform: translate(0, 0);
 }
 
 .waveform--dropping:not(.waveform--loading) {
@@ -2365,7 +2377,7 @@ body.depth-active::-webkit-scrollbar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0;
   opacity: 0;
   transition: opacity 0.8s ease 1.5s;
   cursor: pointer;
@@ -2381,99 +2393,63 @@ body.depth-active::-webkit-scrollbar {
 }
 .scroll-indicator__mouse {
   position: relative;
-  width: 24px;
-  height: 40px;
-  border: 2px solid var(--color-text-muted);
-  border-radius: 12px;
-  transition: border-color 0.3s ease;
+  width: 1px;
+  height: 48px;
+  background: rgba(240, 246, 255, 0.15);
+  border: none;
+  border-radius: 0;
+  overflow: hidden;
 }
 .scroll-indicator__mouse::before {
   content: "";
   position: absolute;
-  top: 8px;
-  left: 50%;
-  width: 4px;
-  height: 8px;
-  transform: translateX(-50%);
-  background: var(--color-accent);
-  border-radius: 2px;
-  animation: scroll-dot 1.5s ease-in-out infinite;
+  top: -16px;
+  left: 0;
+  width: 100%;
+  height: 16px;
+  background: linear-gradient(to bottom, transparent, var(--color-accent) 50%, transparent);
+  border-radius: 0;
+  animation: gold-drop 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
-.scroll-indicator__chevrons {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  opacity: 0.6;
-}
-.scroll-indicator__chevron {
-  width: 12px;
-  height: 12px;
-  border-right: 2px solid var(--color-text-muted);
-  border-bottom: 2px solid var(--color-text-muted);
-  transform: rotate(45deg);
-  animation: chevron-bounce 1.5s ease-in-out infinite;
-}
-.scroll-indicator__chevron:nth-child(2) {
-  animation-delay: 0.15s;
-  opacity: 0.6;
-}
-.scroll-indicator__chevron:nth-child(3) {
-  animation-delay: 0.3s;
-  opacity: 0.3;
-}
-.scroll-indicator:hover .scroll-indicator__mouse {
-  border-color: var(--color-accent);
-}
-.scroll-indicator:hover .scroll-indicator__chevron {
-  border-color: var(--color-accent);
-}
-
-@keyframes scroll-dot {
-  0%, 100% {
-    top: 8px;
-    opacity: 1;
-  }
-  50% {
-    top: 20px;
-    opacity: 0.3;
-  }
-}
-@keyframes chevron-bounce {
-  0%, 100% {
-    transform: rotate(45deg) translateY(0);
-    opacity: 0.6;
-  }
-  50% {
-    transform: rotate(45deg) translateY(4px);
-    opacity: 1;
-  }
-}
-.scroll-indicator--line {
-  width: 1px;
-  height: 60px;
-  background: var(--color-text-muted);
-  opacity: 0.5;
-  position: relative;
-  overflow: hidden;
-}
-.scroll-indicator--line::after {
+.scroll-indicator__mouse::after {
   content: "";
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 20px;
-  background: var(--color-accent);
-  animation: line-scroll 1.5s ease-in-out infinite;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, rgba(232, 168, 72, 0.2) 50%, transparent);
+  filter: blur(2px);
+  opacity: 0.5;
+}
+.scroll-indicator__chevrons {
+  display: none;
+}
+.scroll-indicator__chevron {
+  display: none;
+}
+.scroll-indicator:hover .scroll-indicator__mouse {
+  background: rgba(240, 246, 255, 0.25);
+}
+.scroll-indicator:hover .scroll-indicator__mouse::before {
+  animation-duration: 1.2s;
 }
 
-@keyframes line-scroll {
+@keyframes gold-drop {
   0% {
-    transform: translateY(-100%);
+    top: -16px;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
   }
   100% {
-    transform: translateY(300%);
+    top: 48px;
+    opacity: 0;
   }
 }
 @media (max-width: 768px) {
@@ -2481,8 +2457,7 @@ body.depth-active::-webkit-scrollbar {
     bottom: 1.5rem;
   }
   .scroll-indicator__mouse {
-    width: 20px;
-    height: 34px;
+    height: 40px;
   }
 }
 *,

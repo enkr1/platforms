@@ -79,7 +79,7 @@
 // Fade in + drop to bottom TOGETHER (synchronized)
 // ============================================
 
-// Initial state - centered, invisible
+// Initial state - container centered, waves at edges (invisible)
 .waveform--loading {
   position: fixed !important;
   bottom: auto !important;
@@ -98,22 +98,43 @@
     overflow: visible;
   }
 
-  // Waves start invisible (centered, no offset)
+  // Waves start invisible at DIFFERENT positions
   .waveform-path {
     opacity: 0;
-    transition: opacity 2s cubic-bezier(0.25, 0.46, 0.45, 0.94); // Same duration as drop
+    transition: opacity 2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  // Each wave starts from a different direction
+  .waveform-path-1 {
+    transform: translate(-30%, -80px); // Top-left
+  }
+  .waveform-path-2 {
+    transform: translateY(-100px); // Top-center
+  }
+  .waveform-path-3 {
+    transform: translate(30%, -80px); // Top-right
   }
 }
 
-// Animation: fade in + drop TOGETHER (triggered by --drawing)
+// Animation: converge + fade in + drop TOGETHER (all synchronized)
 .waveform--loading.waveform--drawing {
   // Container drops from 40% to bottom
   transform: translateY(calc(60vh - 200px)) !important;
 
-  // Waves fade in (same 2s duration as drop = synchronized)
-  .waveform-path-1 { opacity: 0.3; }
-  .waveform-path-2 { opacity: 0.5; }
-  .waveform-path-3 { opacity: 0.7; }
+  // Waves converge to center + fade in (same duration as drop)
+  .waveform-path-1 {
+    opacity: 0.3;
+    transform: translate(0, 0);
+  }
+  .waveform-path-2 {
+    opacity: 0.5;
+    transform: translate(0, 0);
+  }
+  .waveform-path-3 {
+    opacity: 0.7;
+    transform: translate(0, 0);
+  }
 }
 
 // Final state - use base positioning (bottom: 0)
