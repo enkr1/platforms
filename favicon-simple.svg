@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Optimized for small sizes - bold, simple -->
+  <rect width="32" height="32" rx="6" fill="#0A1A2F"/>
+
+  <!-- Bold E - no gradients, maximum clarity -->
+  <path d="M8 6h16v4H12v5h10v4H12v5h12v4H8z" fill="#E8A848"/>
+</svg>

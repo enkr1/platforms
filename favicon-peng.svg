@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <!-- 金 (Metal) gradient - moonlight silver to gold -->
+    <linearGradient id="metalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0F6FF"/>
+      <stop offset="40%" stop-color="#E8A848"/>
+      <stop offset="100%" stop-color="#D4923A"/>
+    </linearGradient>
+
+    <!-- 水 (Water) subtle ripple gradient for depth -->
+    <radialGradient id="abyssGrad" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#102540"/>
+      <stop offset="100%" stop-color="#0A1A2F"/>
+    </radialGradient>
+
+    <!-- 火 (Fire) controlled glow - wealth star, subtle -->
+    <filter id="fireGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feFlood flood-color="#E8A848" flood-opacity="0.4"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- 水为体 - Water foundation: Deep abyss background -->
+  <rect width="512" height="512" rx="96" ry="96" fill="url(#abyssGrad)"/>
+
+  <!-- Subtle water ring - 壬水 energy containment -->
+  <rect x="12" y="12" width="488" height="488" rx="88" ry="88"
+        fill="none" stroke="#1A3A5F" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- 彭 character - 金为桥, 火为用 -->
+  <g filter="url(#fireGlow)">
+    <text x="256" y="235"
+          font-family="LXGW WenKai, Noto Serif SC, STKaiti, KaiTi, serif"
+          font-size="400"
+          font-weight="500"
+          fill="url(#metalGrad)"
+          text-anchor="middle"
+          dominant-baseline="central">彭</text>
+  </g>
+
+  <!-- 三彭 subtle echo - representing the three 彭 sounds (drum) -->
+  <circle cx="420" cy="100" r="8" fill="#E8A848" opacity="0.3"/>
+  <circle cx="440" cy="120" r="5" fill="#E8A848" opacity="0.2"/>
+  <circle cx="455" cy="145" r="3" fill="#E8A848" opacity="0.15"/>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Simplified 彭 for small sizes - Ba Zi aligned -->
+
+  <!-- 水为体 - Abyss foundation -->
+  <rect width="32" height="32" rx="6" fill="#0A1A2F"/>
+
+  <!-- 彭 - bold, clear for small display -->
+  <!-- 金为桥 - Metal gold character -->
+  <text x="16" y="15"
+        font-family="LXGW WenKai, Noto Serif SC, STKaiti, serif"
+        font-size="26"
+        font-weight="700"
+        fill="#E8A848"
+        text-anchor="middle"
+        dominant-baseline="central">彭</text>
+</svg>
