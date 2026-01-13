@@ -1,6 +1,13 @@
 // ============================================
-// Intro Section - "Who is ENKR?"
+// Intro Section - Brutalist Editorial
+// Stark typography, dramatic scale, no decorations
 // ============================================
+
+$accent-gold: #E8A848;
+$accent-blue: #4A7DB8;
+$silver: #F0F6FF;
+$muted: #7A96B8;
+$bg-elevated: #102540;
 
 .intro {
   min-height: 100vh;
@@ -9,207 +16,297 @@
   justify-content: center;
   background: var(--color-bg);
   position: relative;
-}
+  padding: 6rem 2rem;
 
-.intro-content {
-  max-width: 800px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3rem;
-}
-
-.intro-title {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: center;
-  gap: 0.5rem;
-  font-size: var(--font-size-3xl);
-
-  @media (min-width: 768px) {
-    font-size: var(--font-size-5xl);
-    gap: 1rem;
+  @media (min-width: 64rem) {
+    padding: 10rem 6rem;
   }
 }
 
-.intro-line {
-  color: var(--color-text-secondary);
-  font-weight: var(--font-weight-light);
+.intro-content {
+  width: 100%;
+  max-width: 72rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
-.intro-highlight {
-  color: var(--color-accent);
-  font-weight: var(--font-weight-bold);
-  font-size: 1.5em;
-  // Solid gold color, no gradient (premium restraint)
-  text-shadow: 0 0 30px rgba(232, 168, 72, 0.3);
-}
+// ============================================
+// Name - Full Width Brutalist Hero
+// ============================================
 
-// Profile Name Container (moved from hero)
 .profile-name-container {
-  text-align: center;
-  margin-top: 1.5rem;
+  width: 100%;
+  padding-bottom: 2rem;
+  margin-bottom: 2.5rem;
+  position: relative;
+
+  // Animated gold underline
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, $accent-gold 0%, rgba($silver, 0.1) 50%, transparent 100%);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1s var(--ease-out-expo) 0.4s;
+  }
 
   .profile-name {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
+    gap: 0;
   }
 
   .name-cn {
     font-family: var(--font-chinese);
-    font-size: var(--font-size-2xl);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text);
-    letter-spacing: 0.2em;
-
-    @media (min-width: 768px) {
-      font-size: var(--font-size-3xl);
-    }
+    font-size: clamp(4rem, 16vw, 10rem);
+    font-weight: 200;
+    color: $silver;
+    letter-spacing: 0.12em;
+    line-height: 1;
+    opacity: 0;
+    transform: translateY(1.5rem);
+    transition: opacity 0.8s ease, transform 0.8s var(--ease-out-expo);
   }
 
   .name-en {
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-normal);
-    color: var(--color-text-secondary);
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
+    font-weight: 300;
+    color: rgba($muted, 0.5);
     text-transform: uppercase;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.35em;
+    margin-top: 1.25rem;
+    opacity: 0;
+    transform: translateY(0.75rem);
+    transition: opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s;
+  }
 
-    @media (min-width: 768px) {
-      font-size: var(--font-size-xl);
+  &.in-view {
+    &::after {
+      transform: scaleX(1);
+    }
+
+    .name-cn,
+    .name-en {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 }
 
-// Roles Container
+// ============================================
+// Credentials - Horizontal Stat Bar
+// ============================================
+
+.credentials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-bottom: 2.5rem;
+}
+
+.credential {
+  display: flex;
+  align-items: baseline;
+  gap: 0.625rem;
+  padding: 0.75rem 0;
+  padding-right: 2.5rem;
+  margin-right: 2.5rem;
+  border-right: 1px solid rgba($silver, 0.08);
+  opacity: 0;
+  transform: translateY(0.75rem);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s var(--ease-out-expo);
+  cursor: default;
+
+  &:last-child {
+    border-right: none;
+    padding-right: 0;
+    margin-right: 0;
+  }
+
+  // Staggered reveal
+  &:nth-child(1) { transition-delay: 0.3s; }
+  &:nth-child(2) { transition-delay: 0.4s; }
+  &:nth-child(3) { transition-delay: 0.5s; }
+
+  // Hover effect
+  &:hover {
+    .credential__value {
+      color: $accent-gold;
+      text-shadow: 0 0 20px rgba($accent-gold, 0.3);
+    }
+  }
+
+  &__value {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 300;
+    color: $silver;
+    line-height: 1;
+    transition: color 0.3s ease;
+
+    &[data-stat="championships"] {
+      color: $accent-gold;
+    }
+  }
+
+  &__label {
+    font-size: clamp(0.75rem, 1.2vw, 0.875rem);
+    color: rgba($muted, 0.5);
+    letter-spacing: 0.04em;
+    font-weight: 400;
+    transition: color 0.3s ease;
+  }
+
+  &:hover &__label {
+    color: rgba($silver, 0.7);
+  }
+}
+
+.credentials.in-view .credential {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+// ============================================
+// Roles - Inline slash-separated
+// ============================================
+
 .roles-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.75rem;
-  max-width: 600px;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 3rem;
+  opacity: 0;
+  transform: translateY(0.75rem);
+  transition: opacity 0.5s ease 0.55s, transform 0.5s ease 0.55s;
+
+  &.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .role-tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-full);
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-  backdrop-filter: blur(var(--glass-blur-light));
-  transition: border-color 0.3s ease;
+  padding: 0;
+  background: transparent;
+  border: none;
+  font-size: clamp(0.9375rem, 1.8vw, 1.0625rem);
+  font-weight: 300;
+  color: rgba($muted, 0.55);
+  letter-spacing: 0.01em;
+  transition: color 0.3s ease;
 
-  // Hover: border color only (desktop)
-  @media (hover: hover) {
-    &:hover {
-      border-color: var(--color-accent);
-    }
-
-    &.role-dev:hover {
-      border-color: var(--color-work-primary);
-    }
-
-    &.role-music:hover {
-      border-color: var(--color-experience-primary);
-    }
-
-    &.role-fitness:hover {
-      border-color: var(--color-spotify);
-    }
+  &:hover {
+    color: $accent-gold;
   }
 
-  &:active {
-    background: var(--glass-bg-hover);
-  }
-
-  @media (min-width: 768px) {
-    font-size: var(--font-size-base);
-    padding: 0.625rem 1.25rem;
+  &:not(:last-child)::after {
+    content: '·';
+    margin: 0 0.875rem;
+    color: rgba($muted, 0.25);
   }
 }
 
-// Bio Quote
+// ============================================
+// Bio Quote - Large pull quote style
+// ============================================
+
 .bio-quote {
   position: relative;
-  max-width: 600px;
-  padding: 1.5rem 2rem;
-  font-size: var(--font-size-lg);
+  max-width: 48rem;
+  padding: 0;
+  padding-left: 2rem;
+  font-size: clamp(1.125rem, 2.2vw, 1.3125rem);
   font-style: italic;
-  color: var(--color-text-muted);
-  line-height: var(--line-height-relaxed);
+  font-weight: 300;
+  color: rgba($silver, 0.65);
+  line-height: 1.9;
+  letter-spacing: 0.01em;
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: opacity 0.6s ease 0.65s, transform 0.6s ease 0.65s;
 
-  &::before,
-  &::after {
-    position: absolute;
-    font-size: var(--font-size-4xl);
-    color: var(--color-accent);
-    opacity: 0.3;
-    font-family: Georgia, serif;
-  }
-
+  // Animated gold border
   &::before {
-    content: '"';
-    top: 0;
+    content: '';
+    position: absolute;
     left: 0;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, $accent-gold, rgba($accent-gold, 0.05));
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.8s var(--ease-out-expo) 0.85s;
   }
 
   &::after {
-    content: '"';
-    bottom: 0;
-    right: 0;
+    display: none;
   }
 
-  @media (min-width: 768px) {
-    font-size: var(--font-size-xl);
-    padding: 2rem 3rem;
+  &.in-view {
+    opacity: 1;
+    transform: translateY(0);
+
+    &::before {
+      transform: scaleY(1);
+    }
   }
 }
 
-// ========================================
-// Mobile Optimizations
-// ========================================
+// ============================================
+// Mobile Refinements
+// ============================================
 
 @media (max-width: 639px) {
   .intro {
-    min-height: auto;
-    padding: 3rem 1rem;
+    padding: 5rem 1.5rem;
   }
 
-  .intro-content {
-    gap: 2rem;
+  .profile-name-container {
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+
+    .name-en {
+      letter-spacing: 0.15em;
+      margin-top: 1rem;
+    }
   }
 
-  .intro-title {
-    font-size: var(--font-size-2xl);
-    gap: 0.375rem;
+  .credentials {
+    flex-direction: column;
+    margin-bottom: 2rem;
   }
 
-  .intro-highlight {
-    font-size: 1.3em;
+  .credential {
+    border-right: none;
+    padding-right: 0;
+    margin-right: 0;
+    border-bottom: 1px solid rgba($silver, 0.06);
+    padding: 0.875rem 0;
+    gap: 0.75rem;
+
+    &:last-child {
+      border-bottom: none;
+    }
   }
 
   .roles-container {
-    gap: 0.5rem;
+    margin-bottom: 2.5rem;
   }
 
-  .role-tag {
-    padding: 0.375rem 0.75rem;
-    font-size: var(--font-size-xs);
+  .role-tag:not(:last-child)::after {
+    margin: 0 0.625rem;
   }
 
   .bio-quote {
-    padding: 1rem 1.5rem;
-    font-size: var(--font-size-base);
-
-    &::before,
-    &::after {
-      font-size: var(--font-size-2xl);
-    }
+    padding-left: 1.5rem;
   }
 }
