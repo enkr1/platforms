@@ -11,17 +11,17 @@ $muted: #7A96B8;
 $bg-elevated: #102540;
 
 .intro {
-  min-height: 100vh;
+  min-height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--color-bg);
   position: relative;
-  padding: 6rem 2rem;
+  padding: 4rem 2rem;
   overflow: hidden;
 
   @media (min-width: 64rem) {
-    padding: 10rem 6rem;
+    padding: 6rem 6rem;
   }
 
   // Subtle radial glow behind content
@@ -61,8 +61,8 @@ $bg-elevated: #102540;
 
 .profile-name-container {
   width: 100%;
-  padding-bottom: 2rem;
-  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
   position: relative;
 
   .profile-name {
@@ -122,7 +122,7 @@ $bg-elevated: #102540;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .credential {
@@ -199,7 +199,7 @@ $bg-elevated: #102540;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 3.5rem;
+  margin-bottom: 2rem;
   opacity: 0;
   transform: translateY(0.75rem);
   transition: opacity 0.5s ease 0.6s, transform 0.5s ease 0.6s;
