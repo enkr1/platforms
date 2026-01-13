@@ -1,14 +1,16 @@
 // ============================================
-// Profile Identity - Animated Gradient Ring
-// Clean, modern, no extra UI clutter
-// Just the photo with a premium rotating border
+// Profile Identity - Premium Monogram v2
+// Larger, cleaner, more refined
+// No playful elements - pure sophistication
 // ============================================
 
 $accent-gold: #E8A848;
 $accent-blue: #4A7DB8;
+$silver: #F0F6FF;
 $bg-dark: #0A1A2F;
+$bg-elevated: #102540;
 
-// Hide legacy elements
+// Hide all legacy elements
 .orbit,
 .element,
 .elemental-caption {
@@ -24,98 +26,103 @@ $bg-dark: #0A1A2F;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 14rem;
-  height: 14rem;
+  width: 18rem;
+  height: 18rem;
   margin: 0 auto;
-
-  // Animated conic gradient ring
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    padding: 3px;
-    background: conic-gradient(
-      from 0deg,
-      $accent-gold,
-      $accent-blue,
-      $accent-gold,
-      transparent,
-      transparent,
-      $accent-gold
-    );
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    animation: rotate-ring 8s linear infinite;
-    animation-play-state: paused;
-    transition: opacity 0.8s ease;
-  }
-
-  // Soft glow behind
-  &::after {
-    content: '';
-    position: absolute;
-    inset: -1rem;
-    border-radius: 50%;
-    background: radial-gradient(
-      circle,
-      rgba($accent-gold, 0.08) 0%,
-      rgba($accent-blue, 0.04) 40%,
-      transparent 70%
-    );
-    opacity: 0;
-    transition: opacity 1s ease 0.3s;
-    z-index: -1;
-  }
 }
 
 // ============================================
-// Profile Photo
+// Monogram Container
 // ============================================
 
 .elemental-orbit__center {
   position: relative;
-  width: 12.5rem;
-  height: 12.5rem;
-  border-radius: 50%;
-  overflow: hidden;
-  background: $bg-dark;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   opacity: 0;
-  transform: scale(0.9);
+  transform: scale(0.95);
   transition:
-    opacity 0.8s ease,
-    transform 0.8s var(--ease-out-expo),
-    box-shadow 0.3s ease;
+    opacity 1s ease,
+    transform 1s var(--ease-out-expo);
 
+  // Hide the image
   img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    display: none;
+  }
+
+  // Large monogram - outline style
+  &::before {
+    content: 'E';
+    font-family: var(--font-primary);
+    font-size: 12rem;
+    font-weight: 200;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba($silver, 0.3);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    transition: all 0.5s ease;
+  }
+
+  // Filled version on top (gradient)
+  &::after {
+    content: 'E';
+    position: absolute;
+    font-family: var(--font-primary);
+    font-size: 12rem;
+    font-weight: 200;
+    background: linear-gradient(
+      180deg,
+      $accent-gold 0%,
+      rgba($accent-gold, 0.6) 50%,
+      rgba($accent-blue, 0.4) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 1.2s var(--ease-out-expo) 0.3s;
   }
 
   &:hover {
-    box-shadow: 0 0 40px rgba($accent-gold, 0.15);
+    &::before {
+      -webkit-text-stroke: 1px rgba($accent-gold, 0.5);
+    }
   }
 }
 
 // ============================================
-// Rotation Animation
+// Decorative Lines
 // ============================================
 
-@keyframes rotate-ring {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.elemental-orbit::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 3rem;
+  height: 1px;
+  background: linear-gradient(90deg, $accent-gold, transparent);
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.8s ease 0.5s, width 0.8s ease 0.5s;
+}
+
+.elemental-orbit::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 3rem;
+  height: 1px;
+  background: linear-gradient(-90deg, $accent-gold, transparent);
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.8s ease 0.5s, width 0.8s ease 0.5s;
 }
 
 // ============================================
@@ -125,38 +132,34 @@ $bg-dark: #0A1A2F;
 .elemental-orbit[data-scroll-reveal] {
   .elemental-orbit__center {
     opacity: 0;
-    transform: scale(0.9);
+    transform: scale(0.95);
+
+    &::after {
+      clip-path: inset(0 0 100% 0);
+    }
   }
 
   &::before,
   &::after {
     opacity: 0;
+    width: 0;
   }
 
   &.in-view {
     .elemental-orbit__center {
       opacity: 1;
       transform: scale(1);
+
+      &::after {
+        clip-path: inset(0 0 0% 0);
+      }
     }
 
-    &::before {
-      opacity: 0.8;
-      animation-play-state: running;
-    }
-
+    &::before,
     &::after {
-      opacity: 1;
+      opacity: 0.8;
+      width: 3rem;
     }
-  }
-}
-
-// ============================================
-// Hover: Speed up rotation
-// ============================================
-
-.elemental-orbit:hover {
-  &::before {
-    animation-duration: 3s;
   }
 }
 
@@ -166,28 +169,38 @@ $bg-dark: #0A1A2F;
 
 @media (max-width: 48rem) {
   .elemental-orbit {
-    width: 12rem;
-    height: 12rem;
+    width: 14rem;
+    height: 14rem;
   }
 
   .elemental-orbit__center {
-    width: 10.5rem;
-    height: 10.5rem;
+    &::before,
+    &::after {
+      font-size: 9rem;
+    }
+  }
+
+  .elemental-orbit::before,
+  .elemental-orbit::after {
+    width: 2rem;
   }
 }
 
 @media (max-width: 30rem) {
   .elemental-orbit {
-    width: 10rem;
-    height: 10rem;
+    width: 11rem;
+    height: 11rem;
   }
 
   .elemental-orbit__center {
-    width: 8.75rem;
-    height: 8.75rem;
+    &::before,
+    &::after {
+      font-size: 7rem;
+    }
   }
 
+  .elemental-orbit::before,
   .elemental-orbit::after {
-    inset: -0.5rem;
+    width: 1.5rem;
   }
 }

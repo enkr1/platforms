@@ -2,6 +2,7 @@
 :root {
   --font-primary: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: "Fira Code", "Monaco", "Consolas", monospace;
+  --font-chinese: "LXGW WenKai", "Noto Serif SC", "Songti SC", serif;
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
@@ -767,6 +768,7 @@ body.depth-active::-webkit-scrollbar {
   gap: 0.5rem;
 }
 .profile-name-container .name-cn {
+  font-family: var(--font-chinese);
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text);
@@ -2025,109 +2027,128 @@ body.depth-active::-webkit-scrollbar {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 14rem;
-  height: 14rem;
+  width: 18rem;
+  height: 18rem;
   margin: 0 auto;
-}
-.elemental-orbit::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  padding: 3px;
-  background: conic-gradient(from 0deg, #E8A848, #4A7DB8, #E8A848, transparent, transparent, #E8A848);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  animation: rotate-ring 8s linear infinite;
-  animation-play-state: paused;
-  transition: opacity 0.8s ease;
-}
-.elemental-orbit::after {
-  content: "";
-  position: absolute;
-  inset: -1rem;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(232, 168, 72, 0.08) 0%, rgba(74, 125, 184, 0.04) 40%, transparent 70%);
-  opacity: 0;
-  transition: opacity 1s ease 0.3s;
-  z-index: -1;
 }
 
 .elemental-orbit__center {
   position: relative;
-  width: 12.5rem;
-  height: 12.5rem;
-  border-radius: 50%;
-  overflow: hidden;
-  background: #0A1A2F;
-  opacity: 0;
-  transform: scale(0.9);
-  transition: opacity 0.8s ease, transform 0.8s var(--ease-out-expo), box-shadow 0.3s ease;
-}
-.elemental-orbit__center img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 1s ease, transform 1s var(--ease-out-expo);
 }
-.elemental-orbit__center:hover {
-  box-shadow: 0 0 40px rgba(232, 168, 72, 0.15);
+.elemental-orbit__center img {
+  display: none;
+}
+.elemental-orbit__center::before {
+  content: "E";
+  font-family: var(--font-primary);
+  font-size: 12rem;
+  font-weight: 200;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(240, 246, 255, 0.3);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  transition: all 0.5s ease;
+}
+.elemental-orbit__center::after {
+  content: "E";
+  position: absolute;
+  font-family: var(--font-primary);
+  font-size: 12rem;
+  font-weight: 200;
+  background: linear-gradient(180deg, #E8A848 0%, rgba(232, 168, 72, 0.6) 50%, rgba(74, 125, 184, 0.4) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1.2s var(--ease-out-expo) 0.3s;
+}
+.elemental-orbit__center:hover::before {
+  -webkit-text-stroke: 1px rgba(232, 168, 72, 0.5);
 }
 
-@keyframes rotate-ring {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.elemental-orbit::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 3rem;
+  height: 1px;
+  background: linear-gradient(90deg, #E8A848, transparent);
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.8s ease 0.5s, width 0.8s ease 0.5s;
 }
+
+.elemental-orbit::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 3rem;
+  height: 1px;
+  background: linear-gradient(-90deg, #E8A848, transparent);
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.8s ease 0.5s, width 0.8s ease 0.5s;
+}
+
 .elemental-orbit[data-scroll-reveal] .elemental-orbit__center {
   opacity: 0;
-  transform: scale(0.9);
+  transform: scale(0.95);
+}
+.elemental-orbit[data-scroll-reveal] .elemental-orbit__center::after {
+  clip-path: inset(0 0 100% 0);
 }
 .elemental-orbit[data-scroll-reveal]::before, .elemental-orbit[data-scroll-reveal]::after {
   opacity: 0;
+  width: 0;
 }
 .elemental-orbit[data-scroll-reveal].in-view .elemental-orbit__center {
   opacity: 1;
   transform: scale(1);
 }
-.elemental-orbit[data-scroll-reveal].in-view::before {
+.elemental-orbit[data-scroll-reveal].in-view .elemental-orbit__center::after {
+  clip-path: inset(0 0 0% 0);
+}
+.elemental-orbit[data-scroll-reveal].in-view::before, .elemental-orbit[data-scroll-reveal].in-view::after {
   opacity: 0.8;
-  animation-play-state: running;
-}
-.elemental-orbit[data-scroll-reveal].in-view::after {
-  opacity: 1;
-}
-
-.elemental-orbit:hover::before {
-  animation-duration: 3s;
+  width: 3rem;
 }
 
 @media (max-width: 48rem) {
   .elemental-orbit {
-    width: 12rem;
-    height: 12rem;
+    width: 14rem;
+    height: 14rem;
   }
-  .elemental-orbit__center {
-    width: 10.5rem;
-    height: 10.5rem;
+  .elemental-orbit__center::before, .elemental-orbit__center::after {
+    font-size: 9rem;
+  }
+  .elemental-orbit::before,
+  .elemental-orbit::after {
+    width: 2rem;
   }
 }
 @media (max-width: 30rem) {
   .elemental-orbit {
-    width: 10rem;
-    height: 10rem;
+    width: 11rem;
+    height: 11rem;
   }
-  .elemental-orbit__center {
-    width: 8.75rem;
-    height: 8.75rem;
+  .elemental-orbit__center::before, .elemental-orbit__center::after {
+    font-size: 7rem;
   }
+  .elemental-orbit::before,
   .elemental-orbit::after {
-    inset: -0.5rem;
+    width: 1.5rem;
   }
 }
 .scroll-indicator {
