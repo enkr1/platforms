@@ -1,0 +1,193 @@
+// ============================================
+// Profile Identity - Animated Gradient Ring
+// Clean, modern, no extra UI clutter
+// Just the photo with a premium rotating border
+// ============================================
+
+$accent-gold: #E8A848;
+$accent-blue: #4A7DB8;
+$bg-dark: #0A1A2F;
+
+// Hide legacy elements
+.orbit,
+.element,
+.elemental-caption {
+  display: none;
+}
+
+// ============================================
+// Container
+// ============================================
+
+.elemental-orbit {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14rem;
+  height: 14rem;
+  margin: 0 auto;
+
+  // Animated conic gradient ring
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    padding: 3px;
+    background: conic-gradient(
+      from 0deg,
+      $accent-gold,
+      $accent-blue,
+      $accent-gold,
+      transparent,
+      transparent,
+      $accent-gold
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    animation: rotate-ring 8s linear infinite;
+    animation-play-state: paused;
+    transition: opacity 0.8s ease;
+  }
+
+  // Soft glow behind
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -1rem;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba($accent-gold, 0.08) 0%,
+      rgba($accent-blue, 0.04) 40%,
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 1s ease 0.3s;
+    z-index: -1;
+  }
+}
+
+// ============================================
+// Profile Photo
+// ============================================
+
+.elemental-orbit__center {
+  position: relative;
+  width: 12.5rem;
+  height: 12.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  background: $bg-dark;
+  opacity: 0;
+  transform: scale(0.9);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s var(--ease-out-expo),
+    box-shadow 0.3s ease;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &:hover {
+    box-shadow: 0 0 40px rgba($accent-gold, 0.15);
+  }
+}
+
+// ============================================
+// Rotation Animation
+// ============================================
+
+@keyframes rotate-ring {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// ============================================
+// Scroll Reveal
+// ============================================
+
+.elemental-orbit[data-scroll-reveal] {
+  .elemental-orbit__center {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  &::before,
+  &::after {
+    opacity: 0;
+  }
+
+  &.in-view {
+    .elemental-orbit__center {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    &::before {
+      opacity: 0.8;
+      animation-play-state: running;
+    }
+
+    &::after {
+      opacity: 1;
+    }
+  }
+}
+
+// ============================================
+// Hover: Speed up rotation
+// ============================================
+
+.elemental-orbit:hover {
+  &::before {
+    animation-duration: 3s;
+  }
+}
+
+// ============================================
+// Mobile
+// ============================================
+
+@media (max-width: 48rem) {
+  .elemental-orbit {
+    width: 12rem;
+    height: 12rem;
+  }
+
+  .elemental-orbit__center {
+    width: 10.5rem;
+    height: 10.5rem;
+  }
+}
+
+@media (max-width: 30rem) {
+  .elemental-orbit {
+    width: 10rem;
+    height: 10rem;
+  }
+
+  .elemental-orbit__center {
+    width: 8.75rem;
+    height: 8.75rem;
+  }
+
+  .elemental-orbit::after {
+    inset: -0.5rem;
+  }
+}
