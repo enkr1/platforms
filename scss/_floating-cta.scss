@@ -11,8 +11,8 @@
 
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 2rem;
+  gap: 1rem;
+  padding: 1.25rem 2.5rem;
 
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
@@ -21,7 +21,7 @@
   -webkit-backdrop-filter: blur(var(--glass-blur-light));
 
   color: var(--color-text);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
   text-decoration: none;
   white-space: nowrap;
@@ -47,12 +47,12 @@
   // Hover: gold border + glow
   &:hover {
     border-color: var(--color-accent);
-    box-shadow: 0 8px 32px -8px rgba(232, 168, 72, 0.3);
+    box-shadow: var(--shadow-glow-hover);
   }
 
   &__icon {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 1.5rem;
+    height: 1.5rem;
     flex-shrink: 0;
   }
 
@@ -61,11 +61,11 @@
   }
 }
 
-// Mobile: slightly smaller padding, keep text visible
+// Mobile: slightly smaller but still premium
 @media (max-width: 479px) {
   .floating-cta {
     bottom: 1.5rem;
-    padding: 0.875rem 1.5rem;
-    font-size: var(--font-size-xs);
+    padding: 1rem 2rem;
+    font-size: var(--font-size-sm);
   }
 }

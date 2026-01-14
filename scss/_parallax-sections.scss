@@ -184,6 +184,36 @@
 }
 
 // ============================================
+// Thoughts Section Header
+// ============================================
+
+.thoughts-header {
+  margin-bottom: 2rem;
+  text-align: right;
+
+  @media (max-width: 639px) {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.thoughts-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+}
+
+// ============================================
 // Achievements Section
 // ============================================
 

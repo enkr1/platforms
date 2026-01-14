@@ -139,24 +139,30 @@ $bg-elevated: #102540;
   border-radius: 0.75rem;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  opacity: 0;
-  transform: translateY(1rem);
-  transition:
-    opacity 0.6s ease,
-    transform 0.6s var(--ease-out-expo),
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
   cursor: default;
 
-  // Staggered reveal
-  &:nth-child(1) { transition-delay: 0.35s; }
-  &:nth-child(2) { transition-delay: 0.45s; }
-  &:nth-child(3) { transition-delay: 0.55s; }
+  // Reveal animation (with staggered delay)
+  opacity: 0;
+  transform: translateY(1rem);
 
-  // Hover effect
+  // Separate transitions: hover (instant) vs reveal (delayed)
+  // Using CSS custom property for stagger delay
+  --reveal-delay: 0s;
+  transition:
+    opacity 0.6s ease var(--reveal-delay),
+    transform 0.6s var(--ease-out-expo) var(--reveal-delay),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+
+  // Staggered reveal delays
+  &:nth-child(1) { --reveal-delay: 0.35s; }
+  &:nth-child(2) { --reveal-delay: 0.45s; }
+  &:nth-child(3) { --reveal-delay: 0.55s; }
+
+  // Hover effect (no delay - instant feedback)
   &:hover {
     border-color: rgba($accent-gold, 0.2);
-    box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-glow-hover);
 
     .credential__value {
       color: $accent-gold;
