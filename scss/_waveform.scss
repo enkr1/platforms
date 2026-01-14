@@ -7,7 +7,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 200px;
+  height: var(--waveform-height);
   pointer-events: none;
   z-index: 5;
   // Container stays at full opacity - individual paths handle their own opacity
@@ -149,22 +149,14 @@
   }
 }
 
-// Mobile Optimizations - Simplified waveform
+// Mobile Optimizations
 @media (max-width: 639px) {
   .waveform {
-    height: 100px;
     opacity: 0.4;
   }
 
-  // Hide extra layers on mobile for performance
-  .waveform-path-1,
-  .waveform-path-3 {
-    display: none;
-  }
-
-  .waveform-path-2 {
+  .waveform-path {
     stroke-width: 1.5;
-    opacity: 0.6;
   }
 }
 

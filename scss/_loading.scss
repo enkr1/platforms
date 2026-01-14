@@ -88,7 +88,7 @@
   right: 0 !important;
   transform: translateY(-50%) !important;
   width: 100% !important;
-  height: 200px !important;
+  height: var(--waveform-height) !important;
   z-index: 9600; // Above reveal overlay (9500) so waves aren't covered
   overflow: visible !important;
   // Container drops smoothly
@@ -120,7 +120,7 @@
 // Animation: converge + fade in + drop TOGETHER (all synchronized)
 .waveform--loading.waveform--drawing {
   // Container drops from 40% to bottom
-  transform: translateY(calc(60vh - 200px)) !important;
+  transform: translateY(calc(60vh - var(--waveform-height))) !important;
 
   // Waves converge to center + fade in (same duration as drop)
   .waveform-path-1 {

@@ -60,6 +60,7 @@
   --section-padding-x: 1.5rem;
   --section-padding-y: 4rem;
   --container-max: 1200px;
+  --waveform-height: 12.5rem;
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 1rem;
@@ -78,6 +79,11 @@
   --duration-wave-animation: 2s;
   --scroll: 0;
   --scroll-section: 0;
+}
+@media (max-width: 639px) {
+  :root {
+    --waveform-height: 6.25rem;
+  }
 }
 @media (min-width: 768px) {
   :root {
@@ -381,7 +387,7 @@ body.depth-active::-webkit-scrollbar {
   right: 0 !important;
   transform: translateY(-50%) !important;
   width: 100% !important;
-  height: 200px !important;
+  height: var(--waveform-height) !important;
   z-index: 9600;
   overflow: visible !important;
   transition: transform var(--duration-wave-animation) cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -404,7 +410,7 @@ body.depth-active::-webkit-scrollbar {
 }
 
 .waveform--loading.waveform--drawing {
-  transform: translateY(calc(60vh - 200px)) !important;
+  transform: translateY(calc(60vh - var(--waveform-height))) !important;
 }
 .waveform--loading.waveform--drawing .waveform-path-1 {
   opacity: 0.3;
@@ -1535,7 +1541,7 @@ body.depth-active::-webkit-scrollbar {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 200px;
+  height: var(--waveform-height);
   pointer-events: none;
   z-index: 5;
 }
@@ -1654,16 +1660,10 @@ body.depth-active::-webkit-scrollbar {
 }
 @media (max-width: 639px) {
   .waveform {
-    height: 100px;
     opacity: 0.4;
   }
-  .waveform-path-1,
-  .waveform-path-3 {
-    display: none;
-  }
-  .waveform-path-2 {
+  .waveform-path {
     stroke-width: 1.5;
-    opacity: 0.6;
   }
 }
 @media (max-width: 400px) {
@@ -1732,12 +1732,12 @@ body.depth-active::-webkit-scrollbar {
 .floating-cta {
   position: fixed;
   bottom: 2rem;
-  right: 2rem;
+  left: 50%;
   z-index: 150;
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 1rem 1.5rem;
+  padding: 1rem 2rem;
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl);
@@ -1749,13 +1749,13 @@ body.depth-active::-webkit-scrollbar {
   text-decoration: none;
   white-space: nowrap;
   opacity: 0;
-  transform: translateY(1rem);
+  transform: translateX(-50%) translateY(1rem);
   pointer-events: none;
   transition: opacity 0.4s ease, transform 0.4s var(--ease-out-expo), border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .floating-cta.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateX(-50%) translateY(0);
   pointer-events: auto;
 }
 .floating-cta:hover {
@@ -1768,17 +1768,10 @@ body.depth-active::-webkit-scrollbar {
   flex-shrink: 0;
 }
 @media (max-width: 479px) {
-  .floating-cta__text {
-    display: none;
-  }
-}
-
-@media (max-width: 479px) {
   .floating-cta {
-    padding: 1rem;
-    border-radius: 50%;
     bottom: 1.5rem;
-    right: 1.5rem;
+    padding: 0.875rem 1.5rem;
+    font-size: var(--font-size-xs);
   }
 }
 .star-trails {
