@@ -1,0 +1,96 @@
+{
+  "listIcons": [
+    {
+      "name": "LinkedIn",
+      "className": "linkedin",
+      "link": "https://www.linkedin.com/in/jinghuipang/"
+    },
+    {
+      "name": "GitHub",
+      "className": "github",
+      "link": "https://github.com/enkr1"
+    },
+    {
+      "name": "Instagram",
+      "className": "instagram",
+      "link": "https://www.instagram.com/enkr1/"
+    },
+    {
+      "name": "YouTube",
+      "className": "youtube",
+      "link": "https://www.youtube.com/@enkr1"
+    },
+    {
+      "name": "facebook",
+      "className": "facebook",
+      "link": "https://www.facebook.com/enkrbeatbox"
+    },
+    {
+      "name": "Spotify",
+      "className": "spotify",
+      "link": "https://open.spotify.com/user/212m4ap7bke7h64hn7nfxojxq"
+    }
+  ],
+  "listButtons": [
+    {
+      "name": "Email Me for Opportunities",
+      "className": "email-me",
+      "link": "mailto:jinghuipang99+from_platforms@gmail.com?subject=Professional%20Opportunity%20Inquiry%20from%20Platforms&body=Greetings,%0D%0A%0D%0AI%20am%20reaching%20out%20to%20discuss%20potential%20collaborative%20opportunities%20that%20may%20include%20freelance%20projects,%20employment,%20side%20hustles,%20or%20other%20professional%20endeavors.%0D%0A%0D%0Ae.g.%20Please%20feel%20free%20to%20contact%20me%20so%20we%20can%20explore%20how%20we%20can%20work%20together.%0D%0A%0D%0ABest%20regards,%0D%0A%0D%0A[Your%20Name]"
+    },
+    {
+      "name": "Resume",
+      "className": "resume",
+      "link": "https://enkr1.github.io/resume/"
+    },
+    {
+      "name": "Blog",
+      "className": "blog",
+      "link": "https://enkr1.github.io/blog/"
+    },
+    {
+      "name": "16Personalities",
+      "className": "personalities",
+      "link": "https://www.16personalities.com/profiles/700b68ab29a1b"
+    },
+    {
+      "name": "Personal Website",
+      "className": "website",
+      "link": "https://enkr1.github.io/"
+    },
+    {
+      "name": "Google for Developers",
+      "className": "google-for-developers",
+      "link": "https://developers.google.com/profile/u/enkr1"
+    },
+    {
+      "name": "WakaTime",
+      "className": "wakatime",
+      "link": "https://wakatime.com/@enkr1"
+    },
+    {
+      "name": "Instagram (Fitness Account)",
+      "className": "instagram",
+      "link": "https://www.instagram.com/fitnesspang/"
+    },
+    {
+      "name": "Twitter/X",
+      "className": "twitter",
+      "link": "https://twitter.com/enkr999"
+    },
+    {
+      "name": "SoundCloud",
+      "className": "soundcloud",
+      "link": "https://soundcloud.com/enkr1"
+    },
+    {
+      "name": "TikTok",
+      "className": "tiktok",
+      "link": "https://www.tiktok.com/@enkr1"
+    },
+    {
+      "name": "StackOverflow",
+      "className": "stackoverflow",
+      "link": "https://stackoverflow.com/users/13677125/jinghui-p"
+    }
+  ]
+}

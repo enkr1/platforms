@@ -1,0 +1,51 @@
+{
+  "firstname": "Jing Hui",
+  "lastname": "PANG",
+  "firstname_cn": "竞辉",
+  "lastname_cn": "彭",
+  "nickname": "ENKR",
+  "bio": "If you really try your best, you would never fail. Everything is rented, you can't start slipping.",
+  "roles": [
+    "Full-Stack Software Engineer",
+    "ByteDancer",
+    "Beatboxer",
+    "4x Beatbox Champion",
+    "Fitness Enthusiast",
+    "Perpetual Learner",
+    "Unending Explorer",
+    "Growth Mindset Proponent",
+    "ENTJ-A"
+  ],
+  "priorityFocuses": [
+    "Degree Pursuit: Enroll in and excel in a Computer Science degree program to solidify my technical foundation and open new career avenues.",
+    "Excellence at ByteDance: Strive to become an exemplary software engineer, potentially stepping into a leadership role or setting a standard for peers.",
+    "Financial Growth: Begin investing to diversify income sources and secure long-term financial stability.",
+    "Personal Development: Dedicate time to personal growth, exploring new hobbies or skills that enhance creativity and well-being outside of work."
+  ],
+  "achievements": [
+    {
+      "title": "list_beatboxing_achievements()",
+      "list": [
+        {
+          "category": "list_solo_titles()",
+          "list": [
+            "Champion of Clementi Community Centre 2018, Singapore.",
+            "Champion of Radiance Beatbox Jam 2019, Singapore.",
+            "Champion of A Cappella Beatbox Championship 2019, Singapore.",
+            "Champion of Cypher Beatbox Battle 2019, Singapore.",
+            "Top 16 Armageddon International Beatbox Battle 2019, Malaysia.",
+            "Top 8 The Capital Beatbox Battle 2019, Malaysia.",
+            "Vice Champion of A Cappella Beatbox Championship 2021, Singapore."
+          ]
+        },
+        {
+          "category": "list_tag_team_titles()",
+          "list": [
+            "Champion of A Cappella Beatbox Battle 2019, Singapore.",
+            "Top 4 Werewolf Beatbox Championship 2019, Indonesia."
+          ]
+        }
+      ]
+    }
+  ]
+}
