@@ -291,9 +291,18 @@
   }
 }
 
-// Thoughts section - disable parallax transform (cards have their own depth-reveal animation)
+// Thoughts section - disable parallax transform
 .parallax-section-thoughts .parallax-content {
   transform: none;
+}
+
+// Journal entries - smooth opacity fade only (no position shift)
+.journal-entry.depth-reveal {
+  transform: none;
+
+  &.in-view {
+    transform: none;
+  }
 }
 
 // Journal Footer (View All CTA)

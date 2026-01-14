@@ -1227,6 +1227,13 @@ body.depth-active::-webkit-scrollbar {
   transform: none;
 }
 
+.journal-entry.depth-reveal {
+  transform: none;
+}
+.journal-entry.depth-reveal.in-view {
+  transform: none;
+}
+
 .journal-footer {
   margin-top: 2rem;
   text-align: center;
