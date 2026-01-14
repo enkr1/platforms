@@ -1069,7 +1069,7 @@ body.depth-active::-webkit-scrollbar {
   margin: 0 auto;
   padding: 0 1rem;
   transform: translateY(calc(var(--section-scroll) * 20px));
-  opacity: calc(0.2 + var(--section-scroll) * 0.8);
+  opacity: clamp(0.3, var(--section-scroll) * 2.5, 1);
   transition: transform 0.1s linear, opacity 0.15s ease-out;
 }
 @media (min-width: 768px) {
@@ -1221,10 +1221,6 @@ body.depth-active::-webkit-scrollbar {
 }
 .journal-entry__arrow::after {
   content: "→";
-}
-
-.parallax-section-thoughts .parallax-content {
-  opacity: 1;
 }
 
 .journal-footer {
@@ -1900,7 +1896,7 @@ body.depth-active::-webkit-scrollbar {
   opacity: 0;
   transform: translateX(-50%) translateY(1rem);
   pointer-events: none;
-  transition: opacity 0.4s ease, transform 0.4s var(--ease-out-expo), border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: opacity 0.4s ease, transform 0.4s var(--ease-out-expo), border-color 0.3s ease, box-shadow 0.4s ease;
 }
 .floating-cta.visible {
   opacity: 1;
@@ -1909,7 +1905,7 @@ body.depth-active::-webkit-scrollbar {
 }
 .floating-cta:hover {
   border-color: var(--color-accent);
-  box-shadow: var(--shadow-glow-hover);
+  box-shadow: 0 8px 24px -8px rgba(232, 168, 72, 0.25);
 }
 .floating-cta__icon {
   width: 1.5rem;

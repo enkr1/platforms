@@ -1,6 +1,6 @@
 // ============================================
 // Floating CTA Button - Schedule a Chat
-// Fixed bottom-center, prominent and easy to tap
+// Fixed bottom-center, premium "frequency" feel
 // ============================================
 
 .floating-cta {
@@ -26,7 +26,7 @@
   text-decoration: none;
   white-space: nowrap;
 
-  // Hidden by default - centered with translateX
+  // Hidden by default
   opacity: 0;
   transform: translateX(-50%) translateY(1rem);
   pointer-events: none;
@@ -35,19 +35,19 @@
     opacity 0.4s ease,
     transform 0.4s var(--ease-out-expo),
     border-color 0.3s ease,
-    box-shadow 0.3s ease;
+    box-shadow 0.4s ease;
 
-  // Visible state (added via JS on scroll)
+  // Visible state
   &.visible {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
     pointer-events: auto;
   }
 
-  // Hover: gold border + glow
+  // Hover: gold border + subtle glow
   &:hover {
     border-color: var(--color-accent);
-    box-shadow: var(--shadow-glow-hover);
+    box-shadow: 0 8px 24px -8px rgba(232, 168, 72, 0.25);
   }
 
   &__icon {
@@ -57,7 +57,7 @@
   }
 
   &__text {
-    // Always show text - button is prominent now
+    // Always show text
   }
 }
 
@@ -69,3 +69,4 @@
     font-size: var(--font-size-sm);
   }
 }
+

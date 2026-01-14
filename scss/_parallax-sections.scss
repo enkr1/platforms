@@ -114,7 +114,9 @@
   margin: 0 auto;
   padding: 0 1rem;
   transform: translateY(calc(var(--section-scroll) * 20px));
-  opacity: calc(0.2 + var(--section-scroll) * 0.8);
+  // Reach full opacity at 40% scroll progress (when section top is ~40% into viewport)
+  // Instead of waiting until section is centered
+  opacity: clamp(0.3, var(--section-scroll) * 2.5, 1);
   transition: transform 0.1s linear, opacity 0.15s ease-out;
 
   @media (min-width: 768px) {
@@ -287,11 +289,6 @@
   &::after {
     content: '→';
   }
-}
-
-// Thoughts section - full opacity (longer content, no fade needed)
-.parallax-section-thoughts .parallax-content {
-  opacity: 1;
 }
 
 // Journal Footer (View All CTA)
