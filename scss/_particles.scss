@@ -1,0 +1,130 @@
+// ============================================
+// Gold Particles - 金色光点 (Shallow depth layer)
+// Mouse-reactive particles with attraction physics
+// ============================================
+
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1s var(--ease-out-expo);
+
+  &.active {
+    opacity: 1;
+  }
+
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// Individual particle styles (for CSS-only fallback)
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--particle-gold);
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform, opacity;
+  // Solid glow via box-shadow (no gradient)
+  box-shadow: 0 0 8px var(--particle-gold), 0 0 16px rgba(232, 168, 72, 0.4);
+
+  // Fire spark variant (2026 special)
+  &.fire-spark {
+    background: var(--particle-fire);
+    animation: fire-flicker 0.3s ease-in-out;
+    box-shadow: 0 0 10px var(--particle-fire), 0 0 20px rgba(255, 109, 0, 0.5);
+  }
+}
+
+@keyframes fire-flicker {
+  0%, 100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.3);
+    filter: brightness(1.5);
+  }
+}
+
+// Particle attraction effect on cards
+.particle-attract-target {
+  position: relative;
+
+  // Visual feedback when attracting (solid glow, no gradient)
+  &.attracting {
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100px;
+      height: 100px;
+      transform: translate(-50%, -50%);
+      background: rgba(232, 168, 72, 0.08);
+      border: 1px solid rgba(232, 168, 72, 0.15);
+      box-shadow: 0 0 60px rgba(232, 168, 72, 0.2);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: attract-pulse 0.6s ease-out;
+    }
+  }
+}
+
+@keyframes attract-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}
+
+// Convergence animation for external link clicks
+.particle-converge-target {
+  position: relative;
+
+  &.converging::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    transform: translate(-50%, -50%);
+    background: var(--color-accent);
+    border-radius: 50%;
+    box-shadow: 0 0 30px var(--color-accent);
+    animation: converge-burst 0.8s ease-out forwards;
+    pointer-events: none;
+  }
+}
+
+@keyframes converge-burst {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(3);
+    opacity: 0;
+  }
+}

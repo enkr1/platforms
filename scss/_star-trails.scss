@@ -1,0 +1,68 @@
+// ============================================
+// Star Trails - 星轨 (Middle depth layer)
+// Canvas-rendered celestial guidance system
+// ============================================
+
+.star-trails {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.5s var(--ease-out-expo);
+
+  &.active {
+    opacity: 1;
+  }
+
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// Star trail glow effect (CSS fallback/enhancement)
+.star-trail-glow {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--star-trail-color);
+  border-radius: 50%;
+  box-shadow:
+    0 0 4px var(--star-trail-color),
+    0 0 8px var(--star-trail-glow);
+  opacity: 0.6;
+  animation: star-twinkle 3s ease-in-out infinite;
+}
+
+@keyframes star-twinkle {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.2);
+  }
+}
+
+// Flow indicator - light that flows toward active section
+.star-flow-indicator {
+  position: absolute;
+  width: 60px;
+  height: 2px;
+  background: var(--color-accent);
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 20px var(--color-accent), 0 0 40px rgba(232, 168, 72, 0.3);
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.8s var(--ease-out-expo);
+  pointer-events: none;
+
+  &.active {
+    opacity: 0.6;
+  }
+}

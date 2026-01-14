@@ -1,0 +1,165 @@
+// ============================================
+// Loading Screen - Waveform Transition
+// Waves enter from edges → animate → drop to bottom
+// ============================================
+
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent; // Let waves show through
+  transition: opacity 0.8s var(--ease-out-expo);
+
+  &.loading-screen--fading {
+    background: transparent;
+  }
+
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+// ============================================
+// ENKR Logo
+// ============================================
+
+.loading-logo {
+  position: absolute;
+  top: calc(50% + 70px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.15em;
+  font-family: var(--font-primary);
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.2em;
+  color: var(--color-text);
+  z-index: 10;
+
+  span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s var(--ease-out-expo),
+                transform 0.5s var(--ease-out-expo);
+
+    // Subtle glow
+    text-shadow: 0 0 20px rgba(232, 168, 72, 0.3);
+  }
+}
+
+.loading-logo--visible span {
+  opacity: 1;
+  transform: translateY(0);
+
+  // Staggered reveal
+  @for $i from 1 through 4 {
+    &:nth-child(#{$i}) {
+      transition-delay: #{($i - 1) * 0.1}s;
+    }
+  }
+}
+
+.loading-logo--fading {
+  span {
+    opacity: 0 !important;
+    transform: translateY(-10px) !important;
+    transition: opacity 0.4s ease, transform 0.4s ease !important;
+  }
+}
+
+// ============================================
+// Waveform Loading States
+// Fade in + drop to bottom TOGETHER (synchronized)
+// ============================================
+
+// Initial state - container centered, waves at edges (invisible)
+.waveform--loading {
+  position: fixed !important;
+  bottom: auto !important;
+  top: 40% !important;
+  left: 0 !important;
+  right: 0 !important;
+  transform: translateY(-50%) !important;
+  width: 100% !important;
+  height: var(--waveform-height) !important;
+  z-index: 9600; // Above reveal overlay (9500) so waves aren't covered
+  overflow: visible !important;
+  // Container drops smoothly
+  transition: transform var(--duration-wave-animation) cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  .waveform-svg {
+    overflow: visible;
+  }
+
+  // Waves start invisible at DIFFERENT positions
+  .waveform-path {
+    opacity: 0;
+    transition: opacity var(--duration-wave-animation) cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform var(--duration-wave-animation) cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  // Each wave starts OFF-SCREEN from different directions
+  .waveform-path-1 {
+    transform: translate(-50%, -50vh); // Far top-left, off screen
+  }
+  .waveform-path-2 {
+    transform: translateY(-50vh); // Far top, off screen
+  }
+  .waveform-path-3 {
+    transform: translate(50%, -50vh); // Far top-right, off screen
+  }
+}
+
+// Animation: converge + fade in + drop TOGETHER (all synchronized)
+.waveform--loading.waveform--drawing {
+  // Container drops from 40% to bottom
+  transform: translateY(calc(60vh - var(--waveform-height))) !important;
+
+  // Waves converge to center + fade in (same duration as drop)
+  .waveform-path-1 {
+    opacity: 0.3;
+    transform: translate(0, 0);
+  }
+  .waveform-path-2 {
+    opacity: 0.5;
+    transform: translate(0, 0);
+  }
+  .waveform-path-3 {
+    opacity: 0.7;
+    transform: translate(0, 0);
+  }
+}
+
+// Final state - use base positioning (bottom: 0)
+// Keep z-index high so reveal overlay doesn't cover waves
+.waveform--dropping:not(.waveform--loading) {
+  transform: none !important;
+  z-index: 9600;
+}
+
+// ============================================
+// Reduced Motion
+// ============================================
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-logo span {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .waveform--loading .waveform-path {
+    clip-path: inset(0 0 0 0);
+  }
+
+  .waveform--dropping {
+    transition: none;
+  }
+}

@@ -1,0 +1,464 @@
+// ============================================
+// Parallax Sections - Scroll-Based Content Discovery
+// ============================================
+
+.parallax-section {
+  position: relative;
+  min-height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 6rem 0;
+
+  @media (min-width: 64rem) {
+    padding: 8rem 0;
+  }
+
+  // CSS custom property for scroll progress (0 to 1)
+  // Set by JavaScript as section scrolls through viewport
+  --section-scroll: 0;
+}
+
+// ============================================
+// Background Layer (Slowest - 0.5x speed)
+// ============================================
+
+.parallax-bg {
+  position: absolute;
+  inset: -50px;
+  z-index: 0;
+  opacity: 0.15;
+  transform: translateY(calc(var(--section-scroll) * -50px));
+  transition: transform 0.1s linear;
+  pointer-events: none;
+
+  // Glow effect (solid, no gradient)
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60%;
+    height: 40%;
+    transform: translate(-50%, -50%);
+    background: var(--parallax-color, var(--color-accent));
+    opacity: 0.08;
+    border-radius: 50%;
+    filter: blur(60px);
+  }
+}
+
+.parallax-bg-work {
+  --parallax-color: var(--color-work-primary);
+}
+
+.parallax-bg-experience {
+  --parallax-color: var(--color-experience-primary);
+}
+
+// ============================================
+// Section Label (Medium - 0.7x speed)
+// ============================================
+
+.parallax-label {
+  position: absolute;
+  left: 2rem;
+  top: 50%;
+  z-index: 1;
+  transform: translateY(calc(-50% + var(--section-scroll) * -30px));
+  opacity: calc(0.6 - var(--section-scroll) * 0.4);
+  transition: transform 0.1s linear, opacity 0.1s linear;
+  pointer-events: none;
+
+  span {
+    display: block;
+    font-family: var(--font-primary);
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-text);
+    opacity: 0.08;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+
+    @media (min-width: 768px) {
+      writing-mode: horizontal-tb;
+      font-size: clamp(4rem, 10vw, 8rem);
+    }
+  }
+}
+
+// Work section label
+.parallax-section-work .parallax-label span {
+  color: var(--color-work-primary);
+  opacity: 0.12;
+}
+
+// Experience section label
+.parallax-section-experience .parallax-label span {
+  color: var(--color-experience-primary);
+  opacity: 0.12;
+}
+
+// ============================================
+// Content Layer (Fastest - 1.2x speed)
+// ============================================
+
+.parallax-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  transform: translateY(calc(var(--section-scroll) * 20px));
+  // Reach full opacity at 40% scroll progress (when section top is ~40% into viewport)
+  // Instead of waiting until section is centered
+  opacity: clamp(0.3, var(--section-scroll) * 2.5, 1);
+  transition: transform 0.1s linear, opacity 0.15s ease-out;
+
+  @media (min-width: 768px) {
+    padding: 0 2rem;
+  }
+}
+
+// ============================================
+// Section-Specific Theming
+// ============================================
+
+// Unified premium styling - Gold accent for both sections
+.parallax-section-work,
+.parallax-section-experience {
+  background: var(--color-bg);
+
+  .card-group-title {
+    color: var(--color-text-muted);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .chip:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-glow);
+  }
+}
+
+// Subtle label color differentiation only
+.parallax-section-work .parallax-label span {
+  color: var(--color-work-primary);
+}
+
+.parallax-section-experience .parallax-label span {
+  color: var(--color-experience-primary);
+}
+
+// ============================================
+// Cards Grid (from content-cards, adapted)
+// ============================================
+
+.cards-grid {
+  display: grid;
+  gap: 2rem;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card-group-title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  margin-bottom: 0.5rem;
+}
+
+// ============================================
+// Journal Stream - Stacked Cards with Excerpts
+// ============================================
+
+.journal-stream {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.journal-entry {
+  display: block;
+  padding: 1.75rem 2rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  text-decoration: none;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s var(--ease-out-expo);
+
+  &:hover {
+    border-color: var(--color-accent);
+    box-shadow: 0 8px 32px -8px rgba(232, 168, 72, 0.15);
+    transform: translateY(-2px);
+
+    .journal-entry__arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.journal-entry__date {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-bottom: 0.75rem;
+
+  &::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--color-accent);
+    border-radius: 50%;
+    opacity: 0.7;
+  }
+}
+
+.journal-entry__title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  line-height: var(--line-height-tight);
+  margin-bottom: 0.75rem;
+}
+
+.journal-entry__excerpt {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+
+  // Limit to 2 lines
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.journal-entry__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.journal-entry__meta {
+  display: flex;
+  gap: 1rem;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  opacity: 0.7;
+}
+
+.journal-entry__arrow {
+  font-size: var(--font-size-sm);
+  color: var(--color-accent);
+  opacity: 0;
+  transform: translateX(-0.5rem);
+  transition: all 0.3s var(--ease-out-expo);
+
+  &::after {
+    content: '→';
+  }
+}
+
+// Thoughts section - disable parallax transform
+.parallax-section-thoughts .parallax-content {
+  transform: none;
+}
+
+// Journal entries - smooth opacity fade only (no position shift)
+.journal-entry.depth-reveal {
+  transform: none;
+
+  &.in-view {
+    transform: none;
+  }
+}
+
+// Journal Footer (View All CTA)
+.journal-footer {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.journal-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    box-shadow: 0 4px 16px -4px rgba(232, 168, 72, 0.2);
+  }
+}
+
+// Empty state
+.journal-empty {
+  padding: 3rem;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+// ============================================
+// Journal Stream - Mobile
+// ============================================
+
+@media (max-width: 639px) {
+  .journal-stream {
+    gap: 1rem;
+  }
+
+  .journal-entry {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .journal-entry__title {
+    font-size: var(--font-size-base);
+  }
+
+  .journal-entry__excerpt {
+    font-size: var(--font-size-xs);
+    -webkit-line-clamp: 3; // Allow more on mobile
+  }
+
+  .journal-entry__arrow {
+    opacity: 0.5; // Always show on mobile (no hover)
+  }
+
+  .journal-footer {
+    margin-top: 1.5rem;
+  }
+}
+
+// ============================================
+// Achievements Section
+// ============================================
+
+.achievements-section {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--glass-border);
+}
+
+.achievements-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-experience-primary);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.achievements-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+// ============================================
+// Scroll Progress Indicator (Optional)
+// ============================================
+
+.section-progress {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--color-accent);
+  width: calc(var(--section-scroll) * 100%);
+  transition: width 0.1s linear;
+  opacity: 0.5;
+}
+
+// ============================================
+// Mobile Optimizations
+// ============================================
+
+@media (max-width: 639px) {
+  .parallax-section {
+    min-height: auto;
+    padding: 4rem 1rem;
+  }
+
+  .parallax-label {
+    left: 1rem;
+
+    span {
+      font-size: 2rem;
+      opacity: 0.06;
+    }
+  }
+
+  .parallax-bg {
+    // Reduce parallax effect on mobile for performance
+    transform: translateY(calc(var(--section-scroll) * -20px));
+  }
+
+  .parallax-content {
+    transform: translateY(calc(var(--section-scroll) * 10px));
+    opacity: 1; // Always visible on mobile
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .achievements-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+  }
+}
+
+// ============================================
+// Reduced Motion
+// ============================================
+
+@media (prefers-reduced-motion: reduce) {
+  .parallax-bg,
+  .parallax-label,
+  .parallax-content {
+    transform: none !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
+}

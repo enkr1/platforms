@@ -1,0 +1,182 @@
+// ============================================
+// Premium Chip Components - 「聚光成芒」
+// Particle attraction creates "nobles attracted by talent"
+// ============================================
+
+.chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+
+  // When container is a particle attractor
+  &.particle-attractor {
+    position: relative;
+  }
+}
+
+.chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.25rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(var(--glass-blur-light));
+  text-decoration: none;
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  transition: border-color 0.3s ease;
+  overflow: hidden;
+
+  // Hover: border color only (desktop with hover capability)
+  @media (hover: hover) {
+    &:hover {
+      border-color: var(--color-accent);
+    }
+  }
+
+  // Active state for touch feedback
+  &:active {
+    background: var(--glass-bg-hover);
+  }
+
+  @media (min-width: 640px) {
+    padding: 1rem 1.5rem;
+    font-size: var(--font-size-base);
+  }
+}
+
+// Chip icon
+.chip-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  img,
+  svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+// Chip text
+.chip-text {
+  white-space: nowrap;
+}
+
+// Chip arrow (for links)
+.chip-arrow {
+  margin-left: auto;
+  opacity: 0;
+  transform: translateX(-5px);
+  transition: all 0.3s var(--ease-out-expo);
+
+  .chip:hover & {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// ========================================
+// Chip Variants - Work Mode
+// All hover states use gold accent per 「金渊映日」guidelines
+// ========================================
+
+.chip-primary {
+  background: var(--glass-bg);
+  border-color: rgba(232, 168, 72, 0.25);
+}
+
+.chip-email,
+.chip-calendar,
+.chip-resume,
+.chip-github,
+.chip-linkedin,
+.chip-stackoverflow,
+.chip-wakatime {
+  // All work chips use gold hover (consistent with design system)
+  // Individual brand colors removed to maintain gold accent unity
+}
+
+// ========================================
+// Chip Variants - Experience Mode
+// All hover states use gold accent per 「金渊映日」guidelines
+// ========================================
+
+.chip-youtube,
+.chip-tiktok,
+.chip-soundcloud,
+.chip-spotify,
+.chip-instagram,
+.chip-twitter,
+.chip-facebook {
+  // All experience chips use gold hover (consistent with design system)
+  // Individual brand colors removed to maintain gold accent unity
+}
+
+// ========================================
+// Large Chip Variant (for primary CTAs)
+// ========================================
+
+.chip-lg {
+  padding: 1.25rem 2rem;
+  font-size: var(--font-size-base);
+
+  .chip-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  @media (min-width: 640px) {
+    padding: 1.5rem 2.5rem;
+    font-size: var(--font-size-lg);
+
+    .chip-icon {
+      width: 32px;
+      height: 32px;
+    }
+  }
+}
+
+// ========================================
+// Mobile Optimizations
+// ========================================
+
+@media (max-width: 639px) {
+  .chips-container {
+    gap: 0.625rem;
+  }
+
+  .chip {
+    // Minimum touch target 44px (Apple HIG)
+    min-height: 44px;
+    padding: 0.75rem 1rem;
+    gap: 0.5rem;
+    font-size: var(--font-size-xs);
+
+    // Full width on very small screens
+    @media (max-width: 400px) {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    // Show arrow always on mobile (no hover)
+    .chip-arrow {
+      opacity: 0.5;
+      transform: translateX(0);
+    }
+  }
+
+  .chip-lg {
+    padding: 1rem 1.25rem;
+    font-size: var(--font-size-sm);
+    min-height: 48px;
+  }
+}

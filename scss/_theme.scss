@@ -1,0 +1,166 @@
+// ============================================
+// Theme - CSS Custom Properties
+// ============================================
+
+:root {
+  // ========================================
+  // Typography
+  // ========================================
+  --font-primary: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'Fira Code', 'Monaco', 'Consolas', monospace;
+  --font-chinese: 'LXGW WenKai', 'Noto Serif SC', 'Songti SC', serif;
+
+  --font-size-xs: 0.75rem;    // 12px
+  --font-size-sm: 0.875rem;   // 14px
+  --font-size-base: 1rem;     // 16px
+  --font-size-lg: 1.125rem;   // 18px
+  --font-size-xl: 1.25rem;    // 20px
+  --font-size-2xl: 1.5rem;    // 24px
+  --font-size-3xl: 1.875rem;  // 30px
+  --font-size-4xl: 2.25rem;   // 36px
+  --font-size-5xl: 3rem;      // 48px
+  --font-size-6xl: 3.75rem;   // 60px
+  --font-size-7xl: 4.5rem;    // 72px
+
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.6;
+  --line-height-relaxed: 1.8;
+
+  // ========================================
+  // Colors - 「金渊映日」Ba Zi Palette (Refined)
+  // Premium: Navy + Silver + Gold (restrained)
+  // ========================================
+
+  // Base - 渊墨黑 (Abyss Black) - Deep Water
+  --color-bg: #0A1A2F;
+  --color-bg-elevated: #102540;
+  --color-bg-muted: #0D1F35;
+
+  // Text - 月光银 (Moonlight Silver) - Pure Metal
+  --color-text: #F0F6FF;
+  --color-text-secondary: #C8D9F0;
+  --color-text-muted: #7A96B8;
+  --color-text-subtle: #4A6585;
+
+  // Accent - 旭日金 (Rising Sun Gold) - THE accent
+  // Use sparingly: CTAs, hover states, key highlights only
+  --color-accent: #E8A848;
+  --color-accent-hover: #F4C06A;
+  --color-accent-muted: rgba(232, 168, 72, 0.15);
+
+  // ========================================
+  // Section Colors (Subtle variations, not competing)
+  // Both derive from the navy base, gold remains THE accent
+  // ========================================
+  --color-work-bg: #0A1A2F;
+  --color-work-primary: #4A7DB8;        // Lighter blue for labels
+  --color-work-secondary: #3A6698;
+  --color-work-accent: var(--color-accent);  // Gold, not blue
+  --color-work-muted: #3D5A7A;
+
+  --color-experience-bg: #0A1A2F;
+  --color-experience-primary: #5BA3A0;  // Muted teal (subtle)
+  --color-experience-secondary: #4A8A87;
+  --color-experience-accent: var(--color-accent);  // Gold, not cyan
+  --color-experience-muted: #3D6B69;
+
+  // ========================================
+  // Colors - Status/Utility
+  // ========================================
+  --color-spotify: #1db954;
+  --color-spotify-dark: #0A1A2F;
+
+  // ========================================
+  // Backgrounds (Solid colors, no gradients)
+  // Premium = Restraint = Solid colors only
+  // ========================================
+  // All backgrounds use --color-bg (#0A1A2F)
+  // Depth comes from layered elements, not gradients
+
+  // ========================================
+  // Glass Morphism (Subtle silver tints)
+  // ========================================
+  --glass-bg: rgba(240, 246, 255, 0.03);
+  --glass-bg-hover: rgba(240, 246, 255, 0.06);
+  --glass-border: rgba(240, 246, 255, 0.08);
+  --glass-border-hover: rgba(232, 168, 72, 0.3);  // Gold on hover
+  --glass-blur: 20px;
+  --glass-blur-light: 10px;
+
+  // ========================================
+  // Shadows (Gold glow for accents only)
+  // ========================================
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.7);
+  --shadow-glow: 0 0 30px rgba(232, 168, 72, 0.25);  // Subtle gold glow
+  --shadow-glow-hover: 0 8px 32px -8px rgba(232, 168, 72, 0.3);  // Button hover glow
+  --shadow-glow-work: 0 0 30px rgba(232, 168, 72, 0.2);
+  --shadow-glow-experience: 0 0 30px rgba(232, 168, 72, 0.2);
+
+  // ========================================
+  // Spacing
+  // ========================================
+  --section-padding-x: 1.5rem;
+  --section-padding-y: 4rem;
+  --container-max: 1200px;
+  --waveform-height: 12.5rem;  // SSOT for waveform height (same on all breakpoints)
+
+  // Constellation
+  --constellation-height: 31.25rem;
+  --constellation-glow: 25rem;
+
+  @media (max-width: 639px) {
+    --constellation-glow: 12.5rem;
+  }
+
+  @media (min-width: 768px) {
+    --constellation-height: 37.5rem;
+    --constellation-glow: 37.5rem;
+    --section-padding-x: 3rem;
+    --section-padding-y: 6rem;
+  }
+
+  @media (min-width: 1024px) {
+    --section-padding-x: 4rem;
+    --section-padding-y: 8rem;
+  }
+
+  // ========================================
+  // Border Radius
+  // ========================================
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-full: 9999px;
+
+  // ========================================
+  // Transitions & Easing
+  // ========================================
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-circ: cubic-bezier(0, 0.55, 0.45, 1);
+  --ease-in-out-circ: cubic-bezier(0.85, 0, 0.15, 1);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  --duration-fast: 200ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --duration-reveal: 1200ms;
+  --duration-wave-animation: 2s;  // SSOT for wave loading animation (CSS + JS)
+
+  // ========================================
+  // Scroll-based animations (set by JS)
+  // ========================================
+  --scroll: 0;
+  --scroll-section: 0;
+}

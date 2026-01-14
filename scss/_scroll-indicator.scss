@@ -1,0 +1,127 @@
+// ============================================
+// Scroll Indicator - Minimal Gold Line
+// Ultra-clean animated vertical line with gold accent
+// ============================================
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  opacity: 0;
+  transition: opacity 0.8s ease 1.5s;
+  cursor: pointer;
+  z-index: 50;
+
+  // Show after reveal
+  .revealed & {
+    opacity: 1;
+  }
+
+  // Hide after scrolling
+  .scrolled & {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  // The line track
+  &__mouse {
+    position: relative;
+    width: 1px;
+    height: 48px;
+    background: rgba(240, 246, 255, 0.15); // Subtle silver track
+    border: none;
+    border-radius: 0;
+    overflow: hidden;
+
+    // Animated gold light traveling down
+    &::before {
+      content: '';
+      position: absolute;
+      top: -16px;
+      left: 0;
+      width: 100%;
+      height: 16px;
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        var(--color-accent) 50%,
+        transparent
+      );
+      border-radius: 0;
+      animation: gold-drop 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    // Soft glow around line
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(232, 168, 72, 0.2) 50%,
+        transparent
+      );
+      filter: blur(2px);
+      opacity: 0.5;
+    }
+  }
+
+  // Hide chevrons (not used in minimal design)
+  &__chevrons {
+    display: none;
+  }
+
+  &__chevron {
+    display: none;
+  }
+
+  // Hover state - brighten
+  &:hover {
+    .scroll-indicator__mouse {
+      background: rgba(240, 246, 255, 0.25);
+
+      &::before {
+        animation-duration: 1.2s; // Speed up on hover
+      }
+    }
+  }
+}
+
+@keyframes gold-drop {
+  0% {
+    top: -16px;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    top: 48px;
+    opacity: 0;
+  }
+}
+
+// Mobile adjustments
+@media (max-width: 768px) {
+  .scroll-indicator {
+    bottom: 1.5rem;
+
+    &__mouse {
+      height: 40px;
+    }
+  }
+}

@@ -1,0 +1,72 @@
+// ============================================
+// Floating CTA Button - Schedule a Chat
+// Fixed bottom-center, premium "frequency" feel
+// ============================================
+
+.floating-cta {
+  position: fixed;
+  bottom: 3rem;
+  left: 50%;
+  z-index: 150;
+
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 2.5rem;
+
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(var(--glass-blur-light));
+  -webkit-backdrop-filter: blur(var(--glass-blur-light));
+
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  white-space: nowrap;
+
+  // Hidden by default
+  opacity: 0;
+  transform: translateX(-50%) translateY(1rem);
+  pointer-events: none;
+
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s var(--ease-out-expo),
+    border-color 0.3s ease,
+    box-shadow 0.4s ease;
+
+  // Visible state
+  &.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+  }
+
+  // Hover: gold border + subtle glow
+  &:hover {
+    border-color: var(--color-accent);
+    box-shadow: 0 8px 24px -8px rgba(232, 168, 72, 0.25);
+  }
+
+  &__icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  &__text {
+    // Always show text
+  }
+}
+
+// Mobile: slightly smaller but still premium
+@media (max-width: 479px) {
+  .floating-cta {
+    bottom: 2.5rem;
+    padding: 1rem 2rem;
+    font-size: var(--font-size-sm);
+  }
+}
+

@@ -1,0 +1,289 @@
+// ============================================
+// Depth System - 三层能量场 (Three-Layer Energy Field)
+// Deep (abyss) → Middle (star trails) → Shallow (particles) → Content
+// ============================================
+
+// Z-index layers for depth system
+$z-depth-abyss: 0;        // Deepest - static background
+$z-depth-stars: 1;        // Middle - star trails canvas
+$z-depth-particles: 2;    // Shallow - gold particles
+$z-depth-content: 10;     // Main content layer
+$z-depth-floating: 20;    // Floating/elevated cards
+$z-depth-overlay: 100;    // UI overlays (scroll indicator, etc.)
+
+// Depth-related CSS custom properties
+:root {
+  // Layer positions (for parallax calculations)
+  --depth-abyss-speed: 0;       // Static
+  --depth-stars-speed: 0.3;     // Slow movement
+  --depth-particles-speed: 0.6; // Medium movement
+  --depth-content-speed: 1;     // Full speed with scroll
+
+  // Blur amounts for depth perception
+  --depth-blur-far: 4px;
+  --depth-blur-mid: 2px;
+  --depth-blur-near: 0px;
+
+  // Scale factors for depth
+  --depth-scale-far: 0.95;
+  --depth-scale-mid: 0.98;
+  --depth-scale-near: 1;
+
+  // Opacity for depth layering
+  --depth-opacity-far: 0.6;
+  --depth-opacity-mid: 0.8;
+  --depth-opacity-near: 1;
+
+  // Star trail colors
+  --star-trail-color: rgba(230, 242, 255, 0.15);
+  --star-trail-glow: rgba(232, 168, 72, 0.1);
+
+  // Particle colors
+  --particle-gold: rgba(255, 183, 77, 0.3);
+  --particle-gold-active: rgba(255, 183, 77, 0.6);
+  --particle-fire: rgba(255, 109, 0, 0.8);
+}
+
+// ============================================
+// Depth Layer Containers
+// ============================================
+
+// Layer 1: Abyss (deepest background)
+.depth-layer-abyss {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: $z-depth-abyss;
+  background: var(--color-bg);
+  pointer-events: none;
+}
+
+// Layer 2: Star Trails (middle layer - canvas)
+.depth-layer-stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: $z-depth-stars;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1s var(--ease-out-expo);
+
+  &.active {
+    opacity: 1;
+  }
+
+  canvas {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// Layer 3: Gold Particles (shallow layer)
+.depth-layer-particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: $z-depth-particles;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.8s var(--ease-out-expo);
+
+  &.active {
+    opacity: 1;
+  }
+
+  canvas {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// ============================================
+// Content Layer (scrollable content)
+// ============================================
+
+.depth-content {
+  position: relative;
+  z-index: $z-depth-content;
+
+  // Sections within content inherit depth context
+  > section {
+    position: relative;
+  }
+}
+
+// ============================================
+// Floating Elements (cards, chips that elevate)
+// ============================================
+
+.depth-floating {
+  position: relative;
+  z-index: $z-depth-floating;
+  transform-style: preserve-3d;
+  transition: border-color 0.3s ease;
+
+  // Depth reveal animation
+  &[data-depth-reveal] {
+    opacity: 0;
+    transform: scale(var(--depth-scale-far)) translateY(30px);
+    filter: blur(var(--depth-blur-far));
+    transition:
+      opacity 0.6s var(--ease-out-expo),
+      transform 0.6s var(--ease-out-expo),
+      filter 0.4s var(--ease-out-expo),
+      border-color 0.3s ease;
+
+    &.revealed {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      filter: blur(0);
+    }
+  }
+
+  // Hover: border color only (desktop)
+  @media (hover: hover) {
+    &:hover {
+      border-color: var(--color-accent);
+    }
+  }
+}
+
+// ============================================
+// Scroll-linked Depth Transitions
+// ============================================
+
+// Elements that reveal as they scroll into view
+.depth-reveal {
+  opacity: 0;
+  transform: translateY(40px) scale(0.96);
+  filter: blur(var(--depth-blur-mid));
+  transition:
+    opacity 0.8s var(--ease-out-expo),
+    transform 0.8s var(--ease-out-expo),
+    filter 0.6s var(--ease-out-expo);
+
+  &.in-view {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+// Staggered reveal for groups
+.depth-reveal-group {
+  .depth-reveal {
+    @for $i from 1 through 12 {
+      &:nth-child(#{$i}) {
+        transition-delay: #{($i - 1) * 80}ms;
+      }
+    }
+  }
+}
+
+// ============================================
+// Horizontal Strip Reveals (curtain effect)
+// ============================================
+
+.depth-strip {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition:
+    opacity 0.6s var(--ease-out-expo),
+    transform 0.6s var(--ease-out-expo);
+
+  &.in-view {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  // Alternating directions for visual interest
+  &:nth-child(even) {
+    transform: translateX(30px);
+
+    &.in-view {
+      transform: translateX(0);
+    }
+  }
+}
+
+// ============================================
+// Particle Attraction Zone (for hover effects)
+// ============================================
+
+.particle-attractor {
+  position: relative;
+
+  // Data attribute stores attraction strength (0-1)
+  &[data-attraction] {
+    --attraction-radius: 150px;
+    --attraction-strength: 0.5;
+  }
+
+  // Visual indicator (debug mode)
+  &.debug::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(var(--attraction-radius) * 2);
+    height: calc(var(--attraction-radius) * 2);
+    transform: translate(-50%, -50%);
+    border: 1px dashed rgba(232, 168, 72, 0.3);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+}
+
+// ============================================
+// Hide Scrollbar (immersive experience)
+// ============================================
+
+.hide-scrollbar {
+  scrollbar-width: none; // Firefox
+  -ms-overflow-style: none; // IE/Edge
+
+  &::-webkit-scrollbar {
+    display: none; // Chrome/Safari/Opera
+  }
+}
+
+// Apply globally when depth system is active
+html.depth-active,
+body.depth-active {
+  @extend .hide-scrollbar;
+}
+
+// ============================================
+// Performance Optimizations
+// ============================================
+
+// GPU acceleration hints for animated layers
+.depth-layer-stars,
+.depth-layer-particles,
+.depth-floating,
+.depth-reveal {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+// Reduce motion support
+@media (prefers-reduced-motion: reduce) {
+  .depth-reveal,
+  .depth-floating,
+  .depth-strip {
+    transition: opacity 0.3s ease;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .depth-layer-stars,
+  .depth-layer-particles {
+    display: none;
+  }
+}

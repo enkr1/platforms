@@ -1,0 +1,179 @@
+// ============================================
+// Energy Vortex - 能量涡旋 (Hero centerpiece)
+// Dual-color rotating bands around ENKR logo
+// ============================================
+
+.energy-vortex {
+  position: relative;
+  --vortex-size: min(90vw, 70vh, 40rem);
+  width: var(--vortex-size);
+  height: var(--vortex-size);
+  margin: 0 auto;
+
+  // Container for rotating elements
+  &__rings {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  // Rotating ring bands
+  &__ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+    transition: opacity 1s ease, transform 1s var(--ease-out-expo);
+
+    &.active {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    &--gold {
+      width: 90%;
+      height: 90%;
+      border-color: rgba(232, 168, 72, 0.4);
+      animation: vortex-rotate 20s linear infinite;
+    }
+
+    &--teal {
+      width: 80%;
+      height: 80%;
+      border-color: rgba(91, 163, 160, 0.3);
+      animation: vortex-rotate 25s linear infinite reverse;
+    }
+
+    &--glow {
+      width: 70%;
+      height: 70%;
+      border: 1px solid rgba(232, 168, 72, 0.1);
+      background: transparent;
+      box-shadow:
+        inset 0 0 60px rgba(232, 168, 72, 0.03),
+        0 0 40px rgba(232, 168, 72, 0.05);
+      animation: vortex-pulse 4s ease-in-out infinite;
+    }
+  }
+
+  // Center container - flexbox centers the logo
+  &__center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+
+  // Title wrapper - holds the SVG logo
+  &__title {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 1.2s ease, transform 1.2s var(--ease-out-expo);
+
+    &.revealed {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  // Subtitle - positioned at bottom of vortex
+  &__subtitle {
+    position: absolute;
+    left: 50%;
+    bottom: 27%;
+    transform: translateX(-50%) translateY(10px);
+    font-size: var(--font-size-lg);
+    color: var(--color-text-muted);
+    opacity: 0;
+    white-space: nowrap;
+    transition: opacity 0.8s ease 1s, transform 0.8s var(--ease-out-expo) 1s;
+    z-index: 5;
+
+    .revealed & {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+}
+
+// ============================================
+// ENKR Logo - SVG centered, overflows circles
+// ============================================
+
+.enkr-logo {
+  width: calc(var(--vortex-size) * 1.2);
+  max-width: 50rem;
+  height: auto;
+  color: var(--color-text);
+  z-index: 20;
+  flex-shrink: 0;
+
+
+  &__letter {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+
+    &--e { transition-delay: 0ms; }
+    &--n { transition-delay: 280ms; }
+    &--k { transition-delay: 560ms; }
+    &--r { transition-delay: 840ms; }
+  }
+}
+
+// Staggered reveal animation
+.energy-vortex__title.revealed .enkr-logo__letter {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+// ============================================
+// Keyframes
+// ============================================
+
+@keyframes vortex-rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes vortex-pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(0.98);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1.02);
+  }
+}
+
+
+// ============================================
+// Interactions & Responsive
+// ============================================
+
+.energy-vortex:hover {
+  .energy-vortex__ring--gold { animation-duration: 8s; }
+  .energy-vortex__ring--teal { animation-duration: 10s; }
+}
+
+@media (max-width: 768px) {
+  .energy-vortex {
+    --vortex-size: min(92vw, 65vh, 28rem);
+  }
+  .enkr-logo {
+    width: calc(var(--vortex-size) * 1.3);
+  }
+}
+
+@media (max-width: 375px) {
+  .energy-vortex {
+    --vortex-size: min(95vw, 60vh, 20rem);
+  }
+}

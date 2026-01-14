@@ -1,0 +1,63 @@
+// ============================================
+// Hero Section - Energy Vortex (能量涡旋)
+// Abstract centerpiece with dual-color rotating bands
+// ============================================
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: var(--section-padding-y) var(--section-padding-x);
+  // Background is handled by depth-layer-abyss
+  background: transparent;
+}
+
+// Subtle glow overlay for hero (complements depth layers)
+.hero-gradient {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  // No gradient - depth comes from star trails and particles
+}
+
+// Hero Content Container
+.hero-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  max-width: 800px;
+
+  // Parallax effect controlled by scroll (JS sets --scroll)
+  transform: translateY(calc(var(--scroll, 0) * 80px));
+  opacity: calc(1 - var(--scroll, 0) * 1.5);
+  transition: opacity 0.3s ease;
+}
+
+// ========================================
+// Mobile Optimizations
+// ========================================
+
+@media (max-width: 639px) {
+  .hero {
+    min-height: calc(100vh - env(safe-area-inset-top));
+    padding: 2rem 1rem;
+    padding-top: calc(2rem + env(safe-area-inset-top));
+  }
+}
+
+// Hide scroll indicator after scrolling
+.hero.scrolled .scroll-indicator {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
