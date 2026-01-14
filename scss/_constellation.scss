@@ -1,0 +1,215 @@
+// ============================================
+// Floating Constellation - Organic Platform Scatter
+// ============================================
+
+.constellation-section {
+  position: relative;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1rem;
+  overflow: hidden;
+
+  // Subtle top divider - thin gold gradient line
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(12.5rem, 40%);
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(232, 168, 72, 0.4),
+      transparent
+    );
+  }
+
+  @media (min-width: 768px) {
+    min-height: 80vh;
+    padding: 6rem 2rem;
+  }
+}
+
+// Subtle center glow
+.constellation-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 400px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(232, 168, 72, 0.08) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+
+  @media (min-width: 768px) {
+    width: 600px;
+    height: 600px;
+  }
+}
+
+// Constellation container
+.constellation {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  height: 500px;
+  z-index: 1;
+
+  @media (min-width: 768px) {
+    height: 600px;
+    max-width: 1000px;
+  }
+}
+
+// Chips in constellation - positioned absolutely
+.constellation .chip {
+  position: absolute;
+
+  // Idle drift animation
+  animation: constellation-drift 6s ease-in-out infinite;
+
+  // Each chip gets a unique position via inline style --x and --y
+  left: calc(50% + var(--x, 0px));
+  top: calc(50% + var(--y, 0px));
+  transform: translate(-50%, -50%);
+
+  // Stagger animation delay based on index
+  @for $i from 1 through 20 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * -0.4}s;
+    }
+  }
+
+  // Hover: lift and glow
+  @media (hover: hover) {
+    &:hover {
+      animation-play-state: paused;
+      transform: translate(-50%, -50%) scale(1.05);
+      box-shadow: 0 8px 32px -8px rgba(232, 168, 72, 0.3);
+      z-index: 10;
+    }
+  }
+}
+
+// Subtle drift animation
+@keyframes constellation-drift {
+  0%, 100% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-8px);
+  }
+}
+
+// ============================================
+// Thoughts Section - Clean & Minimal
+// ============================================
+
+.thoughts-section {
+  position: relative;
+  padding: 4rem 1rem;
+
+  // Subtle top divider - thin gold gradient line
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(12.5rem, 40%);
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(232, 168, 72, 0.4),
+      transparent
+    );
+  }
+
+  @media (min-width: 768px) {
+    padding: 6rem 2rem;
+  }
+
+  // Center the journal content
+  .journal-stream {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .journal-footer {
+    max-width: 800px;
+    margin: 2rem auto 0;
+    text-align: center;
+  }
+}
+
+// ============================================
+// Mobile: Stack vertically, match content width
+// ============================================
+
+@media (max-width: 639px) {
+  .constellation-section {
+    min-height: auto;
+    padding: 3rem 1rem;
+  }
+
+  .constellation-glow {
+    width: 200px;
+    height: 200px;
+    opacity: 0.5;
+  }
+
+  .constellation {
+    height: auto;
+    max-width: 800px; // Match journal width
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .constellation .chip {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    animation: none;
+    width: 100%;
+    max-width: 100%; // Full width within container
+
+    // Custom props not used on mobile
+    --x: 0 !important;
+    --y: 0 !important;
+
+    &:hover {
+      transform: none;
+    }
+  }
+
+  .thoughts-section {
+    padding: 3rem 1rem;
+  }
+}
+
+// ============================================
+// Reduced Motion
+// ============================================
+
+@media (prefers-reduced-motion: reduce) {
+  .constellation .chip {
+    animation: none !important;
+
+    &:hover {
+      transform: translate(-50%, -50%) !important;
+    }
+  }
+}
