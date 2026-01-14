@@ -594,34 +594,6 @@ body.depth-active::-webkit-scrollbar {
   will-change: transform, opacity;
 }
 
-.intro .intro-title {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.8s var(--ease-out-expo);
-}
-.intro .intro-highlight {
-  opacity: 0;
-  transform: scale(0.9);
-  transition: all 1s var(--ease-out-expo) 0.2s;
-}
-.intro .roles-container {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s var(--ease-out-expo) 0.4s;
-}
-.intro .bio-quote {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.8s var(--ease-out-expo) 0.6s;
-}
-.intro.in-view .intro-title,
-.intro.in-view .intro-highlight,
-.intro.in-view .roles-container,
-.intro.in-view .bio-quote {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
 .mode-toggle .mode-btn {
   opacity: 0;
   transition: all 0.6s var(--ease-out-expo);
