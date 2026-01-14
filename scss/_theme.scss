@@ -111,11 +111,7 @@
   --section-padding-x: 1.5rem;
   --section-padding-y: 4rem;
   --container-max: 1200px;
-  --waveform-height: 12.5rem;  // SSOT for waveform height (used in _waveform.scss + _loading.scss)
-
-  @media (max-width: 639px) {
-    --waveform-height: 6.25rem;
-  }
+  --waveform-height: 12.5rem;  // SSOT for waveform height (same on all breakpoints)
 
   @media (min-width: 768px) {
     --section-padding-x: 3rem;

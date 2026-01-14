@@ -149,16 +149,7 @@
   }
 }
 
-// Mobile Optimizations
-@media (max-width: 639px) {
-  .waveform {
-    opacity: 0.4;
-  }
-
-  .waveform-path {
-    stroke-width: 1.5;
-  }
-}
+// Mobile uses same styles as desktop
 
 // Very small screens - even simpler
 @media (max-width: 400px) {

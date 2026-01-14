@@ -5,7 +5,7 @@
 
 .floating-cta {
   position: fixed;
-  bottom: 2rem;
+  bottom: 3rem;
   left: 50%;
   z-index: 150;
 
@@ -64,7 +64,7 @@
 // Mobile: slightly smaller but still premium
 @media (max-width: 479px) {
   .floating-cta {
-    bottom: 1.5rem;
+    bottom: 2.5rem;
     padding: 1rem 2rem;
     font-size: var(--font-size-sm);
   }
