@@ -113,7 +113,17 @@
   --container-max: 1200px;
   --waveform-height: 12.5rem;  // SSOT for waveform height (same on all breakpoints)
 
+  // Constellation
+  --constellation-height: 31.25rem;
+  --constellation-glow: 25rem;
+
+  @media (max-width: 639px) {
+    --constellation-glow: 12.5rem;
+  }
+
   @media (min-width: 768px) {
+    --constellation-height: 37.5rem;
+    --constellation-glow: 37.5rem;
     --section-padding-x: 3rem;
     --section-padding-y: 6rem;
   }

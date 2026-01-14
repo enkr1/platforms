@@ -2,6 +2,23 @@
 // Floating Constellation - Organic Platform Scatter
 // ============================================
 
+// Shared section divider
+@mixin section-divider {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(12.5rem, 40%);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(232, 168, 72, 0.4),
+    transparent
+  );
+}
+
 .constellation-section {
   position: relative;
   min-height: 70vh;
@@ -11,21 +28,8 @@
   padding: 4rem 1rem;
   overflow: hidden;
 
-  // Subtle top divider - thin gold gradient line
   &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: min(12.5rem, 40%);
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(232, 168, 72, 0.4),
-      transparent
-    );
+    @include section-divider;
   }
 
   @media (min-width: 768px) {
@@ -39,8 +43,8 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 400px;
-  height: 400px;
+  width: var(--constellation-glow);
+  height: var(--constellation-glow);
   transform: translate(-50%, -50%);
   background: radial-gradient(
     circle,
@@ -49,24 +53,18 @@
   );
   pointer-events: none;
   z-index: 0;
-
-  @media (min-width: 768px) {
-    width: 600px;
-    height: 600px;
-  }
 }
 
 // Constellation container
 .constellation {
   position: relative;
   width: 100%;
-  max-width: 900px;
-  height: 500px;
+  max-width: 56.25rem; // 900px
+  height: var(--constellation-height);
   z-index: 1;
 
   @media (min-width: 768px) {
-    height: 600px;
-    max-width: 1000px;
+    max-width: 62.5rem; // 1000px
   }
 }
 
@@ -118,21 +116,8 @@
   position: relative;
   padding: 4rem 1rem;
 
-  // Subtle top divider - thin gold gradient line
   &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: min(12.5rem, 40%);
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(232, 168, 72, 0.4),
-      transparent
-    );
+    @include section-divider;
   }
 
   @media (min-width: 768px) {
@@ -141,12 +126,12 @@
 
   // Center the journal content
   .journal-stream {
-    max-width: 800px;
+    max-width: 50rem;
     margin: 0 auto;
   }
 
   .journal-footer {
-    max-width: 800px;
+    max-width: 50rem;
     margin: 2rem auto 0;
     text-align: center;
   }
@@ -163,14 +148,12 @@
   }
 
   .constellation-glow {
-    width: 200px;
-    height: 200px;
     opacity: 0.5;
   }
 
   .constellation {
     height: auto;
-    max-width: 800px; // Match journal width
+    max-width: 50rem; // Match journal width
     display: flex;
     flex-direction: column;
     align-items: center;
