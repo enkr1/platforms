@@ -1223,6 +1223,10 @@ body.depth-active::-webkit-scrollbar {
   content: "→";
 }
 
+.parallax-section-thoughts .parallax-content {
+  transform: none;
+}
+
 .journal-footer {
   margin-top: 2rem;
   text-align: center;

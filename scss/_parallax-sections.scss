@@ -291,6 +291,11 @@
   }
 }
 
+// Thoughts section - disable parallax transform (cards have their own depth-reveal animation)
+.parallax-section-thoughts .parallax-content {
+  transform: none;
+}
+
 // Journal Footer (View All CTA)
 .journal-footer {
   margin-top: 2rem;
