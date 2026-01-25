@@ -150,11 +150,4 @@
 }
 
 // Mobile uses same styles as desktop
-
-// Very small screens - even simpler
-@media (max-width: 400px) {
-  .waveform {
-    height: 40px;
-    opacity: 0.2;
-  }
-}
+// Height is now responsive via CSS variable --waveform-height in _theme.scss
