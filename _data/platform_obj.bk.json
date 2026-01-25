@@ -58,14 +58,39 @@
       "link": "https://enkr1.github.io/"
     },
     {
+      "name": "Google for Developers",
+      "className": "google-for-developers",
+      "link": "https://developers.google.com/profile/u/enkr1"
+    },
+    {
+      "name": "WakaTime",
+      "className": "wakatime",
+      "link": "https://wakatime.com/@enkr1"
+    },
+    {
       "name": "Instagram (Fitness Account)",
       "className": "instagram",
       "link": "https://www.instagram.com/fitnesspang/"
     },
     {
+      "name": "Twitter/X",
+      "className": "twitter",
+      "link": "https://twitter.com/enkr999"
+    },
+    {
+      "name": "SoundCloud",
+      "className": "soundcloud",
+      "link": "https://soundcloud.com/enkr1"
+    },
+    {
       "name": "TikTok",
       "className": "tiktok",
       "link": "https://www.tiktok.com/@enkr1"
+    },
+    {
+      "name": "StackOverflow",
+      "className": "stackoverflow",
+      "link": "https://stackoverflow.com/users/13677125/jinghui-p"
     }
   ]
 }
