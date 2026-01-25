@@ -119,11 +119,7 @@
 
   @media (max-width: 639px) {
     --constellation-glow: 12.5rem;
-    --waveform-height: 5rem;  // 80px for mobile
-  }
-
-  @media (max-width: 400px) {
-    --waveform-height: 2.5rem;  // 40px for very small screens
+    --waveform-height: 10rem;  // 20% reduction for mobile (160px vs 200px desktop)
   }
 
   @media (min-width: 768px) {
