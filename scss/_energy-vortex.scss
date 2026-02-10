@@ -1,6 +1,6 @@
 // ============================================
 // Energy Vortex - 能量涡旋 (Hero centerpiece)
-// Dual-color rotating bands around ENKR logo
+// Stroke draw-on reveal — luxury editorial
 // ============================================
 
 .energy-vortex {
@@ -9,55 +9,6 @@
   width: var(--vortex-size);
   height: var(--vortex-size);
   margin: 0 auto;
-
-  // Container for rotating elements
-  &__rings {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  // Rotating ring bands
-  &__ring {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.8);
-    transition: opacity 1s ease, transform 1s var(--ease-out-expo);
-
-    &.active {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    &--gold {
-      width: 90%;
-      height: 90%;
-      border-color: rgba(232, 168, 72, 0.4);
-      animation: vortex-rotate 20s linear infinite;
-    }
-
-    &--teal {
-      width: 80%;
-      height: 80%;
-      border-color: rgba(91, 163, 160, 0.3);
-      animation: vortex-rotate 25s linear infinite reverse;
-    }
-
-    &--glow {
-      width: 70%;
-      height: 70%;
-      border: 1px solid rgba(232, 168, 72, 0.1);
-      background: transparent;
-      box-shadow:
-        inset 0 0 60px rgba(232, 168, 72, 0.03),
-        0 0 40px rgba(232, 168, 72, 0.05);
-      animation: vortex-pulse 4s ease-in-out infinite;
-    }
-  }
 
   // Center container - flexbox centers the logo
   &__center {
@@ -72,12 +23,10 @@
   // Title wrapper - holds the SVG logo
   &__title {
     opacity: 0;
-    transform: scale(0.9);
-    transition: opacity 1.2s ease, transform 1.2s var(--ease-out-expo);
+    transition: opacity 0.6s ease;
 
     &.revealed {
       opacity: 1;
-      transform: scale(1);
     }
   }
 
@@ -102,66 +51,30 @@
 }
 
 // ============================================
-// ENKR Logo - SVG centered, overflows circles
+// ENKR Logo - Stroke draw-on animation
 // ============================================
 
 .enkr-logo {
   width: calc(var(--vortex-size) * 1.2);
   max-width: 50rem;
   height: auto;
-  color: var(--color-text);
   z-index: 20;
   flex-shrink: 0;
 
-
+  // Letters start invisible — JS drives the entire animation
   &__letter {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
-
-    &--e { transition-delay: 0ms; }
-    &--n { transition-delay: 280ms; }
-    &--k { transition-delay: 560ms; }
-    &--r { transition-delay: 840ms; }
-  }
-}
-
-// Staggered reveal animation
-.energy-vortex__title.revealed .enkr-logo__letter {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-
-// ============================================
-// Keyframes
-// ============================================
-
-@keyframes vortex-rotate {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-@keyframes vortex-pulse {
-  0%, 100% {
-    opacity: 0.3;
-    transform: translate(-50%, -50%) scale(0.98);
-  }
-  50% {
-    opacity: 0.6;
-    transform: translate(-50%, -50%) scale(1.02);
+    fill: transparent;
+    stroke: transparent;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 }
 
 
 // ============================================
-// Interactions & Responsive
+// Responsive
 // ============================================
-
-.energy-vortex:hover {
-  .energy-vortex__ring--gold { animation-duration: 8s; }
-  .energy-vortex__ring--teal { animation-duration: 10s; }
-}
 
 @media (max-width: 768px) {
   .energy-vortex {
