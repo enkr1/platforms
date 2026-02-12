@@ -34,7 +34,7 @@
 
   <!-- 彭 character - 金为桥, 火为用 -->
   <g filter="url(#fireGlow)">
-    <text x="256" y="235"
+    <text x="226" y="225"
           font-family="LXGW WenKai, Noto Serif SC, STKaiti, KaiTi, serif"
           font-size="400"
           font-weight="500"

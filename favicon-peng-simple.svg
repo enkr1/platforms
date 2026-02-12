@@ -6,7 +6,7 @@
 
   <!-- 彭 - bold, clear for small display -->
   <!-- 金为桥 - Metal gold character -->
-  <text x="16" y="15"
+  <text x="15" y="14"
         font-family="LXGW WenKai, Noto Serif SC, STKaiti, serif"
         font-size="26"
         font-weight="700"
