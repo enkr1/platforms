@@ -1,4 +1,31 @@
 // ============================================
+// Ba Zi Token Overrides — 旭日金 (Rising Sun Gold) mood
+// Must come BEFORE @import so !default values are skipped
+// ============================================
+$bazi-metal: #E8A848;
+$bazi-metal-dark: #D4963C;
+$bazi-metal-light: #F4C06A;
+$bazi-metal-subtle-alpha: 0.15;
+$bazi-water: #0A1A2F;
+$bazi-water-dark: #081525;
+$bazi-water-light: #102540;
+$bazi-water-subtle-alpha: 0.03;
+$bazi-fire: #E8A848;              // Platforms uses gold-as-fire
+$bazi-fire-glow-alpha: 0.25;
+$bazi-glass-bg-alpha: 0.03;
+$bazi-glass-bg-hover-alpha: 0.06;
+$bazi-glass-border-alpha: 0.08;
+$bazi-glass-border-hover-alpha: 0.3;
+$bazi-glass-blur: 20px;
+$bazi-glass-blur-light: 10px;
+$bazi-glow-alpha: 0.25;
+$bazi-glow-hover-alpha: 0.3;
+$bazi-glow-subtle-alpha: 0.2;
+$bazi-glow-intense-alpha: 0.3;
+
+@import 'bazi/scss/bazi';
+
+// ============================================
 // Theme - CSS Custom Properties
 // ============================================
 
