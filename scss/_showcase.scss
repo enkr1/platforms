@@ -1,0 +1,264 @@
+// ============================================
+// Showcase Page — Bento Grid Layout
+// Content-first, instant-loading, professional.
+// Shares the Ba Zi colour system via CSS vars.
+// ============================================
+
+.showcase-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 1rem 4rem;
+
+  @media (min-width: 640px) {
+    padding: 3rem 2rem 5rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 4rem 2rem 6rem;
+  }
+}
+
+// ============================================
+// Content wrapper
+// ============================================
+
+.showcase {
+  width: 100%;
+  max-width: 900px;
+}
+
+// ============================================
+// Bento Grid
+// ============================================
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.875rem;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+}
+
+// ============================================
+// Base Card
+// ============================================
+
+.bento-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  position: relative;
+  transition:
+    border-color var(--duration-normal) ease,
+    background var(--duration-normal) ease;
+
+  &:hover {
+    border-color: var(--glass-border-hover);
+    background: var(--glass-bg-hover);
+  }
+}
+
+// ============================================
+// Hero Card — spans 2 cols
+// ============================================
+
+.bento-card--hero {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  @media (min-width: 640px) {
+    grid-column: span 2;
+  }
+}
+
+.bento-card__label {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.bento-card__title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text);
+  margin: 0;
+
+  @media (min-width: 640px) {
+    font-size: var(--font-size-2xl);
+  }
+}
+
+.bento-card__subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-normal);
+  margin: 0;
+}
+
+// ============================================
+// CTA Button
+// ============================================
+
+.bento-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  align-self: flex-start;
+  transition:
+    background var(--duration-fast) ease,
+    box-shadow var(--duration-fast) ease;
+
+  &:hover {
+    background: var(--color-accent-hover);
+    box-shadow: var(--shadow-glow-hover);
+  }
+}
+
+.bento-cta__icon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+// ============================================
+// Profile Card
+// ============================================
+
+.bento-card--profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-align: center;
+  padding: 2rem 1.5rem;
+}
+
+.bento-card__avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  border: 2px solid var(--glass-border);
+}
+
+.bento-card__name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.bento-card__name-cn {
+  font-family: var(--font-chinese);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+// ============================================
+// Link Cards
+// ============================================
+
+.bento-card--link {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 1.25rem 1.5rem;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    .bento-card__link-arrow {
+      color: var(--color-accent);
+      transform: translate(2px, -2px);
+    }
+
+    .bento-card__link-icon {
+      color: var(--color-accent);
+    }
+  }
+}
+
+.bento-card__link-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  color: var(--color-text-secondary);
+  transition: color var(--duration-fast) ease;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.bento-card__link-name {
+  flex: 1;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.bento-card__link-arrow {
+  font-size: var(--font-size-base);
+  color: var(--color-text-subtle);
+  transition:
+    color var(--duration-fast) ease,
+    transform var(--duration-fast) ease;
+}
+
+// ============================================
+// Wide Card — spans 2 cols
+// ============================================
+
+.bento-card--wide {
+  @media (min-width: 640px) {
+    grid-column: span 2;
+  }
+}
+
+// ============================================
+// Footer
+// ============================================
+
+.showcase-footer {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.showcase-footer__link {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-subtle);
+  text-decoration: none;
+  transition: color var(--duration-fast) ease;
+
+  &:hover {
+    color: var(--color-accent);
+  }
+}
