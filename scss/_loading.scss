@@ -79,69 +79,37 @@
 // Fade in + drop to bottom TOGETHER (synchronized)
 // ============================================
 
-// Initial state - container centered, waves at edges (invisible)
+// Initial state - waveform at bottom, invisible (simple fade-in)
 .waveform--loading {
-  position: fixed !important;
-  bottom: auto !important;
-  top: 40% !important;
-  left: 0 !important;
-  right: 0 !important;
-  transform: translateY(-50%) !important;
-  width: 100% !important;
-  height: var(--waveform-height) !important;
+  // Keep at bottom position (no repositioning to center)
+  opacity: 0;
   z-index: 9600; // Above reveal overlay (9500) so waves aren't covered
-  overflow: visible !important;
-  // Container drops smoothly
-  transition: transform var(--duration-wave-animation) cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: opacity var(--duration-wave-animation) cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
-  .waveform-svg {
-    overflow: visible;
-  }
-
-  // Waves start invisible at DIFFERENT positions
   .waveform-path {
     opacity: 0;
-    transition: opacity var(--duration-wave-animation) cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                transform var(--duration-wave-animation) cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-
-  // Each wave starts OFF-SCREEN from different directions
-  .waveform-path-1 {
-    transform: translate(-50%, -50vh); // Far top-left, off screen
-  }
-  .waveform-path-2 {
-    transform: translateY(-50vh); // Far top, off screen
-  }
-  .waveform-path-3 {
-    transform: translate(50%, -50vh); // Far top-right, off screen
+    transition: opacity var(--duration-wave-animation) cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 }
 
-// Animation: converge + fade in + drop TOGETHER (all synchronized)
+// Animation: simple fade in at bottom position
 .waveform--loading.waveform--drawing {
-  // Container drops from 40% to bottom
-  transform: translateY(calc(60vh - var(--waveform-height))) !important;
+  opacity: 1;
 
-  // Waves converge to center + fade in (same duration as drop)
   .waveform-path-1 {
     opacity: 0.3;
-    transform: translate(0, 0);
   }
   .waveform-path-2 {
     opacity: 0.5;
-    transform: translate(0, 0);
   }
   .waveform-path-3 {
     opacity: 0.7;
-    transform: translate(0, 0);
   }
 }
 
-// Final state - use base positioning (bottom: 0)
-// Keep z-index high so reveal overlay doesn't cover waves
+// Final state - clean transition
 .waveform--dropping:not(.waveform--loading) {
-  transform: none !important;
-  z-index: 9600;
+  // No transform overrides needed - waveform is already at bottom
 }
 
 // ============================================
