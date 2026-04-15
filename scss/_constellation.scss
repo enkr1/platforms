@@ -138,6 +138,53 @@
 }
 
 // ============================================
+// Grouped Constellation Layout
+// Section labels + chip groups
+// ============================================
+
+.constellation-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.constellation-group__label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  opacity: 0.6;
+}
+
+.constellation-group__chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+// CTA group - special styling for the primary action
+.constellation-group--cta {
+  margin-top: 1rem;
+
+  .chip {
+    border-color: rgba(232, 168, 72, 0.25);
+    background: rgba(232, 168, 72, 0.05);
+
+    @media (hover: hover) {
+      &:hover {
+        border-color: var(--color-accent);
+        box-shadow: var(--shadow-glow-hover);
+      }
+    }
+  }
+}
+
+// ============================================
 // Mobile: Stack vertically, match content width
 // ============================================
 
@@ -153,11 +200,11 @@
 
   .constellation {
     height: auto;
-    max-width: 50rem; // Match journal width
+    max-width: 50rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.75rem;
+    gap: 1.5rem;
   }
 
   .constellation .chip {
@@ -167,15 +214,18 @@
     transform: none;
     animation: none;
     width: 100%;
-    max-width: 100%; // Full width within container
+    max-width: 100%;
 
-    // Custom props not used on mobile
     --x: 0 !important;
     --y: 0 !important;
 
     &:hover {
       transform: none;
     }
+  }
+
+  .constellation-group__chips {
+    flex-direction: column;
   }
 
   .thoughts-section {
