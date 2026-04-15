@@ -1,5 +1,6 @@
 // ============================================
-// Floating Constellation - Organic Platform Scatter
+// Platforms Section - Grouped Chip Layout
+// Clean, professional, modern
 // ============================================
 
 // Shared section divider
@@ -21,7 +22,6 @@
 
 .constellation-section {
   position: relative;
-  min-height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,7 +33,6 @@
   }
 
   @media (min-width: 768px) {
-    min-height: 80vh;
     padding: 6rem 2rem;
   }
 }
@@ -48,63 +47,73 @@
   transform: translate(-50%, -50%);
   background: radial-gradient(
     circle,
-    rgba(232, 168, 72, 0.08) 0%,
+    rgba(232, 168, 72, 0.06) 0%,
     transparent 70%
   );
   pointer-events: none;
   z-index: 0;
 }
 
-// Constellation container
+// Constellation container - now flexbox, not absolute positioning
 .constellation {
   position: relative;
   width: 100%;
-  max-width: 56.25rem; // 900px
-  height: var(--constellation-height);
+  max-width: 40rem; // Tighter for clean grouping
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
 
   @media (min-width: 768px) {
-    max-width: 62.5rem; // 1000px
+    max-width: 44rem;
+    gap: 3rem;
   }
 }
 
-// Chips in constellation - positioned absolutely
-.constellation .chip {
-  position: absolute;
+// ============================================
+// Grouped Layout
+// ============================================
 
-  // Idle drift animation
-  animation: constellation-drift 6s ease-in-out infinite;
-
-  // Each chip gets a unique position via inline style --x and --y
-  left: calc(50% + var(--x, 0px));
-  top: calc(50% + var(--y, 0px));
-  transform: translate(-50%, -50%);
-
-  // Stagger animation delay based on index
-  @for $i from 1 through 20 {
-    &:nth-child(#{$i}) {
-      animation-delay: #{$i * -0.4}s;
-    }
-  }
-
-  // Hover: lift and glow
-  @media (hover: hover) {
-    &:hover {
-      animation-play-state: paused;
-      transform: translate(-50%, -50%) scale(1.05);
-      box-shadow: 0 8px 32px -8px rgba(232, 168, 72, 0.3);
-      z-index: 10;
-    }
-  }
+.constellation-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
 }
 
-// Subtle drift animation
-@keyframes constellation-drift {
-  0%, 100% {
-    transform: translate(-50%, -50%) translateY(0);
-  }
-  50% {
-    transform: translate(-50%, -50%) translateY(-8px);
+.constellation-group__label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  opacity: 0.5;
+}
+
+.constellation-group__chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+// CTA group - gold accent treatment
+.constellation-group--cta {
+  margin-top: 0.5rem;
+
+  .chip {
+    border-color: rgba(232, 168, 72, 0.25);
+    background: rgba(232, 168, 72, 0.05);
+
+    @media (hover: hover) {
+      &:hover {
+        border-color: var(--color-accent);
+        box-shadow: var(--shadow-glow-hover);
+      }
+    }
   }
 }
 
@@ -124,7 +133,6 @@
     padding: 6rem 2rem;
   }
 
-  // Center the journal content
   .journal-stream {
     max-width: 50rem;
     margin: 0 auto;
@@ -138,59 +146,11 @@
 }
 
 // ============================================
-// Grouped Constellation Layout
-// Section labels + chip groups
-// ============================================
-
-.constellation-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
-  width: 100%;
-}
-
-.constellation-group__label {
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  opacity: 0.6;
-}
-
-.constellation-group__chips {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.75rem;
-  width: 100%;
-}
-
-// CTA group - special styling for the primary action
-.constellation-group--cta {
-  margin-top: 1rem;
-
-  .chip {
-    border-color: rgba(232, 168, 72, 0.25);
-    background: rgba(232, 168, 72, 0.05);
-
-    @media (hover: hover) {
-      &:hover {
-        border-color: var(--color-accent);
-        box-shadow: var(--shadow-glow-hover);
-      }
-    }
-  }
-}
-
-// ============================================
-// Mobile: Stack vertically, match content width
+// Mobile Optimizations
 // ============================================
 
 @media (max-width: 639px) {
   .constellation-section {
-    min-height: auto;
     padding: 3rem 1rem;
   }
 
@@ -199,29 +159,7 @@
   }
 
   .constellation {
-    height: auto;
-    max-width: 50rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     gap: 1.5rem;
-  }
-
-  .constellation .chip {
-    position: relative;
-    left: auto;
-    top: auto;
-    transform: none;
-    animation: none;
-    width: 100%;
-    max-width: 100%;
-
-    --x: 0 !important;
-    --y: 0 !important;
-
-    &:hover {
-      transform: none;
-    }
   }
 
   .constellation-group__chips {
@@ -240,9 +178,5 @@
 @media (prefers-reduced-motion: reduce) {
   .constellation .chip {
     animation: none !important;
-
-    &:hover {
-      transform: translate(-50%, -50%) !important;
-    }
   }
 }
