@@ -1,6 +1,6 @@
 // ============================================
-// Loading Screen - Waveform Transition
-// Waves enter from edges → animate → drop to bottom
+// Loading Screen
+// Waveform fades in at resting bottom position
 // ============================================
 
 .loading-screen {
@@ -76,7 +76,6 @@
 
 // ============================================
 // Waveform Loading States
-// Fade in + drop to bottom TOGETHER (synchronized)
 // ============================================
 
 // Initial state - waveform at bottom, invisible (simple fade-in)
