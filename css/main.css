@@ -1468,7 +1468,7 @@ body.depth-active::-webkit-scrollbar {
   width: var(--constellation-glow);
   height: var(--constellation-glow);
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(232, 168, 72, 0.06) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(232, 168, 72, 0.04) 0%, transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
@@ -1476,56 +1476,182 @@ body.depth-active::-webkit-scrollbar {
 .constellation {
   position: relative;
   width: 100%;
-  max-width: 40rem;
+  max-width: 44rem;
   z-index: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 2.5rem;
+  gap: 2rem;
 }
 @media (min-width: 768px) {
   .constellation {
-    max-width: 44rem;
-    gap: 3rem;
+    gap: 2.5rem;
   }
 }
 
 .constellation-group {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
-}
-
-.constellation-group__label {
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  opacity: 0.5;
-}
-
-.constellation-group__chips {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   gap: 0.75rem;
   width: 100%;
 }
 
+.constellation-group__label {
+  font-size: 0.6875rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  padding-left: 0.25rem;
+}
+
+.constellation-group__chips {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.625rem;
+}
+@media (min-width: 640px) {
+  .constellation-group__chips {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.constellation .chip {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: rgba(240, 246, 255, 0.02);
+  border: 1px solid rgba(240, 246, 255, 0.06);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(var(--glass-blur-light));
+  -webkit-backdrop-filter: blur(var(--glass-blur-light));
+  transition: border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease, transform 0.4s var(--ease-out-expo);
+  opacity: 0;
+  transform: translateY(12px);
+  animation: chip-enter 0.6s var(--ease-out-expo) forwards;
+}
+.constellation .chip:nth-child(1) {
+  animation-delay: 60ms;
+}
+.constellation .chip:nth-child(2) {
+  animation-delay: 120ms;
+}
+.constellation .chip:nth-child(3) {
+  animation-delay: 180ms;
+}
+.constellation .chip:nth-child(4) {
+  animation-delay: 240ms;
+}
+.constellation .chip:nth-child(5) {
+  animation-delay: 300ms;
+}
+.constellation .chip:nth-child(6) {
+  animation-delay: 360ms;
+}
+.constellation .chip:nth-child(7) {
+  animation-delay: 420ms;
+}
+.constellation .chip:nth-child(8) {
+  animation-delay: 480ms;
+}
+.constellation .chip:nth-child(9) {
+  animation-delay: 540ms;
+}
+.constellation .chip:nth-child(10) {
+  animation-delay: 600ms;
+}
+.constellation .chip:nth-child(11) {
+  animation-delay: 660ms;
+}
+.constellation .chip:nth-child(12) {
+  animation-delay: 720ms;
+}
+.constellation .chip .chip-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--color-text-muted);
+  transition: color 0.4s ease;
+  flex-shrink: 0;
+}
+.constellation .chip .chip-text {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  transition: color 0.4s ease;
+}
+.constellation .chip .chip-arrow {
+  margin-left: auto;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-subtle);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: all 0.4s var(--ease-out-expo);
+}
+@media (hover: hover) {
+  .constellation .chip:hover {
+    background: rgba(240, 246, 255, 0.04);
+    border-color: rgba(232, 168, 72, 0.2);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.3);
+  }
+  .constellation .chip:hover .chip-icon {
+    color: var(--color-accent);
+  }
+  .constellation .chip:hover .chip-text {
+    color: var(--color-text);
+  }
+  .constellation .chip:hover .chip-arrow {
+    opacity: 1;
+    transform: translateX(0);
+    color: var(--color-accent);
+  }
+}
+.constellation .chip:active {
+  transform: translateY(0);
+  background: rgba(240, 246, 255, 0.05);
+}
+@media (min-width: 640px) {
+  .constellation .chip {
+    padding: 1.125rem 1.5rem;
+  }
+}
+
+@keyframes chip-enter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .constellation-group--cta {
   margin-top: 0.5rem;
 }
+.constellation-group--cta .constellation-group__chips {
+  grid-template-columns: 1fr;
+}
 .constellation-group--cta .chip {
-  border-color: rgba(232, 168, 72, 0.25);
-  background: rgba(232, 168, 72, 0.05);
+  justify-content: center;
+  padding: 1.25rem 2rem;
+  background: rgba(232, 168, 72, 0.03);
+  border-color: rgba(232, 168, 72, 0.1);
+}
+.constellation-group--cta .chip .chip-icon {
+  color: var(--color-accent);
+  opacity: 0.7;
+}
+.constellation-group--cta .chip .chip-text {
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+}
+.constellation-group--cta .chip .chip-arrow {
+  display: none;
 }
 @media (hover: hover) {
   .constellation-group--cta .chip:hover {
-    border-color: var(--color-accent);
-    box-shadow: var(--shadow-glow-hover);
+    border-color: rgba(232, 168, 72, 0.25);
+    box-shadow: 0 4px 24px -4px rgba(232, 168, 72, 0.12);
+  }
+  .constellation-group--cta .chip:hover .chip-icon {
+    opacity: 1;
   }
 }
 
@@ -1565,11 +1691,9 @@ body.depth-active::-webkit-scrollbar {
   .constellation-glow {
     opacity: 0.5;
   }
-  .constellation {
-    gap: 1.5rem;
-  }
-  .constellation-group__chips {
-    flex-direction: column;
+  .constellation .chip .chip-arrow {
+    opacity: 0.3;
+    transform: translateX(0);
   }
   .thoughts-section {
     padding: 3rem 1rem;
@@ -1578,6 +1702,8 @@ body.depth-active::-webkit-scrollbar {
 @media (prefers-reduced-motion: reduce) {
   .constellation .chip {
     animation: none !important;
+    opacity: 1;
+    transform: none;
   }
 }
 .blog-stream {
