@@ -2170,6 +2170,8 @@ body.depth-active::-webkit-scrollbar {
   font-size: var(--font-size-2xl);
   font-weight: 600;
   font-style: italic;
+  letter-spacing: 0.04em;
+  word-spacing: 0.08em;
   line-height: var(--line-height-tight);
   color: var(--color-text);
   margin: 0;
@@ -2506,6 +2508,8 @@ body.depth-active::-webkit-scrollbar {
   font-family: var(--font-serif);
   font-size: var(--font-size-xl);
   font-style: italic;
+  letter-spacing: 0.04em;
+  word-spacing: 0.08em;
   color: var(--color-text-muted);
   opacity: 0;
   white-space: nowrap;
