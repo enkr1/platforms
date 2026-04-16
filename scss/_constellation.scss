@@ -126,7 +126,7 @@
   transform: translateY(12px);
   animation: chip-enter 0.6s var(--ease-out-expo) forwards;
 
-  @for $i from 1 through 12 {
+  @for $i from 1 through 10 {
     &:nth-child(#{$i}) {
       animation-delay: #{$i * 60}ms;
     }
@@ -135,8 +135,7 @@
   .chip-icon {
     width: 20px;
     height: 20px;
-    color: var(--color-text-muted);
-    transition: color 0.4s ease;
+    transition: color 0.3s ease;
     flex-shrink: 0;
   }
 
@@ -204,7 +203,7 @@
   margin-top: 0.5rem;
 
   .constellation-group__chips {
-    grid-template-columns: 1fr; // Full width CTA
+    grid-template-columns: 1fr;
   }
 
   .chip {

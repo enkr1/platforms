@@ -106,11 +106,6 @@
   }
 }
 
-// Final state - clean transition
-.waveform--dropping:not(.waveform--loading) {
-  // No transform overrides needed - waveform is already at bottom
-}
-
 // ============================================
 // Reduced Motion
 // ============================================

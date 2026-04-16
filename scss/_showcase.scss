@@ -91,7 +91,7 @@
 }
 
 .bento-card__title {
-  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-family: var(--font-serif);
   font-size: var(--font-size-2xl);
   font-weight: 600;
   font-style: italic;
