@@ -36,7 +36,9 @@
     left: 50%;
     bottom: 27%;
     transform: translateX(-50%) translateY(10px);
-    font-size: var(--font-size-lg);
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: var(--font-size-xl);
+    font-style: italic;
     color: var(--color-text-muted);
     opacity: 0;
     white-space: nowrap;

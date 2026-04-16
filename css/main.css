@@ -2172,15 +2172,17 @@ body.depth-active::-webkit-scrollbar {
 }
 
 .bento-card__title {
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-semibold);
+  font-family: "Cormorant Garamond", "Georgia", serif;
+  font-size: var(--font-size-2xl);
+  font-weight: 600;
+  font-style: italic;
   line-height: var(--line-height-tight);
   color: var(--color-text);
   margin: 0;
 }
 @media (min-width: 640px) {
   .bento-card__title {
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-4xl);
   }
 }
 
@@ -2507,7 +2509,9 @@ body.depth-active::-webkit-scrollbar {
   left: 50%;
   bottom: 27%;
   transform: translateX(-50%) translateY(10px);
-  font-size: var(--font-size-lg);
+  font-family: "Cormorant Garamond", "Georgia", serif;
+  font-size: var(--font-size-xl);
+  font-style: italic;
   color: var(--color-text-muted);
   opacity: 0;
   white-space: nowrap;
