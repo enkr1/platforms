@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ENKR · Landing Hero — Deep Space Galaxy Fly-through</title>
+<style>
+  /* ============================================================
+     LAYOUT — identical scaffold strategy to file 14: a fixed full-screen
+     canvas BEHIND a tall scroll scaffold. The scaffold (#scroll, N x 100vh)
+     exists ONLY to create scroll RANGE; the 3D camera reads scroll progress
+     each frame and FLIES forward through the starfield toward each floating
+     weapon. No HTML copy overlay — all station copy lives IN the 3D world as
+     labels (see makeLabel / §6.5).
+
+     COLOUR DIRECTION — DARK COSMOS (ENKR Ba Zi brand):
+       Abyss Black     #0A1A2F   — backgrounds
+       Rising Sun Gold #E8A848   — the ONE accent (CTAs, eyebrow, glow)
+       Moonlight Silver#F0F6FF   — primary text
+       Muted Silver    #7A96B8   — secondary text / blurb
+     The overlay tokens below are flipped to LIGHT text on a DARK ground
+     (the inverse of file 14's dark-on-light daylight tokens).
+     ============================================================ */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: auto; }            /* JS damps motion, not the browser */
+  /* Lenis smooth-scroll recommended CSS */
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+  .lenis.lenis-stopped { overflow: hidden; }
+  /* Deep-space palette — tokens as custom properties, no hardcoded hex in rules. */
+  :root {
+    --canvas:    #0A1A2F;   /* Abyss Black — matches the 3D scene background */
+    --ink:       #F0F6FF;   /* Moonlight Silver — primary text on the dark scene */
+    --ink-muted: #7A96B8;   /* Muted Silver — secondary text */
+    --accent:    #E8A848;   /* Rising Sun Gold — the ONE warm accent */
+    --accent-2:  #F4C06A;   /* Light Gold — hover / gradient end */
+  }
+  body {
+    background: var(--canvas);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Fixed canvas: it never scrolls — only the camera flies through 3D space. */
+  #bg {
+    position: fixed; inset: 0;
+    width: 100vw; height: 100vh;
+    display: block; z-index: 0;
+  }
+
+  /* LOADING SCREEN — Abyss overlay shown immediately (before the ES module fetches
+     three.js + builds the scene), faded out the instant the first frame renders so
+     you never see the bare HTML / scroll scaffold. bg matches the scene's VOID_BG. */
+  #loader {
+    position: fixed; inset: 0; z-index: 100;
+    background: #050D18;
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity 0.7s ease;
+  }
+  #loader.done { opacity: 0; pointer-events: none; }
+  #loader .lwrap { display: flex; flex-direction: column; align-items: center; gap: 30px; }
+  /* the ENKR mark draws itself on in gold — the wait already feels on-brand, and it
+     hands off into the 3D logo when the scene reveals. */
+  #loader .lmark {
+    width: clamp(190px, 30vw, 340px); height: auto; display: block;
+    filter: drop-shadow(0 0 22px rgba(232, 168, 72, 0.40));
+    clip-path: inset(0 100% 0 0);
+    animation: enkrDraw 1.2s cubic-bezier(0.65, 0, 0.2, 1) 0.1s forwards;
+  }
+  #loader .lmark path, #loader .lmark polygon { fill: #E8A848; }
+  /* count-up % — cinematic gold number ticking 0→100 */
+  #loader .lpct {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-weight: 600; font-size: clamp(48px, 8vw, 90px); letter-spacing: 0.02em;
+    color: #E8A848; text-shadow: 0 0 30px rgba(232, 168, 72, 0.45);
+    font-variant-numeric: tabular-nums; line-height: 1;
+  }
+  /* rising sun over a horizon — 金渊映日 (gold abyss reflecting sun) */
+  #loader .lsun { position: relative; width: 130px; height: 64px; overflow: hidden; }
+  #loader .lsun .disc {
+    position: absolute; left: 50%; bottom: 0; width: 58px; height: 58px; border-radius: 50%;
+    transform: translateX(-50%);
+    background: radial-gradient(circle at 50% 42%, #F4C06A, #E8A848 58%, rgba(232, 168, 72, 0) 72%);
+    box-shadow: 0 0 34px rgba(232, 168, 72, 0.5);
+    animation: sunrise 2.4s ease-in-out infinite;
+  }
+  #loader .lsun .horizon {
+    position: absolute; left: 0; bottom: 0; width: 100%; height: 1.5px;
+    background: linear-gradient(90deg, transparent, rgba(232, 168, 72, 0.7), transparent);
+  }
+  @keyframes sunrise { 0%, 100% { transform: translateX(-50%) translateY(20px); opacity: 0.45; } 50% { transform: translateX(-50%) translateY(2px); opacity: 1; } }
+  /* warp — gold stars streaking outward (hyperspace into the galaxy). full-screen canvas. */
+  #loader .lwarp { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  /* wave — gold audio equalizer (ENKR the beatboxer). */
+  #loader .lwave { display: flex; align-items: center; gap: 8px; height: 66px; }
+  #loader .lwave i {
+    display: block; width: 4px; height: 16px; border-radius: 2px; background: #E8A848;
+    box-shadow: 0 0 10px rgba(232, 168, 72, 0.5); transform-origin: center;
+    animation: eq 0.95s ease-in-out infinite;
+  }
+  #loader .lwave i:nth-child(1) { animation-delay: -0.20s; }
+  #loader .lwave i:nth-child(2) { animation-delay: -0.55s; }
+  #loader .lwave i:nth-child(3) { animation-delay: -0.85s; }
+  #loader .lwave i:nth-child(4) { animation-delay: -0.35s; }
+  #loader .lwave i:nth-child(5) { animation-delay: -0.70s; }
+  #loader .lwave i:nth-child(6) { animation-delay: -0.10s; }
+  #loader .lwave i:nth-child(7) { animation-delay: -0.60s; }
+  #loader .lwave i:nth-child(8) { animation-delay: -0.40s; }
+  #loader .lwave i:nth-child(9) { animation-delay: -0.80s; }
+  @keyframes eq { 0%, 100% { transform: scaleY(0.35); } 50% { transform: scaleY(2.8); } }
+  #loader .bar {
+    width: 96px; height: 1.5px; border-radius: 2px;
+    background: rgba(232, 168, 72, 0.16); position: relative; overflow: hidden;
+  }
+  #loader .bar::after {
+    content: ''; position: absolute; top: 0; left: 0; width: 45%; height: 100%;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    animation: loadsweep 1.1s ease-in-out infinite;
+  }
+  @keyframes loadsweep { 0% { transform: translateX(-130%); } 100% { transform: translateX(320%); } }
+  @media (prefers-reduced-motion: reduce) {
+    #loader .bar::after { animation: none; }
+    #loader .lmark { animation: none; clip-path: none; }
+    #loader .lsun .disc { animation: none; }
+    #loader .lwave i { animation: none; }
+  }
+
+  /* The scroll scaffold sits above the canvas. pointer-events:none lets
+     drag/scroll pass through; we re-enable it only on the interactive bits. */
+  #scroll { position: relative; z-index: 1; }
+
+  .section {
+    height: 130vh;   /* enough to dwell + read, but not so much that scrolling feels laborious */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 8vw;
+    pointer-events: none;
+  }
+
+  /* Intro overlay — name + role, fades out as you begin scrolling */
+  #intro {
+    position: fixed; inset: 0; z-index: 2;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: flex-start; padding-top: 13vh;
+    text-align: center; pointer-events: none;
+    transition: none;   /* scroll-driven now — no lag between scroll and dissolve */
+  }
+  #intro .name {
+    font-size: clamp(2.8rem, 9vw, 7rem);
+    font-weight: 700; letter-spacing: -0.03em;
+    color: var(--ink);
+    text-shadow: 0 0 48px rgba(232, 168, 72, 0.45), 0 0 18px rgba(240, 246, 255, 0.25);
+    transform-origin: center; will-change: transform, opacity, filter;
+  }
+  /* ENKR logo (the real wordmark) as the title — gold, with a "draws itself on"
+     left→right wipe on load, then the scroll dissolve takes over. */
+  #intro .name .logo {
+    width: clamp(240px, 36vw, 480px); height: auto; display: block;
+    filter: drop-shadow(0 0 28px rgba(232, 168, 72, 0.45));
+    clip-path: inset(0 100% 0 0);
+    animation: enkrDraw 1.4s cubic-bezier(0.65, 0, 0.2, 1) 0.2s forwards;
+  }
+  #intro .name .logo path, #intro .name .logo polygon { fill: #E8A848; }
+  @keyframes enkrDraw { to { clip-path: inset(0 0 0 0); } }
+  @media (prefers-reduced-motion: reduce) {
+    #intro .name .logo { animation: none; clip-path: none; }
+  }
+  #intro .role {
+    margin-top: 0.9rem;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: clamp(12px, 1.4vw, 15px);
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* Scroll hint — a soft bouncing chevron + label, bottom centre */
+  #hint {
+    position: fixed; left: 50%; bottom: 30px;
+    transform: translateX(-50%);
+    z-index: 3; text-align: center; pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  #hint .label {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 10px; letter-spacing: 0.34em; text-transform: uppercase;
+    color: var(--ink-muted); margin-bottom: 13px;
+  }
+  /* a thin vertical line with a gold segment drifting down — calmer + more premium
+     than a bouncing chevron, and on-theme with the slow galaxy drift. */
+  #hint .line {
+    width: 1px; height: 42px; margin: 0 auto; position: relative;
+    background: rgba(240, 246, 255, 0.10); overflow: hidden;
+  }
+  #hint .line::after {
+    content: ''; position: absolute; left: 0; top: 0; width: 100%; height: 45%;
+    background: linear-gradient(180deg, transparent, var(--accent));
+    animation: drift 2.0s cubic-bezier(0.6, 0, 0.2, 1) infinite;
+  }
+  @keyframes drift {
+    0%   { transform: translateY(-100%); opacity: 0; }
+    25%  { opacity: 1; }
+    100% { transform: translateY(322%); opacity: 0; }
+  }
+
+  /* Premium hairline scroll-progress. A faint full-width TRACK (body::before) with
+     a refined gold FILL that fades in at the left and glows softly at the leading tip. */
+  body::before {
+    content: ''; position: fixed; top: 0; left: 0; right: 0; height: 1.5px;
+    background: rgba(240, 246, 255, 0.05); z-index: 3; pointer-events: none;
+  }
+  #progress {
+    position: fixed; top: 0; left: 0; height: 1.5px; width: 0%;
+    background: linear-gradient(90deg, rgba(232, 168, 72, 0) 0%, rgba(232, 168, 72, 0.5) 38%, var(--accent-2) 100%);
+    z-index: 4;
+    box-shadow: 0 0 6px rgba(232, 168, 72, 0.45);
+  }
+  /* Hide the native scrollbar — the gold hairline is the indicator (Lenis drives scroll). */
+  ::-webkit-scrollbar { width: 0; height: 0; }
+  html { scrollbar-width: none; -ms-overflow-style: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    #hint .line::after { animation: none; }
+  }
+
+  /* Final CTA — a single small clickable line that fades in only once the camera
+     has settled at the LAST wall (Contact). The three wall HEADINGS themselves
+     live in-scene as 3D labels (see makeWallLabel); this is just the closing
+     mailto so the very end is actionable. */
+  #endcta {
+    position: fixed; left: 50%; bottom: 7vh; transform: translateX(-50%);
+    z-index: 5; text-align: center;
+    opacity: 0; pointer-events: none;          /* JS reveals + enables clicks at the very end */
+    transition: opacity 0.5s ease;
+    display: flex; flex-direction: column; align-items: center; gap: 18px;
+  }
+  /* primary: Book a chat → cal.com */
+  #endcta .cta-book {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: clamp(13px, 1.3vw, 16px); letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--accent); text-decoration: none;
+    border: 1px solid rgba(232, 168, 72, 0.45); border-radius: 999px;
+    padding: 0.78rem 1.7rem; transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+  }
+  #endcta .cta-book:hover { background: var(--accent); color: var(--canvas); border-color: var(--accent); }
+  /* socials row */
+  #endcta .cta-socials { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 22px; }
+  #endcta .cta-socials a {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-muted); text-decoration: none; transition: color 0.2s ease;
+  }
+  #endcta .cta-socials a:hover { color: var(--accent); }
+  /* email */
+  #endcta .cta-email {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 12px; letter-spacing: 0.06em; color: var(--ink-muted);
+    text-decoration: none; transition: color 0.2s ease;
+  }
+  #endcta .cta-email:hover { color: var(--accent); }
+</style>
+
+<!-- r160 dropped UMD builds → an importmap is the vanilla standard.
+     Alias key MUST be "three/addons/" so the addon files' bare "three"
+     imports resolve via the "three" entry. (Reused verbatim from file 14.) -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+    "lenis": "https://cdn.jsdelivr.net/npm/lenis@1/+esm"
+  }
+}
+</script>
+</head>
+<body>
+  <!-- Loading screen: covers the bare HTML until the 3D scene's first frame draws.
+       ?loader=pct (default, count-up) | sun (Ba Zi rising sun) | mark (ENKR wordmark) -->
+  <div id="loader">
+    <canvas class="lwarp"></canvas>
+    <div class="lwrap">
+      <svg class="lmark" viewBox="0 0 2100.55 467.32" aria-label="ENKR">
+        <polygon points="1335.42,25 1321.94,10.02 1110.42,200.43 1110.42,0.16 1090.28,0.16 1090.28,413.55 1110.42,413.55 1110.42,227.53 1151.1,190.92 1275.32,406.06 1292.77,395.99 1166.41,177.14"/>
+        <path d="M2100.28,164.22h-548.87l-28.13-140.05v-1.24h-146.82v0.16l-0.5-0.07l-45.56,343.35l19.97,2.65l22.41-168.86l216.7,266.51l15.63-12.71l-219.22-269.6h714.39V164.22z M1530.86,164.22h-153.32l16.07-121.14h112.91L1530.86,164.22z"/>
+        <polygon points="1012.07,316.73 855.14,33.78 855.21,33.1 835.15,31.21 798.31,421.64 818.37,423.54 851.8,69.27 1012.07,358.26 1012.07,359.16 1032.22,359.16 1032.22,37.16 1012.07,37.16"/>
+        <polygon points="733.16,21.27 733.15,21.27 733.15,20.94 538.82,20.94 538.82,41.08 714.68,41.08 725.53,164.22 0.88,164.22 0.88,184.37 727.3,184.37 739.91,327.46 370.72,327.46 370.72,347.61 742.05,347.61 742.05,347.41 761.74,345.67"/>
+      </svg>
+      <div class="lpct">0</div>
+      <div class="lsun"><span class="disc"></span><span class="horizon"></span></div>
+      <div class="lwave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="bar"></div>
+    </div>
+  </div>
+  <script>
+    // Pre-module loader logic (runs during the three.js CDN fetch). Pick a variant
+    // via ?loader= : warp | wave | pct | sun | mark. pct eases a number toward 99
+    // until the module flags #loader.done (first frame) → snaps to 100, then fades.
+    (function () {
+      var p = 'warp';   // FINALISED loader (hyperspace warp)
+      function warp(cv) {
+        var ctx = cv.getContext('2d'), stars = [], i;
+        function size() { cv.width = innerWidth; cv.height = innerHeight; }
+        size(); addEventListener('resize', size, { passive: true });
+        for (i = 0; i < 360; i++) stars.push({ x: Math.random() * 2 - 1, y: Math.random() * 2 - 1, z: Math.random(), c: Math.random() < 0.34 ? '232,168,72' : '240,246,255' });
+        (function frame() {
+          var L = document.getElementById('loader'); if (L && L.classList.contains('done')) return;
+          var W = cv.width, H = cv.height, cx = W / 2, cy = H / 2, k = Math.min(W, H) * 0.9;
+          ctx.fillStyle = 'rgba(5,13,24,0.28)'; ctx.fillRect(0, 0, W, H);
+          // faint gold glow at the vanishing point — the galaxy you're warping into
+          var g = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.min(W, H) * 0.30);
+          g.addColorStop(0, 'rgba(232,168,72,0.10)'); g.addColorStop(1, 'rgba(232,168,72,0)');
+          ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+          for (var j = 0; j < stars.length; j++) {
+            var s = stars[j], pz = s.z;
+            s.z -= 0.019; if (s.z <= 0.02) { s.x = Math.random() * 2 - 1; s.y = Math.random() * 2 - 1; s.z = 1; pz = 1; }
+            var px = cx + (s.x / s.z) * k, py = cy + (s.y / s.z) * k, ppx = cx + (s.x / pz) * k, ppy = cy + (s.y / pz) * k;
+            var a = Math.min(1, (1 - s.z) * 1.3);
+            ctx.strokeStyle = 'rgba(' + s.c + ',' + (a * 0.85) + ')'; ctx.lineWidth = Math.max(1, (1 - s.z) * 2.4);
+            ctx.beginPath(); ctx.moveTo(ppx, ppy); ctx.lineTo(px, py); ctx.stroke();
+          }
+          requestAnimationFrame(frame);
+        })();
+      }
+      function init() {
+        var L = document.getElementById('loader');
+        if (!L) { requestAnimationFrame(init); return; }
+        var cv = L.querySelector('.lwarp'), wrap = L.querySelector('.lwrap');
+        if (p === 'warp') { cv.style.display = ''; wrap.style.display = 'none'; warp(cv); return; }
+        cv.style.display = 'none'; wrap.style.display = '';
+        var map = { mark: '.lmark', pct: '.lpct', sun: '.lsun', wave: '.lwave' };
+        Object.keys(map).forEach(function (k) { var e = L.querySelector(map[k]); if (e) e.style.display = (k === p ? '' : 'none'); });
+        var b = L.querySelector('.bar'); if (b) b.style.display = (p === 'pct' || p === 'wave' ? 'none' : '');
+        if (p === 'pct') {
+          var el = L.querySelector('.lpct'), v = 0;
+          (function tick() {
+            if (L.classList.contains('done')) { el.textContent = '100'; return; }
+            v += (99 - v) * 0.02; el.textContent = Math.min(99, Math.round(v));
+            requestAnimationFrame(tick);
+          })();
+        }
+      }
+      requestAnimationFrame(init);
+    })();
+  </script>
+
+  <canvas id="bg"></canvas>
+
+  <!-- Intro + hint + progress overlays -->
+  <div id="intro">
+    <div class="name">
+      <svg class="logo" viewBox="0 0 2100.55 467.32" aria-label="ENKR">
+        <polygon points="1335.42,25 1321.94,10.02 1110.42,200.43 1110.42,0.16 1090.28,0.16 1090.28,413.55 1110.42,413.55 1110.42,227.53 1151.1,190.92 1275.32,406.06 1292.77,395.99 1166.41,177.14"/>
+        <path d="M2100.28,164.22h-548.87l-28.13-140.05v-1.24h-146.82v0.16l-0.5-0.07l-45.56,343.35l19.97,2.65l22.41-168.86l216.7,266.51l15.63-12.71l-219.22-269.6h714.39V164.22z M1530.86,164.22h-153.32l16.07-121.14h112.91L1530.86,164.22z"/>
+        <polygon points="1012.07,316.73 855.14,33.78 855.21,33.1 835.15,31.21 798.31,421.64 818.37,423.54 851.8,69.27 1012.07,358.26 1012.07,359.16 1032.22,359.16 1032.22,37.16 1012.07,37.16"/>
+        <polygon points="733.16,21.27 733.15,21.27 733.15,20.94 538.82,20.94 538.82,41.08 714.68,41.08 725.53,164.22 0.88,164.22 0.88,184.37 727.3,184.37 739.91,327.46 370.72,327.46 370.72,347.61 742.05,347.61 742.05,347.41 761.74,345.67"/>
+      </svg>
+    </div>
+    <div class="role">Beatboxer · Engineer · Lifter</div>
+  </div>
+  <div id="hint">
+    <div class="label">Scroll to enter</div>
+    <div class="line"></div>
+  </div>
+  <div id="progress"></div>
+
+  <!-- Closing CTA — fades in only once the camera settles at the LAST wall
+       (Contact). The three wall headings (About / Work / Contact) live IN the
+       3D scene as centred labels you fly through; this is the actionable close. -->
+  <div id="endcta">
+    <a class="cta-book" href="https://cal.com/enkr1/connect" target="_blank" rel="noopener">Book a chat</a>
+    <nav class="cta-socials">
+      <a href="https://www.linkedin.com/in/jinghuipang/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/enkr1" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.instagram.com/enkr1/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.youtube.com/@enkr1" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.tiktok.com/@enkr1" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://enkr1.github.io/blog/" target="_blank" rel="noopener">Blog</a>
+      <a href="https://enkr1.github.io/resume/" target="_blank" rel="noopener">Resume</a>
+    </nav>
+    <a class="cta-email" href="mailto:jinghuipang99@gmail.com">jinghuipang99@gmail.com</a>
+  </div>
+
+  <!-- Scroll scaffold. The first ~46% of scroll range drives the 3 weapon
+       stations (UNCHANGED feel); the remaining range flies the camera to the
+       three content walls (About → Work → Contact), each a fly-to + dwell.
+       Each section provides scroll RANGE only; copy lives IN the 3D scene. -->
+  <div id="scroll">
+    <section class="section"></section>
+    <section class="section"></section>
+    <section class="section"></section>
+    <section class="section"></section>
+    <section class="section"></section>
+    <section class="section"></section>
+    <section class="section"></section>
+  </div>
+
+<script type="module">
+// ============================================================
+// ENKR · LANDING HERO — "DEEP SPACE GALAXY"
+// Scroll-driven fly-through of a dark cosmic void. Three weapons (mic, laptop,
+// dumbbell) float free in space — dark metal + gold, lit so bloom makes the
+// gold glow against the black. A multi-layer starfield + drifting gold dust +
+// a restrained navy→gold nebula sell the depth and parallax. No platforms, no
+// greenery, no floor — just the abyss and the camera diving through it.
+//
+// WHY DARK: earlier biophilic-daylight versions read "fake / cartoon" because
+// flat-lit simple geometry exposes itself. A dark cosmic scene + glow HIDES
+// that and reads premium; it also matches ENKR's Ba Zi brand.
+//
+// Reading order (mirrors file 14 so the diff is legible):
+//   §1  Renderer + colour management (ACES, sRGB once on the renderer)
+//   §2  Scene, dim cool studio env (RoomEnvironment/PMREM) for metal reflects
+//   §3  Cosmic lights — low ambient + key + GOLD rim so dark metal reads
+//   §3.5 NEBULA (BackSide sphere, navy core → faint gold wisps)
+//   §3.6 STARFIELD (multi-layer THREE.Points, round soft sprite, parallax)
+//   §3.7 GOLD DUST MOTES (sparse drifting gold Points)
+//   §5  buildMic() / buildDumbbell() / buildLaptop() (verbatim from file 14)
+//   §6  Station placement — three weapons at increasing depth down -Z
+//   §6.5 3D text labels (wrapText + makeLabel, RECOLOURED for dark)
+//   §7  Camera + post-processing chain (bloom → output → vignette → grain)
+//   §8  The scroll fly-through: sample progress, damp toward per-station targets
+//   §9  ONE requestAnimationFrame loop
+// ============================================================
+
+import * as THREE from 'three';
+import { MathUtils, Vector2, Vector3, Color } from 'three';
+import { RoomEnvironment }     from 'three/addons/environments/RoomEnvironment.js';
+import { RoundedBoxGeometry }  from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { EffectComposer }      from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass }          from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass }     from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass }          from 'three/addons/postprocessing/OutputPass.js';
+import { ShaderPass }          from 'three/addons/postprocessing/ShaderPass.js';
+import { VignetteShader }      from 'three/addons/shaders/VignetteShader.js';
+import { FilmPass }            from 'three/addons/postprocessing/FilmPass.js';
+import { SVGLoader }           from 'three/addons/loaders/SVGLoader.js';   // ENKR wordmark → 3D
+import Lenis                   from 'lenis';   // smooth-scroll: heavy buttery inertia
+
+// Brand palette as numbers (re-used throughout so colour intent is one place).
+const ABYSS   = 0x0A1A2F;   // Abyss Black — background / fog
+const VOID_BG = 0x050D18;   // a touch darker than Abyss for the clear colour so blacks stay BLACK under bloom
+const GOLD    = 0xE8A848;   // Rising Sun Gold — the ONE accent
+const SILVER  = 0xF0F6FF;   // Moonlight Silver
+
+// ============================================================
+// §1  RENDERER + COLOUR MANAGEMENT
+// The renderer owns colour management; OutputPass mirrors these later.
+// Set them exactly ONCE here — never tone-map twice.
+// ============================================================
+const canvas   = document.getElementById('bg');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // cap DPR: bloom is fill-rate heavy
+renderer.setSize(window.innerWidth, window.innerHeight, false); // false: CSS already sizes the fixed canvas
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;    // neutral — let bloom do the lifting, keep blacks black
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+// ============================================================
+// §2  SCENE + FOG + DIM COOL STUDIO ENVIRONMENT
+// ============================================================
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(VOID_BG);
+
+// FogExp2 sells cosmic depth: far weapons start swallowed by the abyss and
+// resolve as the camera dives in. Colour matches the deep void so there's no
+// seam. Density is gentle — space is mostly empty, we want long sightlines.
+scene.fog = new THREE.FogExp2(VOID_BG, 0.018);
+
+// DIM COOL STUDIO ENV via RoomEnvironment + PMREMGenerator — purely so the
+// dark metal weapons have SOMETHING to reflect (otherwise dark metal reads as
+// a flat silhouette). r160 SIGNATURE TRAP: RoomEnvironment(renderer) — the
+// renderer arg bumps internal light intensity correctly. Per-material reflect
+// brightness stays LOW (envMapIntensity ~0.3–0.6) so it's restraint, not chrome.
+const pmrem = new THREE.PMREMGenerator(renderer);
+const envRT = pmrem.fromScene(new RoomEnvironment(renderer), 0.04); // 0.04 = sigma blur (radians)
+scene.environment = envRT.texture;
+pmrem.dispose();
+
+// ============================================================
+// §3  COSMIC LIGHTS — low ambient + cool key + GOLD rim. The gold rim is the
+// load-bearing one: it kisses the edge of the dark metal weapons so they read
+// against the black void instead of vanishing. Everything else stays dim.
+// ============================================================
+scene.add(new THREE.AmbientLight(0x18283c, 0.35));                                    // very low cool ambient
+const key  = new THREE.DirectionalLight(0xCFE0FF, 0.85); key.position.set(5, 9, 7);  scene.add(key);   // cool key
+const rim  = new THREE.DirectionalLight(GOLD,     1.30); rim.position.set(-6, 2, -6); scene.add(rim);  // GOLD rim from behind
+const fill = new THREE.DirectionalLight(0x2A4A6E, 0.40); fill.position.set(-4, -3, 6); scene.add(fill); // faint navy fill
+
+// ============================================================
+// §3.5  NEBULA — a large BackSide sphere wrapping the whole scene. A radial
+// CanvasTexture gradient: deep navy core fading to faint gold + cool wisps at
+// the edges. Restrained (Ba Zi, NOT a rainbow) — the scene stays mostly black;
+// the nebula only adds a whisper of structure behind the stars. depthWrite off
+// + low opacity + fog:false so it never fights the foreground.
+// ============================================================
+function makeNebulaTexture(size = 1024) {
+  const c = document.createElement('canvas'); c.width = c.height = size;
+  const ctx = c.getContext('2d');
+
+  // Base: near-black abyss across the whole sky.
+  ctx.fillStyle = '#04080F';
+  ctx.fillRect(0, 0, size, size);
+
+  // A few soft coloured "clouds" — mostly navy, one gold-tinged, all VERY low
+  // alpha. Painted as large radial gradients (additive feel via lighten). Kept
+  // restrained: the sky stays mostly black, the nebula is just a whisper.
+  ctx.globalCompositeOperation = 'lighter';
+  const clouds = [
+    { x: 0.30, y: 0.42, r: 0.50, col: [20, 42, 72],  a: 0.30 },  // navy
+    { x: 0.72, y: 0.60, r: 0.46, col: [14, 32, 58],  a: 0.24 },  // deeper navy
+    { x: 0.56, y: 0.34, r: 0.30, col: [110, 80, 32], a: 0.12 },  // faint gold wisp
+    { x: 0.20, y: 0.72, r: 0.26, col: [30, 52, 82],  a: 0.16 },  // cool blue
+  ];
+  for (const cl of clouds) {
+    const cx = cl.x * size, cy = cl.y * size, cr = cl.r * size;
+    const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, cr);
+    const [r, gr, b] = cl.col;
+    g.addColorStop(0,   `rgba(${r},${gr},${b},${cl.a})`);
+    g.addColorStop(0.5, `rgba(${r},${gr},${b},${cl.a * 0.35})`);
+    g.addColorStop(1,   'rgba(0,0,0,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, size, size);
+  }
+  ctx.globalCompositeOperation = 'source-over';
+
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(2, 1);   // wrap twice horizontally so the gradient reads as a band
+  return tex;
+}
+const nebula = new THREE.Mesh(
+  new THREE.SphereGeometry(80, 48, 48),
+  new THREE.MeshBasicMaterial({
+    map: makeNebulaTexture(),
+    side: THREE.BackSide,
+    transparent: true,
+    opacity: 0.6,          // restrained — the sky stays mostly black
+    depthWrite: false,
+    fog: false,            // the sky is the backdrop — fog must not touch it
+  })
+);
+scene.add(nebula);
+
+// ============================================================
+// §3.6  STARFIELD — multi-layer THREE.Points for real PARALLAX. Three depth
+// layers (far / mid / near) each scattered over a large volume. Each star is a
+// ROUND soft sprite (radial-gradient CanvasTexture), additively blended so
+// bright stars glow into bloom; per-star vertex colours (mostly silver-white,
+// a few gold + a few cool blue); varied sizes per layer. The FAR layer drifts
+// slowly for life. depthWrite:false so stars never occlude the weapons oddly.
+// ============================================================
+function makeStarSprite(size = 64) {
+  const c = document.createElement('canvas'); c.width = c.height = size;
+  const ctx = c.getContext('2d');
+  const g = ctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
+  g.addColorStop(0,    'rgba(255,255,255,1)');
+  g.addColorStop(0.12, 'rgba(255,255,255,0.95)');   // tight bright core
+  g.addColorStop(0.30, 'rgba(255,255,255,0.35)');   // fast falloff → crisp point
+  g.addColorStop(0.6,  'rgba(255,255,255,0.06)');   // faint halo
+  g.addColorStop(1,    'rgba(255,255,255,0)');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, size, size);
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
+const STAR_SPRITE = makeStarSprite();
+
+// Three palettes mixed per star: mostly silver-white, a sprinkle of gold +
+// cool blue, so the field has subtle warmth that ties to the brand.
+const STAR_COLOURS = [
+  new Color(0xF0F6FF), new Color(0xFFFFFF), new Color(0xDCEBFF),   // silver / white / cool white (common)
+  new Color(0xE8A848), new Color(0xF4C06A),                        // gold (rare)
+  new Color(0x9FC4FF),                                             // blue (rare)
+];
+function pickStarColour() {
+  const r = Math.random();
+  if (r < 0.78) return STAR_COLOURS[Math.floor(Math.random() * 3)];        // 78% silver/white family
+  if (r < 0.92) return STAR_COLOURS[3 + Math.floor(Math.random() * 2)];    // 14% gold family
+  return STAR_COLOURS[5];                                                   // 8% blue
+}
+
+// Build one Points layer. `spread` is the half-extent of the cube the stars
+// fill; `zNear`/`zFar` bracket the depth so layers stack front-to-back.
+function buildStarLayer(count, spread, zNear, zFar, size, opacity) {
+  const pos = new Float32Array(count * 3);
+  const col = new Float32Array(count * 3);
+  const tmp = new Color();
+  for (let i = 0; i < count; i++) {
+    pos[i*3+0] = (Math.random() - 0.5) * spread * 2;
+    pos[i*3+1] = (Math.random() - 0.5) * spread * 2;
+    pos[i*3+2] = zNear + Math.random() * (zFar - zNear);   // spread along the dive axis
+    tmp.copy(pickStarColour());
+    // slight per-star brightness variation so not every star blooms equally
+    const b = 0.55 + Math.random() * 0.45;
+    col[i*3+0] = tmp.r * b;
+    col[i*3+1] = tmp.g * b;
+    col[i*3+2] = tmp.b * b;
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  geo.setAttribute('color',    new THREE.BufferAttribute(col, 3));
+  const mat = new THREE.PointsMaterial({
+    map: STAR_SPRITE,
+    size,
+    sizeAttenuation: true,
+    transparent: true,
+    opacity,
+    depthWrite: false,
+    vertexColors: true,
+    blending: THREE.AdditiveBlending,
+    fog: false,             // stars are the backdrop; fog would grey them out
+  });
+  return new THREE.Points(geo, mat);
+}
+
+// Far / mid / near layers. The near layer has the biggest sprites + sits in the
+// camera's travel volume → it whooshes past for the strongest parallax cue.
+// Sizes kept SMALL + crisp so stars read as pinpoints, not soft bokeh blobs.
+const starsFar  = buildStarLayer(1800, 80,  -110, -20, 0.32, 0.9);
+const starsMid  = buildStarLayer(800,  50,  -70,  -5,  0.50, 0.95);
+const starsNear = buildStarLayer(320,  36,  -55,   4,  0.72, 1.0);
+scene.add(starsFar, starsMid, starsNear);
+
+// ============================================================
+// §3.7  GOLD DUST MOTES — a sparse drifting gold Points layer in the camera's
+// path. Small, gold, additive → catches a little bloom and reads as cosmic
+// dust drifting past. Distinct from stars: warmer, fewer, closer.
+// ============================================================
+function makeMoteSprite(size = 48) {
+  const c = document.createElement('canvas'); c.width = c.height = size;
+  const ctx = c.getContext('2d');
+  const g = ctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
+  g.addColorStop(0,   'rgba(244,192,106,1)');
+  g.addColorStop(0.5, 'rgba(232,168,72,0.4)');
+  g.addColorStop(1,   'rgba(232,168,72,0)');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, size, size);
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
+const MOTE_COUNT = 260;
+const motePos = new Float32Array(MOTE_COUNT * 3);
+for (let i = 0; i < MOTE_COUNT; i++) {
+  motePos[i*3+0] = (Math.random() - 0.5) * 28;
+  motePos[i*3+1] = (Math.random() - 0.5) * 18;
+  motePos[i*3+2] = -Math.random() * 42 + 8;     // along the dive axis
+}
+const moteGeo = new THREE.BufferGeometry();
+moteGeo.setAttribute('position', new THREE.BufferAttribute(motePos, 3));
+const motes = new THREE.Points(moteGeo, new THREE.PointsMaterial({
+  map: makeMoteSprite(),
+  color: GOLD,
+  size: 0.22,
+  sizeAttenuation: true,
+  transparent: true,
+  opacity: 0.55,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending,
+  fog: false,
+}));
+scene.add(motes);
+
+// ============================================================
+// §5  OBJECT CONSTRUCTORS  (verbatim from file 14 — extracted from learn/08–10)
+// Each returns a THREE.Group. Shapes + materials preserved; the dark metal +
+// gold reads beautifully against black, and bloom makes the gold glow.
+// ============================================================
+
+// --- shared procedural crosshatch bumpMap helper (mic weave + dumbbell knurl) ---
+function makeCrosshatch({ size, light, dark, step, line, repeatX, repeatY }) {
+  const cv = document.createElement('canvas'); cv.width = cv.height = size;
+  const ctx = cv.getContext('2d');
+  ctx.fillStyle = '#808080'; ctx.fillRect(0, 0, size, size);
+  ctx.lineWidth = line;
+  ctx.strokeStyle = light;                                   // raised diagonal
+  for (let i = -size; i < size * 2; i += step) { ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i + size, size); ctx.stroke(); }
+  ctx.strokeStyle = dark;                                    // recessed diagonal
+  for (let i = -size; i < size * 2; i += step) { ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i - size, size); ctx.stroke(); }
+  const tex = new THREE.CanvasTexture(cv);
+  tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(repeatX, repeatY);
+  tex.anisotropy = 8;
+  return tex;
+}
+
+// ----- 🎤 MIC (AKG D5 style) -----
+function buildMic() {
+  const g = new THREE.Group();
+  g.name = 'mic';
+
+  const weave = makeCrosshatch({ size: 256, light: '#d8d8d8', dark: '#383838', step: 11, line: 3, repeatX: 10, repeatY: 6 });
+
+  const bodyMat = new THREE.MeshStandardMaterial({
+    color: 0x12161c, metalness: 0.45, roughness: 0.55, envMapIntensity: 0.55,   // matte near-black
+  });
+  const goldMat = new THREE.MeshStandardMaterial({
+    color: GOLD, metalness: 0.95, roughness: 0.25, envMapIntensity: 0.6,
+    emissive: GOLD, emissiveIntensity: 0.35,                                    // glows under bloom against black
+  });
+  const basketMat = new THREE.MeshStandardMaterial({
+    color: 0x262a30, metalness: 0.85, roughness: 0.45, envMapIntensity: 0.6,
+    bumpMap: weave, bumpScale: 0.5,
+    emissive: 0x3a2f12, emissiveIntensity: 0.22,
+  });
+
+  const bodyProfile = [
+    [0.00, 0.00], [0.105, 0.00], [0.122, 0.045], [0.128, 0.12],
+    [0.138, 0.7], [0.152, 1.3], [0.166, 1.75], [0.176, 1.92],
+  ].map(([x, y]) => new THREE.Vector2(x, y));
+  g.add(new THREE.Mesh(new THREE.LatheGeometry(bodyProfile, 80), bodyMat));
+
+  // --- Beatbox Battle head: lower silver ring -> dark mesh band -> upper silver
+  //     ring -> a WIDE round egg-shaped grille ball (full middle, domed top). ---
+
+  // Lower gold ring (band just above the handle)
+  const ring1 = [
+    [0.176, 1.90], [0.197, 1.94], [0.201, 1.98], [0.197, 2.02], [0.184, 2.06],
+  ].map(([x, y]) => new THREE.Vector2(x, y));
+  g.add(new THREE.Mesh(new THREE.LatheGeometry(ring1, 80), goldMat));
+
+  // Dark mesh band between the two rings
+  const meshBand = [
+    [0.184, 2.06], [0.193, 2.10], [0.198, 2.16], [0.202, 2.22],
+  ].map(([x, y]) => new THREE.Vector2(x, y));
+  g.add(new THREE.Mesh(new THREE.LatheGeometry(meshBand, 80), basketMat));
+
+  // Upper gold ring (just below the grille ball)
+  const ring2 = [
+    [0.202, 2.22], [0.224, 2.26], [0.230, 2.31], [0.224, 2.36], [0.207, 2.40],
+  ].map(([x, y]) => new THREE.Vector2(x, y));
+  g.add(new THREE.Mesh(new THREE.LatheGeometry(ring2, 80), goldMat));
+
+  // Grille ball — wide + round (per the reference): widest in the middle, domed
+  // top, NOT a pointed bullet.
+  // Big FAT round ball — the grille dominates the handle (~2.3x its width), like
+  // the reference. Full shoulders, domed top.
+  const basketProfile = [
+    [0.210, 2.40], [0.310, 2.46], [0.370, 2.56], [0.400, 2.70],
+    [0.400, 2.84], [0.385, 2.96], [0.330, 3.08], [0.240, 3.18], [0.130, 3.26], [0.00, 3.30],
+  ].map(([x, y]) => new THREE.Vector2(x, y));
+  g.add(new THREE.Mesh(new THREE.LatheGeometry(basketProfile, 80), basketMat));
+
+  // (badge dot removed — the ENKR handle decal is now the mark; see hero layout)
+
+  g.children.forEach(c => { c.position.y -= 1.65; });   // re-centre native 0→3.3
+  return g;
+}
+
+// ----- 🏋️ DUMBBELL -----
+function buildDumbbell() {
+  const g = new THREE.Group();
+  g.name = 'dumbbell';
+
+  const knurl = makeCrosshatch({ size: 128, light: '#d0d0d0', dark: '#404040', step: 7, line: 2, repeatX: 16, repeatY: 3 });
+
+  // Emissive kept LOWER than the mic/laptop gold: the dumbbell is big + close
+  // at its station and was blooming into a formless blob. Lower emissive lets
+  // the knurl + plate rims read while the metal still catches gold bloom.
+  const gold = new THREE.MeshStandardMaterial({
+    color: GOLD, metalness: 0.95, roughness: 0.28, envMapIntensity: 0.6,
+    emissive: GOLD, emissiveIntensity: 0.18,
+  });
+  const goldGrip = new THREE.MeshStandardMaterial({
+    color: 0xD9A046, metalness: 0.9, roughness: 0.5, envMapIntensity: 0.55,
+    bumpMap: knurl, bumpScale: 0.4,
+  });
+  const plate = new THREE.MeshStandardMaterial({
+    color: 0xCf9636, metalness: 1.0, roughness: 0.36, envMapIntensity: 0.6,
+    emissive: GOLD, emissiveIntensity: 0.10,
+  });
+
+  const bar = new THREE.Mesh(new THREE.CylinderGeometry(0.072, 0.072, 1.55, 48), gold);
+  bar.rotation.z = Math.PI / 2;
+  g.add(bar);
+
+  const grip = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.7, 48), goldGrip);
+  grip.rotation.z = Math.PI / 2;
+  g.add(grip);
+
+  function makeHead(sign) {
+    const profile = [
+      [0.075, 0.00], [0.30, 0.015], [0.34, 0.05], [0.345, 0.16],
+      [0.34, 0.30], [0.30, 0.345], [0.12, 0.37], [0.10, 0.40], [0.00, 0.40],
+    ].map(([x, y]) => new THREE.Vector2(x, y));
+    const head = new THREE.Mesh(new THREE.LatheGeometry(profile, 64), plate);
+    head.rotation.z = sign < 0 ? Math.PI / 2 : -Math.PI / 2;
+    head.position.x = sign * 0.58;
+    return head;
+  }
+  g.add(makeHead(-1), makeHead(1));
+
+  g.rotation.set(0.15, -0.35, 0.08);   // a pleasing resting angle
+  return g;
+}
+
+// ----- 💻 LAPTOP (dark) -----
+function buildLaptop() {
+  const g = new THREE.Group();
+  g.name = 'laptop';
+
+  const bodyMat = new THREE.MeshStandardMaterial({
+    color: 0x14171c, metalness: 0.45, roughness: 0.55, envMapIntensity: 0.55,
+  });
+  const deckMat = new THREE.MeshStandardMaterial({
+    color: 0x191d23, metalness: 0.4, roughness: 0.7, envMapIntensity: 0.45,
+  });
+  const padMat = new THREE.MeshStandardMaterial({
+    color: 0x1f242b, metalness: 0.35, roughness: 0.6, envMapIntensity: 0.5,
+  });
+  const screenMat = new THREE.MeshStandardMaterial({
+    color: ABYSS, emissive: 0x4a78b0, emissiveIntensity: 1.05,   // "on", calm blue glow
+    roughness: 0.3, metalness: 0.0,
+  });
+  const goldMat = new THREE.MeshStandardMaterial({
+    color: GOLD, metalness: 0.95, roughness: 0.25, envMapIntensity: 0.6,
+    emissive: GOLD, emissiveIntensity: 0.45,                     // the ONE accent — the logo, glows
+  });
+
+  const base = new THREE.Mesh(new RoundedBoxGeometry(2.3, 0.085, 1.55, 5, 0.035), bodyMat);
+  base.position.y = 0.042;
+  g.add(base);
+
+  const deck = new THREE.Mesh(new RoundedBoxGeometry(2.0, 0.02, 0.78, 4, 0.02), deckMat);
+  deck.position.set(0, 0.088, 0.18);
+  g.add(deck);
+  const pad = new THREE.Mesh(new RoundedBoxGeometry(0.62, 0.016, 0.42, 4, 0.02), padMat);
+  pad.position.set(0, 0.09, 0.55);
+  g.add(pad);
+
+  const hinge = new THREE.Group();
+  hinge.position.set(0, 0.085, -0.72);
+  g.add(hinge);
+
+  const lid = new THREE.Mesh(new RoundedBoxGeometry(2.3, 1.5, 0.06, 5, 0.03), bodyMat);
+  lid.position.y = 0.75;
+  hinge.add(lid);
+
+  const screen = new THREE.Mesh(new THREE.PlaneGeometry(2.06, 1.28), screenMat);
+  screen.position.set(0, 0.0, 0.032);
+  lid.add(screen);
+
+  const logo = new THREE.Mesh(new THREE.CircleGeometry(0.16, 48), goldMat);
+  logo.position.set(0, 0.0, -0.032);
+  logo.rotation.y = Math.PI;
+  lid.add(logo);
+
+  hinge.rotation.x = -0.38;
+
+  g.children.forEach(c => { c.position.y -= 0.35; });   // re-centre
+
+  g.userData.screenMat = screenMat;
+  return g;
+}
+
+// ============================================================
+// §6  STATION PLACEMENT — three weapons floating FREE in space at increasing
+// depth down -Z. No slabs, no shadows: each weapon hangs in the void with its
+// 3D label beside it. The camera dives forward through the starfield toward
+// each in turn.
+//
+//   01 Beatboxer (mic)      — near,  drifts LEFT
+//   02 Engineer  (laptop)   — mid,   drifts RIGHT, lifted
+//   03 Lifter    (dumbbell) — far,   drifts LEFT, resolves out of the abyss
+//
+// labelX puts the copy on the OPPOSITE side from the object so they never
+// overlap; labelFace nudges the label yaw toward the centreline path.
+// ============================================================
+const mic      = buildMic();
+const laptop   = buildLaptop();
+const dumbbell = buildDumbbell();
+
+mic.scale.setScalar(1.95);                   // HERO mic — bigger, centred landing
+mic.rotation.set(0, -0.22, Math.PI / 2);     // laid HORIZONTAL: grille to the left, a touch of yaw toward the camera
+laptop.scale.setScalar(1.1);
+dumbbell.scale.setScalar(1.55);
+
+const STATIONS = [
+  { obj: mic,
+    pos:  new Vector3(0, 0.6, 0),               // CENTRED hero mic for the landing
+    objX: 0, labelX: 0, labelFace: 0,            // label + tag line are repositioned BELOW the mic after build
+    spin: 0.18,
+    eyebrow: '01', quote: 'Breath becomes beat.', blurb: 'Four-time Singapore Beatbox Champion. Self-taught since 2016.' },
+
+  { obj: laptop,
+    pos:  new Vector3(-3.2, 0.4, -16),
+    objX: -0.5, labelX: 1.9, labelFace: 0.5,
+    spin: 0.14,
+    eyebrow: '02 · Engineer',  quote: 'Ideas become products.', blurb: 'Full-stack engineer at an early-stage startup. Pursuing a BIT at NUS.' },
+
+  { obj: dumbbell,
+    pos:  new Vector3(3.2, -0.3, -32),
+    objX: 0.6, labelX: -2.0, labelFace: -0.5,
+    spin: 0.22,
+    eyebrow: '03 · Lifter',    quote: 'Iron becomes perseverance.', blurb: 'Compound lifts, weekly progression, since 2022.' },
+];
+
+// ============================================================
+// §6.5  3D TEXT LABELS — the copy lives IN the scene, not as a 2D overlay.
+// Each label is a high-DPI CanvasTexture on a plane. RECOLOURED FOR DARK:
+//   eyebrow → Rising Sun Gold #E8A848
+//   quote   → Moonlight Silver #F0F6FF
+//   blurb   → Muted Silver     #7A96B8
+// Transparent canvas (no background fill) so only the glyphs render over space.
+// ============================================================
+function wrapText(g, text, maxW) {
+  const words = text.split(' '); const lines = []; let line = '';
+  for (const w of words) {
+    const test = line ? line + ' ' + w : w;
+    if (g.measureText(test).width > maxW && line) { lines.push(line); line = w; }
+    else line = test;
+  }
+  if (line) lines.push(line);
+  return lines;
+}
+function makeLabel(eyebrow, quote, blurb) {
+  const W = 1100, H = 640, DPR = 2;
+  const c = document.createElement('canvas'); c.width = W * DPR; c.height = H * DPR;
+  const g = c.getContext('2d'); g.scale(DPR, DPR); g.textBaseline = 'top';
+  // transparent background — leave the canvas clear so only the text shows.
+  g.fillStyle = '#E8A848'; g.font = '600 26px ui-monospace, Menlo, monospace'; g.letterSpacing = '7px';
+  g.fillText(eyebrow.toUpperCase(), 4, 6);
+  g.letterSpacing = '-1px'; g.fillStyle = '#9DA8B7';   // calm silver — minimal bloom shine on the quote
+  g.font = '600 96px -apple-system, "SF Pro Display", system-ui, sans-serif';
+  let y = 66; for (const ln of wrapText(g, quote, W - 8)) { g.fillText(ln, 0, y); y += 102; }
+  g.letterSpacing = '0px'; g.fillStyle = '#7A96B8'; g.font = '400 29px -apple-system, system-ui, sans-serif';
+  y += 18; for (const ln of wrapText(g, blurb, W - 8)) { g.fillText(ln, 2, y); y += 40; }
+  const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
+  const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, fog: false });
+  return new THREE.Mesh(new THREE.PlaneGeometry((W / H) * 2.0, 2.0), mat);
+}
+
+// Big identity WORD branded ALONG a weapon (BEATBOXER on the horizontal mic) —
+// the intro tag, now landed on the object. Heavy gold, wide tracking, on a
+// transparent plane so only the glyphs glow. Width auto-fits the glyphs so the
+// plane scale matches the rendered word.
+function makeHeroWord(text) {
+  const FS = 104, LS = 10, PAD = 52, H = 230, DPR = 2;
+  const up = text.toUpperCase();
+  const m = document.createElement('canvas').getContext('2d');
+  m.font = '700 ' + FS + 'px -apple-system, "SF Pro Display", system-ui, sans-serif';
+  m.letterSpacing = LS + 'px';
+  const W = Math.ceil(m.measureText(up).width + PAD * 2);   // canvas auto-fits the line
+  const c = document.createElement('canvas'); c.width = W * DPR; c.height = H * DPR;
+  const g = c.getContext('2d'); g.scale(DPR, DPR);
+  g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.fillStyle = '#E8A848';
+  g.font = '700 ' + FS + 'px -apple-system, "SF Pro Display", system-ui, sans-serif';
+  g.letterSpacing = LS + 'px';
+  g.fillText(up, W / 2, H / 2 + 6);
+  const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
+  const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0, depthWrite: false, fog: false });
+  let worldH = 0.95, worldW = (W / H) * worldH;
+  const MAXW = 10;                       // clamp very long lines so they fit the landing
+  if (worldW > MAXW) { const k = MAXW / worldW; worldW *= k; worldH *= k; }
+  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(worldW, worldH), mat);
+  mesh.userData.worldW = worldW;
+  return mesh;
+}
+
+// Small gold word printed ON the mic handle (real-mic branding). Flat plane with
+// depthTest off so it reads as applied to the surface; parented + counter-rotated
+// at the call site so it stays upright + camera-facing while riding the mic.
+function makeHandleDecal(text) {
+  const FS = 116, LS = 12, PAD = 36, H = 190, DPR = 2;
+  const up = text.toUpperCase();
+  const meas = document.createElement('canvas').getContext('2d');
+  meas.font = '700 ' + FS + 'px -apple-system, "SF Pro Display", system-ui, sans-serif';
+  meas.letterSpacing = LS + 'px';
+  const W = Math.ceil(meas.measureText(up).width + PAD * 2);
+  const c = document.createElement('canvas'); c.width = W * DPR; c.height = H * DPR;
+  const g = c.getContext('2d'); g.scale(DPR, DPR);
+  g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.fillStyle = '#E8A848';
+  g.font = '700 ' + FS + 'px -apple-system, "SF Pro Display", system-ui, sans-serif';
+  g.letterSpacing = LS + 'px';
+  g.fillText(up, W / 2, H / 2 + 4);
+  const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
+  const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, depthTest: false, fog: false });
+  const worldH = 0.30, worldW = (W / H) * worldH;
+  // Curve along the HEIGHT so the word wraps the handle's CIRCUMFERENCE (lies on the
+  // skin); the reading direction (width) stays straight, like the cylinder's axis.
+  const geo = new THREE.PlaneGeometry(worldW, worldH, 1, 40);
+  const p = geo.attributes.position, Rc = 0.34;   // ≈ handle world radius
+  for (let i = 0; i < p.count; i++) { const y = p.getY(i); p.setZ(i, -(y * y) / (2 * Rc)); }
+  p.needsUpdate = true; geo.computeVertexNormals();
+  return new THREE.Mesh(geo, mat);
+}
+
+// Build each station: the weapon floating in the void, and its 3D label beside
+// it. Collect every material so the fly-through can fade non-focused stations
+// fully out (per-station isolation).
+for (const s of STATIONS) {
+  // --- the object, floating free, pushed to its side (objX) ---
+  s.obj.position.set(s.pos.x + s.objX, s.pos.y, s.pos.z);
+  scene.add(s.obj);
+
+  // --- collect EVERY material on the object so the fly-through can isolate the
+  //     focused station (others fade to invisible). ---
+  s.mats = [];
+  s.obj.traverse(o => {
+    if (!o.material) return;
+    (Array.isArray(o.material) ? o.material : [o.material]).forEach(m => {
+      m.transparent = true; s.mats.push(m);
+    });
+  });
+
+  // --- 3D text label: floats beside the object, OPPOSITE it, lifted to eye
+  //     height, turned to face the camera arriving from +Z. ---
+  const label = makeLabel(s.eyebrow, s.quote, s.blurb);
+  label.position.set(s.pos.x + s.labelX, s.pos.y + 1.0, s.pos.z + 0.9);
+  label.lookAt(s.pos.x + s.labelX + s.labelFace * 1.4, s.pos.y + 1.0, s.pos.z + 9);
+  scene.add(label);
+  s.label = label;
+}
+
+// HERO LAYOUT for the mic (station 0): BEATBOXER laid along the horizontal mic
+// (the intro tag, now branded onto the weapon), and the quote/blurb label moved
+// BELOW the mic so the opening reads as a vertical stack: word → mic → quote.
+// Other stations are untouched.
+// Landing layout variants — compare via ?v=a | ?v=b | ?v=c :
+//   a = full role tags before the mic, on one line   (ENKR title above)
+//   b = just BEATBOXER before the mic, on one line    (ENKR title above)
+//   c = ENKR + tags + mic, all on a single line       (no separate title)
+// FINALISED — locked to the chosen combo (the ?open / ?v / ?loader switches are gone).
+const OPENING = '3d';                                  // fly THROUGH the 3D logo
+const LANDING_TEXT = 'Beatboxer · Engineer · Lifter';  // the three tags below the hero mic
+
+const micStation = STATIONS[0];
+
+// "ENKR" printed ON the mic handle — gold branding, like a real mic. Parented to
+// the mic (so it rides the bob), counter-rotated + counter-scaled so it stays
+// upright, camera-facing and at its intended size despite the mic's transform.
+const handleDecal = makeHandleDecal('ENKR');
+mic.add(handleDecal);
+mic.updateWorldMatrix(true, false);
+// Lay ENKR ON the handle's skin: orient the decal TANGENT to the cylinder at the
+// camera-facing point, reading along the handle axis — so it foreshortens WITH the
+// handle (follows the mic's angle) instead of billboarding flat at the camera.
+{
+  const Q = mic.getWorldQuaternion(new THREE.Quaternion());
+  const camLocal = new Vector3(0, 0, 1).applyQuaternion(Q.invert()).normalize();   // toward camera, in mic-local
+  const axis = new Vector3(0, 1, 0);                                                 // handle axis (local)
+  const radial = camLocal.clone().sub(axis.clone().multiplyScalar(camLocal.dot(axis))).normalize(); // camera-facing, ⟂ axis
+  const read = axis.clone().multiplyScalar(-1);                                      // read toward the handle end
+  const height = new Vector3().crossVectors(radial, read).normalize();              // circumference tangent
+  read.crossVectors(height, radial).normalize();
+  handleDecal.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(read, height, radial));
+  handleDecal.scale.setScalar(1 / mic.scale.x);
+  handleDecal.position.copy(axis.multiplyScalar(-0.9).addScaledVector(radial, 0.185)); // mid-handle, on the surface
+}
+handleDecal.renderOrder = 5;
+handleDecal.material.transparent = true;
+micStation.mats.push(handleDecal.material);     // fade it with the station
+
+// tag text sits BELOW the (bigger, centred) mic — the landing reads mic → tags.
+const heroWord = makeHeroWord(LANDING_TEXT);
+heroWord.position.set(micStation.pos.x, micStation.pos.y - 1.95, micStation.pos.z + 1.2);
+heroWord.lookAt(micStation.pos.x, micStation.pos.y - 1.95, micStation.pos.z + 9);
+scene.add(heroWord);
+micStation.heroWord = heroWord;
+
+// drop the mic's quote/blurb on the landing — ENKR on the handle + the tag line
+// below carry it, keeping the hero clean. (Laptop/dumbbell keep their labels.)
+micStation.label.visible = false;
+
+// ── 3D ENKR LOGO (?open=3d): extrude the REAL wordmark into geometry and fly the
+// camera THROUGH it (the loved fly-through-text moment, now your actual brand). ──
+const LOGO_Z = 13;   // sits in front of the mic; the camera dollies through this plane
+function buildLogo3D() {
+  const svg = '<svg viewBox="0 0 2100.55 467.32" xmlns="http://www.w3.org/2000/svg">'
+    + '<polygon points="1335.42,25 1321.94,10.02 1110.42,200.43 1110.42,0.16 1090.28,0.16 1090.28,413.55 1110.42,413.55 1110.42,227.53 1151.1,190.92 1275.32,406.06 1292.77,395.99 1166.41,177.14"/>'
+    + '<path d="M2100.28,164.22h-548.87l-28.13-140.05v-1.24h-146.82v0.16l-0.5-0.07l-45.56,343.35l19.97,2.65l22.41-168.86l216.7,266.51l15.63-12.71l-219.22-269.6h714.39V164.22z M1530.86,164.22h-153.32l16.07-121.14h112.91L1530.86,164.22z"/>'
+    + '<polygon points="1012.07,316.73 855.14,33.78 855.21,33.1 835.15,31.21 798.31,421.64 818.37,423.54 851.8,69.27 1012.07,358.26 1012.07,359.16 1032.22,359.16 1032.22,37.16 1012.07,37.16"/>'
+    + '<polygon points="733.16,21.27 733.15,21.27 733.15,20.94 538.82,20.94 538.82,41.08 714.68,41.08 725.53,164.22 0.88,164.22 0.88,184.37 727.3,184.37 739.91,327.46 370.72,327.46 370.72,347.61 742.05,347.61 742.05,347.41 761.74,345.67"/>'
+    + '</svg>';
+  const data = new SVGLoader().parse(svg);
+  const group = new THREE.Group();
+  const mat = new THREE.MeshStandardMaterial({
+    color: GOLD, emissive: GOLD, emissiveIntensity: 0.55,
+    metalness: 0.7, roughness: 0.3, transparent: true, opacity: 0,
+  });
+  for (const path of data.paths) {
+    for (const shape of SVGLoader.createShapes(path)) {
+      group.add(new THREE.Mesh(new THREE.ExtrudeGeometry(shape, { depth: 26, bevelEnabled: false }), mat));
+    }
+  }
+  // centre the assembled geometry at the origin, flip SVG's y-down, scale to world
+  const box = new THREE.Box3().setFromObject(group);
+  const c = box.getCenter(new Vector3()), sz = box.getSize(new Vector3());
+  group.children.forEach(m => m.geometry.translate(-c.x, -c.y, -c.z));
+  const S = 12.5 / sz.x;               // world width ≈ 12.5 units
+  group.scale.set(S, -S, S);           // flip Y (SVG is y-down)
+  group.userData.mat = mat;
+  return group;
+}
+const logo3D = buildLogo3D();
+logo3D.position.set(0, 0.8, LOGO_Z);
+scene.add(logo3D);
+
+// ============================================================
+// §6.6  CONTENT WALLS — three slim gold doorway FRAMES on the centreline at
+// increasing depth past the dumbbell. You fly head-on to each, DWELL to read,
+// then fly THROUGH the frame to the next (the loved "fly-through" feeling). The
+// frame geometry/style is the SAME slim-gold-bar rectangle as the old single
+// door — just instanced three times, each with its OWN material so it can LIGHT
+// UP independently on arrival (emissiveIntensity dim→bright→dim per wall).
+//
+//   Wall 1 = About me   (z = -50)
+//   Wall 2 = My work    (z = -68)
+//   Wall 3 = Contact    (z = -86, the END)
+//
+// Each wall carries a CENTRED 3D label (heading + one placeholder line) that
+// fades in only while that wall is the focused one (see §6.7 makeWallLabel +
+// the wall isolation in updateCamera).
+// ============================================================
+const DW = 6.4, DH = 8.4, DBAR = 0.06;          // book-end door frame: width / height / bar thickness
+// Exhibit (gallery placard) frame — smaller landscape frames hung along the hall.
+const EW = 3.5, EH = 2.25, EBAR = 0.05;
+// Gallery layout: exhibits sit on ALTERNATING sides of the centreline at
+// increasing depth, toed-in toward the camera path so they read as you glide past.
+const GAL_X = 3.0, GAL_Y = 0.5, GAL_TOE = 0.36, GAL_Z0 = -64, GAL_DZ = 9;
+
+// EMISSIVE_DIM / EMISSIVE_HOT bracket the per-frame light-up ramp. Each frame
+// sits dim in the abyss until the camera arrives, then its gold ignites.
+const EMISSIVE_DIM = 0.15;
+const EMISSIVE_HOT = 1.30;
+
+// Generic slim-gold-bar rectangle frame. OWN material per call → each frame
+// lights up independently (emissiveIntensity + opacity ramp). Starts dim + fully
+// transparent so it's invisible during the weapon phase, then emerges (faint →
+// bright) only as the camera approaches it in the wall phase.
+function makeFrame(w, h, bar) {
+  const group = new THREE.Group();
+  const mat = new THREE.MeshStandardMaterial({
+    color: GOLD, emissive: GOLD, emissiveIntensity: EMISSIVE_DIM,
+    metalness: 0.6, roughness: 0.3,
+    transparent: true, opacity: 0,
+  });
+  const hGeo = new THREE.BoxGeometry(w, bar, bar);
+  const vGeo = new THREE.BoxGeometry(bar, h, bar);
+  const top = new THREE.Mesh(hGeo, mat); top.position.y =  h / 2;
+  const bot = new THREE.Mesh(hGeo, mat); bot.position.y = -h / 2;
+  const lft = new THREE.Mesh(vGeo, mat); lft.position.x = -w / 2;
+  const rgt = new THREE.Mesh(vGeo, mat); rgt.position.x =  w / 2;
+  group.add(top, bot, lft, rgt);
+  group.userData.mat = mat;
+  return group;
+}
+function makeDoorFrame() { return makeFrame(DW, DH, DBAR); }
+
+// ============================================================
+// §6.6b  EXHIBITION HALL — the middle "My work" wall is no longer a single
+// frame; it's a GALLERY you fly through. Each project from _data/work.json is a
+// lit placard (gold frame + CanvasTexture panel) hung on alternating sides of
+// the corridor, toed-in toward the camera. They emerge faint from the abyss and
+// ignite as you glide alongside (same light-up language as the book-end walls).
+// ============================================================
+function makeExhibitPanel(p, i, n) {
+  const W = 1100, H = 710, DPR = 2;
+  const c = document.createElement('canvas'); c.width = W * DPR; c.height = H * DPR;
+  const g = c.getContext('2d'); g.scale(DPR, DPR);
+  g.textAlign = 'left'; g.textBaseline = 'alphabetic';
+
+  // backing — elevated navy, near-opaque so it reads as a lit placard/screen
+  const grad = g.createLinearGradient(0, 0, 0, H);
+  grad.addColorStop(0, 'rgba(18, 40, 68, 0.94)');
+  grad.addColorStop(1, 'rgba(10, 26, 47, 0.94)');
+  g.fillStyle = grad; g.fillRect(0, 0, W, H);
+
+  // inner gold hairline border (placard edge)
+  g.strokeStyle = 'rgba(232, 168, 72, 0.45)'; g.lineWidth = 2;
+  g.strokeRect(26, 26, W - 52, H - 52);
+
+  const padL = 64;
+  const pad2 = (v) => (v < 10 ? '0' : '') + v;
+  // index kicker (01 / 04) + gold rule
+  g.fillStyle = '#E8A848'; g.font = '700 30px ui-monospace, Menlo, monospace'; g.letterSpacing = '4px';
+  g.fillText(pad2(i + 1) + '  /  ' + pad2(n), padL, 90);
+  g.strokeStyle = 'rgba(232, 168, 72, 0.5)'; g.lineWidth = 2;
+  g.beginPath(); g.moveTo(padL, 112); g.lineTo(W - 64, 112); g.stroke();
+
+  // title — Moonlight Silver display
+  g.letterSpacing = '-0.5px'; g.fillStyle = '#E6EEFA';
+  g.font = '700 70px -apple-system, "SF Pro Display", system-ui, sans-serif';
+  g.fillText(p.title, padL, 206);
+
+  // desc — muted silver, wrapped (max 3 lines)
+  g.letterSpacing = '0px'; g.fillStyle = '#7A96B8';
+  g.font = '400 30px -apple-system, system-ui, sans-serif';
+  wrapText(g, p.desc, W - padL - 64).slice(0, 3).forEach((ln, li) => g.fillText(ln, padL, 270 + li * 44));
+
+  // tag pills — gold outline
+  g.font = '600 24px ui-monospace, Menlo, monospace'; g.letterSpacing = '1px';
+  let tx = padL; const tyP = 540, hgt = 46;
+  for (const tag of p.tags) {
+    const tw = g.measureText(tag).width, padX = 18;
+    g.strokeStyle = 'rgba(232, 168, 72, 0.6)'; g.lineWidth = 1.5;
+    g.beginPath(); g.roundRect(tx, tyP, tw + padX * 2, hgt, 9); g.stroke();
+    g.fillStyle = '#E8A848'; g.fillText(tag, tx + padX, tyP + 31);
+    tx += tw + padX * 2 + 14;
+  }
+
+  // url label — gold mono, bottom-right (muted "coming soon" when no url)
+  g.textAlign = 'right'; g.letterSpacing = '2px';
+  g.font = '600 26px ui-monospace, Menlo, monospace';
+  g.fillStyle = p.url ? '#E8A848' : '#7A96B8';
+  g.fillText((p.urlLabel || '') + (p.url ? '  ↗' : ''), W - 64, 652);
+
+  const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
+  const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0, depthWrite: false, fog: false });
+  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(EW - 0.16, EH - 0.16), mat);
+  mesh.position.z = 0.02;   // sit just inside the frame plane
+  return { mesh, mat };
+}
+
+function makeExhibit(p, i, n, side, z) {
+  const group = new THREE.Group();
+  const frame = makeFrame(EW, EH, EBAR);
+  const panel = makeExhibitPanel(p, i, n);
+  group.add(frame, panel.mesh);
+  group.position.set(side * GAL_X, GAL_Y, z);
+  group.rotation.y = -side * GAL_TOE;   // toe-in toward the centreline / camera path
+  scene.add(group);
+  return { group, z, side, frameMat: frame.userData.mat, panelMat: panel.mat };
+}
+
+// Book-end walls: About (entry) and Contact (the end). The middle slot is the
+// exhibition hall (EXHIBITS), built below the label factory.
+const WALLS = [
+  { z: -50,  heading: 'About me', line: 'I’m Jing Hui, also known as ENKR. Full-stack engineer, four-time beatbox champion in Singapore, and lifter. I craft digital products, from web apps to full-stack solutions, while pursuing a Computer Science degree at NUS. Currently building Gym Buddy, and open to new opportunities.' },
+  { z: -116, heading: 'Contact',  line: 'Let’s build something together.' },
+];
+
+// ============================================================
+// §6.7  CENTRED WALL LABELS — the same CanvasTexture-on-a-plane technique as the
+// station labels (makeLabel), but CENTRED for the walls: a gold mono kicker,
+// the heading in Moonlight Silver, and one muted-silver placeholder line. Built
+// separate from makeLabel so the loved side-station typography is untouched.
+// ============================================================
+function makeWallLabel(heading, line) {
+  const W = 1280, DPR = 2, BODY = '400 34px -apple-system, system-ui, sans-serif';
+  // measure the wrapped body FIRST so the canvas (and plane) sizes to the content —
+  // About can run a full bio, Contact stays tight; both stay vertically centred.
+  const meas = document.createElement('canvas').getContext('2d');
+  meas.font = BODY; meas.letterSpacing = '0px';
+  const lines = wrapText(meas, line, W - 160);
+  const kickerY = 46, headY = 176, bodyTop = 266, lh = 48;
+  const H = bodyTop + lines.length * lh + 24;
+
+  const c = document.createElement('canvas'); c.width = W * DPR; c.height = H * DPR;
+  const g = c.getContext('2d'); g.scale(DPR, DPR);
+  g.textAlign = 'center'; g.textBaseline = 'middle';
+
+  g.fillStyle = '#E8A848'; g.font = '600 24px ui-monospace, Menlo, monospace'; g.letterSpacing = '9px';
+  g.fillText('ENKR', W / 2, kickerY);
+
+  g.letterSpacing = '-1px'; g.fillStyle = '#E6EEFA';
+  g.font = '600 104px -apple-system, "SF Pro Display", system-ui, sans-serif';
+  g.fillText(heading, W / 2, headY);
+
+  g.letterSpacing = '0px'; g.fillStyle = '#8AA0BC'; g.font = BODY;
+  lines.forEach((ln, i) => g.fillText(ln, W / 2, bodyTop + i * lh));
+
+  const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
+  const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0, depthWrite: false, fog: false });
+  const k = 0.0050;   // canvas px → world units (keeps text size consistent across labels)
+  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(W * k, H * k), mat);
+  return mesh;
+}
+
+// Instantiate the book-end frames + their centred labels on the centreline.
+for (const w of WALLS) {
+  w.frame = makeDoorFrame();
+  w.frame.position.set(0, 0, w.z);
+  scene.add(w.frame);
+
+  w.labelMesh = makeWallLabel(w.heading, w.line);
+  // centred inside the frame, lifted a touch above centre so the heading sits in
+  // the upper third; pushed slightly toward the camera so you read it before the bars.
+  w.labelMesh.position.set(0, 0.35, w.z + 0.6);
+  scene.add(w.labelMesh);
+}
+
+// ── EXHIBITION HALL CONTENT (mirrors _data/work.json — ENKR's curated showcase) ──
+const WORK = [
+  { title: 'Gym Buddy',      desc: 'Workout-tracking PWA with an exercise library, form-check tools, and progress history.', urlLabel: 'gym.enkr1.com',              url: 'https://gym.enkr1.com',              tags: ['Next.js', 'PWA', 'Cloudflare'] },
+  { title: 'Journal & Blog', desc: 'Personal blog with weekly journals, progress tracking, and a custom Hugo theme.',         urlLabel: 'enkr1.github.io/blog',        url: 'https://enkr1.github.io/blog/',      tags: ['Hugo', 'SCSS', 'GitHub Pages'] },
+  { title: '555 Beatbox',    desc: 'Community site for the Singapore beatbox scene — events, resources, and artist profiles.', urlLabel: 'enkr1.github.io/555beatbox', url: 'https://enkr1.github.io/555beatbox', tags: ['HTML', 'CSS', 'JavaScript'] },
+  { title: 'Could be yours', desc: 'Got something to build? The next project could be ours.',                              urlLabel: 'let’s talk',                 url: null,                                 tags: ['Your idea'] },
+];
+const EXHIBITS = WORK.map((p, i) => makeExhibit(p, i, WORK.length, i % 2 === 0 ? 1 : -1, GAL_Z0 - i * GAL_DZ));
+
+// Gallery entrance header — announces the hall, fades in as you leave About and
+// out as you reach the first exhibit (see the wall-phase isolation in updateCamera).
+const galleryHeader = makeWallLabel('My work', 'Selected work & experiments');
+galleryHeader.position.set(0, 0.55, -56);
+scene.add(galleryHeader);
+
+// ── CLOSING MOTTO slide: a quote that floats between the work hall and the
+// Contact wall. The camera settles in front to let you read it, then flies
+// THROUGH it into Contact (the loved fly-through-text, used once for the ethos). ──
+function makeMottoText(text) {
+  const W = 1500, DPR = 2, FONT = '500 60px "SF Pro Display", -apple-system, system-ui, sans-serif';
+  const meas = document.createElement('canvas').getContext('2d'); meas.font = FONT;
+  const lines = wrapText(meas, text, W - 200);
+  const lh = 86, padY = 92, H = padY * 2 + lines.length * lh;
+  const c = document.createElement('canvas'); c.width = W * DPR; c.height = H * DPR;
+  const g = c.getContext('2d'); g.scale(DPR, DPR); g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.fillStyle = '#E6EEFA'; g.font = FONT;
+  lines.forEach((ln, i) => g.fillText(ln, W / 2, padY + lh / 2 + i * lh));
+  const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
+  const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0, depthWrite: false, fog: false });
+  const k = 0.0044;
+  return new THREE.Mesh(new THREE.PlaneGeometry(W * k, H * k), mat);
+}
+const MOTTO_Z = -102;
+const mottoText = makeMottoText('If you really try your best, you would never fail. Everything is rented, you can’t start slipping.');
+mottoText.position.set(0, 0.35, MOTTO_Z);
+mottoText.lookAt(0, 0.35, MOTTO_Z + 9);
+scene.add(mottoText);
+
+// ============================================================
+// §7  CAMERA + POST-PROCESSING
+// FOV 50 (cinematic). The chain order is LOAD-BEARING:
+// RenderPass → Bloom (linear HDR) → OutputPass (the single ACES + sRGB) →
+// Vignette → FilmPass (display-space cosmetics). Bloom is tuned so gold + text
+// + bright stars GLOW but the abyss stays BLACK.
+// ============================================================
+const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 160);
+
+const composer = new EffectComposer(renderer);
+
+// 1. Scene render (linear HDR)
+composer.addPass(new RenderPass(scene, camera));
+
+// 2. Bloom — runs in linear, BEFORE tone mapping. Threshold high enough that
+//    only the gold + emissive + bright stars glow; the navy/black stays clean.
+const bloom = new UnrealBloomPass(
+  new Vector2(window.innerWidth, window.innerHeight),
+  0.30,   // strength — much gentler glow (was 0.60 → too "shiny" on gold + text)
+  0.5,    // radius
+  0.50    // threshold — only the BRIGHT points (stars, glints) bloom; mid-bright gold/text stay matte
+);
+composer.addPass(bloom);
+
+// 3. OutputPass — the single authoritative ACES tone-map + linear→sRGB.
+composer.addPass(new OutputPass());
+
+// 4. Vignette — cosmetic, in display/sRGB space AFTER tone mapping. Slightly
+//    stronger than daylight: a dark cosmic frame focuses the eye on centre.
+const vignette = new ShaderPass(VignetteShader);
+vignette.uniforms.offset.value = 1.0;
+vignette.uniforms.darkness.value = 1.1;
+composer.addPass(vignette);
+
+// 5. Film grain — last. Very light: kills banding in the dark gradients without
+//    milking the scene.
+const film = new FilmPass(0.10, false);
+composer.addPass(film);
+
+// ============================================================
+// §8  THE SCROLL FLY-THROUGH
+// The camera dives forward along -Z but ALSO drifts vertically + laterally
+// toward whichever weapon is focused, so it feels like flying through open
+// space, arriving at each floating weapon. The multi-layer starfield gives
+// parallax as the camera moves. We NEVER bind the camera to scroll events
+// (ragged OS cadence → stutter). Each frame: sample progress → compute a focus
+// point bracketed between two stations → place a target CAMERA_BACK in front of
+// it, gently raised → damp the live camera + a persistent smoothedLook toward
+// those. damp() is frame-rate independent.
+// ============================================================
+const CAMERA_BACK = 8.0;   // how far in front of the focused weapon the camera sits (sees it head-on, then flies past)
+const CAMERA_LIFT = 0.6;   // raise the camera a touch for a gentle downward gaze
+const SIDE_EASE   = 0.12;  // camera stays near the CENTRELINE → flies forward and PASSES BESIDE the side-offset weapons (never into them)
+
+// ── PHASE SPLIT ──────────────────────────────────────────────────────────────
+// The weapon journey is PRESERVED EXACTLY by giving it its OWN normalised
+// progress pw = p / WEAPON_END. Every weapon constant (HOLDS, introBack,
+// copyGate, the dumbbell fly-through "exit") runs on pw, so its pacing/feel is
+// byte-for-byte identical regardless of how much scroll we add for the walls.
+// WEAPON_END keeps the weapon scroll-distance ≈ the original absolute px even
+// though we added a 7th section for the gallery (0.40 × 7 ≈ the old 0.46 × 6).
+const WEAPON_END = 0.40;
+// Above WEAPON_END the camera flies the CONTENT phase on its own normalised
+// progress pwall = (p - WEAPON_END) / (1 - WEAPON_END): an About book-end, then
+// the exhibition-hall glide, then the Contact book-end (the end).
+const WALL_BACK   = 9.0;    // how far in front of a book-end wall the camera settles (frame is tall → sit a touch further to see it head-on)
+const WALL_LOOK_Y = 0.35;   // match the wall labels' slight upward bias
+const FRAME_FAINT = 0.12;   // faint floor opacity: a distant frame is a barely-there ghost; it ramps to 1 on approach
+
+// Wall-phase windows in pwall: About dwell → gallery glide → Contact dwell.
+const ABOUT_DWELL_END = 0.12;   // head-on at About until here
+const GALLERY_START   = 0.18;   // enter the hall
+const GALLERY_END     = 0.54;   // exit the hall
+const MOTTO_START     = 0.62;   // settle in front of the motto
+const MOTTO_END       = 0.78;   // leave the motto (fly through it) toward Contact
+const CONTACT_START   = 0.88;   // settled head-on at Contact by here
+const MOTTO_BACK      = 8;      // how far in front of the motto the camera reads it
+// Camera Z path through the hall (glides forward, looking GAL_LOOK_AHEAD ahead).
+// GAL_LIGHT_BIAS shifts each placard's light-up so it peaks while it's still
+// AHEAD of the camera (in view, readable), not once it's beside/behind you.
+const GAL_CAM_START = -50, GAL_CAM_END = -93, GAL_LOOK_AHEAD = 7, GAL_LIGHT_BIAS = 7;
+
+// Aim biased toward the OBJECT (the hero) so the weapon stays near centre and
+// its label reads off to the side. 0.65 object / 0.35 label keeps both framed.
+function focusAimX(s) { return s.pos.x + s.objX * 0.65 + s.labelX * 0.35; }
+
+const startAimX = focusAimX(STATIONS[0]);
+camera.position.set(STATIONS[0].pos.x * SIDE_EASE, STATIONS[0].pos.y + CAMERA_LIFT, STATIONS[0].pos.z + CAMERA_BACK + (OPENING === '3d' ? 13 : 3.5));  // 3d starts well behind the logo to fly through it; else just behind the mic
+
+const smoothedLook = new Vector3(startAimX, STATIONS[0].pos.y + 0.3, STATIONS[0].pos.z);
+camera.lookAt(smoothedLook);
+
+const targetPos  = new Vector3();
+const targetLook = new Vector3();
+const _wallPos   = new Vector3();   // scratch: wall-phase candidate position
+const _wallLook  = new Vector3();   // scratch: wall-phase candidate look
+
+const lenis = new Lenis({ lerp: 0.09, autoRaf: false });
+
+function getScrollProgress() {
+  if (typeof lenis.progress === 'number' && !Number.isNaN(lenis.progress)) {
+    return MathUtils.clamp(lenis.progress, 0, 1);
+  }
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  return max > 0 ? MathUtils.clamp(window.scrollY / max, 0, 1) : 0;
+}
+
+// DWELL pacing: each station gets a HOLD window where the camera lingers (time
+// to look + read), with quick smooth transitions between. Generic over a holds
+// array + station count so the WALLS reuse the SAME warp shape as the weapons.
+// Both the camera AND the isolation read this so they stay in sync.
+const HOLDS = [[0.00, 0.20], [0.30, 0.42], [0.56, 0.66]];   // mic dwell extended (hero opening: intro dissolves, then the mic holds); laptop/dumbbell unchanged; dumbbell fly-through plays out 0.66→1.0
+function warpHolds(p, holds, n) {
+  if (p <= holds[0][1]) return 0;                           // dwell at station 0
+  for (let k = 0; k < n - 1; k++) {
+    const tStart = holds[k][1], tEnd = holds[k + 1][0];
+    if (p < tEnd) return k + MathUtils.smoothstep((p - tStart) / (tEnd - tStart), 0, 1); // transition
+    if (p <= holds[k + 1][1]) return k + 1;                 // dwell at station k+1
+  }
+  return n - 1;
+}
+const warpIndex = (p) => warpHolds(p, HOLDS, STATIONS.length);          // weapon index (UNCHANGED behaviour)
+
+// ── WEAPON PHASE (verbatim math, now driven by pw) ───────────────────────────
+// Writes into targetPos / targetLook. Identical to the original computeTargets,
+// only `p` → `pw`: the dumbbell's fly-through "exit" now flies forward THROUGH
+// its wording and centres the camera, delivering it to the first content wall.
+function computeWeaponTargets(pw) {
+  const n      = STATIONS.length;
+  const fIndex = warpIndex(pw);                // dwell-warped float station index
+  const i      = Math.min(Math.floor(fIndex), n - 2);
+  const e      = fIndex - i;                   // already eased by warpIndex
+  const A = STATIONS[i], B = STATIONS[i + 1];
+
+  const focusX = MathUtils.lerp(A.pos.x,      B.pos.x,      e);
+  const focusY = MathUtils.lerp(A.pos.y,      B.pos.y,      e);
+  const focusZ = MathUtils.lerp(A.pos.z,      B.pos.z,      e);
+  const aimX   = MathUtils.lerp(focusAimX(A), focusAimX(B), e);
+
+  // INTRO APPROACH: start the first weapon (mic) further back, then fly in over
+  // the first slice of scroll so there's a beat to take it in before reading.
+  // intro fly-in. 3d uses a slow-in-the-MIDDLE ease (cubic) so the camera LINGERS
+  // among the giant letters at the heart of the fly-through, then settles to the mic.
+  const flyT = MathUtils.clamp(pw / 0.16, 0, 1);
+  const fly  = OPENING === '3d' ? (0.5 + 0.5 * Math.pow(2 * flyT - 1, 3)) : MathUtils.smoothstep(pw, 0.0, 0.16);
+  const introBack = (OPENING === '3d' ? 13 : 3.5) * (1 - fly);
+
+  // OBJECT-TO-OBJECT TRANSITION: a whisper of vertical arc while passing beside
+  // each side-offset weapon (no pull-back — pure forward dolly).
+  const transAmt  = Math.sin(e * Math.PI);
+  const transBack = 0;
+  // Leaving the CENTRED hero mic (station 0 → 1), arc the camera UP and OVER it so
+  // it clears the mic body instead of phasing straight through it (穿梭过去). The
+  // arc peaks exactly as the camera crosses the mic's plane. Side-offset weapons
+  // (laptop/dumbbell, i≥1) keep their gentle pass-beside lift — untouched.
+  const transLift = transAmt * (i === 0 ? 2.0 : 0.5);
+
+  targetPos.set(
+    focusX * SIDE_EASE + Math.sin(pw * Math.PI * 1.5) * 0.30,
+    focusY + CAMERA_LIFT + transLift + Math.sin(pw * Math.PI * 2.0) * 0.15,
+    focusZ + CAMERA_BACK + introBack + transBack
+  );
+
+  // During the intro, aim a touch LEFT of the mic so it frames to the RIGHT,
+  // clear of the centred ENKR wordmark (instead of sitting behind it).
+  const introAim = 0;   // centred hero mic — no intro left-bias
+  targetLook.set(aimX - introAim, focusY + 0.25, focusZ);
+
+  // EXIT (now in pw-space): after the dumbbell's dwell, fly FORWARD straight
+  // THROUGH its wording and centre on the centreline, arriving in front of the
+  // FIRST content wall (z = -50). Preserves the loved dumbbell fly-through.
+  const exit = MathUtils.smoothstep(pw, 0.66, 1.0);
+  targetPos.x  = MathUtils.lerp(targetPos.x, 0, exit);
+  targetPos.z  = MathUtils.lerp(targetPos.z, WALLS[0].z + WALL_BACK, exit);  // settle in front of wall 1
+  targetLook.set(
+    MathUtils.lerp(targetLook.x, 0, exit),
+    MathUtils.lerp(targetLook.y, WALL_LOOK_Y, exit),
+    MathUtils.lerp(focusZ, WALLS[0].z, exit)                                  // turn to look AT wall 1
+  );
+}
+
+// ── WALL PHASE — head-on fly-to + dwell at each content wall, flying THROUGH
+// each frame to reach the next. Writes into _wallPos / _wallLook. Centred on the
+// centreline; the camera dollies forward between wall keyframes (so it passes
+// through the previous frame's plane → the loved fly-through). ────────────────
+function computeWallTargets(pwall) {
+  // Three regions on pwall: About (head-on) → Gallery (forward glide through the
+  // hall) → Contact (head-on). Cross-faded so the camera flows continuously.
+  const aboutZ   = WALLS[0].z;   // -50
+  const contactZ = WALLS[1].z;   // -116
+
+  const toGal   = MathUtils.smoothstep(pwall, ABOUT_DWELL_END, GALLERY_START);
+  const toMotto = MathUtils.smoothstep(pwall, GALLERY_END, MOTTO_START);
+  const toCon   = MathUtils.smoothstep(pwall, MOTTO_END, CONTACT_START);
+  const galP    = MathUtils.clamp((pwall - GALLERY_START) / (GALLERY_END - GALLERY_START), 0, 1);
+
+  const galCamZ = MathUtils.lerp(GAL_CAM_START, GAL_CAM_END, galP);     // dolly down the corridor
+  let camZ  = MathUtils.lerp(aboutZ + WALL_BACK, galCamZ, toGal);
+  camZ      = MathUtils.lerp(camZ, MOTTO_Z + MOTTO_BACK, toMotto);      // settle in front of the motto
+  camZ      = MathUtils.lerp(camZ, contactZ + WALL_BACK, toCon);
+
+  let lookZ = MathUtils.lerp(aboutZ, galCamZ - GAL_LOOK_AHEAD, toGal);  // look forward down the hall
+  lookZ     = MathUtils.lerp(lookZ, MOTTO_Z, toMotto);                  // turn to read the motto
+  lookZ     = MathUtils.lerp(lookZ, contactZ, toCon);
+
+  // GAZE PAN: the camera holds the centreline (pure forward dolly, the locked
+  // feel) but turns its gaze toward whichever placard is framed ahead — centring
+  // it like a visitor glancing at each work. Confined to the gallery glide so the
+  // book-end walls stay dead head-on.
+  let gaze = 0;
+  for (const ex of EXHIBITS) gaze += ex.side * (1 - MathUtils.smoothstep(Math.abs((camZ - GAL_LIGHT_BIAS) - ex.z), 1.0, 9.0));
+  const lookX = gaze * 1.3 * toGal * (1 - toMotto);
+
+  // a whisper of vertical/lateral life so the dolly isn't rigidly on-rails
+  const driftX = Math.sin(pwall * Math.PI * 1.3) * 0.14;
+  const driftY = Math.sin(pwall * Math.PI * 1.8) * 0.10;
+
+  _wallPos.set(driftX, WALL_LOOK_Y + CAMERA_LIFT * 0.4 + driftY, camZ);
+  _wallLook.set(lookX, WALL_LOOK_Y, lookZ);
+}
+
+// Blend the two phases. computeWeaponTargets fills targetPos/targetLook;
+// computeWallTargets fills _wallPos/_wallLook; we cross-fade across a short seam
+// at WEAPON_END so there is NO discontinuity even if the keyframes differ.
+function computeTargets(p) {
+  const pw = MathUtils.clamp(p / WEAPON_END, 0, 1);
+  computeWeaponTargets(pw);                       // → targetPos / targetLook
+
+  if (p <= WEAPON_END - 0.06) return;             // pure weapon phase: leave targets as-is
+
+  const pwall = MathUtils.clamp((p - WEAPON_END) / (1 - WEAPON_END), 0, 1);
+  computeWallTargets(pwall);                       // → _wallPos / _wallLook
+
+  const seam = MathUtils.smoothstep(p, WEAPON_END - 0.06, WEAPON_END + 0.06);
+  targetPos.lerp(_wallPos, seam);
+  targetLook.lerp(_wallLook, seam);
+}
+
+const POS_LAMBDA  = 5.0;   // soft, floaty fly-through
+const LOOK_LAMBDA = 8.0;   // camera tracks the buttery scroll closely
+
+function updateCamera(dt) {
+  const p     = getScrollProgress();
+  const pw    = MathUtils.clamp(p / WEAPON_END, 0, 1);                    // weapon-phase progress
+  const pwall = MathUtils.clamp((p - WEAPON_END) / (1 - WEAPON_END), 0, 1); // wall-phase progress
+  computeTargets(p);
+
+  // ── WEAPON ISOLATION (on pw, so pacing is identical) ──
+  // Only the focused weapon (object + label) is fully visible; neighbours fade.
+  // weaponFade pulls ALL weapons out as we cross into the wall phase.
+  const nS = STATIONS.length;
+  const fi = warpIndex(pw);                                 // same dwell-warped index as the camera → in sync
+  const copyGate   = MathUtils.smoothstep(pw, 0.07, 0.17);  // labels fade in AFTER the intro snaps out
+  // weaponFade keeps the dumbbell + its label fully lit THROUGH the fly-through
+  // (pw 0.66→1.0), fading only at the very tail (pw 0.90→1.0) — mirrors the
+  // original late fade so the loved dumbbell fly-through-text is intact.
+  const weaponFade = 1 - MathUtils.smoothstep(pw, 0.90, 1.0);
+  // 'beat' opening: weapons hidden on frame 0 (clean ENKR title), fade in as the
+  // title dissolves. 'direct': mic is present from p=0.
+  const openingGate = OPENING === '3d'   ? MathUtils.smoothstep(p, 0.045, 0.082)
+                    : OPENING === 'beat' ? MathUtils.smoothstep(p, 0.012, 0.075)
+                    : 1;
+  for (let k = 0; k < nS; k++) {
+    const vis = (1 - MathUtils.smoothstep(Math.abs(fi - k), 0.2, 0.7)) * weaponFade * openingGate;
+    for (const m of STATIONS[k].mats) m.opacity = vis;
+    if (STATIONS[k].label) STATIONS[k].label.material.opacity = vis * copyGate;
+    // tag line is part of the LANDING now — visible from p=0, fades out with the station
+    if (STATIONS[k].heroWord) STATIONS[k].heroWord.material.opacity = vis;
+  }
+  // 3D logo (?open=3d): bright as the camera approaches, fades as it flies through.
+  logo3D.userData.mat.opacity = OPENING === '3d' ? MathUtils.smoothstep(camera.position.z, 9.5, 14.0) : 0;
+
+  // ── WALL LIGHT-UP + LABEL ISOLATION (on pwall) ──
+  // Each frame's gold emissive ramps DIM→HOT as the camera arrives/centres on
+  // it, then eases back as we leave for the next → a "lights on" moment per
+  // wall. focusK peaks (=1) at that wall's dwell, falls to 0 away from it. The
+  // wall's centred label fades with the same focus. Only the wall you're at is
+  // lit; the others stay dim. wallGate keeps everything dark until the weapon
+  // phase has handed off.
+  const wallGate = MathUtils.smoothstep(p, WEAPON_END - 0.02, WEAPON_END + 0.05);
+
+  // BOOK-END WALLS (About, Contact): focus peaks at each one's head-on dwell.
+  // Frame opacity ramps FRAME_FAINT → 1 and gold emissive DIM → HOT on approach,
+  // so a distant frame is a barely-there ghost that solidifies + ignites as you
+  // arrive; the centred heading fades in only at the dwell.
+  const aboutFocus   = 1 - MathUtils.smoothstep(pwall, 0.08, 0.18);
+  const contactFocus = MathUtils.smoothstep(pwall, 0.82, 0.95);
+  const bookFocus    = [aboutFocus, contactFocus];
+  for (let k = 0; k < WALLS.length; k++) {
+    const f   = bookFocus[k];
+    const mat = WALLS[k].frame.userData.mat;
+    mat.opacity           = wallGate * MathUtils.lerp(FRAME_FAINT, 1.0, f);
+    mat.emissiveIntensity = MathUtils.lerp(EMISSIVE_DIM, EMISSIVE_HOT, f);
+    WALLS[k].labelMesh.material.opacity = wallGate * MathUtils.smoothstep(f, 0.45, 0.92);
+  }
+
+  // GALLERY HEADER: announces the hall; lights as you fly THROUGH it between
+  // About and the first exhibit, then fades.
+  const headerFocus = MathUtils.smoothstep(pwall, 0.13, 0.22) * (1 - MathUtils.smoothstep(pwall, 0.28, 0.40));
+  galleryHeader.material.opacity = wallGate * headerFocus;
+
+  // CLOSING MOTTO: fades in for its dwell, then fades as the camera flies through it to Contact.
+  const mottoFocus = MathUtils.smoothstep(pwall, 0.56, 0.66) * (1 - MathUtils.smoothstep(pwall, 0.80, 0.90));
+  mottoText.material.opacity = wallGate * mottoFocus;
+
+  // EXHIBITS: each placard emerges faint and ignites by CAMERA-Z PROXIMITY as the
+  // camera glides alongside it, then fades as you pass — the loved "light-up on
+  // approach", now once per work in the hall.
+  // galleryReveal keeps the placards near-invisible during the About dwell (so they
+  // don't clutter behind the entry heading), then lets them emerge as faint ghost
+  // frames the moment you cross into the hall — each still ignites on approach.
+  const galleryReveal = MathUtils.smoothstep(pwall, 0.08, 0.18);
+  const camZnow = camera.position.z;
+  for (const ex of EXHIBITS) {
+    const f = 1 - MathUtils.smoothstep(Math.abs((camZnow - GAL_LIGHT_BIAS) - ex.z), 1.0, 10.0);
+    ex.frameMat.opacity           = wallGate * MathUtils.lerp(FRAME_FAINT * galleryReveal, 1.0, f);
+    ex.frameMat.emissiveIntensity = MathUtils.lerp(EMISSIVE_DIM, EMISSIVE_HOT, f);
+    ex.panelMat.opacity           = wallGate * MathUtils.smoothstep(f, 0.05, 0.55);
+  }
+
+  camera.position.x = MathUtils.damp(camera.position.x, targetPos.x, POS_LAMBDA, dt);
+  camera.position.y = MathUtils.damp(camera.position.y, targetPos.y, POS_LAMBDA, dt);
+  camera.position.z = MathUtils.damp(camera.position.z, targetPos.z, POS_LAMBDA, dt);
+
+  smoothedLook.x = MathUtils.damp(smoothedLook.x, targetLook.x, LOOK_LAMBDA, dt);
+  smoothedLook.y = MathUtils.damp(smoothedLook.y, targetLook.y, LOOK_LAMBDA, dt);
+  smoothedLook.z = MathUtils.damp(smoothedLook.z, targetLook.z, LOOK_LAMBDA, dt);
+  camera.lookAt(smoothedLook);
+
+  // INTRO fly-through dissolve: ENKR scales up + spreads + blurs as if the camera
+  // dives THROUGH it (echoing the loved fly-through-text); the role line lifts
+  // away. Clears by p≈0.06 so the hero mic + BEATBOXER own the frame.
+  const introOut = MathUtils.smoothstep(p, 0.0, 0.06);
+  intro.style.opacity           = String(1 - introOut);
+  introName.style.transform     = 'scale(' + (1 + introOut * 0.7).toFixed(3) + ')';
+  introName.style.letterSpacing = (-0.03 + introOut * 0.22).toFixed(3) + 'em';
+  introName.style.filter        = 'blur(' + (introOut * 6).toFixed(2) + 'px)';
+  introRole.style.opacity       = String(1 - MathUtils.smoothstep(p, 0.0, 0.04));
+  introRole.style.transform     = 'translateY(' + (introOut * -16).toFixed(1) + 'px)';
+  hint.style.opacity      = String(MathUtils.clamp(1 - p * 16, 0, 1));
+  progressBar.style.width = (p * 100).toFixed(2) + '%';
+
+  // CLOSING CTA: fades in only once the camera has settled at the LAST wall
+  // (Contact, pwall → 1); clickable once shown.
+  const ctaFade = MathUtils.smoothstep(pwall, 0.86, 0.99);
+  endcta.style.opacity = String(ctaFade);
+  endcta.style.pointerEvents = ctaFade > 0.6 ? 'auto' : 'none';
+}
+
+const intro       = document.getElementById('intro');
+const introName   = intro.querySelector('.name');
+const introRole   = intro.querySelector('.role');
+introRole.style.display = 'none';                  // tags now live IN-WORLD below the mic
+if (OPENING === 'beat') {                          // big ENKR title centred, dissolves into the mic
+  intro.style.justifyContent = 'center';
+  intro.style.paddingTop = '0';
+} else {
+  intro.style.display = 'none';                    // direct: ENKR lives ON the mic handle, no HTML title
+}
+const hint        = document.getElementById('hint');
+const progressBar = document.getElementById('progress');
+const endcta      = document.getElementById('endcta');
+
+// ============================================================
+// §9  ONE requestAnimationFrame LOOP
+// Idle spin + screen-glow pulse + star/mote/nebula drift + camera fly-through +
+// composer render all live in a SINGLE loop. dt uses the monotonic rAF
+// timestamp; clamped so a backgrounded tab doesn't teleport the camera.
+// ============================================================
+const laptopScreen = laptop.userData.screenMat;
+let prev = performance.now();
+let _loaded = false;   // flips true after the first composer.render → fades out #loader
+
+function animate(now) {
+  lenis.raf(now);                                        // advance Lenis FIRST — single rAF
+  const dt = Math.min((now - prev) / 1000, 0.1);
+  prev = now;
+  const t = now * 0.001;
+
+  // Weapons NO LONGER SPIN — so the MacBook screen (and every object's "good
+  // side") always faces you. Just a gentle vertical bob so they still float.
+  for (const s of STATIONS) {
+    s.obj.position.y = s.pos.y + Math.sin(t * 0.6 + s.pos.z) * 0.06;
+  }
+
+  laptopScreen.emissiveIntensity = 0.95 + Math.sin(t * 1.3) * 0.15;   // screen breathing
+
+  // Cosmic drift: far stars rotate slowly, near layers gently, motes + nebula
+  // crawl — sells a living, moving void.
+  starsFar.rotation.y  = t * 0.006;
+  starsMid.rotation.y  = t * 0.010;
+  starsNear.rotation.y = t * 0.014;
+  nebula.rotation.y    = t * 0.004;
+  motes.rotation.y     = t * 0.02;
+  motes.position.y     = Math.sin(t * 0.15) * 0.4;
+
+  updateCamera(dt);
+  composer.render(dt);                                   // dt drives FilmPass grain internally
+  if (!_loaded) { _loaded = true; document.getElementById('loader').classList.add('done'); }  // first frame drawn → fade the loader out
+  requestAnimationFrame(animate);
+}
+
+// ============================================================
+// RESIZE — keep aspect + every buffer in sync. setSize(.., false) because the
+// canvas is position:fixed and already sized by CSS. bloom keeps its OWN
+// resolution Vector2, so resize it explicitly too.
+// ============================================================
+function onResize() {
+  const w = window.innerWidth, h = window.innerHeight;
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+  renderer.setSize(w, h, false);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  composer.setSize(w, h);
+  bloom.setSize(w, h);
+}
+window.addEventListener('resize', onResize, { passive: true });
+onResize();
+
+requestAnimationFrame(animate);                          // start the single loop
+
+</script>
+</body>
+</html>
