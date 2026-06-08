@@ -1,0 +1,313 @@
+/* ============================================================
+     LAYOUT — identical scaffold strategy to file 14: a fixed full-screen
+     canvas BEHIND a tall scroll scaffold. The scaffold (#scroll, N x 100vh)
+     exists ONLY to create scroll RANGE; the 3D camera reads scroll progress
+     each frame and FLIES forward through the starfield toward each floating
+     weapon. No HTML copy overlay — all station copy lives IN the 3D world as
+     labels (see makeLabel / §6.5).
+
+     COLOUR DIRECTION — DARK COSMOS (ENKR Ba Zi brand):
+       Abyss Black     #0A1A2F   — backgrounds
+       Rising Sun Gold #E8A848   — the ONE accent (CTAs, eyebrow, glow)
+       Moonlight Silver#F0F6FF   — primary text
+       Muted Silver    #7A96B8   — secondary text / blurb
+     The overlay tokens below are flipped to LIGHT text on a DARK ground
+     (the inverse of file 14's dark-on-light daylight tokens).
+     ============================================================ */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: auto; }            /* JS damps motion, not the browser */
+  /* Lenis smooth-scroll recommended CSS */
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+  .lenis.lenis-stopped { overflow: hidden; }
+  /* Deep-space palette — tokens as custom properties, no hardcoded hex in rules. */
+  :root {
+    --canvas:    #0A1A2F;   /* Abyss Black — matches the 3D scene background */
+    --ink:       #F0F6FF;   /* Moonlight Silver — primary text on the dark scene */
+    --ink-muted: #7A96B8;   /* Muted Silver — secondary text */
+    --accent:    #E8A848;   /* Rising Sun Gold — the ONE warm accent */
+    --accent-2:  #F4C06A;   /* Light Gold — hover / gradient end */
+  }
+  body {
+    background: var(--canvas);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Visually-hidden semantic content — present for crawlers + screen readers while the
+     canvas owns the visual (see #fallback-content in <body>). */
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0;
+  }
+  /* WebGL unavailable / scene failed to start → body.fallback reveals that block as a
+     readable, on-brand page (Abyss + Gold) and hides the dead 3D shell + loader. */
+  body.fallback #bg, body.fallback #loader, body.fallback #scroll, body.fallback #endcta,
+  body.fallback #intro, body.fallback #hint, body.fallback #progress { display: none !important; }
+  body.fallback { overflow: auto; }
+  body.fallback #fallback-content {
+    position: static; width: auto; height: auto; clip: auto; clip-path: none;
+    white-space: normal; overflow: visible; margin: 0 auto; padding: 14vh 7vw; max-width: 640px;
+    line-height: 1.65;
+  }
+  body.fallback #fallback-content h1 { color: var(--accent); font-size: clamp(28px, 6vw, 46px); letter-spacing: -0.01em; margin-bottom: 0.5rem; }
+  body.fallback #fallback-content h2 { color: var(--ink); font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; margin: 2rem 0 0.6rem; }
+  body.fallback #fallback-content p  { color: var(--ink-muted); margin-bottom: 0.9rem; }
+  body.fallback #fallback-content ul { list-style: none; padding: 0; }
+  body.fallback #fallback-content li { color: var(--ink-muted); margin-bottom: 0.7rem; }
+  body.fallback #fallback-content a  { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(232, 168, 72, 0.4); }
+  body.fallback #fallback-content nav { display: flex; flex-wrap: wrap; gap: 0.5rem 1.1rem; margin-top: 0.5rem; }
+
+  /* Fixed canvas: it never scrolls — only the camera flies through 3D space. */
+  #bg {
+    position: fixed; inset: 0;
+    width: 100vw; height: 100vh;
+    display: block; z-index: 0;
+  }
+
+  /* LOADING SCREEN — Abyss overlay shown immediately (before the ES module fetches
+     three.js + builds the scene), faded out the instant the first frame renders so
+     you never see the bare HTML / scroll scaffold. bg matches the scene's VOID_BG. */
+  #loader {
+    position: fixed; inset: 0; z-index: 100;
+    background: #050D18;
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity 0.7s ease;
+  }
+  #loader.done { opacity: 0; pointer-events: none; }
+  #loader .lwrap { display: flex; flex-direction: column; align-items: center; gap: 30px; position: relative; z-index: 1; }
+  /* the ENKR mark draws itself on in gold — the wait already feels on-brand, and it
+     hands off into the 3D logo when the scene reveals. */
+  #loader .lmark {
+    width: clamp(190px, 30vw, 340px); height: auto; display: block;
+    filter: drop-shadow(0 0 22px rgba(232, 168, 72, 0.40));
+    clip-path: inset(0 100% 0 0);
+    animation: enkrDraw 1.2s cubic-bezier(0.65, 0, 0.2, 1) 0.1s forwards;
+  }
+  #loader .lmark path, #loader .lmark polygon { fill: #E8A848; }
+  /* count-up % — cinematic gold number ticking 0→100 */
+  #loader .lpct {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-weight: 600; font-size: clamp(48px, 8vw, 90px); letter-spacing: 0.02em;
+    color: #E8A848; text-shadow: 0 0 30px rgba(232, 168, 72, 0.45);
+    font-variant-numeric: tabular-nums; line-height: 1;
+  }
+  /* warp + readout: a small LOADING eyebrow and the count-up % pinned near the
+     bottom so the hyperspace stays clean (the number rides under the dive). */
+  #loader.warp .lwrap { position: absolute; left: 50%; bottom: 13%; transform: translateX(-50%); gap: 14px; }
+  #loader.warp .lpct { font-size: clamp(30px, 5vw, 46px); }
+  #loader .lload {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: clamp(10px, 1.1vw, 12px); letter-spacing: 0.45em; text-indent: 0.45em;
+    text-transform: uppercase; color: rgba(232, 168, 72, 0.6);
+  }
+  /* rising sun over a horizon — 金渊映日 (gold abyss reflecting sun) */
+  #loader .lsun { position: relative; width: 130px; height: 64px; overflow: hidden; }
+  #loader .lsun .disc {
+    position: absolute; left: 50%; bottom: 0; width: 58px; height: 58px; border-radius: 50%;
+    transform: translateX(-50%);
+    background: radial-gradient(circle at 50% 42%, #F4C06A, #E8A848 58%, rgba(232, 168, 72, 0) 72%);
+    box-shadow: 0 0 34px rgba(232, 168, 72, 0.5);
+    animation: sunrise 2.4s ease-in-out infinite;
+  }
+  #loader .lsun .horizon {
+    position: absolute; left: 0; bottom: 0; width: 100%; height: 1.5px;
+    background: linear-gradient(90deg, transparent, rgba(232, 168, 72, 0.7), transparent);
+  }
+  @keyframes sunrise { 0%, 100% { transform: translateX(-50%) translateY(20px); opacity: 0.45; } 50% { transform: translateX(-50%) translateY(2px); opacity: 1; } }
+  /* warp — gold stars streaking outward (hyperspace into the galaxy). full-screen canvas. */
+  #loader .lwarp { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 0; }
+  /* wave — gold audio equalizer (ENKR the beatboxer). */
+  #loader .lwave { display: flex; align-items: center; gap: 8px; height: 66px; }
+  #loader .lwave i {
+    display: block; width: 4px; height: 16px; border-radius: 2px; background: #E8A848;
+    box-shadow: 0 0 10px rgba(232, 168, 72, 0.5); transform-origin: center;
+    animation: eq 0.95s ease-in-out infinite;
+  }
+  #loader .lwave i:nth-child(1) { animation-delay: -0.20s; }
+  #loader .lwave i:nth-child(2) { animation-delay: -0.55s; }
+  #loader .lwave i:nth-child(3) { animation-delay: -0.85s; }
+  #loader .lwave i:nth-child(4) { animation-delay: -0.35s; }
+  #loader .lwave i:nth-child(5) { animation-delay: -0.70s; }
+  #loader .lwave i:nth-child(6) { animation-delay: -0.10s; }
+  #loader .lwave i:nth-child(7) { animation-delay: -0.60s; }
+  #loader .lwave i:nth-child(8) { animation-delay: -0.40s; }
+  #loader .lwave i:nth-child(9) { animation-delay: -0.80s; }
+  @keyframes eq { 0%, 100% { transform: scaleY(0.35); } 50% { transform: scaleY(2.8); } }
+  #loader .bar {
+    width: 96px; height: 1.5px; border-radius: 2px;
+    background: rgba(232, 168, 72, 0.16); position: relative; overflow: hidden;
+  }
+  #loader .bar::after {
+    content: ''; position: absolute; top: 0; left: 0; width: 45%; height: 100%;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    animation: loadsweep 1.1s ease-in-out infinite;
+  }
+  @keyframes loadsweep { 0% { transform: translateX(-130%); } 100% { transform: translateX(320%); } }
+  @media (prefers-reduced-motion: reduce) {
+    #loader .bar::after { animation: none; }
+    #loader .lmark { animation: none; clip-path: none; }
+    #loader .lsun .disc { animation: none; }
+    #loader .lwave i { animation: none; }
+  }
+
+  /* The scroll scaffold sits above the canvas. pointer-events:none lets
+     drag/scroll pass through; we re-enable it only on the interactive bits. */
+  #scroll { position: relative; z-index: 1; }
+
+  .section {
+    height: 130vh;   /* enough to dwell + read, but not so much that scrolling feels laborious */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 8vw;
+    pointer-events: none;
+  }
+
+  /* Intro overlay — name + role, fades out as you begin scrolling */
+  #intro {
+    position: fixed; inset: 0; z-index: 2;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: flex-start; padding-top: 13vh;
+    text-align: center; pointer-events: none;
+    transition: none;   /* scroll-driven now — no lag between scroll and dissolve */
+  }
+  #intro .name {
+    font-size: clamp(2.8rem, 9vw, 7rem);
+    font-weight: 700; letter-spacing: -0.03em;
+    color: var(--ink);
+    text-shadow: 0 0 48px rgba(232, 168, 72, 0.45), 0 0 18px rgba(240, 246, 255, 0.25);
+    transform-origin: center; will-change: transform, opacity, filter;
+  }
+  /* ENKR logo (the real wordmark) as the title — gold, with a "draws itself on"
+     left→right wipe on load, then the scroll dissolve takes over. */
+  #intro .name .logo {
+    width: clamp(240px, 36vw, 480px); height: auto; display: block;
+    filter: drop-shadow(0 0 28px rgba(232, 168, 72, 0.45));
+    clip-path: inset(0 100% 0 0);
+    animation: enkrDraw 1.4s cubic-bezier(0.65, 0, 0.2, 1) 0.2s forwards;
+  }
+  #intro .name .logo path, #intro .name .logo polygon { fill: #E8A848; }
+  @keyframes enkrDraw { to { clip-path: inset(0 0 0 0); } }
+  @media (prefers-reduced-motion: reduce) {
+    #intro .name .logo { animation: none; clip-path: none; }
+  }
+  #intro .role {
+    margin-top: 0.9rem;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: clamp(12px, 1.4vw, 15px);
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* Scroll hint — a soft bouncing chevron + label, bottom centre */
+  #hint {
+    position: fixed; left: 50%; bottom: 30px;
+    transform: translateX(-50%);
+    z-index: 3; text-align: center; pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  #hint .label {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 10px; letter-spacing: 0.34em; text-transform: uppercase;
+    color: var(--ink-muted); margin-bottom: 13px;
+  }
+  /* a thin vertical line with a gold segment drifting down — calmer + more premium
+     than a bouncing chevron, and on-theme with the slow galaxy drift. */
+  #hint .line {
+    width: 1px; height: 42px; margin: 0 auto; position: relative;
+    background: rgba(240, 246, 255, 0.10); overflow: hidden;
+  }
+  #hint .line::after {
+    content: ''; position: absolute; left: 0; top: 0; width: 100%; height: 45%;
+    background: linear-gradient(180deg, transparent, var(--accent));
+    animation: drift 2.0s cubic-bezier(0.6, 0, 0.2, 1) infinite;
+  }
+  @keyframes drift {
+    0%   { transform: translateY(-100%); opacity: 0; }
+    25%  { opacity: 1; }
+    100% { transform: translateY(322%); opacity: 0; }
+  }
+
+  /* Premium hairline scroll-progress. A faint full-width TRACK (body::before) with
+     a refined gold FILL that fades in at the left and glows softly at the leading tip. */
+  body::before {
+    content: ''; position: fixed; top: 0; left: 0; right: 0; height: 1.5px;
+    background: rgba(240, 246, 255, 0.05); z-index: 3; pointer-events: none;
+  }
+  #progress {
+    position: fixed; top: 0; left: 0; height: 1.5px; width: 0%;
+    background: linear-gradient(90deg, rgba(232, 168, 72, 0) 0%, rgba(232, 168, 72, 0.5) 38%, var(--accent-2) 100%);
+    z-index: 4;
+    box-shadow: 0 0 6px rgba(232, 168, 72, 0.45);
+  }
+  /* Hide the native scrollbar — the gold hairline is the indicator (Lenis drives scroll). */
+  ::-webkit-scrollbar { width: 0; height: 0; }
+  html { scrollbar-width: none; -ms-overflow-style: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    #hint .line::after { animation: none; }
+  }
+
+  /* Final CTA — a single small clickable line that fades in only once the camera
+     has settled at the LAST wall (Contact). The three wall HEADINGS themselves
+     live in-scene as 3D labels (see makeWallLabel); this is just the closing
+     mailto so the very end is actionable. */
+  #endcta {
+    position: fixed; left: 50%; top: 58%; transform: translateX(-50%);
+    z-index: 5; text-align: center;
+    opacity: 0; pointer-events: none;          /* JS reveals + enables clicks at the very end */
+    transition: opacity 0.5s ease;
+    display: flex; flex-direction: column; align-items: center; gap: 30px;
+  }
+  /* secondary tier — socials + email grouped tight, set well apart from the button
+     so the close reads as [primary CTA] … [supporting links], not one cramped stack */
+  #endcta .cta-secondary { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  /* primary: Let’s talk → cal.com. A LUMINOUS gold outline that glows on hover — echoes the
+     scene's glowing door frames + the card-frame hover, instead of a heavy solid-gold pill. */
+  #endcta .cta-book {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: clamp(12px, 1.2vw, 15px); letter-spacing: 0.3em; text-indent: 0.3em;  /* tracked caps, indent re-centres them */
+    text-transform: uppercase; color: var(--accent); text-decoration: none;
+    border: 1px solid rgba(232, 168, 72, 0.5); border-radius: 6px;        /* architectural radius, not a 999px pill */
+    padding: 0.82rem 1.95rem;
+    background: rgba(232, 168, 72, 0.05);                                  /* a whisper of warmth, not a fill */
+    box-shadow: inset 0 0 16px rgba(232, 168, 72, 0.06);
+    transition: color .28s ease, border-color .28s ease, background .28s ease, box-shadow .28s ease, letter-spacing .28s ease;
+  }
+  #endcta .cta-book:hover {
+    color: var(--accent-2); border-color: var(--accent-2);                /* brighter gold text + border (never navy-on-solid) */
+    background: rgba(232, 168, 72, 0.1);
+    box-shadow: 0 0 24px rgba(232, 168, 72, 0.33), inset 0 0 22px rgba(232, 168, 72, 0.12);  /* luminous glow, like the frames */
+    letter-spacing: 0.34em; text-indent: 0.34em;
+  }
+  /* socials row */
+  #endcta .cta-socials { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 6px; }
+  #endcta .cta-socials a {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-muted); text-decoration: none; line-height: 1;
+    padding: 0.55rem 0.72rem; border-radius: 6px;          /* roomier tap target; padding now does the spacing (gap trimmed) */
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+  #endcta .cta-socials a:hover  { color: var(--accent); background: rgba(232, 168, 72, 0.09); }
+  #endcta .cta-socials a:active { color: var(--accent); background: rgba(232, 168, 72, 0.16); }   /* touch-tap feedback */
+  /* email */
+  #endcta .cta-email {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 12px; letter-spacing: 0.06em; color: var(--ink-muted);
+    text-decoration: none; transition: color 0.2s ease;
+  }
+  #endcta .cta-email:hover { color: var(--accent); }
+  /* Portrait: the framed stack is tall, so the CTA's `top` is driven by JS — anchored to
+     the 3D door-frame's interior BOTTOM (see updateCamera) so socials + email can never
+     spill out of the frame. Here we just compact the secondary links into ~2 tidy rows so
+     the block is short enough to sit cleanly inside. */
+  @media (max-aspect-ratio: 1/1) {
+    #endcta { gap: 16px; }
+    #endcta .cta-secondary { gap: 11px; }
+    #endcta .cta-socials { width: 340px; max-width: 94vw; gap: 4px 2px; }   /* explicit width → 4+3 across, not a collapsed 2-per-row */
+    #endcta .cta-socials a { font-size: 11px; letter-spacing: 0.04em; padding: 0.68rem 0.6rem; }   /* taller finger targets */
+  }
