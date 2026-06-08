@@ -306,7 +306,7 @@
      spill out of the frame. Here we just compact the secondary links into ~2 tidy rows so
      the block is short enough to sit cleanly inside. */
   @media (max-aspect-ratio: 1/1) {
-    #endcta { gap: 16px; }
+    #endcta { top: auto; bottom: 11vh; gap: 16px; }   /* portrait: bottom-anchored in its OWN lower zone, decoupled from the 3D Contact label so they can never overlap, at any screen height */
     #endcta .cta-secondary { gap: 11px; }
     #endcta .cta-socials { width: 340px; max-width: 94vw; gap: 4px 2px; }   /* explicit width → 4+3 across, not a collapsed 2-per-row */
     #endcta .cta-socials a { font-size: 11px; letter-spacing: 0.04em; padding: 0.68rem 0.6rem; }   /* taller finger targets */
