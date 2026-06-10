@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://platforms.enkr1.com/sitemap.xml
