@@ -8,8 +8,6 @@ Source/deploy repo for [platforms.enkr1.com](https://platforms.enkr1.com) — a 
 |------|-------|
 | `index.html` | **Obfuscated build artifact.** Generated from a private source repo — do not edit, do not expect readable code. |
 | `css/hero.css` | **Obfuscated build artifact.** Same pipeline as `index.html`. |
-| `index.legacy.html` | The preserved previous homepage. |
-| `_data/` | Profile and platform link data (JSON). |
 | `assets/`, `favicon-peng*.svg` | Static assets. |
 
 ## Editing
