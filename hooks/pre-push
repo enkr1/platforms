@@ -1,0 +1,63 @@
+#!/bin/sh
+# Guard: block pushing UNOBFUSCATED source JS to the platforms (GitHub Pages) repo.
+#
+# The obfuscator runs in compact mode and strips ALL comments. The source file keeps
+# its header comment "ENKR Platforms - The Frequency". So if that marker is still in
+# js/main.js, the file is raw source and must NOT be deployed.
+#
+# Fix when blocked: from the _platforms/ root run  node _platforms_unencrypted_js/obfuscator.js
+# (or just use the deploy_platforms alias, which obfuscates first).
+
+JS="js/main.js"
+
+if [ -f "$JS" ] && grep -q "ENKR Platforms - The Frequency" "$JS"; then
+  echo "" >&2
+  echo "  ⛔  PUSH BLOCKED: $JS is UNOBFUSCATED source." >&2
+  echo "      GitHub Pages would serve your raw, readable source code." >&2
+  echo "" >&2
+  echo "      Obfuscate first (from the _platforms/ root):" >&2
+  echo "          node _platforms_unencrypted_js/obfuscator.js" >&2
+  echo "      or deploy via the alias (obfuscates automatically):" >&2
+  echo "          deploy_platforms" >&2
+  echo "" >&2
+  exit 1
+fi
+
+# Guard: block pushing an UNOBFUSCATED / hand-edited hero homepage.
+#
+# index.html is BUILD OUTPUT of _platforms_unencrypted_js/hero-build.js. A correct
+# build always contains obfuscator-renamed identifiers ("_0x"), and NEVER contains
+# the raw-source module comment "Web-font gate" (comments are stripped by the
+# obfuscator's compact mode — that string only exists in hero.src.html).
+#
+# Fix when blocked: from the _platforms/ root run
+#     node _platforms_unencrypted_js/hero-build.js
+# (or use the deploy_hero alias, which builds first).
+
+HTML="index.html"
+
+if [ -f "$HTML" ]; then
+  if ! grep -q "_0x" "$HTML"; then
+    echo "" >&2
+    echo "  ⛔  PUSH BLOCKED: $HTML has no \"_0x\" obfuscation marker — not a hero-build output." >&2
+    echo "      Rebuild first (from the _platforms/ root):" >&2
+    echo "          node _platforms_unencrypted_js/hero-build.js" >&2
+    echo "      or deploy via the alias (builds automatically):" >&2
+    echo "          deploy_hero" >&2
+    echo "" >&2
+    exit 1
+  fi
+  if grep -q "Web-font gate" "$HTML"; then
+    echo "" >&2
+    echo "  ⛔  PUSH BLOCKED: $HTML contains raw-source marker \"Web-font gate\"." >&2
+    echo "      GitHub Pages would serve your readable hero source code." >&2
+    echo "      Rebuild first (from the _platforms/ root):" >&2
+    echo "          node _platforms_unencrypted_js/hero-build.js" >&2
+    echo "      or deploy via the alias (builds automatically):" >&2
+    echo "          deploy_hero" >&2
+    echo "" >&2
+    exit 1
+  fi
+fi
+
+exit 0
