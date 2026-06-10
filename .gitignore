@@ -5,3 +5,8 @@
 node_modules/
 package-lock.json
 package.json
+
+# Local working files — NEVER publish (gpm does `git add .`)
+.claude/
+docs/
+assets/models/
