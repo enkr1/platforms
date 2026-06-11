@@ -185,11 +185,13 @@
     opacity: 0; transition: opacity 0.5s ease;
   }
   #topbar .tb-wordmark {
+    display: inline-flex; align-items: center; gap: 12px;
     font-family: ui-monospace, "SF Mono", Menlo, monospace;
     font-size: 12px; letter-spacing: 0.08em; color: var(--ink-muted);
     padding: 10px 0;
-    white-space: nowrap;   /* never break "ENKR — Full-Stack Engineer" onto two lines */
+    white-space: nowrap;
   }
+  #topbar .tb-mark { height: 11px; width: auto; fill: var(--accent); opacity: 0.9; display: block; }
   #topbar .tb-links { display: flex; align-items: center; gap: 12px; }
   #topbar .tb-links a { pointer-events: auto; }
   #topbar .tb-resume {
