@@ -68,6 +68,10 @@
   body.fallback #fallback-content h1,  body:not(.fallback) #fallback-content:focus-within h1  { color: var(--accent); font-size: clamp(28px, 6vw, 46px); letter-spacing: -0.01em; margin-bottom: 0.5rem; }
   body.fallback #fallback-content h2,  body:not(.fallback) #fallback-content:focus-within h2  { color: var(--ink); font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; margin: 2rem 0 0.6rem; }
   body.fallback #fallback-content p,   body:not(.fallback) #fallback-content:focus-within p   { color: var(--ink-muted); margin-bottom: 0.9rem; }
+  body.fallback #fallback-content blockquote, body:not(.fallback) #fallback-content:focus-within blockquote {
+    color: var(--ink-muted); font-style: italic; margin: 0 0 0.9rem;
+    padding-left: 0.9rem; border-left: 2px solid rgba(232, 168, 72, 0.45);   /* the readable mirror of the 3D pull-quote framing */
+  }
   body.fallback #fallback-content ul,  body:not(.fallback) #fallback-content:focus-within ul  { list-style: none; padding: 0; }
   body.fallback #fallback-content li,  body:not(.fallback) #fallback-content:focus-within li  { color: var(--ink-muted); margin-bottom: 0.7rem; }
   body.fallback #fallback-content a,   body:not(.fallback) #fallback-content:focus-within a   { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(232, 168, 72, 0.4); }
