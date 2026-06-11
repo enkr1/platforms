@@ -68,20 +68,41 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Pang Jing Hui",
-  "alternateName": ["ENKR", "彭竞辉"],
-  "url": "https://platforms.enkr1.com/",
-  "image": "https://platforms.enkr1.com/assets/images/profile.jpeg",
-  "jobTitle": "Full-Stack Software Engineer",
-  "alumniOf": { "@type": "CollegeOrUniversity", "name": "National University of Singapore" },
-  "description": "Full-stack engineer, four-time beatbox champion in Singapore, and lifter. Builds and ships web products end to end, currently Gym Buddy.",
-  "sameAs": [
-    "https://www.linkedin.com/in/jinghuipang/",
-    "https://github.com/enkr1",
-    "https://www.instagram.com/enkr1/",
-    "https://www.youtube.com/@enkr1",
-    "https://www.tiktok.com/@enkr1"
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://platforms.enkr1.com/#website",
+      "url": "https://platforms.enkr1.com/",
+      "name": "ENKR",
+      "alternateName": "Pang Jing Hui",
+      "inLanguage": "en"
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": "https://platforms.enkr1.com/#profilepage",
+      "url": "https://platforms.enkr1.com/",
+      "isPartOf": { "@id": "https://platforms.enkr1.com/#website" },
+      "mainEntity": { "@id": "https://platforms.enkr1.com/#person" }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://platforms.enkr1.com/#person",
+      "name": "Pang Jing Hui",
+      "alternateName": ["ENKR", "彭竞辉"],
+      "url": "https://platforms.enkr1.com/",
+      "image": "https://platforms.enkr1.com/assets/images/profile.jpeg",
+      "jobTitle": "Full-Stack Software Engineer",
+      "alumniOf": { "@type": "CollegeOrUniversity", "name": "National University of Singapore" },
+      "knowsAbout": ["Full-stack web development", "TypeScript", "Next.js", "Three.js", "Beatboxing"],
+      "description": "Full-stack engineer, four-time beatbox champion in Singapore, and lifter. Builds and ships web products end to end, currently Gym Buddy.",
+      "sameAs": [
+        "https://www.linkedin.com/in/jinghuipang/",
+        "https://github.com/enkr1",
+        "https://www.instagram.com/enkr1/",
+        "https://www.youtube.com/@enkr1",
+        "https://www.tiktok.com/@enkr1"
+      ]
+    }
   ]
 }
 </script>
@@ -92,7 +113,7 @@
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
 <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/hero.css?v=372333ecd4" />
+<link rel="stylesheet" href="css/hero.css?v=af4d950495" />
 
 <!-- r160 dropped UMD builds → an importmap is the vanilla standard.
      Alias key MUST be "three/addons/" so the addon files' bare "three"
@@ -115,13 +136,13 @@
        content + working links that otherwise only exist as canvas pixels. -->
   <main class="sr-only" id="fallback-content">
     <h1>ENKR · Pang Jing Hui</h1>
-    <p>Full-stack engineer and four-time beatbox champion in Singapore. Hiring, or have something to build? Let’s talk.</p>
+    <p>Full-stack engineer and four-time beatbox champion in Singapore. This portfolio is a 3D fly-through of what I do and what I’ve shipped. Hiring, or have something to build? Let’s talk.</p>
     <p>I’m Jing Hui, also known as ENKR: a full-stack engineer, a four-time beatbox champion in Singapore, and a lifter. The same thing runs through all three: find the rhythm, then do the reps. By day I’m an engineer at an early-stage startup; on my own time I build and ship products end to end, currently Gym Buddy, while studying Computer Science at NUS. Open to new roles, and happy to build the next product for a founder or team.</p>
     <blockquote>If you really try your best, you would never fail. Everything is rented. You can’t start slipping.</blockquote>
     <h2>Selected work</h2>
     <ul>
       <li><a href="https://gym.enkr1.com">Gym Buddy</a>: a workout-tracking PWA with an exercise library, form-check tools, and full progress history.</li>
-      <li><a href="https://enkr1.github.io/blog/">Journal &amp; Blog</a>: my blog and weekly journal, with progress tracking on a custom Hugo theme I built and maintain.</li>
+      <li><a href="https://enkr1.github.io/blog/">Journal &amp; Blog</a>: weekly writing with progress tracking, on a custom Hugo theme I built and maintain.</li>
       <li><a href="https://enkr1.github.io/555beatbox">555 Beatbox</a>: home for Singapore’s beatbox scene, built for the community I came up in.</li>
     </ul>
     <h2>Contact</h2>
