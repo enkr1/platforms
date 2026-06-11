@@ -195,7 +195,7 @@
     padding: 10px 0;
     white-space: nowrap;
   }
-  #topbar .tb-mark { height: 11px; width: auto; fill: var(--accent); opacity: 0.9; display: block; }
+  #topbar .tb-mark { height: 13px; width: auto; fill: var(--accent); opacity: 0.9; display: block; }   /* the mark stands alone (owner's call: logo only, no role text) — a touch larger */
   #topbar .tb-links { display: flex; align-items: center; gap: 12px; }
   #topbar .tb-links a { pointer-events: auto; }
   #topbar .tb-resume {
