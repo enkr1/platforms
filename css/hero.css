@@ -222,7 +222,14 @@
   }
   /* chapter tick dots — 6 chapter starts on the journey; current one is gold.
      Each button is a 24px hit area around a 5px dot. */
-  #topbar .tb-ticks { display: flex; align-items: center; gap: 5px; pointer-events: auto; }
+  /* TRUE viewport centring: as a flex middle child the dots sat at the midpoint of
+     the UNEQUAL side groups (small logo left vs Resume+pill right) → visibly
+     off-centre. Absolute + translate centres them on the viewport itself. */
+  #topbar .tb-ticks {
+    display: flex; align-items: center; gap: 5px; pointer-events: auto;
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  }
+  @media (max-width: 860px) { #topbar .tb-ticks { display: none; } }   /* centred dots would collide with the right links on narrow landscape windows */
   #topbar .tb-tick {
     width: 24px; height: 24px; padding: 0; border: 0; background: transparent;
     cursor: pointer; display: grid; place-items: center; border-radius: 50%;
