@@ -85,6 +85,7 @@
   #bg {
     position: fixed; inset: 0;
     width: 100vw; height: 100vh;
+    height: 100dvh;   /* iOS: the renderer draws to window.innerHeight (dynamic viewport); match the canvas CSS box to it so the frame is never stretched/mis-scaled when Safari's URL bar toggles. vh above is the pre-dvh fallback. */
     display: block; z-index: 0;
   }
 
@@ -310,7 +311,7 @@
      spill out of the frame. Here we just compact the secondary links into ~2 tidy rows so
      the block is short enough to sit cleanly inside. */
   @media (max-aspect-ratio: 1/1) {
-    #endcta { top: auto; bottom: 11vh; gap: 16px; }
+    #endcta { top: auto; bottom: 11vh; bottom: 11dvh; gap: 16px; }   /* dvh tracks the same dynamic viewport as the canvas (#bg) so the CTA and the 3D frame move together as Safari's URL bar toggles, instead of drifting into a collision. vh is the pre-dvh fallback. */
     #endcta .cta-book { padding: 0.95rem 1.95rem; }   /* ~44px tap target on mobile */
     #endcta .cta-secondary { gap: 11px; }
     #endcta .cta-socials { width: 340px; max-width: 94vw; gap: 4px 2px; }
