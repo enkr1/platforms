@@ -16,7 +16,7 @@
      (the inverse of file 14's dark-on-light daylight tokens).
      ============================================================ */
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: auto; }            /* JS damps motion, not the browser */
+  html { scroll-behavior: auto; overscroll-behavior: none; }            /* JS damps motion, not the browser; no rubber-band scroll-chaining */
   /* Lenis smooth-scroll recommended CSS */
   html.lenis, html.lenis body { height: auto; }
   .lenis.lenis-smooth { scroll-behavior: auto !important; }
@@ -35,6 +35,9 @@
     color: var(--ink);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
+    overscroll-behavior: none;                 /* kill iOS rubber-band / pull-to-refresh bouncing over the fixed 3D canvas */
+    -webkit-tap-highlight-color: transparent;  /* no grey flash on tap — the :active states already own touch feedback */
+    -webkit-text-size-adjust: 100%;            /* lock text size across orientation change */
   }
 
   /* Visually-hidden semantic content — present for crawlers + screen readers while the
@@ -185,7 +188,8 @@
   #topbar {
     position: fixed; top: 1.5px; left: 0; right: 0; z-index: 4;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 8px 18px;
+    /* viewport-fit=cover lets the canvas fill the notch; keep the bar's content clear of the island + a landscape side-notch */
+    padding: calc(8px + env(safe-area-inset-top, 0px)) calc(18px + env(safe-area-inset-right, 0px)) 8px calc(18px + env(safe-area-inset-left, 0px));
     pointer-events: none;
     opacity: 0; transition: opacity 0.5s ease;
   }
@@ -247,7 +251,7 @@
   }
   /* Portrait/phone: wordmark + "Let's talk" only — Resume and the dots would crowd it */
   @media (max-aspect-ratio: 1/1) {
-    #topbar { padding: 6px 14px; }
+    #topbar { padding: calc(6px + env(safe-area-inset-top, 0px)) calc(14px + env(safe-area-inset-right, 0px)) 6px calc(14px + env(safe-area-inset-left, 0px)); }
     #topbar .tb-resume, #topbar .tb-ticks { display: none; }
     #topbar .tb-talk { min-height: 44px; padding: 0.66rem 1.2rem; }   /* 44px tap target */
   }
@@ -311,7 +315,7 @@
      spill out of the frame. Here we just compact the secondary links into ~2 tidy rows so
      the block is short enough to sit cleanly inside. */
   @media (max-aspect-ratio: 1/1) {
-    #endcta { top: auto; bottom: 11vh; bottom: 11dvh; gap: 16px; }   /* dvh tracks the same dynamic viewport as the canvas (#bg) so the CTA and the 3D frame move together as Safari's URL bar toggles, instead of drifting into a collision. vh is the pre-dvh fallback. */
+    #endcta { top: auto; bottom: calc(11vh + env(safe-area-inset-bottom, 0px)); bottom: calc(11dvh + env(safe-area-inset-bottom, 0px)); gap: 16px; }   /* dvh tracks the same dynamic viewport as the canvas (#bg) so the CTA and the 3D frame move together as Safari's URL bar toggles (vh is the pre-dvh fallback); safe-area-inset-bottom lifts the CTA clear of the home indicator under viewport-fit=cover / PWA. */
     #endcta .cta-book { padding: 0.95rem 1.95rem; }   /* ~44px tap target on mobile */
     #endcta .cta-secondary { gap: 11px; }
     #endcta .cta-socials { width: 340px; max-width: 94vw; gap: 4px 2px; }
